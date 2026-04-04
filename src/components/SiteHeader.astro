@@ -1,0 +1,149 @@
+---
+const nav = [
+  { href: '#about', label: '事務所について' },
+  { href: '#services', label: '業務内容' },
+  { href: '#contact', label: 'お問い合わせ' },
+];
+---
+
+<header class="header">
+  <div class="header__inner">
+    <a href="/" class="header__brand">
+      <span class="header__mark" aria-hidden="true"></span>
+      <span class="header__title">
+        <span class="header__name-hira">やちよ</span>
+        <span class="header__name-suffix">行政書士事務所</span>
+      </span>
+    </a>
+    <nav class="header__nav" aria-label="メインナビゲーション">
+      <ul class="header__list">
+        {
+          nav.map((item) => (
+            <li>
+              <a href={item.href} class="header__link">
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<style>
+  .header {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: #1e3a8a;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    box-shadow: 0 2px 12px rgba(15, 23, 42, 0.18);
+  }
+
+  .header__inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+    padding: 0.875rem 1.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+
+  .header__brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.625rem;
+    color: #fff;
+    font-weight: 600;
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+  }
+
+  .header__brand:hover .header__name-hira {
+    color: #fef9c3;
+  }
+
+  .header__brand:hover .header__name-suffix {
+    color: rgba(255, 255, 255, 0.95);
+  }
+
+  .header__mark {
+    width: 2rem;
+    height: 2rem;
+    border-radius: var(--radius);
+    border: 2px solid rgba(255, 255, 255, 0.45);
+    background: rgba(255, 255, 255, 0.12);
+    flex-shrink: 0;
+  }
+
+  .header__title {
+    display: inline-flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 0.15em 0.35em;
+    line-height: 1.25;
+  }
+
+  /* ひらがな「やちよ」: ディスプレイ明朝で抜け感 */
+  .header__name-hira {
+    font-family: 'Kaisei Decol', 'Hiragino Mincho ProN', 'Yu Mincho', serif;
+    font-weight: 700;
+    font-size: 1.35rem;
+    letter-spacing: 0.18em;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    transition: color 0.2s ease;
+  }
+
+  .header__name-suffix {
+    font-family: var(--font-sans);
+    font-weight: 600;
+    font-size: 0.9375rem;
+    letter-spacing: 0.06em;
+    color: rgba(255, 255, 255, 0.88);
+    transition: color 0.2s ease;
+  }
+
+  .header__list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.25rem 1.25rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .header__link {
+    font-size: 0.9375rem;
+    font-weight: 500;
+    color: rgba(255, 255, 255, 0.78);
+    padding: 0.35rem 0;
+    border-bottom: 2px solid transparent;
+    transition:
+      color 0.15s ease,
+      border-color 0.15s ease;
+  }
+
+  .header__link:hover {
+    color: #fff;
+    border-bottom-color: rgba(255, 255, 255, 0.45);
+  }
+
+  @media (max-width: 640px) {
+    .header__inner {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .header__nav {
+      width: 100%;
+    }
+
+    .header__list {
+      gap: 0.5rem 1rem;
+    }
+  }
+</style>

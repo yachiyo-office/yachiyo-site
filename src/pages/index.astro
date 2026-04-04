@@ -1,0 +1,676 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+---
+
+<BaseLayout
+  title="やちよ行政書士事務所 | 公式サイト"
+  description="大阪泉州・和歌山地域の身近な相談窓口。やちよ行政書士事務所は、許認可・契約書・相続など、行政書士業務を丁寧にサポートします。"
+>
+  <div class="page">
+    <SiteHeader />
+
+    <main>
+      <section class="hero" aria-labelledby="hero-heading">
+        <div class="hero__inner">
+          <p class="hero__badge">行政書士事務所</p>
+          <h1 id="hero-heading" class="hero__heading">
+            <span class="hero__catch">大阪泉州・和歌山地域の身近な相談窓口</span>
+            <span class="hero__name">やちよ行政書士事務所</span>
+          </h1>
+          <p class="hero__lead">
+            許認可・届出、契約書・定款の作成、相続手続きなど、官公署への提出書類や法的手続について、専門家として誠実にご支援いたします。
+          </p>
+          <div class="hero__actions">
+            <a href="#contact" class="hero__btn hero__btn--primary">お問い合わせ</a>
+            <a href="#services" class="hero__btn hero__btn--ghost">業務内容を見る</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="trust" aria-label="事務所の特徴">
+        <div class="trust__inner">
+          <ul class="trust__list">
+            <li class="trust__item">
+              <span class="trust__num">01</span>
+              <p class="trust__title">法令に基づく手続き</p>
+              <p class="trust__text">関係法令を踏まえ、必要な書式・スケジュールを整理のうえご案内します。</p>
+            </li>
+            <li class="trust__item">
+              <span class="trust__num">02</span>
+              <p class="trust__title">わかりやすい説明</p>
+              <p class="trust__text">専門用語を噛み砕き、ご状況に合わせて選択肢とリスクをお伝えします。</p>
+            </li>
+            <li class="trust__item">
+              <span class="trust__num">03</span>
+              <p class="trust__title">地域に根ざした対応</p>
+              <p class="trust__text">大阪泉州・和歌山エリアを中心に、身近な相談窓口として承ります。</p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="about" class="section">
+        <div class="section__inner section__grid">
+          <div class="section__intro">
+            <h2 class="section__heading">事務所について</h2>
+          </div>
+          <div class="section__body">
+            <p class="section__lead">
+              やちよ行政書士事務所は、お客様の権利利益を守るため、書類作成から申請手続きまで一貫してサポートする行政書士事務所です。
+            </p>
+            <p class="section__text">
+              初めての許認可申請、会社設立や役員変更、相続に関するご相談など、お困りごとに個別に対応いたします。まずはお気軽にお問い合わせください。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="services" class="section section--surface">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 class="section__heading">業務案内</h2>
+            <p class="section__sub">
+              主な取扱業務の一例です。内容により他士業と連携する場合があります。
+            </p>
+          </div>
+          <ul class="service-list">
+            <li class="service-card">
+              <h3 class="service-card__title">許認可・届出</h3>
+              <p class="service-card__text">
+                建設業、古物商、飲食店営業など各種許認可の申請書作成・提出支援、届出のご相談。
+              </p>
+            </li>
+            <li class="service-card">
+              <h3 class="service-card__title">契約書・定款・議事録</h3>
+              <p class="service-card__text">
+                取引基本契約、業務委託、秘密保持、定款変更、株主総会議事録などの作成サポート。
+              </p>
+            </li>
+            <li class="service-card">
+              <h3 class="service-card__title">相続・遺言・登記関連</h3>
+              <p class="service-card__text">
+                遺産分割協議書、相続放棄・限定承認の手続き、司法書士等との連携を含むご相談。
+              </p>
+            </li>
+            <li class="service-card">
+              <h3 class="service-card__title">会社・法人手続</h3>
+              <p class="service-card__text">
+                会社設立、役員変更、本店移転、増資・減資など法務局・税務署向け書類の作成補助。
+              </p>
+            </li>
+            <li class="service-card">
+              <h3 class="service-card__title">その他書類・手続</h3>
+              <p class="service-card__text">
+                内容証明、各種宣誓供述書、官公署提出用書類の作成など、個別事情に応じて対応します。
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section section--flow" aria-labelledby="flow-heading">
+        <div class="section__inner section__inner--narrow-flow">
+          <h2 id="flow-heading" class="section__heading section__heading--center">
+            ご相談の流れ
+          </h2>
+          <ol class="flow-list">
+            <li class="flow-step">
+              <span class="flow-step__label">STEP 1</span>
+              <p class="flow-step__title">お問い合わせ</p>
+              <p class="flow-step__text">お電話・メール等にて、ご用件の概要をお伺いします。</p>
+            </li>
+            <li class="flow-step">
+              <span class="flow-step__label">STEP 2</span>
+              <p class="flow-step__title">面談・ヒアリング</p>
+              <p class="flow-step__text">事実関係を確認し、必要な手続きとスケジュールをご説明します。</p>
+            </li>
+            <li class="flow-step">
+              <span class="flow-step__label">STEP 3</span>
+              <p class="flow-step__title">ご提案・お見積り</p>
+              <p class="flow-step__text">業務内容・報酬を明確にしたうえで、ご納得いただいてから着手します。</p>
+            </li>
+            <li class="flow-step">
+              <span class="flow-step__label">STEP 4</span>
+              <p class="flow-step__title">受任・手続き遂行</p>
+              <p class="flow-step__text">書類作成、申請・提出、必要に応じたフォローまで対応いたします。</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section id="contact" class="section section--contact">
+        <div class="section__inner section__inner--contact">
+          <div class="contact-card">
+            <h2 class="contact-card__heading">お問い合わせ</h2>
+            <p class="contact-card__text">
+              ご相談内容が未定の段階でも構いません。守秘義務に基づき、お預かりした情報は厳重に取り扱います。
+            </p>
+            <dl class="contact-card__dl">
+              <div class="contact-card__row">
+                <dt>電話</dt>
+                <dd>（掲載準備中）</dd>
+              </div>
+              <div class="contact-card__row">
+                <dt>受付時間</dt>
+                <dd>平日 9:00〜18:00（例）</dd>
+              </div>
+              <div class="contact-card__row">
+                <dt>メール</dt>
+                <dd>（掲載準備中）</dd>
+              </div>
+            </dl>
+            <p class="contact-card__note">
+              ※ 電話番号・メールアドレスは公開前に実際の連絡先へ差し替えてください。
+            </p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>
+
+<style>
+  .page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: var(--color-bg);
+  }
+
+  /* ----- Hero ----- */
+  .hero {
+    position: relative;
+    background: linear-gradient(
+      145deg,
+      #1e3a8a 0%,
+      #1e40af 42%,
+      #2563eb 100%
+    );
+    color: #fff;
+    padding: clamp(2.75rem, 7vw, 4.5rem) 1.25rem clamp(3rem, 8vw, 5rem);
+    overflow: hidden;
+  }
+
+  .hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse 80% 60% at 100% 0%,
+      rgba(255, 255, 255, 0.12),
+      transparent 55%
+    );
+    pointer-events: none;
+  }
+
+  .hero__inner {
+    position: relative;
+    z-index: 1;
+    max-width: var(--content-max);
+    margin: 0 auto;
+  }
+
+  .hero__badge {
+    display: inline-block;
+    margin: 0 0 1rem;
+    padding: 0.35rem 0.85rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    color: rgba(255, 255, 255, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  .hero__heading {
+    margin: 0 0 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .hero__catch {
+    font-size: clamp(1.35rem, 3.8vw, 2rem);
+    font-weight: 700;
+    line-height: 1.45;
+    letter-spacing: 0.04em;
+    max-width: 22em;
+    text-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
+  }
+
+  .hero__name {
+    font-size: clamp(1rem, 2.2vw, 1.2rem);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: rgba(255, 255, 255, 0.88);
+  }
+
+  .hero__lead {
+    margin: 0 0 1.75rem;
+    max-width: 40rem;
+    font-size: 0.9375rem;
+    line-height: 1.9;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem 1rem;
+  }
+
+  .hero__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 2.75rem;
+    padding: 0 1.35rem;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    border-radius: 3px;
+    transition:
+      background 0.2s ease,
+      color 0.2s ease,
+      border-color 0.2s ease;
+  }
+
+  .hero__btn--primary {
+    background: #fff;
+    color: var(--color-primary);
+    border: 2px solid #fff;
+  }
+
+  .hero__btn--primary:hover {
+    background: #f0f7ff;
+    border-color: #f0f7ff;
+    color: #1e3a8a;
+  }
+
+  .hero__btn--ghost {
+    background: transparent;
+    color: #fff;
+    border: 2px solid rgba(255, 255, 255, 0.55);
+  }
+
+  .hero__btn--ghost:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: #fff;
+  }
+
+  /* ----- Trust strip ----- */
+  .trust {
+    margin-top: -2rem;
+    position: relative;
+    z-index: 2;
+    padding: 0 1.25rem 0.5rem;
+  }
+
+  .trust__inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+  }
+
+  .trust__list {
+    list-style: none;
+    margin: 0;
+    padding: clamp(1.25rem, 3vw, 1.75rem);
+    display: grid;
+    gap: 1.25rem;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    box-shadow: 0 8px 28px rgba(30, 58, 138, 0.1);
+  }
+
+  @media (min-width: 768px) {
+    .trust__list {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      padding: 1.75rem 2rem;
+    }
+  }
+
+  .trust__item {
+    padding-left: 0;
+    border-left: 3px solid var(--color-primary);
+    padding-left: 1rem;
+  }
+
+  .trust__num {
+    display: block;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    color: var(--color-primary);
+    margin-bottom: 0.35rem;
+  }
+
+  .trust__title {
+    margin: 0 0 0.35rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--color-text);
+    letter-spacing: 0.02em;
+  }
+
+  .trust__text {
+    margin: 0;
+    font-size: 0.8125rem;
+    line-height: 1.75;
+    color: var(--color-text-muted);
+  }
+
+  /* ----- Sections ----- */
+  .section {
+    padding: clamp(2.75rem, 5vw, 4rem) 1.25rem;
+  }
+
+  .section--surface {
+    background: var(--color-surface-subtle);
+    border-block: 1px solid var(--color-border);
+  }
+
+  .section--flow {
+    background: var(--color-bg);
+  }
+
+  .section--contact {
+    padding-bottom: clamp(3rem, 6vw, 4.5rem);
+  }
+
+  .section__inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+  }
+
+  .section__inner--narrow-flow {
+    max-width: 48rem;
+  }
+
+  .section__inner--contact {
+    max-width: 42rem;
+  }
+
+  .section__grid {
+    display: grid;
+    gap: 1.5rem 2.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .section__grid {
+      grid-template-columns: minmax(10rem, 14rem) 1fr;
+      align-items: start;
+    }
+  }
+
+  .section__intro {
+    padding-top: 0.25rem;
+  }
+
+  .section__intro .section__heading {
+    position: relative;
+    padding-bottom: 0.65rem;
+  }
+
+  .section__intro .section__heading::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 2.5rem;
+    height: 3px;
+    background: var(--color-primary);
+    border-radius: 1px;
+  }
+
+  .section__head-block .section__heading {
+    position: relative;
+    padding-bottom: 0.65rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .section__head-block .section__heading::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    width: 2.5rem;
+    height: 3px;
+    background: var(--color-primary);
+    border-radius: 1px;
+  }
+
+  .section__heading--center {
+    position: relative;
+    padding-bottom: 0.65rem;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .section__heading--center::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    transform: translateX(-50%);
+    width: 2.5rem;
+    height: 3px;
+    background: var(--color-primary);
+    border-radius: 1px;
+  }
+
+  .section__heading {
+    margin: 0 0 1rem;
+    font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 0.06em;
+    line-height: 1.35;
+  }
+
+  .section__sub {
+    margin: 0 0 1.75rem;
+    max-width: 40rem;
+    font-size: 0.875rem;
+    color: var(--color-text-muted);
+    line-height: 1.75;
+  }
+
+  .section__lead {
+    margin: 0 0 1rem;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    line-height: 1.8;
+    color: var(--color-text);
+  }
+
+  .section__text {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.85;
+    color: var(--color-text-muted);
+  }
+
+  .section__body .section__text {
+    color: var(--color-text);
+  }
+
+  /* ----- Services ----- */
+  .service-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 640px) {
+    .service-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .service-list {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .service-card {
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    padding: 1.35rem 1.4rem;
+    box-shadow: var(--shadow-sm);
+    transition:
+      border-color 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+
+  .service-card:hover {
+    border-color: var(--color-border-strong);
+    box-shadow: 0 6px 20px rgba(30, 58, 138, 0.08);
+  }
+
+  .service-card__title {
+    margin: 0 0 0.5rem;
+    padding-bottom: 0.5rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 0.02em;
+    border-bottom: 2px solid var(--color-primary-soft);
+  }
+
+  .service-card__text {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.8;
+    color: var(--color-text-muted);
+  }
+
+  /* ----- Flow ----- */
+  .flow-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1rem;
+  }
+
+  @media (min-width: 768px) {
+    .flow-list {
+      gap: 1.25rem;
+    }
+  }
+
+  .flow-step {
+    position: relative;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: 4px;
+    padding: 1.15rem 1.25rem 1.15rem 1.35rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .flow-step::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: var(--color-primary);
+    border-radius: 4px 0 0 4px;
+  }
+
+  .flow-step__label {
+    display: block;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--color-primary);
+    margin-bottom: 0.25rem;
+  }
+
+  .flow-step__title {
+    margin: 0 0 0.35rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .flow-step__text {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.75;
+    color: var(--color-text-muted);
+  }
+
+  /* ----- Contact ----- */
+  .contact-card {
+    background: linear-gradient(160deg, #1e3a8a 0%, #1e40af 100%);
+    color: #fff;
+    border-radius: 6px;
+    padding: clamp(1.75rem, 4vw, 2.25rem);
+    box-shadow: 0 12px 40px rgba(30, 58, 138, 0.28);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  .contact-card__heading {
+    margin: 0 0 0.75rem;
+    font-size: 1.375rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+  }
+
+  .contact-card__text {
+    margin: 0 0 1.25rem;
+    font-size: 0.9375rem;
+    line-height: 1.85;
+    color: rgba(255, 255, 255, 0.9);
+  }
+
+  .contact-card__dl {
+    margin: 0 0 1rem;
+    padding: 1rem 0 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+  .contact-card__row {
+    display: grid;
+    grid-template-columns: 6.5rem 1fr;
+    gap: 0.5rem 1rem;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    font-size: 0.875rem;
+  }
+
+  .contact-card__row:last-child {
+    border-bottom: none;
+  }
+
+  .contact-card__row dt {
+    margin: 0;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.75);
+  }
+
+  .contact-card__row dd {
+    margin: 0;
+    color: rgba(255, 255, 255, 0.95);
+  }
+
+  .contact-card__note {
+    margin: 0;
+    font-size: 0.75rem;
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.65);
+  }
+</style>

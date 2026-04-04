@@ -1,0 +1,63 @@
+/* やちよ行政書士事務所 — テーマ: 濃紺 #1e3a8a、清潔感のある土台 */
+
+:root {
+  --color-primary: #1e3a8a;
+  --color-primary-hover: #1e40af;
+  --color-primary-soft: rgba(30, 58, 138, 0.08);
+  --color-accent: #3b82f6;
+  --color-bg: #e8f2fc;
+  --color-surface: #ffffff;
+  --color-surface-subtle: #f0f7ff;
+  --color-border: #c7d9f0;
+  --color-border-strong: #94b8e8;
+  --color-text: #0f172a;
+  --color-text-muted: #64748b;
+  --font-sans: 'Noto Sans JP', 'Hiragino Sans', 'Hiragino Kaku Gothic ProN',
+    'Yu Gothic', 'Meiryo', sans-serif;
+  --shadow-sm: 0 1px 2px rgba(15, 23, 42, 0.06);
+  --shadow-md: 0 4px 12px rgba(15, 23, 42, 0.08);
+  --radius: 0.5rem;
+  --content-max: 72rem;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-sans);
+  font-size: 1rem;
+  line-height: 1.7;
+  color: var(--color-text);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+
+a:hover {
+  color: var(--color-primary-hover);
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+}
