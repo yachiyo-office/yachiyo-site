@@ -1,0 +1,107 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+---
+
+<BaseLayout title="お問い合わせ | やちよ行政書士事務所">
+  <div class="page">
+    <SiteHeader />
+
+    <main>
+      <div class="contact-container">
+        <h1>お問い合わせ</h1>
+        <p class="lead-text">
+          ご相談・ご依頼は、以下のフォームよりお気軽にお問い合わせください。<br />
+          内容を確認後、担当者より原則2営業日以内にご連絡させていただきます。
+        </p>
+
+        <div class="form-wrapper">
+          <iframe
+            src="https://docs.google.com/forms/d/e/1FAIpQLSdV-DqznaOu27lWhWlYLtUokIqHIJ_BNNsEnFrFdyQx20f95g/viewform?embedded=true"
+            width="100%"
+            height="850"
+            frameborder="0"
+            marginheight="0"
+            marginwidth="0"
+            title="お問い合わせフォーム"
+            style="border: none; background: transparent;"
+          >
+            読み込んでいます…
+          </iframe>
+        </div>
+      </div>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>
+
+<style>
+  .page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+  }
+
+  .contact-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: clamp(2.5rem, 6vw, 3.5rem) var(--space-section-x);
+  }
+
+  h1 {
+    text-align: center;
+    color: var(--color-primary);
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    margin: 0 0 1.25rem;
+    position: relative;
+    padding-bottom: 0.75rem;
+  }
+
+  h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 60px;
+    height: 3px;
+    background-color: var(--color-primary);
+    border-radius: 2px;
+  }
+
+  .lead-text {
+    text-align: center;
+    color: var(--color-text-muted);
+    line-height: 1.85;
+    margin: 0 0 2.5rem;
+    font-size: 0.9375rem;
+  }
+
+  .form-wrapper {
+    background: #ffffff;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--color-border);
+    padding: 10px;
+    overflow: hidden;
+  }
+
+  @media (max-width: 640px) {
+    .contact-container {
+      padding: 2rem 1rem;
+    }
+
+    .lead-text {
+      text-align: left;
+    }
+
+    .form-wrapper {
+      padding: 0;
+    }
+  }
+</style>

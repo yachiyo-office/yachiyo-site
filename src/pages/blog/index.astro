@@ -1,0 +1,257 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import { getCollection } from 'astro:content';
+
+const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+const posts = allPosts.sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('ja-JP', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+}
+---
+
+<BaseLayout
+  title="ブログ | やちよ行政書士事務所"
+  description="許認可・相続・会社設立など、暮らしとビジネスに役立つ情報をお届けします。やちよ行政書士事務所のブログ一覧です。"
+>
+  <div class="page">
+    <SiteHeader />
+
+    <main>
+      <section class="blog-hero section--base" aria-labelledby="blog-heading">
+        <div class="blog-hero__inner">
+          <p class="blog-hero__label">Blog</p>
+          <h1 id="blog-heading" class="blog-hero__title">ブログ</h1>
+          <p class="blog-hero__lead">
+            許認可・相続・会社手続きなど、暮らしとビジネスに役立つ情報をお届けします。
+          </p>
+        </div>
+      </section>
+
+      <section class="blog-list section--band" aria-label="記事一覧">
+        <div class="blog-list__inner">
+          {
+            posts.length === 0 ? (
+              <p class="blog-empty">公開中の記事はまだありません。</p>
+            ) : (
+              <ul class="blog-cards">
+                {posts.map((post) => (
+                  <li>
+                    <article class="blog-card">
+                      <time class="blog-card__date" datetime={post.data.pubDate.toISOString()}>
+                        {formatDate(post.data.pubDate)}
+                      </time>
+                      <h2 class="blog-card__title">
+                        <a href={`/blog/${post.slug}/`}>{post.data.title}</a>
+                      </h2>
+                      <p class="blog-card__desc">{post.data.description}</p>
+                      {
+                        post.data.tags.length > 0 && (
+                          <ul class="blog-card__tags">
+                            {post.data.tags.map((tag) => (
+                              <li class="blog-card__tag">{tag}</li>
+                            ))}
+                          </ul>
+                        )
+                      }
+                      <a href={`/blog/${post.slug}/`} class="blog-card__link">
+                        続きを読む
+                      </a>
+                    </article>
+                  </li>
+                ))}
+              </ul>
+            )
+          }
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>
+
+<style>
+  .page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+  }
+
+  .section--base {
+    background: #ffffff;
+  }
+
+  .section--band {
+    background: #f8fafc;
+    border-block: 1px solid var(--color-border);
+  }
+
+  .blog-hero {
+    padding: var(--space-section-y) var(--space-section-x);
+    padding-bottom: clamp(2rem, 5vw, 3rem);
+  }
+
+  .blog-hero__inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+  }
+
+  .blog-hero__label {
+    margin: 0 0 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--color-primary);
+  }
+
+  .blog-hero__title {
+    margin: 0 0 1rem;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--color-text);
+    line-height: 1.4;
+  }
+
+  .blog-hero__lead {
+    margin: 0;
+    max-width: 40rem;
+    font-size: 1rem;
+    line-height: 1.9;
+    color: var(--color-text-muted);
+  }
+
+  .blog-list {
+    padding: var(--space-section-y) var(--space-section-x);
+    padding-top: clamp(2rem, 5vw, 3.25rem);
+  }
+
+  .blog-list__inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+  }
+
+  .blog-empty {
+    margin: 0;
+    text-align: center;
+    color: var(--color-text-muted);
+    font-size: 0.9375rem;
+  }
+
+  .blog-cards {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .blog-cards {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .blog-cards {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .blog-card {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem 1.45rem;
+    box-shadow: var(--shadow-sm);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .blog-card:hover {
+    border-color: var(--color-border-strong);
+    box-shadow: var(--shadow-md);
+  }
+
+  .blog-card__date {
+    display: block;
+    margin: 0 0 0.65rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--color-text-muted);
+  }
+
+  .blog-card__title {
+    margin: 0 0 0.75rem;
+    font-size: 1.0625rem;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: 0.02em;
+  }
+
+  .blog-card__title a {
+    color: var(--color-text);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .blog-card__title a:hover {
+    color: var(--color-primary);
+  }
+
+  .blog-card__desc {
+    margin: 0 0 1rem;
+    flex: 1;
+    font-size: 0.875rem;
+    line-height: 1.85;
+    color: var(--color-text-muted);
+  }
+
+  .blog-card__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    list-style: none;
+    margin: 0 0 1rem;
+    padding: 0;
+  }
+
+  .blog-card__tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--color-primary);
+    background: var(--color-primary-soft);
+    border-radius: 999px;
+    padding: 0.2rem 0.65rem;
+  }
+
+  .blog-card__link {
+    align-self: flex-start;
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--color-primary);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.15s ease, color 0.15s ease;
+  }
+
+  .blog-card__link:hover {
+    color: var(--color-primary-hover);
+    border-bottom-color: rgba(30, 58, 138, 0.35);
+  }
+</style>

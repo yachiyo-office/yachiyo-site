@@ -1,0 +1,454 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+const officeInfo = [
+  { label: '事務所名', value: 'やちよ行政書士事務所' },
+  { label: '代表者', value: '鹿野正幸' },
+  { label: '登録番号', value: '大阪府行政書士会 第000000号（例）' },
+  { label: '所在地', value: '大阪府阪南市自然田753-14' },
+  { label: '電話番号', value: '（掲載準備中）' },
+  { label: '営業時間', value: '平日 9:00〜18:00 ※事前予約で土日祝・時間外も対応可' },
+  { label: '対応エリア', value: '大阪泉州・和歌山エリア ほか' },
+  { label: '対応業務', value: '許認可申請、契約書作成、相続手続き 等' },
+];
+
+const history = [
+  { year: '20XX年 0月', text: '行政書士登録（例）' },
+  { year: '20XX年 0月', text: 'やちよ行政書士事務所を開業（例）' },
+  { year: '20XX年 0月', text: '建設業許可申請のサポート実績を拡充（例）' },
+  { year: '20XX年 0月', text: '相続・遺言関連業務の取扱いを強化（例）' },
+];
+---
+
+<BaseLayout
+  title="事務所概要 | やちよ行政書士事務所"
+  description="やちよ行政書士事務所の事務所概要・代表者プロフィールをご紹介します。大阪泉州・和歌山地域を中心に、許認可申請から相続手続きまで丁寧にサポートいたします。"
+>
+  <div class="page">
+    <SiteHeader />
+
+    <main>
+      <section class="page-hero section--base" aria-labelledby="about-heading">
+        <div class="page-hero__inner">
+          <nav class="breadcrumb" aria-label="パンくずリスト">
+            <ol>
+              <li><a href="/">ホーム</a></li>
+              <li aria-current="page">事務所概要</li>
+            </ol>
+          </nav>
+          <p class="page-hero__label">About</p>
+          <h1 id="about-heading" class="page-hero__title">事務所概要</h1>
+          <p class="page-hero__lead">
+            やちよ行政書士事務所の概要と、代表者からのごあいさつをご紹介いたします。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="profile-heading">
+        <div class="section__inner section__inner--narrow">
+          <h2 id="profile-heading" class="section__heading">
+            <span class="heading-icon" aria-hidden="true"></span>
+            代表者ごあいさつ
+          </h2>
+          <div class="profile-card">
+            <div class="profile-card__avatar" aria-hidden="true">
+              <span>写真</span>
+            </div>
+            <div class="profile-card__body">
+              <p class="profile-card__name">
+                代表行政書士　鹿野正幸
+              </p>
+              <p class="profile-card__text">
+                この度は、やちよ行政書士事務所のウェブサイトをご覧いただき、誠にありがとうございます。
+                許認可申請や相続手続きなど、法的な手続きは専門的で分かりにくいと感じられる方が多くいらっしゃいます。
+                当事務所では、お客様一人ひとりの状況に寄り添い、専門用語をかみ砕きながら、安心してご依頼いただけるよう努めております。
+              </p>
+              <p class="profile-card__text">
+                大阪泉州・和歌山地域を中心に、暮らしとビジネスに関わる書類作成・申請手続きを誠実にサポートいたします。
+                お困りごとがございましたら、まずはお気軽にご相談ください。
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="office-heading">
+        <div class="section__inner section__inner--narrow">
+          <h2 id="office-heading" class="section__heading">
+            <span class="heading-icon" aria-hidden="true"></span>
+            事務所情報
+          </h2>
+          <dl class="office-table">
+            {
+              officeInfo.map((row) => (
+                <div class="office-table__row">
+                  <dt>{row.label}</dt>
+                  <dd>{row.value}</dd>
+                </div>
+              ))
+            }
+          </dl>
+          <p class="office-table__note">
+            ※ 掲載中の情報は準備中のものを含みます。正式な情報は公開前に差し替えてください。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="history-heading">
+        <div class="section__inner section__inner--narrow">
+          <h2 id="history-heading" class="section__heading">
+            <span class="heading-icon" aria-hidden="true"></span>
+            沿革
+          </h2>
+          <ol class="history-list">
+            {
+              history.map((item) => (
+                <li class="history-item">
+                  <span class="history-item__year">{item.year}</span>
+                  <span class="history-item__text">{item.text}</span>
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+      </section>
+
+      <section class="section section--base section--cta" aria-label="お問い合わせのご案内">
+        <div class="section__inner section__inner--contact">
+          <div class="cta-card">
+            <h2 class="cta-card__heading">
+              <span class="heading-icon heading-icon--light" aria-hidden="true"></span>
+              まずはお気軽にご相談ください
+            </h2>
+            <p class="cta-card__text">
+              許認可申請、相続、契約書作成など、お困りごとがございましたらお問い合わせください。
+              料金の目安は<a href="/price">料金案内ページ</a>もご参照いただけます。
+            </p>
+            <div class="cta-card__actions">
+              <a href="/contact" class="cta-card__btn cta-card__btn--primary">お問い合わせ</a>
+              <a href="/price" class="cta-card__btn cta-card__btn--outline">料金案内を見る</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>
+
+<style>
+  .page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+  }
+
+  .section--base { background: #ffffff; }
+  .section--band { background: #f8fafc; border-block: 1px solid var(--color-border); }
+  .section--cta { padding-bottom: max(var(--space-section-y), 4rem); }
+
+  .heading-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.4rem;
+    background: #1e3a8a;
+    flex-shrink: 0;
+    vertical-align: middle;
+    margin-right: 0.65rem;
+  }
+  .heading-icon::after {
+    content: '';
+    width: 0.55rem;
+    height: 0.72rem;
+    border: 2px solid #fff;
+    border-radius: 2px;
+  }
+
+  .section {
+    padding: var(--space-section-y) var(--space-section-x);
+  }
+  .section__inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+  }
+  .section__inner--narrow { max-width: 48rem; }
+  .section__inner--contact { max-width: 42rem; }
+
+  .section__heading {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0 0 1.75rem;
+    font-size: clamp(1.2rem, 2.8vw, 1.45rem);
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 0.05em;
+    line-height: 1.4;
+  }
+
+  /* ページヘッダー */
+  .page-hero {
+    padding: var(--space-section-y) var(--space-section-x);
+    padding-bottom: clamp(2rem, 5vw, 3rem);
+  }
+  .page-hero__inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+  }
+  .breadcrumb ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.5rem;
+    list-style: none;
+    margin: 0 0 1.5rem;
+    padding: 0;
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
+  .breadcrumb li:not(:last-child)::after {
+    content: '/';
+    margin-left: 0.5rem;
+    color: var(--color-border-strong);
+  }
+  .breadcrumb a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+  }
+  .breadcrumb a:hover {
+    color: var(--color-primary);
+  }
+  .breadcrumb li[aria-current='page'] {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+  .page-hero__label {
+    margin: 0 0 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--color-primary);
+  }
+  .page-hero__title {
+    margin: 0 0 1rem;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--color-text);
+    line-height: 1.4;
+  }
+  .page-hero__lead {
+    margin: 0;
+    max-width: 40rem;
+    font-size: 1rem;
+    line-height: 1.9;
+    color: var(--color-text-muted);
+  }
+
+  /* プロフィールカード */
+  .profile-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.75rem, 4vw, 2.25rem);
+    box-shadow: var(--shadow-sm);
+  }
+  @media (min-width: 640px) {
+    .profile-card { flex-direction: row; align-items: flex-start; }
+  }
+  .profile-card__avatar {
+    flex-shrink: 0;
+    width: 6.5rem;
+    height: 6.5rem;
+    border-radius: 50%;
+    background: var(--color-primary-soft);
+    border: 2px solid var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin: 0 auto;
+  }
+  @media (min-width: 640px) {
+    .profile-card__avatar { margin: 0; }
+  }
+  .profile-card__name {
+    margin: 0 0 1rem;
+    font-size: 1.0625rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: var(--color-text);
+    text-align: center;
+  }
+  @media (min-width: 640px) {
+    .profile-card__name { text-align: left; }
+  }
+  .profile-card__text {
+    margin: 0 0 1rem;
+    font-size: 0.9375rem;
+    line-height: 1.95;
+    color: var(--color-text-muted);
+  }
+  .profile-card__text:last-child {
+    margin-bottom: 0;
+  }
+
+  /* 事務所情報テーブル */
+  .office-table {
+    margin: 0;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+  .office-table__row {
+    display: grid;
+    grid-template-columns: 8.5rem 1fr;
+    gap: 0.5rem 1rem;
+    padding: 0.95rem 1.35rem;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 0.9375rem;
+  }
+  .office-table__row:last-child {
+    border-bottom: none;
+  }
+  .office-table__row dt {
+    margin: 0;
+    font-weight: 700;
+    color: var(--color-text-muted);
+  }
+  .office-table__row dd {
+    margin: 0;
+    color: var(--color-text);
+    line-height: 1.75;
+  }
+  @media (max-width: 479px) {
+    .office-table__row {
+      grid-template-columns: 1fr;
+      gap: 0.35rem;
+    }
+  }
+  .office-table__note {
+    margin: 1rem 0 0;
+    font-size: 0.75rem;
+    line-height: 1.7;
+    color: var(--color-text-muted);
+  }
+
+  /* 沿革 */
+  .history-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .history-item {
+    display: grid;
+    grid-template-columns: 9rem 1fr;
+    gap: 0.5rem 1.25rem;
+    padding: 1rem 0;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 0.9375rem;
+  }
+  .history-item:last-child {
+    border-bottom: none;
+  }
+  .history-item__year {
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: var(--color-primary);
+  }
+  .history-item__text {
+    color: var(--color-text);
+    line-height: 1.85;
+  }
+  @media (max-width: 479px) {
+    .history-item {
+      grid-template-columns: 1fr;
+      gap: 0.35rem;
+    }
+  }
+
+  /* CTA */
+  .cta-card {
+    background: #ffffff;
+    color: var(--color-text);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.85rem, 4vw, 2.5rem);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+  }
+  .cta-card__heading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 0 0 1rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--color-primary);
+  }
+  .cta-card__text {
+    margin: 0 0 1.5rem;
+    font-size: 0.9375rem;
+    line-height: 1.9;
+    color: var(--color-text-muted);
+  }
+  .cta-card__text a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+  .cta-card__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.85rem 1rem;
+  }
+  .cta-card__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    padding: 0 1.75rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+  .cta-card__btn--primary {
+    background: #1e3a8a;
+    color: #fff;
+    border: 2px solid #1e3a8a;
+  }
+  .cta-card__btn--primary:hover {
+    background: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+    color: #fff;
+  }
+  .cta-card__btn--outline {
+    background: #fff;
+    color: var(--color-primary);
+    border: 2px solid #1e3a8a;
+  }
+  .cta-card__btn--outline:hover {
+    background: var(--color-band);
+    color: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+  }
+</style>

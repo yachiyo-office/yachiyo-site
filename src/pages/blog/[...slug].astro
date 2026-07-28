@@ -1,0 +1,323 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import { getCollection, render } from 'astro:content';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({
+    params: { slug: post.slug },
+    props: { post },
+  }));
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+
+function formatDate(date: Date) {
+  return date.toLocaleDateString('ja-JP', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+}
+---
+
+<BaseLayout
+  title={`${post.data.title} | ブログ | やちよ行政書士事務所`}
+  description={post.data.description}
+>
+  <div class="page">
+    <SiteHeader />
+
+    <main>
+      <article class="article section--base">
+        <div class="article__inner">
+          <nav class="article__breadcrumb" aria-label="パンくずリスト">
+            <ol>
+              <li><a href="/">ホーム</a></li>
+              <li><a href="/blog/">ブログ</a></li>
+              <li aria-current="page">{post.data.title}</li>
+            </ol>
+          </nav>
+
+          <header class="article__header">
+            <time class="article__date" datetime={post.data.pubDate.toISOString()}>
+              公開日：{formatDate(post.data.pubDate)}
+            </time>
+            {
+              post.data.updatedDate && (
+                <time
+                  class="article__date article__date--updated"
+                  datetime={post.data.updatedDate.toISOString()}
+                >
+                  更新日：{formatDate(post.data.updatedDate)}
+                </time>
+              )
+            }
+            <h1 class="article__title">{post.data.title}</h1>
+            <p class="article__desc">{post.data.description}</p>
+            {
+              post.data.tags.length > 0 && (
+                <ul class="article__tags">
+                  {post.data.tags.map((tag) => (
+                    <li class="article__tag">{tag}</li>
+                  ))}
+                </ul>
+              )
+            }
+          </header>
+
+          <div class="article__body prose">
+            <Content />
+          </div>
+
+          <footer class="article__footer">
+            <a href="/blog/" class="article__back">← ブログ一覧へ戻る</a>
+          </footer>
+        </div>
+      </article>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>
+
+<style>
+  .page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+  }
+
+  .section--base {
+    background: #ffffff;
+  }
+
+  .article {
+    padding: clamp(2rem, 5vw, 3.25rem) var(--space-section-x)
+      var(--space-section-y);
+  }
+
+  .article__inner {
+    max-width: 42rem;
+    margin: 0 auto;
+  }
+
+  .article__breadcrumb ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.5rem;
+    list-style: none;
+    margin: 0 0 1.75rem;
+    padding: 0;
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
+
+  .article__breadcrumb li:not(:last-child)::after {
+    content: '/';
+    margin-left: 0.5rem;
+    color: var(--color-border-strong);
+  }
+
+  .article__breadcrumb a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+  }
+
+  .article__breadcrumb a:hover {
+    color: var(--color-primary);
+  }
+
+  .article__breadcrumb li[aria-current='page'] {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  .article__header {
+    margin-bottom: 2.5rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .article__date {
+    display: block;
+    margin: 0 0 0.35rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    color: var(--color-text-muted);
+  }
+
+  .article__date--updated {
+    margin-bottom: 1rem;
+  }
+
+  .article__title {
+    margin: 0 0 1rem;
+    font-size: clamp(1.45rem, 4.5vw, 1.85rem);
+    font-weight: 700;
+    line-height: 1.45;
+    letter-spacing: 0.03em;
+    color: var(--color-text);
+  }
+
+  .article__desc {
+    margin: 0 0 1.25rem;
+    font-size: 1rem;
+    line-height: 1.85;
+    color: var(--color-text-muted);
+  }
+
+  .article__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .article__tag {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    color: var(--color-primary);
+    background: var(--color-primary-soft);
+    border-radius: 999px;
+    padding: 0.2rem 0.65rem;
+  }
+
+  .prose {
+    font-size: 1.0625rem;
+    line-height: 2;
+    letter-spacing: 0.04em;
+    color: var(--color-text);
+    word-break: break-word;
+  }
+
+  .prose :global(h2) {
+    margin: 2.75rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--color-primary-soft);
+    font-size: 1.25rem;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: 0.05em;
+    color: var(--color-primary);
+  }
+
+  .prose :global(h3) {
+    margin: 2rem 0 0.75rem;
+    font-size: 1.0625rem;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: 0.04em;
+    color: var(--color-text);
+  }
+
+  .prose :global(p) {
+    margin: 0 0 1.35rem;
+  }
+
+  .prose :global(p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    margin: 0 0 1.35rem;
+    padding-left: 1.5rem;
+  }
+
+  .prose :global(li) {
+    margin-bottom: 0.5rem;
+    line-height: 1.9;
+  }
+
+  .prose :global(li::marker) {
+    color: var(--color-primary);
+  }
+
+  .prose :global(a) {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+    transition: color 0.15s ease;
+  }
+
+  .prose :global(a:hover) {
+    color: var(--color-primary-hover);
+  }
+
+  .prose :global(strong) {
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .prose :global(blockquote) {
+    margin: 1.75rem 0;
+    padding: 1rem 1.25rem;
+    border-left: 4px solid var(--color-primary);
+    background: var(--color-band);
+    border-radius: 0 var(--radius) var(--radius) 0;
+    color: var(--color-text-muted);
+    font-size: 0.975rem;
+    line-height: 1.9;
+  }
+
+  .prose :global(blockquote p:last-child) {
+    margin-bottom: 0;
+  }
+
+  .prose :global(table) {
+    width: 100%;
+    margin: 1.75rem 0;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+    line-height: 1.75;
+  }
+
+  .prose :global(th),
+  .prose :global(td) {
+    padding: 0.65rem 0.85rem;
+    border: 1px solid var(--color-border);
+    text-align: left;
+  }
+
+  .prose :global(th) {
+    background: var(--color-band);
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .prose :global(hr) {
+    margin: 2.5rem 0;
+    border: none;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .article__footer {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .article__back {
+    display: inline-flex;
+    align-items: center;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--color-primary);
+    text-decoration: none;
+    transition: color 0.15s ease;
+  }
+
+  .article__back:hover {
+    color: var(--color-primary-hover);
+  }
+</style>

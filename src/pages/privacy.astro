@@ -1,0 +1,303 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import { lineOfficialUrl, lineDisplayLabel } from '../config/contact';
+---
+
+<BaseLayout
+  title="プライバシーポリシー | やちよ行政書士事務所"
+  description="やちよ行政書士事務所のプライバシーポリシー（個人情報保護方針）です。お客様の個人情報の取扱いについて定めています。"
+>
+  <div class="page">
+    <SiteHeader />
+
+    <main>
+      <section class="page-hero section--base" aria-labelledby="privacy-heading">
+        <div class="page-hero__inner">
+          <nav class="breadcrumb" aria-label="パンくずリスト">
+            <ol>
+              <li><a href="/">ホーム</a></li>
+              <li aria-current="page">プライバシーポリシー</li>
+            </ol>
+          </nav>
+          <p class="page-hero__label">Privacy Policy</p>
+          <h1 id="privacy-heading" class="page-hero__title">プライバシーポリシー</h1>
+          <p class="page-hero__lead">
+            やちよ行政書士事務所（以下「当事務所」）は、お客様の個人情報を適切に保護し、安心してご相談・ご依頼いただけるよう、個人情報の取扱いについて以下のとおり定めます。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--base section--content">
+        <div class="section__inner section__inner--narrow">
+          <div class="prose">
+            <p class="prose__updated">制定日：20XX年X月X日　／　最終改定日：20XX年X月X日</p>
+
+            <h2>1. 基本方針</h2>
+            <p>
+              当事務所は、行政書士法その他関係法令および個人情報保護法を遵守し、業務上取得した個人情報を適正に取り扱います。行政書士としての守秘義務を厳守し、お客様の権利利益を尊重いたします。
+            </p>
+
+            <h2>2. 個人情報の定義</h2>
+            <p>
+              本ポリシーにおける「個人情報」とは、生存する個人に関する情報であって、氏名、生年月日、住所、電話番号、メールアドレス、その他の記述等により特定の個人を識別できるもの、および個人識別符号が含まれる情報をいいます。
+            </p>
+
+            <h2>3. 個人情報の取得</h2>
+            <p>
+              当事務所は、業務の遂行に必要な範囲において、適法かつ公正な手段により個人情報を取得いたします。取得にあたっては、利用目的を明示し、ご本人の同意を得たうえで取り扱います。
+            </p>
+
+            <h2>4. 個人情報の利用目的</h2>
+            <p>当事務所が取得した個人情報は、以下の目的の範囲内で利用いたします。</p>
+            <ul>
+              <li>許認可申請、届出、契約書・定款等の書類作成、相続手続き等の行政書士業務の遂行</li>
+              <li>お問い合わせ・ご相談への対応、見積り・契約に関するご連絡</li>
+              <li>業務上必要な官公署・関係機関への書類提出</li>
+              <li>司法書士・税理士等の他士業との連携（お客様の同意がある場合に限ります）</li>
+              <li>当事務所からの業務に関するご案内、重要なお知らせの送付</li>
+              <li>当事務所のサービス向上のための分析（個人を特定しない形での統計処理）</li>
+            </ul>
+
+            <h2>5. 個人情報の第三者提供</h2>
+            <p>
+              当事務所は、以下の場合を除き、あらかじめご本人の同意を得ることなく、個人情報を第三者に提供いたしません。
+            </p>
+            <ul>
+              <li>法令に基づく場合</li>
+              <li>人の生命、身体または財産の保護のために必要がある場合で、ご本人の同意を得ることが困難であるとき</li>
+              <li>公衆衛生の向上または児童の健全な育成の推進のために特に必要がある場合で、ご本人の同意を得ることが困難であるとき</li>
+              <li>国の機関もしくは地方公共団体またはその委託を受けた者が法令の定める事務を遂行することに対して協力する必要がある場合で、ご本人の同意を得ることにより当該事務の遂行に支障を及ぼすおそれがあるとき</li>
+            </ul>
+
+            <h2>6. 個人情報の委託</h2>
+            <p>
+              業務の一部を外部に委託する場合、個人情報を取り扱うことがあるときは、委託先に対し適切な監督を行い、個人情報の安全管理が図られるよう必要な措置を講じます。
+            </p>
+
+            <h2>7. 個人情報の安全管理</h2>
+            <p>
+              当事務所は、個人情報の漏えい、滅失、き損等を防止するため、組織的・人的・物理的・技術的安全管理措置を講じ、個人情報の適切な管理に努めます。
+            </p>
+
+            <h2>8. 個人情報の開示・訂正・利用停止等</h2>
+            <p>
+              ご本人から、個人情報の開示、訂正、追加、削除、利用停止、消去等のご請求があった場合は、ご本人であることを確認のうえ、法令に従い速やかに対応いたします。ご請求は、下記お問い合わせ窓口までご連絡ください。
+            </p>
+
+            <h2>9. Cookie（クッキー）等の利用について</h2>
+            <p>
+              当事務所のウェブサイトでは、サイトの利便性向上やアクセス状況の分析のため、Cookie 等の技術を使用する場合があります。Cookie により個人を特定する情報を取得することはありません。ブラウザの設定により Cookie の受け取りを拒否することも可能ですが、一部機能がご利用いただけない場合があります。
+            </p>
+
+            <h2>10. 法令遵守と見直し</h2>
+            <p>
+              当事務所は、個人情報の取扱いに関する法令、ガイドライン等を遵守するとともに、本ポリシーの内容を適宜見直し、改善に努めます。変更した場合は、本ページに掲載いたします。
+            </p>
+
+            <h2>11. お問い合わせ窓口</h2>
+            <p>個人情報の取扱いに関するお問い合わせは、下記までご連絡ください。</p>
+            <dl class="contact-dl">
+              <div class="contact-dl__row">
+                <dt>事務所名</dt>
+                <dd>やちよ行政書士事務所</dd>
+              </div>
+              <div class="contact-dl__row">
+                <dt>代表者</dt>
+                <dd>鹿野正幸</dd>
+              </div>
+              <div class="contact-dl__row">
+                <dt>所在地</dt>
+                <dd>大阪府阪南市自然田753-14</dd>
+              </div>
+              <div class="contact-dl__row">
+                <dt>電話番号</dt>
+                <dd>（掲載準備中）</dd>
+              </div>
+              <div class="contact-dl__row">
+                <dt>公式LINE</dt>
+                <dd>
+                  <a href={lineOfficialUrl} target="_blank" rel="noopener noreferrer">{lineDisplayLabel}</a>
+                  よりご連絡ください
+                </dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>
+
+<style>
+  .page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+  }
+
+  .section--base { background: #ffffff; }
+  .section--content { padding-bottom: max(var(--space-section-y), 4rem); }
+
+  .section {
+    padding: var(--space-section-y) var(--space-section-x);
+  }
+  .section__inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+  }
+  .section__inner--narrow { max-width: 42rem; }
+
+  /* ページヘッダー */
+  .page-hero {
+    padding: var(--space-section-y) var(--space-section-x);
+    padding-bottom: clamp(2rem, 5vw, 3rem);
+  }
+  .page-hero__inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+  }
+  .breadcrumb ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.5rem;
+    list-style: none;
+    margin: 0 0 1.5rem;
+    padding: 0;
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
+  .breadcrumb li:not(:last-child)::after {
+    content: '/';
+    margin-left: 0.5rem;
+    color: var(--color-border-strong);
+  }
+  .breadcrumb a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+  }
+  .breadcrumb a:hover {
+    color: var(--color-primary);
+  }
+  .breadcrumb li[aria-current='page'] {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+  .page-hero__label {
+    margin: 0 0 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--color-primary);
+  }
+  .page-hero__title {
+    margin: 0 0 1rem;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--color-text);
+    line-height: 1.4;
+  }
+  .page-hero__lead {
+    margin: 0;
+    max-width: 42rem;
+    font-size: 1rem;
+    line-height: 1.9;
+    color: var(--color-text-muted);
+  }
+
+  /* 本文 */
+  .prose {
+    font-size: 1rem;
+    line-height: 2;
+    letter-spacing: 0.04em;
+    color: var(--color-text);
+    word-break: break-word;
+  }
+  .prose__updated {
+    margin: 0 0 2rem;
+    padding: 0.85rem 1.1rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: var(--color-text-muted);
+    background: var(--color-band);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+  }
+  .prose :global(h2) {
+    margin: 2.5rem 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid var(--color-primary-soft);
+    font-size: 1.125rem;
+    font-weight: 700;
+    line-height: 1.5;
+    letter-spacing: 0.05em;
+    color: var(--color-primary);
+  }
+  .prose :global(h2:first-of-type) {
+    margin-top: 0;
+  }
+  .prose :global(p) {
+    margin: 0 0 1.25rem;
+  }
+  .prose :global(ul) {
+    margin: 0 0 1.25rem;
+    padding-left: 1.5rem;
+  }
+  .prose :global(li) {
+    margin-bottom: 0.5rem;
+    line-height: 1.9;
+  }
+  .prose :global(li::marker) {
+    color: var(--color-primary);
+  }
+  .prose :global(a) {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+  .prose :global(a:hover) {
+    color: var(--color-primary-hover);
+  }
+
+  .contact-dl {
+    margin: 1.25rem 0 0;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+  .contact-dl__row {
+    display: grid;
+    grid-template-columns: 7rem 1fr;
+    gap: 0.5rem 1rem;
+    padding: 0.9rem 1.25rem;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 0.9375rem;
+  }
+  .contact-dl__row:last-child {
+    border-bottom: none;
+  }
+  .contact-dl__row dt {
+    margin: 0;
+    font-weight: 700;
+    color: var(--color-text-muted);
+  }
+  .contact-dl__row dd {
+    margin: 0;
+    color: var(--color-text);
+    line-height: 1.75;
+  }
+  @media (max-width: 479px) {
+    .contact-dl__row {
+      grid-template-columns: 1fr;
+      gap: 0.35rem;
+    }
+  }
+</style>

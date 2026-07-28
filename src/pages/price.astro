@@ -1,0 +1,500 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+
+const constructionLicensePrices = [
+  { name: '新規申請（知事許可）', detail: '般・特　1業種', price: '110,000円〜' },
+  { name: '新規申請（大臣許可）', detail: '般・特　1業種', price: '165,000円〜' },
+  { name: '更新申請', detail: '知事・大臣許可共通', price: '88,000円〜' },
+  { name: '業種追加', detail: '1業種につき', price: '66,000円〜' },
+  { name: '般・特新規（般特新規）', detail: '特定建設業への切替 等', price: '132,000円〜' },
+];
+
+const kessanHenkoPrices = [
+  { name: '決算変更届（通常）', detail: '事業年度終了後の届出　1期分', price: '33,000円〜' },
+  { name: '決算変更届（未提出分）', detail: '複数年分をまとめて対応　1期につき', price: '27,500円〜' },
+  { name: '経営事項審査申請とのセット', detail: '決算変更届＋経審申請', price: '要お見積り' },
+];
+
+const otherServices = [
+  { name: '契約書・定款・議事録の作成', note: '内容・分量により異なります' },
+  { name: '相続・遺言・遺産分割協議書の作成', note: '財産内容・相続人数により異なります' },
+  { name: '会社設立・役員変更等の法人手続', note: '手続き内容により異なります' },
+  { name: 'その他許認可・届出（古物商、飲食店営業 等）', note: '業種・自治体により異なります' },
+];
+---
+
+<BaseLayout
+  title="料金案内 | やちよ行政書士事務所"
+  description="建設業許可（新規・更新）や決算変更届など、やちよ行政書士事務所の料金の目安をご案内します。正式な金額は無料相談時にお見積りいたします。"
+>
+  <div class="page">
+    <SiteHeader />
+
+    <main>
+      <section class="page-hero section--base" aria-labelledby="price-heading">
+        <div class="page-hero__inner">
+          <nav class="breadcrumb" aria-label="パンくずリスト">
+            <ol>
+              <li><a href="/">ホーム</a></li>
+              <li aria-current="page">料金案内</li>
+            </ol>
+          </nav>
+          <p class="page-hero__label">Price</p>
+          <h1 id="price-heading" class="page-hero__title">料金案内</h1>
+          <p class="page-hero__lead">
+            建設業許可申請、決算変更届などの主な料金の目安をご案内いたします。案件の内容により変動しますので、正式な金額は無料相談時にお見積りいたします。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--base">
+        <div class="section__inner section__inner--narrow">
+          <div class="notice-box">
+            <p class="notice-box__title">料金についてのご案内</p>
+            <ul class="notice-box__list">
+              <li>表示価格はすべて<strong>税込</strong>の目安です。案件の難易度や添付書類の状況により変動する場合があります。</li>
+              <li>証紙代・登録免許税・謄本取得費用などの<strong>実費は別途</strong>申し受けます。</li>
+              <li>正式な金額は、内容をお伺いしたうえで<strong>お見積り</strong>をご提示いたします。</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="construction-heading">
+        <div class="section__inner section__inner--narrow">
+          <h2 id="construction-heading" class="section__heading">
+            <span class="heading-icon" aria-hidden="true"></span>
+            建設業許可（新規・更新）
+          </h2>
+          <div class="price-table-wrap">
+            <table class="price-table">
+              <thead>
+                <tr>
+                  <th scope="col">種別</th>
+                  <th scope="col">内容</th>
+                  <th scope="col" class="price-table__price-col">報酬額（税込）</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  constructionLicensePrices.map((row) => (
+                    <tr>
+                      <th scope="row">{row.name}</th>
+                      <td>{row.detail}</td>
+                      <td class="price-table__price-col">{row.price}</td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="kessan-heading">
+        <div class="section__inner section__inner--narrow">
+          <h2 id="kessan-heading" class="section__heading">
+            <span class="heading-icon" aria-hidden="true"></span>
+            決算変更届
+          </h2>
+          <div class="price-table-wrap">
+            <table class="price-table">
+              <thead>
+                <tr>
+                  <th scope="col">種別</th>
+                  <th scope="col">内容</th>
+                  <th scope="col" class="price-table__price-col">報酬額（税込）</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  kessanHenkoPrices.map((row) => (
+                    <tr>
+                      <th scope="row">{row.name}</th>
+                      <td>{row.detail}</td>
+                      <td class="price-table__price-col">{row.price}</td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="other-heading">
+        <div class="section__inner section__inner--narrow">
+          <h2 id="other-heading" class="section__heading">
+            <span class="heading-icon" aria-hidden="true"></span>
+            その他の業務について
+          </h2>
+          <ul class="other-list">
+            {
+              otherServices.map((item) => (
+                <li class="other-list__item">
+                  <span class="other-list__dot" aria-hidden="true" />
+                  <div>
+                    <p class="other-list__name">{item.name}</p>
+                    <p class="other-list__note">{item.note}</p>
+                  </div>
+                  <span class="other-list__badge">要お見積り</span>
+                </li>
+              ))
+            }
+          </ul>
+        </div>
+      </section>
+
+      <section class="section section--base section--cta" aria-label="お問い合わせのご案内">
+        <div class="section__inner section__inner--contact">
+          <div class="cta-card">
+            <h2 class="cta-card__heading">
+              <span class="heading-icon heading-icon--light" aria-hidden="true"></span>
+              お見積り・ご相談は無料です
+            </h2>
+            <p class="cta-card__text">
+              上記に記載のない業務についても、まずはお気軽にご相談ください。内容をお伺いしたうえで、料金・スケジュールをご案内いたします。
+            </p>
+            <div class="cta-card__actions">
+              <a href="/contact" class="cta-card__btn cta-card__btn--primary">お問い合わせ</a>
+              <a href="/about" class="cta-card__btn cta-card__btn--outline">事務所概要を見る</a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>
+
+<style>
+  .page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+  }
+
+  .section--base { background: #ffffff; }
+  .section--band { background: #f8fafc; border-block: 1px solid var(--color-border); }
+  .section--cta { padding-bottom: max(var(--space-section-y), 4rem); }
+
+  .heading-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.4rem;
+    background: #1e3a8a;
+    flex-shrink: 0;
+    vertical-align: middle;
+    margin-right: 0.65rem;
+  }
+  .heading-icon::after {
+    content: '';
+    width: 0.55rem;
+    height: 0.72rem;
+    border: 2px solid #fff;
+    border-radius: 2px;
+  }
+
+  .section {
+    padding: var(--space-section-y) var(--space-section-x);
+  }
+  .section__inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+  }
+  .section__inner--narrow { max-width: 48rem; }
+  .section__inner--contact { max-width: 42rem; }
+
+  .section__heading {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0 0 1.75rem;
+    font-size: clamp(1.2rem, 2.8vw, 1.45rem);
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 0.05em;
+    line-height: 1.4;
+  }
+
+  /* ページヘッダー */
+  .page-hero {
+    padding: var(--space-section-y) var(--space-section-x);
+    padding-bottom: clamp(2rem, 5vw, 3rem);
+  }
+  .page-hero__inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+  }
+  .breadcrumb ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.5rem;
+    list-style: none;
+    margin: 0 0 1.5rem;
+    padding: 0;
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
+  .breadcrumb li:not(:last-child)::after {
+    content: '/';
+    margin-left: 0.5rem;
+    color: var(--color-border-strong);
+  }
+  .breadcrumb a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+  }
+  .breadcrumb a:hover {
+    color: var(--color-primary);
+  }
+  .breadcrumb li[aria-current='page'] {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+  .page-hero__label {
+    margin: 0 0 0.75rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--color-primary);
+  }
+  .page-hero__title {
+    margin: 0 0 1rem;
+    font-size: clamp(1.5rem, 4vw, 2rem);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--color-text);
+    line-height: 1.4;
+  }
+  .page-hero__lead {
+    margin: 0;
+    max-width: 42rem;
+    font-size: 1rem;
+    line-height: 1.9;
+    color: var(--color-text-muted);
+  }
+
+  /* 注意事項ボックス */
+  .notice-box {
+    background: var(--color-primary-soft);
+    border: 1px solid rgba(30, 58, 138, 0.2);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem 1.65rem;
+  }
+  .notice-box__title {
+    margin: 0 0 0.75rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 0.03em;
+  }
+  .notice-box__list {
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+  .notice-box__list li {
+    margin-bottom: 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.85;
+    color: var(--color-text);
+  }
+  .notice-box__list li:last-child {
+    margin-bottom: 0;
+  }
+  .notice-box__list strong {
+    color: var(--color-primary);
+    font-weight: 700;
+  }
+
+  /* 料金テーブル */
+  .price-table-wrap {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow-x: auto;
+  }
+  .price-table {
+    width: 100%;
+    min-width: 30rem;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+  }
+  .price-table thead th {
+    background: #1e3a8a;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-align: left;
+    padding: 0.85rem 1.25rem;
+    white-space: nowrap;
+  }
+  .price-table tbody th {
+    text-align: left;
+    font-weight: 700;
+    color: var(--color-text);
+  }
+  .price-table th,
+  .price-table td {
+    padding: 0.95rem 1.25rem;
+    border-bottom: 1px solid var(--color-border);
+    line-height: 1.7;
+  }
+  .price-table tbody tr:last-child th,
+  .price-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+  .price-table tbody tr:nth-child(even) {
+    background: var(--color-band);
+  }
+  .price-table td {
+    color: var(--color-text-muted);
+  }
+  .price-table__price-col {
+    white-space: nowrap;
+    font-weight: 700;
+    color: var(--color-primary) !important;
+    text-align: right;
+  }
+  .price-table thead .price-table__price-col {
+    color: #fff !important;
+    text-align: right;
+  }
+
+  /* その他の業務 */
+  .other-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.85rem;
+  }
+  .other-list__item {
+    display: flex;
+    align-items: center;
+    gap: 0.85rem;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.1rem 1.35rem;
+    box-shadow: var(--shadow-sm);
+  }
+  .other-list__dot {
+    flex-shrink: 0;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: #1e3a8a;
+  }
+  .other-list__item > div {
+    flex: 1;
+    min-width: 0;
+  }
+  .other-list__name {
+    margin: 0 0 0.25rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--color-text);
+    letter-spacing: 0.02em;
+  }
+  .other-list__note {
+    margin: 0;
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+    line-height: 1.7;
+  }
+  .other-list__badge {
+    flex-shrink: 0;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--color-primary);
+    background: var(--color-primary-soft);
+    border-radius: 999px;
+    padding: 0.3rem 0.75rem;
+    white-space: nowrap;
+  }
+  @media (max-width: 479px) {
+    .other-list__item {
+      flex-wrap: wrap;
+    }
+    .other-list__badge {
+      margin-left: calc(0.5rem + 0.85rem);
+    }
+  }
+
+  /* CTA */
+  .cta-card {
+    background: #ffffff;
+    color: var(--color-text);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.85rem, 4vw, 2.5rem);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+  }
+  .cta-card__heading {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 0 0 1rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--color-primary);
+  }
+  .cta-card__text {
+    margin: 0 0 1.5rem;
+    font-size: 0.9375rem;
+    line-height: 1.9;
+    color: var(--color-text-muted);
+  }
+  .cta-card__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.85rem 1rem;
+  }
+  .cta-card__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    padding: 0 1.75rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+  .cta-card__btn--primary {
+    background: #1e3a8a;
+    color: #fff;
+    border: 2px solid #1e3a8a;
+  }
+  .cta-card__btn--primary:hover {
+    background: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+    color: #fff;
+  }
+  .cta-card__btn--outline {
+    background: #fff;
+    color: var(--color-primary);
+    border: 2px solid #1e3a8a;
+  }
+  .cta-card__btn--outline:hover {
+    background: var(--color-band);
+    color: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+  }
+</style>
