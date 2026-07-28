@@ -1,0 +1,88 @@
+<div class="greeting profile-card">
+  <div class="profile-card__avatar" aria-hidden="true">
+    <span>写真</span>
+  </div>
+  <div class="profile-card__body">
+    <p class="profile-card__catch">
+      南大阪と和歌山をつなぐフットワークで、地域の事業者を全力サポートします
+    </p>
+    <p class="profile-card__text">
+      はじめまして。やちよ行政書士事務所 代表の鹿野正幸（しかのまさゆき）と申します。
+    </p>
+    <p class="profile-card__text">
+      当事務所は、大阪府阪南市を拠点に、建設業許可申請や産業廃棄物処理業（産廃）許可申請をはじめとする、事業者の皆様の許認可手続きを専門にサポートしております。
+    </p>
+    <p class="profile-card__text">
+      阪南市という大阪と和歌山の県境に位置する強みを活かし、南大阪エリアはもちろん、和歌山県内（和歌山市・岩出市・紀の川市など）の現場や行政窓口へもスピーディに駆けつけます。大阪府と和歌山県、双方の手続きやローカルルールに精通しているからこそできる、的確でストレスのない手続きをご提案いたします。
+    </p>
+    <p class="profile-card__text">
+      持ち前のフットワークの軽さと丁寧なヒアリングを大切に、最新の法令にも迅速に対応しながら、社長様の大切な事業の発展を伴走者として支えてまいります。「こんなこと頼んでもいいのかな？」ということでも、どうぞお気軽にご相談ください。
+    </p>
+  </div>
+</div>
+
+<style>
+  .profile-card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.75rem, 4vw, 2.25rem);
+    box-shadow: var(--shadow-sm);
+  }
+  @media (min-width: 640px) {
+    .profile-card {
+      flex-direction: row;
+      align-items: flex-start;
+    }
+  }
+
+  .profile-card__avatar {
+    flex-shrink: 0;
+    width: 6.5rem;
+    height: 6.5rem;
+    border-radius: 50%;
+    background: var(--color-primary-soft);
+    border: 2px solid var(--color-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    margin: 0 auto;
+  }
+  @media (min-width: 640px) {
+    .profile-card__avatar {
+      margin: 0;
+    }
+  }
+
+  .profile-card__catch {
+    margin: 0 0 1.25rem;
+    font-size: 1.0625rem;
+    font-weight: 700;
+    line-height: 1.75;
+    letter-spacing: 0.03em;
+    color: var(--color-primary);
+    text-align: center;
+  }
+  @media (min-width: 640px) {
+    .profile-card__catch {
+      text-align: left;
+    }
+  }
+
+  .profile-card__text {
+    margin: 0 0 1rem;
+    font-size: 0.9375rem;
+    line-height: 1.95;
+    color: var(--color-text-muted);
+  }
+
+  .profile-card__text:last-child {
+    margin-bottom: 0;
+  }
+</style>

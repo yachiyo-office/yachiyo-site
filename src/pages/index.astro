@@ -4,7 +4,6 @@ import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import { getCollection } from 'astro:content';
 import LineButton from '../components/LineButton.astro';
-import { serviceArea } from '../config/serviceArea';
 
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
 const latestPosts = allPosts
@@ -38,11 +37,12 @@ function getCategory(post: (typeof allPosts)[number]) {
         <div class="hero__inner">
           <p class="hero__label">行政書士事務所</p>
           <h1 id="hero-heading" class="hero__catch">
-            大阪泉州・和歌山地域の、暮らしとビジネスに安心を。
+            南大阪と和歌山をつなぐ、<br class="hero__catch-br" aria-hidden="true" />
+            一番身近なフットワーク。
           </h1>
           <p class="hero__office">やちよ行政書士事務所</p>
           <p class="hero__lead">
-            許認可・届出、契約書・定款の作成、相続手続きなど、官公署への提出書類や法的手続について、専門家として誠実にご支援いたします。
+            大阪府阪南市を拠点に、建設業・産廃などの各種許認可申請から、契約書作成・相続手続きまで。地域のビジネスと暮らしの「困った」に、迅速・誠実に寄り添います。
           </p>
           <div class="hero__actions">
             <a href="/contact" class="hero__btn hero__btn--primary">お問い合わせ</a>
@@ -270,12 +270,50 @@ function getCategory(post: (typeof allPosts)[number]) {
   .heading-icon::after { content: ''; width: 0.55rem; height: 0.72rem; border: 2px solid #fff; border-radius: 2px; }
   .section__heading { display: flex; align-items: center; flex-wrap: wrap; margin: 0 0 1rem; font-size: clamp(1.2rem, 2.8vw, 1.45rem); font-weight: 700; color: var(--color-primary); letter-spacing: 0.05em; line-height: 1.4; }
   .section__heading--center { justify-content: center; text-align: center; margin-bottom: 2.25rem; }
-  .hero { padding: var(--space-section-y) var(--space-section-x); padding-bottom: max(var(--space-section-y), 3.5rem); }
+  .hero {
+    padding: clamp(3.25rem, 9vw, 5.75rem) var(--space-section-x)
+      max(var(--space-section-y), 3.75rem);
+  }
   .hero__inner { max-width: var(--content-max); margin: 0 auto; }
-  .hero__label { margin: 0 0 1.25rem; font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.14em; color: var(--color-primary); }
-  .hero__catch { margin: 0 0 1rem; font-family: var(--font-sans); font-weight: 700; font-size: clamp(1.5rem, 5.2vw, 2.35rem); line-height: 1.45; letter-spacing: 0.03em; color: var(--color-text); max-width: 20em; }
-  .hero__office { margin: 0 0 1.5rem; font-size: clamp(1rem, 2.5vw, 1.125rem); font-weight: 600; letter-spacing: 0.08em; color: var(--color-primary); }
-  .hero__lead { margin: 0 0 2rem; max-width: 40rem; font-size: 1rem; line-height: 1.9; color: var(--color-text-muted); }
+  .hero__label {
+    margin: 0 0 1rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    color: var(--color-primary);
+  }
+  .hero__catch {
+    margin: 0 0 1.35rem;
+    font-family: var(--font-sans);
+    font-weight: 700;
+    font-size: clamp(1.75rem, 6.5vw, 2.875rem);
+    line-height: 1.35;
+    letter-spacing: 0.04em;
+    color: var(--color-text);
+    max-width: 14em;
+  }
+  .hero__catch-br {
+    display: none;
+  }
+  @media (max-width: 767px) {
+    .hero__catch-br {
+      display: inline;
+    }
+  }
+  .hero__office {
+    margin: 0 0 1.75rem;
+    font-size: clamp(1rem, 2.5vw, 1.125rem);
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--color-primary);
+  }
+  .hero__lead {
+    margin: 0 0 2.25rem;
+    max-width: 38rem;
+    font-size: clamp(0.9375rem, 2.2vw, 1.0625rem);
+    line-height: 1.95;
+    color: var(--color-text-muted);
+  }
   .hero__actions { display: flex; flex-wrap: wrap; gap: 0.85rem 1rem; }
   .hero__btn { display: inline-flex; align-items: center; justify-content: center; min-height: 3rem; padding: 0 1.5rem; font-size: 0.9375rem; font-weight: 700; letter-spacing: 0.04em; border-radius: var(--radius); transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease; }
   .hero__btn--primary { background: #1e3a8a; color: #fff; border: 2px solid #1e3a8a; }
