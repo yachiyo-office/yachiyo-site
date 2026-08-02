@@ -1,0 +1,170 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import LineButton from '../../components/LineButton.astro';
+import { pageTitle } from '../../config/site';
+
+const otherServices = [
+  {
+    title: 'その他の許認可・届出',
+    text: '古物商許可、飲食店営業許可など、建設業以外の営業許可・届出についても、業種や自治体ごとの要件を確認しながらご案内します。',
+  },
+  {
+    title: '会社設立・法人関連手続',
+    text: '定款の作成をはじめ、会社設立や役員変更などの法人関連手続をサポートします。建設業許可の取得を見据えた法人成りのご相談にも対応します。',
+  },
+  {
+    title: '契約書・議事録等の書類作成',
+    text: '取引に関わる契約書、定款、議事録などの書類作成を承ります。内容や分量に応じて、必要な確認事項を整理しながら進めます。',
+  },
+  {
+    title: '相続・遺言に関する手続',
+    text: '遺言書の作成支援や遺産分割協議書の作成など、相続に関する手続をお手伝いします。ご家族の状況に合わせて丁寧にご案内します。',
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle('業務案内（許認可・法人手続・相続）')}
+  description="やちよ行政書士事務所の業務案内。建設業許可を中心に、古物商・飲食店営業などの許認可、会社設立・契約書作成、相続・遺言まで。大阪泉州・和歌山北部対応。"
+  breadcrumbs={[{ name: 'ホーム', href: '/' }, { name: '業務案内' }]}
+>
+  <div class="page">
+    <SiteHeader />
+
+    <main>
+      <section class="page-hero section--base" aria-labelledby="service-heading">
+        <div class="page-hero__inner">
+          <nav class="breadcrumb" aria-label="パンくずリスト">
+            <ol>
+              <li><a href="/">ホーム</a></li>
+              <li aria-current="page">業務案内</li>
+            </ol>
+          </nav>
+          <p class="page-hero__label">SERVICE</p>
+          <h1 id="service-heading" class="page-hero__title">業務案内</h1>
+          <p class="page-hero__lead">
+            やちよ行政書士事務所では、建設業許可を中心に、事業と暮らしに関わる各種手続をサポートしています。
+            「どこに相談すればよいか分からない」という段階でも、まずはお気軽にご相談ください。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="main-service-heading">
+        <div class="section__inner">
+          <h2 id="main-service-heading" class="section__heading">
+            <span class="heading-icon" aria-hidden="true"></span>
+            建設業許可サポート（主要業務）
+          </h2>
+          <div class="main-service">
+            <p class="main-service__text">
+              新規申請、更新、決算変更届、業種追加など、建設業許可の取得から取得後の継続手続まで一貫して対応します。
+              大阪泉州・和歌山北部の建設業者さまを中心にサポートしています。
+            </p>
+            <a href="/service/construction-permit/" class="btn btn--primary">
+              建設業許可サポートの詳細を見る
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="other-service-heading">
+        <div class="section__inner">
+          <h2 id="other-service-heading" class="section__heading">
+            <span class="heading-icon" aria-hidden="true"></span>
+            その他の取扱業務
+          </h2>
+          <ul class="service-list">
+            {
+              otherServices.map((item) => (
+                <li class="service-card">
+                  <h3 class="service-card__title">{item.title}</h3>
+                  <p class="service-card__text">{item.text}</p>
+                </li>
+              ))
+            }
+          </ul>
+          <p class="section__note">
+            料金の目安は<a href="/price">料金案内</a>をご覧ください。記載のない業務についても、内容をお伺いしたうえでご案内いたします。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--contact-cta">
+        <div class="section__inner">
+          <div class="cta-box">
+            <h2 class="cta-box__heading">まずはお気軽にご相談ください。</h2>
+            <p class="cta-box__text">
+              どの手続が必要か分からない段階でも構いません。ご状況をお伺いし、必要な手続の方向性を一緒に整理します。
+            </p>
+            <div class="cta-box__actions">
+              <a href="/contact" class="btn btn--primary">お問い合わせフォームへ</a>
+              <LineButton />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>
+
+<style>
+  .page { min-height: 100vh; display: flex; flex-direction: column; background: #fff; }
+  .section--base { background: #fff; }
+  .section--band { background: #f8fafc; border-block: 1px solid var(--color-border); }
+  .section { padding: var(--space-section-y) var(--space-section-x); }
+  .section__inner { max-width: var(--content-max); margin: 0 auto; }
+
+  .page-hero { padding: clamp(3.25rem, 9vw, 5.75rem) var(--space-section-x) max(var(--space-section-y), 3.25rem); }
+  .page-hero__inner { max-width: var(--content-max); margin: 0 auto; }
+  .page-hero__label { margin: 0 0 1rem; font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.16em; color: var(--color-primary); }
+  .page-hero__title { margin: 0 0 1.25rem; font-size: clamp(1.8rem, 6vw, 2.75rem); line-height: 1.35; color: var(--color-text); }
+  .page-hero__lead { margin: 0; font-size: 1rem; line-height: 1.95; color: var(--color-text-muted); max-width: 44rem; }
+
+  .breadcrumb ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.5rem;
+    list-style: none;
+    margin: 0 0 1.5rem;
+    padding: 0;
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
+  .breadcrumb li:not(:last-child)::after {
+    content: '/';
+    margin-left: 0.5rem;
+    color: var(--color-border-strong);
+  }
+  .breadcrumb a { color: var(--color-text-muted); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--color-primary); }
+  .breadcrumb li[aria-current='page'] { color: var(--color-text); font-weight: 600; }
+
+  .heading-icon { display: inline-flex; align-items: center; justify-content: center; width: 2.25rem; height: 2.25rem; border-radius: 0.4rem; background: #1e3a8a; flex-shrink: 0; margin-right: 0.65rem; }
+  .heading-icon::after { content: ''; width: 0.55rem; height: 0.72rem; border: 2px solid #fff; border-radius: 2px; }
+  .section__heading { display: flex; align-items: center; flex-wrap: wrap; margin: 0 0 1.5rem; font-size: clamp(1.2rem, 2.8vw, 1.45rem); font-weight: 700; color: var(--color-primary); line-height: 1.4; }
+
+  .main-service { background: #fff; border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: clamp(1.5rem, 4vw, 2.25rem); box-shadow: var(--shadow-sm); }
+  .main-service__text { margin: 0 0 1.5rem; line-height: 1.95; color: var(--color-text-muted); }
+
+  .service-list { display: grid; gap: 1.25rem; list-style: none; margin: 0 0 1.75rem; padding: 0; }
+  @media (min-width: 768px) { .service-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .service-card { background: #fff; border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: var(--shadow-sm); }
+  .service-card__title { margin: 0 0 0.75rem; font-size: 1rem; font-weight: 700; color: var(--color-text); }
+  .service-card__text { margin: 0; line-height: 1.85; color: var(--color-text-muted); }
+
+  .section__note { margin: 0; font-size: 0.9375rem; line-height: 1.9; color: var(--color-text-muted); }
+  .section__note a { color: var(--color-primary); }
+
+  .section--contact-cta { background: #fff; padding: var(--space-section-y) var(--space-section-x) max(var(--space-section-y), 4rem); }
+  .cta-box { background: #f8fafc; border: 1px solid var(--color-border); border-radius: 1rem; padding: clamp(1.75rem, 4vw, 2.5rem); box-shadow: var(--shadow-md); text-align: center; }
+  .cta-box__heading { margin: 0 0 1rem; font-size: clamp(1.2rem, 2.8vw, 1.6rem); line-height: 1.6; color: var(--color-text); }
+  .cta-box__text { margin: 0 0 1.5rem; color: var(--color-text-muted); line-height: 1.9; }
+  .cta-box__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.85rem 1rem; }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 3rem; padding: 0 1.5rem; font-size: 0.9375rem; font-weight: 700; border-radius: var(--radius); text-decoration: none; }
+  .btn--primary { background: #1e3a8a; color: #fff; border: 2px solid #1e3a8a; }
+</style>

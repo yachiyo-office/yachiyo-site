@@ -2,99 +2,178 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
-import Greeting from '../components/Greeting.astro';
+import LineButton from '../components/LineButton.astro';
+import { pageTitle } from '../config/site';
 
-const officeInfo = [
-  { label: '事務所名', value: 'やちよ行政書士事務所' },
-  { label: '代表者', value: '鹿野正幸' },
-  { label: '登録番号', value: '大阪府行政書士会 第000000号（例）' },
-  { label: '所在地', value: '大阪府阪南市' },
-  { label: '電話番号', value: '（掲載準備中）' },
-  { label: '営業時間', value: '平日 9:00〜18:00 ※事前予約で土日祝・時間外も対応可' },
-  { label: '対応エリア', value: '大阪泉州を中心に、大阪府・和歌山県・兵庫県・奈良県', note: 'その他の地域もフットワークよく対応いたします。お気軽にご相談ください。' },
-  { label: '対応業務', value: '許認可申請、契約書作成、相続手続き 等' },
+const strengths = [
+  {
+    title: '建設業許可と継続手続を重視',
+    text: '新規申請だけでなく、更新、決算変更届、業種追加など、許可取得後の継続手続まで見据えたサポートを大切にしています。',
+  },
+  {
+    title: '泉州・和歌山北部をまたぐ地域対応',
+    text: '阪南市の立地を活かし、大阪泉州と和歌山北部の両地域を視野に入れた対応を目指しています。',
+  },
+  {
+    title: 'わかりやすく、相談しやすく',
+    text: '初めて手続を検討される方にも分かりやすい説明を心がけ、必要な確認事項や進め方を整理してご案内します。',
+  },
 ];
-
 ---
 
 <BaseLayout
-  title="事務所概要 | やちよ行政書士事務所"
-  description="やちよ行政書士事務所の事務所概要・代表者プロフィールをご紹介します。大阪泉州・和歌山地域を中心に、許認可申請から相続手続きまで丁寧にサポートいたします。"
+  title={pageTitle('事務所概要・代表者紹介')}
+  description="阪南市拠点のやちよ行政書士事務所。泉州・和歌山北部を中心に、建設業許可と継続手続を重視。初めて許可を検討する事業者さまにもわかりやすくご案内します。"
+  breadcrumbs={[
+    { name: 'ホーム', href: '/' },
+    { name: '事務所概要・代表者紹介' },
+  ]}
 >
   <div class="page">
     <SiteHeader />
 
     <main>
-      <section class="page-hero section--base" aria-labelledby="about-heading">
+      <section class="page-hero section--base">
         <div class="page-hero__inner">
           <nav class="breadcrumb" aria-label="パンくずリスト">
             <ol>
               <li><a href="/">ホーム</a></li>
-              <li aria-current="page">事務所概要</li>
+              <li aria-current="page">事務所概要・代表者紹介</li>
             </ol>
           </nav>
-          <p class="page-hero__label">About</p>
-          <h1 id="about-heading" class="page-hero__title">事務所概要</h1>
-          <p class="page-hero__lead">
-            やちよ行政書士事務所の概要と、代表者からのごあいさつをご紹介いたします。
-          </p>
-        </div>
-      </section>
 
-      <section class="section section--band" aria-labelledby="profile-heading">
-        <div class="section__inner section__inner--narrow">
-          <h2 id="profile-heading" class="section__heading">
-            <span class="heading-icon" aria-hidden="true"></span>
-            代表者ごあいさつ
-          </h2>
-          <Greeting />
-        </div>
-      </section>
-
-      <section class="section section--base" aria-labelledby="office-heading">
-        <div class="section__inner section__inner--narrow">
-          <h2 id="office-heading" class="section__heading">
-            <span class="heading-icon" aria-hidden="true"></span>
-            事務所情報
-          </h2>
-          <dl class="office-table">
-            {
-              officeInfo.map((row) => (
-                <div class="office-table__row">
-                  <dt>{row.label}</dt>
-                  <dd>
-                    {row.value}
-                    {row.note && (
-                      <>
-                        <br />
-                        <small class="office-table__sub">{row.note}</small>
-                      </>
-                    )}
-                  </dd>
-                </div>
-              ))
-            }
-          </dl>
-          <p class="office-table__note">
-            ※ 掲載中の情報は準備中のものを含みます。正式な情報は公開前に差し替えてください。
-          </p>
-        </div>
-      </section>
-
-      <section class="section section--band section--cta" aria-label="お問い合わせのご案内">
-        <div class="section__inner section__inner--contact">
-          <div class="cta-card">
-            <h2 class="cta-card__heading">
-              <span class="heading-icon heading-icon--light" aria-hidden="true"></span>
-              まずはお気軽にご相談ください
-            </h2>
-            <p class="cta-card__text">
-              許認可申請、相続、契約書作成など、お困りごとがございましたらお問い合わせください。
-              料金の目安は<a href="/price">料金案内ページ</a>もご参照いただけます。
+          <div class="page-hero__content">
+            <p class="page-hero__label">ABOUT</p>
+            <h1 class="page-hero__title">事務所概要・代表者紹介</h1>
+            <p class="page-hero__lead">
+              やちよ行政書士事務所は、大阪府阪南市を拠点に、
+              大阪泉州・和歌山北部の事業者さまや地域の皆さまに寄り添う行政書士事務所を目指しています。
             </p>
-            <div class="cta-card__actions">
-              <a href="/contact" class="cta-card__btn cta-card__btn--primary">お問い合わせ</a>
-              <a href="/price" class="cta-card__btn cta-card__btn--outline">料金案内を見る</a>
+          </div>
+
+          <figure class="page-hero__visual">
+            <img src="/images/about-office.jpg" alt="事務所紹介イメージ" loading="eager" />
+          </figure>
+        </div>
+      </section>
+
+      <section class="section section--base">
+        <div class="section__inner section__grid">
+          <div class="section__intro">
+            <h2 class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              事務所の考え方
+            </h2>
+          </div>
+          <div class="section__body">
+            <p class="section__lead">
+              建設業許可は、取ることそのものより、取った後にどう維持し、どう事業につなげていくかが大切だと考えています。
+            </p>
+            <p class="section__text">
+              そのため当事務所では、建設業許可の新規申請だけでなく、更新、決算変更届、業種追加などの継続手続も重視しています。
+              「とりあえず申請する」のではなく、今後の流れまで見通しやすいサポートを心がけています。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              当事務所の特徴
+            </h2>
+          </div>
+
+          <div class="strength-list">
+            {strengths.map((item) => (
+              <article class="strength-card">
+                <h3 class="strength-card__title">{item.title}</h3>
+                <p class="strength-card__text">{item.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base">
+        <div class="section__inner section__grid">
+          <div class="section__intro">
+            <h2 class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              代表者より
+            </h2>
+          </div>
+          <div class="section__body">
+            <p class="section__text">
+              はじめまして。やちよ行政書士事務所の代表、鹿野正幸（しかの まさゆき）です。
+            </p>
+            <p class="section__text">
+              行政手続は、制度の内容そのものだけでなく、「自分の状況では何を確認すべきか」が分かりにくいことが少なくありません。
+              特に建設業許可は、新規申請だけでなく、その後の更新や決算変更届など継続的な管理も重要です。
+            </p>
+            <p class="section__text">
+              当事務所では、大阪泉州・和歌山北部の地域性を踏まえながら、身近で相談しやすい窓口を目指しています。
+              初めてご相談される方にも分かりやすく、落ち着いて進められるよう丁寧なご案内を心がけてまいります。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band">
+        <div class="section__inner section__grid">
+          <div class="section__intro">
+            <h2 class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              事務所概要
+            </h2>
+          </div>
+          <div class="section__body">
+            <dl class="office-info">
+              <div class="office-info__row">
+                <dt>事務所名</dt>
+                <dd>やちよ行政書士事務所</dd>
+              </div>
+              <div class="office-info__row">
+                <dt>代表者</dt>
+                <dd>鹿野 正幸（しかの まさゆき）</dd>
+              </div>
+              <div class="office-info__row">
+                <dt>所在地</dt>
+                <dd>大阪府阪南市（詳細住所はお問い合わせ時にご案内）</dd>
+              </div>
+              <div class="office-info__row">
+                <dt>対応エリア</dt>
+                <dd>大阪泉州・和歌山北部を中心に対応</dd>
+              </div>
+              <div class="office-info__row">
+                <dt>主な取扱業務</dt>
+                <dd>建設業許可、新規申請、更新、決算変更届、業種追加、その他許認可・法人関連手続</dd>
+              </div>
+              <div class="office-info__row">
+                <dt>営業時間</dt>
+                <dd>平日 9:00〜18:00 ※事前予約で土日祝・時間外も対応可</dd>
+              </div>
+              <div class="office-info__row">
+                <dt>お問い合わせ</dt>
+                <dd>お問い合わせフォーム・公式LINEより24時間受付</dd>
+              </div>
+            </dl>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--contact-cta">
+        <div class="section__inner">
+          <div class="cta-box">
+            <h2 class="cta-box__heading">まずは現在の状況整理から、お気軽にご相談ください。</h2>
+            <p class="cta-box__text">
+              建設業許可が必要かどうか分からない段階でも構いません。必要な手続の方向性を一緒に整理します。
+            </p>
+            <div class="cta-box__actions">
+              <a href="/contact" class="btn btn--primary">お問い合わせフォームへ</a>
+              <LineButton />
             </div>
           </div>
         </div>
@@ -106,74 +185,25 @@ const officeInfo = [
 </BaseLayout>
 
 <style>
-  .page {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    background: #ffffff;
-  }
-
-  .section--base { background: #ffffff; }
+  .page { min-height: 100vh; display: flex; flex-direction: column; background: #fff; }
+  .section--base { background: #fff; }
   .section--band { background: #f8fafc; border-block: 1px solid var(--color-border); }
-  .section--cta { padding-bottom: max(var(--space-section-y), 4rem); }
+  .section { padding: var(--space-section-y) var(--space-section-x); }
+  .section__inner { max-width: var(--content-max); margin: 0 auto; }
+  .section__head-block { margin-bottom: 2rem; }
 
-  .heading-icon {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.25rem;
-    height: 2.25rem;
-    border-radius: 0.4rem;
-    background: #1e3a8a;
-    flex-shrink: 0;
-    vertical-align: middle;
-    margin-right: 0.65rem;
+  .page-hero { padding: clamp(3.25rem, 9vw, 5.75rem) var(--space-section-x) max(var(--space-section-y), 3.75rem); }
+  .page-hero__inner { max-width: var(--content-max); margin: 0 auto; display: grid; gap: 2rem 2.5rem; align-items: center; }
+  @media (min-width: 960px) {
+    .page-hero__inner { grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr); }
   }
-  .heading-icon::after {
-    content: '';
-    width: 0.55rem;
-    height: 0.72rem;
-    border: 2px solid #fff;
-    border-radius: 2px;
-  }
-
-  .section {
-    padding: var(--space-section-y) var(--space-section-x);
-  }
-  .section__inner {
-    max-width: var(--content-max);
-    margin: 0 auto;
-  }
-  .section__inner--narrow { max-width: 48rem; }
-  .section__inner--contact { max-width: 42rem; }
-
-  .section__heading {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    margin: 0 0 1.75rem;
-    font-size: clamp(1.2rem, 2.8vw, 1.45rem);
-    font-weight: 700;
-    color: var(--color-primary);
-    letter-spacing: 0.05em;
-    line-height: 1.4;
-  }
-
-  /* ページヘッダー */
-  .page-hero {
-    padding: var(--space-section-y) var(--space-section-x);
-    padding-bottom: clamp(2rem, 5vw, 3rem);
-  }
-  .page-hero__inner {
-    max-width: var(--content-max);
-    margin: 0 auto;
-  }
+  .breadcrumb { grid-column: 1 / -1; }
   .breadcrumb ol {
     display: flex;
     flex-wrap: wrap;
     gap: 0.35rem 0.5rem;
     list-style: none;
-    margin: 0 0 1.5rem;
+    margin: 0 0 0.25rem;
     padding: 0;
     font-size: 0.8125rem;
     color: var(--color-text-muted);
@@ -194,141 +224,40 @@ const officeInfo = [
     color: var(--color-text);
     font-weight: 600;
   }
-  .page-hero__label {
-    margin: 0 0 0.75rem;
-    font-size: 0.8125rem;
-    font-weight: 700;
-    letter-spacing: 0.14em;
-    color: var(--color-primary);
-  }
-  .page-hero__title {
-    margin: 0 0 1rem;
-    font-size: clamp(1.5rem, 4vw, 2rem);
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    color: var(--color-text);
-    line-height: 1.4;
-  }
-  .page-hero__lead {
-    margin: 0;
-    max-width: 40rem;
-    font-size: 1rem;
-    line-height: 1.9;
-    color: var(--color-text-muted);
-  }
+  .page-hero__label { margin: 0 0 1rem; font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.16em; color: var(--color-primary); }
+  .page-hero__title { margin: 0 0 1.25rem; font-size: clamp(1.8rem, 6vw, 2.75rem); line-height: 1.35; color: var(--color-text); }
+  .page-hero__lead { margin: 0; font-size: 1rem; line-height: 1.95; color: var(--color-text-muted); max-width: 44rem; }
+  .page-hero__visual { margin: 0; border-radius: 1rem; overflow: hidden; border: 1px solid var(--color-border); box-shadow: var(--shadow-md); }
+  .page-hero__visual img { display: block; width: 100%; height: 100%; min-height: 260px; object-fit: cover; }
 
-  /* 事務所情報テーブル */
-  .office-table {
-    margin: 0;
-    background: #ffffff;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-sm);
-    overflow: hidden;
+  .heading-icon { display: inline-flex; align-items: center; justify-content: center; width: 2.25rem; height: 2.25rem; border-radius: 0.4rem; background: #1e3a8a; flex-shrink: 0; margin-right: 0.65rem; }
+  .heading-icon::after { content: ''; width: 0.55rem; height: 0.72rem; border: 2px solid #fff; border-radius: 2px; }
+  .section__heading { display: flex; align-items: center; flex-wrap: wrap; margin: 0 0 1rem; font-size: clamp(1.2rem, 2.8vw, 1.45rem); font-weight: 700; color: var(--color-primary); line-height: 1.4; }
+  .section__grid { display: grid; gap: 1.75rem 2.75rem; }
+  @media (min-width: 768px) {
+    .section__grid { grid-template-columns: minmax(11rem, 15rem) 1fr; align-items: start; }
   }
-  .office-table__row {
-    display: grid;
-    grid-template-columns: 8.5rem 1fr;
-    gap: 0.5rem 1rem;
-    padding: 0.95rem 1.35rem;
-    border-bottom: 1px solid var(--color-border);
-    font-size: 0.9375rem;
-  }
-  .office-table__row:last-child {
-    border-bottom: none;
-  }
-  .office-table__row dt {
-    margin: 0;
-    font-weight: 700;
-    color: var(--color-text-muted);
-  }
-  .office-table__row dd {
-    margin: 0;
-    color: var(--color-text);
-    line-height: 1.75;
-  }
-  @media (max-width: 479px) {
-    .office-table__row {
-      grid-template-columns: 1fr;
-      gap: 0.35rem;
-    }
-  }
-  .office-table__note {
-    margin: 1rem 0 0;
-    font-size: 0.75rem;
-    line-height: 1.7;
-    color: var(--color-text-muted);
-  }
+  .section__lead { margin: 0 0 1rem; font-size: 1.0625rem; font-weight: 600; line-height: 1.85; color: var(--color-text); }
+  .section__text { margin: 0 0 1rem; font-size: 0.9375rem; line-height: 1.9; color: var(--color-text-muted); }
 
-  /* CTA */
-  .cta-card {
-    background: #ffffff;
-    color: var(--color-text);
-    border-radius: var(--radius-lg);
-    padding: clamp(1.85rem, 4vw, 2.5rem);
-    border: 1px solid var(--color-border);
-    box-shadow: var(--shadow-md);
-    text-align: center;
-  }
-  .cta-card__heading {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    margin: 0 0 1rem;
-    font-size: 1.25rem;
-    font-weight: 700;
-    letter-spacing: 0.05em;
-    color: var(--color-primary);
-  }
-  .cta-card__text {
-    margin: 0 0 1.5rem;
-    font-size: 0.9375rem;
-    line-height: 1.9;
-    color: var(--color-text-muted);
-  }
-  .cta-card__text a {
-    color: var(--color-primary);
-    text-decoration: underline;
-    text-underline-offset: 0.2em;
-  }
-  .cta-card__actions {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 0.85rem 1rem;
-  }
-  .cta-card__btn {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    min-height: 3rem;
-    padding: 0 1.75rem;
-    font-size: 0.9375rem;
-    font-weight: 700;
-    letter-spacing: 0.04em;
-    border-radius: var(--radius);
-    text-decoration: none;
-    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
-  }
-  .cta-card__btn--primary {
-    background: #1e3a8a;
-    color: #fff;
-    border: 2px solid #1e3a8a;
-  }
-  .cta-card__btn--primary:hover {
-    background: var(--color-primary-hover);
-    border-color: var(--color-primary-hover);
-    color: #fff;
-  }
-  .cta-card__btn--outline {
-    background: #fff;
-    color: var(--color-primary);
-    border: 2px solid #1e3a8a;
-  }
-  .cta-card__btn--outline:hover {
-    background: var(--color-band);
-    color: var(--color-primary-hover);
-    border-color: var(--color-primary-hover);
-  }
+  .strength-list { display: grid; gap: 1.25rem; }
+  @media (min-width: 768px) { .strength-list { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .strength-card { background: #fff; border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: var(--shadow-sm); }
+  .strength-card__title { margin: 0 0 0.75rem; font-size: 1rem; font-weight: 700; color: var(--color-text); }
+  .strength-card__text { margin: 0; line-height: 1.85; color: var(--color-text-muted); }
+
+  .office-info { margin: 0; }
+  .office-info__row { display: grid; grid-template-columns: 8rem 1fr; gap: 0.75rem 1rem; padding: 0.9rem 0; border-bottom: 1px solid var(--color-border); }
+  .office-info__row:first-child { border-top: 1px solid var(--color-border); }
+  .office-info__row dt { font-weight: 700; color: var(--color-text-muted); }
+  .office-info__row dd { margin: 0; color: var(--color-text); line-height: 1.8; }
+
+  .section--contact-cta { background: #fff; padding: var(--space-section-y) var(--space-section-x) max(var(--space-section-y), 4rem); }
+  .cta-box { background: #f8fafc; border: 1px solid var(--color-border); border-radius: 1rem; padding: clamp(1.75rem, 4vw, 2.5rem); box-shadow: var(--shadow-md); text-align: center; }
+  .cta-box__heading { margin: 0 0 1rem; font-size: clamp(1.2rem, 2.8vw, 1.6rem); line-height: 1.6; color: var(--color-text); }
+  .cta-box__text { margin: 0 0 1.5rem; color: var(--color-text-muted); line-height: 1.9; }
+  .cta-box__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.85rem 1rem; }
+
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 3rem; padding: 0 1.5rem; font-size: 0.9375rem; font-weight: 700; border-radius: var(--radius); text-decoration: none; }
+  .btn--primary { background: #1e3a8a; color: #fff; border: 2px solid #1e3a8a; }
 </style>

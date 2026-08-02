@@ -2,32 +2,118 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
+import { pageTitle } from '../config/site';
 
 const constructionLicensePrices = [
-  { name: '新規申請（知事許可）', detail: '般・特　1業種', price: '110,000円〜' },
-  { name: '新規申請（大臣許可）', detail: '般・特　1業種', price: '165,000円〜' },
-  { name: '更新申請', detail: '知事・大臣許可共通', price: '88,000円〜' },
-  { name: '業種追加', detail: '1業種につき', price: '66,000円〜' },
-  { name: '般・特新規（般特新規）', detail: '特定建設業への切替 等', price: '132,000円〜' },
+  {
+    name: '新規申請（知事許可・個人）',
+    detail: '般・特　1業種',
+    price: '99,000円〜',
+    legal: '90,000円',
+  },
+  {
+    name: '新規申請（知事許可・法人）',
+    detail: '般・特　1業種',
+    price: '121,000円〜',
+    legal: '90,000円',
+  },
+  {
+    name: '新規申請（大臣許可）',
+    detail: '般・特　1業種',
+    price: '176,000円〜',
+    legal: '150,000円',
+  },
+  {
+    name: '更新申請',
+    detail: '知事・大臣許可共通',
+    price: '66,000円〜',
+    legal: '50,000円',
+  },
+  {
+    name: '業種追加',
+    detail: '1業種につき',
+    price: '55,000円〜',
+    legal: '50,000円',
+  },
+  {
+    name: '般・特新規（般特新規）',
+    detail: '特定建設業への切替 等',
+    price: '132,000円〜',
+    legal: '90,000円',
+  },
 ];
 
 const kessanHenkoPrices = [
-  { name: '決算変更届（通常）', detail: '事業年度終了後の届出　1期分', price: '33,000円〜' },
-  { name: '決算変更届（未提出分）', detail: '複数年分をまとめて対応　1期につき', price: '27,500円〜' },
-  { name: '経営事項審査申請とのセット', detail: '決算変更届＋経審申請', price: '要お見積り' },
+  {
+    name: '決算変更届（通常）',
+    detail: '事業年度終了後の届出　1期分',
+    price: '33,000円〜',
+    legal: 'なし',
+  },
+  {
+    name: '決算変更届（未提出分）',
+    detail: '複数年分をまとめて対応　1期につき',
+    price: '27,500円〜',
+    legal: 'なし',
+  },
+  {
+    name: '各種変更届',
+    detail: '役員・所在地・商号の変更 等',
+    price: '16,500円〜',
+    legal: 'なし',
+  },
+  {
+    name: '経営事項審査申請とのセット',
+    detail: '決算変更届＋経審申請',
+    price: '要お見積り',
+    legal: '別途',
+  },
 ];
 
-const otherServices = [
-  { name: '契約書・定款・議事録の作成', note: '内容・分量により異なります' },
-  { name: '相続・遺言・遺産分割協議書の作成', note: '財産内容・相続人数により異なります' },
-  { name: '会社設立・役員変更等の法人手続', note: '手続き内容により異なります' },
-  { name: 'その他許認可・届出（古物商、飲食店営業 等）', note: '業種・自治体により異なります' },
+const otherServicePrices = [
+  {
+    name: '古物商許可申請',
+    detail: '警察署経由・公安委員会への申請',
+    price: '44,000円〜',
+    legal: '19,000円',
+  },
+  {
+    name: '飲食店営業許可申請',
+    detail: '保健所への申請',
+    price: '44,000円〜',
+    legal: '約16,000〜19,000円（自治体による）',
+  },
+  {
+    name: '会社設立サポート',
+    detail: '定款作成・電子定款認証 ※設立登記は別途',
+    price: '66,000円〜',
+    legal: '定款認証手数料 30,000円〜 等',
+  },
+  {
+    name: '遺言書作成支援（公正証書）',
+    detail: '文案作成・公証役場との調整',
+    price: '66,000円〜',
+    legal: '公証人手数料（財産額による）',
+  },
+  {
+    name: '遺産分割協議書の作成',
+    detail: '相続人数・財産内容により変動',
+    price: '55,000円〜',
+    legal: 'なし',
+  },
+  {
+    name: '契約書・議事録等の作成',
+    detail: '内容・分量により変動',
+    price: '22,000円〜',
+    legal: 'なし',
+  },
 ];
 ---
 
 <BaseLayout
-  title="料金案内 | やちよ行政書士事務所"
-  description="建設業許可（新規・更新）や決算変更届など、やちよ行政書士事務所の料金の目安をご案内します。正式な金額は無料相談時にお見積りいたします。"
+  title={pageTitle('料金案内（建設業許可・決算変更届）')}
+  description="建設業許可の新規・更新、決算変更届などの料金目安をご案内。泉州・和歌山北部の事業者さま向け。内容により異なりますので、正式なお見積りは無料相談時にご提示します。"
+  breadcrumbs={[{ name: 'ホーム', href: '/' }, { name: '料金案内' }]}
 >
   <div class="page">
     <SiteHeader />
@@ -55,7 +141,8 @@ const otherServices = [
             <p class="notice-box__title">料金についてのご案内</p>
             <ul class="notice-box__list">
               <li>表示価格はすべて<strong>税込</strong>の目安です。案件の難易度や添付書類の状況により変動する場合があります。</li>
-              <li>証紙代・登録免許税・謄本取得費用などの<strong>実費は別途</strong>申し受けます。</li>
+              <li><strong>法定費用</strong>は、行政庁に納める手数料（証紙代・登録免許税など）で、ご自身で申請される場合にも必要となる費用です。報酬額とあわせてご負担いただきます。</li>
+              <li>住民票・登記事項証明書などの<strong>証明書取得の実費</strong>は別途申し受けます。</li>
               <li>正式な金額は、内容をお伺いしたうえで<strong>お見積り</strong>をご提示いたします。</li>
             </ul>
           </div>
@@ -75,6 +162,7 @@ const otherServices = [
                   <th scope="col">種別</th>
                   <th scope="col">内容</th>
                   <th scope="col" class="price-table__price-col">報酬額（税込）</th>
+                  <th scope="col" class="price-table__legal-col">法定費用</th>
                 </tr>
               </thead>
               <tbody>
@@ -84,12 +172,16 @@ const otherServices = [
                       <th scope="row">{row.name}</th>
                       <td>{row.detail}</td>
                       <td class="price-table__price-col">{row.price}</td>
+                      <td class="price-table__legal-col">{row.legal}</td>
                     </tr>
                   ))
                 }
               </tbody>
             </table>
           </div>
+          <p class="section__note">
+            ※表示額は、標準的な書類が揃っている場合の基本料金です。実務経験の証明書類の収集・取得代行や、役員・令3条使用人の複雑な経歴確認が必要な場合など、追加の作業が見込まれるときは、着手前にお見積りをご提示いたします。
+          </p>
         </div>
       </section>
 
@@ -106,6 +198,7 @@ const otherServices = [
                   <th scope="col">種別</th>
                   <th scope="col">内容</th>
                   <th scope="col" class="price-table__price-col">報酬額（税込）</th>
+                  <th scope="col" class="price-table__legal-col">法定費用</th>
                 </tr>
               </thead>
               <tbody>
@@ -115,6 +208,7 @@ const otherServices = [
                       <th scope="row">{row.name}</th>
                       <td>{row.detail}</td>
                       <td class="price-table__price-col">{row.price}</td>
+                      <td class="price-table__legal-col">{row.legal}</td>
                     </tr>
                   ))
                 }
@@ -128,22 +222,35 @@ const otherServices = [
         <div class="section__inner section__inner--narrow">
           <h2 id="other-heading" class="section__heading">
             <span class="heading-icon" aria-hidden="true"></span>
-            その他の業務について
+            その他の業務
           </h2>
-          <ul class="other-list">
-            {
-              otherServices.map((item) => (
-                <li class="other-list__item">
-                  <span class="other-list__dot" aria-hidden="true" />
-                  <div>
-                    <p class="other-list__name">{item.name}</p>
-                    <p class="other-list__note">{item.note}</p>
-                  </div>
-                  <span class="other-list__badge">要お見積り</span>
-                </li>
-              ))
-            }
-          </ul>
+          <div class="price-table-wrap">
+            <table class="price-table">
+              <thead>
+                <tr>
+                  <th scope="col">種別</th>
+                  <th scope="col">内容</th>
+                  <th scope="col" class="price-table__price-col">報酬額（税込）</th>
+                  <th scope="col" class="price-table__legal-col">法定費用</th>
+                </tr>
+              </thead>
+              <tbody>
+                {
+                  otherServicePrices.map((row) => (
+                    <tr>
+                      <th scope="row">{row.name}</th>
+                      <td>{row.detail}</td>
+                      <td class="price-table__price-col">{row.price}</td>
+                      <td class="price-table__legal-col">{row.legal}</td>
+                    </tr>
+                  ))
+                }
+              </tbody>
+            </table>
+          </div>
+          <p class="section__note">
+            上記に記載のない業務についても対応可能な場合があります。まずはお気軽にご相談ください。
+          </p>
         </div>
       </section>
 
@@ -324,7 +431,7 @@ const otherServices = [
   }
   .price-table {
     width: 100%;
-    min-width: 30rem;
+    min-width: 40rem;
     border-collapse: collapse;
     font-size: 0.9375rem;
   }
@@ -368,67 +475,20 @@ const otherServices = [
     color: #fff !important;
     text-align: right;
   }
-
-  /* その他の業務 */
-  .other-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: grid;
-    gap: 0.85rem;
-  }
-  .other-list__item {
-    display: flex;
-    align-items: center;
-    gap: 0.85rem;
-    background: #ffffff;
-    border: 1px solid var(--color-border);
-    border-radius: var(--radius-lg);
-    padding: 1.1rem 1.35rem;
-    box-shadow: var(--shadow-sm);
-  }
-  .other-list__dot {
-    flex-shrink: 0;
-    width: 0.5rem;
-    height: 0.5rem;
-    border-radius: 50%;
-    background: #1e3a8a;
-  }
-  .other-list__item > div {
-    flex: 1;
-    min-width: 0;
-  }
-  .other-list__name {
-    margin: 0 0 0.25rem;
-    font-size: 0.9375rem;
-    font-weight: 700;
-    color: var(--color-text);
-    letter-spacing: 0.02em;
-  }
-  .other-list__note {
-    margin: 0;
-    font-size: 0.8125rem;
+  .price-table__legal-col {
+    font-size: 0.875rem;
     color: var(--color-text-muted);
-    line-height: 1.7;
   }
-  .other-list__badge {
-    flex-shrink: 0;
-    font-size: 0.75rem;
-    font-weight: 700;
-    letter-spacing: 0.02em;
-    color: var(--color-primary);
-    background: var(--color-primary-soft);
-    border-radius: 999px;
-    padding: 0.3rem 0.75rem;
-    white-space: nowrap;
+  .price-table thead .price-table__legal-col {
+    font-size: 0.9375rem;
+    color: #fff;
   }
-  @media (max-width: 479px) {
-    .other-list__item {
-      flex-wrap: wrap;
-    }
-    .other-list__badge {
-      margin-left: calc(0.5rem + 0.85rem);
-    }
+
+  .section__note {
+    margin: 1.25rem 0 0;
+    font-size: 0.875rem;
+    line-height: 1.85;
+    color: var(--color-text-muted);
   }
 
   /* CTA */

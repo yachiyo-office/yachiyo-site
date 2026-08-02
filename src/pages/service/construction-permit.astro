@@ -1,0 +1,837 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import LineButton from '../../components/LineButton.astro';
+import { pageTitle } from '../../config/site';
+
+const concerns = [
+  '元請や取引先から建設業許可の取得を求められた',
+  '500万円以上の工事を請けたい',
+  '自社が要件を満たしているのか分からない',
+  '更新や決算変更届に不安がある',
+  '今後、業種追加や法人成りも考えている',
+  '泉州・和歌山北部で相談しやすい事務所を探している',
+];
+
+const supports = [
+  {
+    title: '建設業許可 新規申請',
+    text: '初めて建設業許可を取得したい方向けのサポートです。許可の要否、要件整理、必要資料の確認など、最初に整理しておきたいポイントを分かりやすくご案内します。',
+  },
+  {
+    title: '建設業許可 更新申請',
+    text: '建設業許可は5年ごとの更新が必要です。更新時期が近づいてから慌てないよう、必要な確認事項や準備の流れを見通しやすく整理します。',
+  },
+  {
+    title: '決算変更届',
+    text: '許可取得後に毎年必要となる重要な届出です。この届出は、今後の更新や業種追加にも関わるため、後回しにせず継続して管理することが大切です。',
+  },
+  {
+    title: '業種追加・各種変更届',
+    text: '事業拡大や体制変更に伴って、業種追加や各種変更届が必要になる場合があります。状況によって確認すべき点が異なるため、内容に応じて整理していきます。',
+  },
+  {
+    title: '将来的な経審・入札の準備',
+    text: '公共工事を見据える場合には、日頃の許可管理や決算変更届の積み重ねが重要になります。今すぐではなくても、将来を見据えた準備の方向性を意識することが役立ちます。',
+  },
+];
+
+const strengths = [
+  {
+    title: '建設業許可と継続手続を重視',
+    text: '新規申請だけでなく、更新、決算変更届、各種変更届といった許可取得後の継続手続まで見据えています。',
+  },
+  {
+    title: '阪南市拠点の機動力',
+    text: '阪南市を拠点に、大阪泉州・和歌山北部をまたぐ立地を活かし、地域密着の相談先を目指しています。',
+  },
+  {
+    title: '初めての方にも分かりやすく',
+    text: '専門用語を並べるのではなく、今どの段階で何を確認する必要があるかを整理してご案内します。',
+  },
+];
+
+const flowSteps = [
+  {
+    step: 'STEP 1',
+    title: 'お問い合わせ',
+    text: 'まずはご状況の概要をお聞かせください。建設業許可が必要かどうか分からない段階でも構いません。',
+  },
+  {
+    step: 'STEP 2',
+    title: 'ヒアリング',
+    text: '現在の事業内容、今後のご予定、必要となりそうな手続を整理します。',
+  },
+  {
+    step: 'STEP 3',
+    title: 'ご案内・お見積り',
+    text: '必要となる手続の流れや確認事項、進め方をご説明します。',
+  },
+  {
+    step: 'STEP 4',
+    title: '手続サポート',
+    text: '内容に応じて、必要な書類や今後の流れを整理しながら進めます。',
+  },
+];
+
+const areas = [
+  '阪南市',
+  '岸和田市',
+  '和泉市',
+  '泉佐野市',
+  '泉南市',
+  '貝塚市',
+  '泉大津市',
+  '熊取町',
+  '田尻町',
+  '忠岡町',
+  '岬町',
+  '和歌山市',
+  '岩出市',
+  '紀の川市',
+];
+
+const faqs = [
+  {
+    q: 'まだ建設業許可が必要かどうか分からないのですが相談できますか？',
+    a: 'はい。まずは現在の工事内容や今後のご予定を整理し、許可の必要性を確認するところからご案内します。',
+  },
+  {
+    q: '許可を取った後も手続はありますか？',
+    a: 'あります。毎年の決算変更届や、5年ごとの更新、変更事項が生じた際の各種届出などが必要になります。',
+  },
+  {
+    q: '更新や決算変更届だけでも相談できますか？',
+    a: 'はい。新規申請だけでなく、更新、決算変更届、業種追加など継続手続についても対応範囲として想定しています。',
+  },
+  {
+    q: '大阪泉州以外や和歌山北部からでも相談できますか？',
+    a: '内容に応じてご案内可能です。まずはお問い合わせください。',
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle('建設業許可（新規・更新・決算変更届）')}
+  description="大阪泉州・和歌山北部で建設業許可をご検討の方へ。新規申請から更新、決算変更届、業種追加まで。阪南市拠点で、許可取得後の手続きも見据えてサポートします。"
+  breadcrumbs={[{ name: 'ホーム', href: '/' }, { name: '建設業許可' }]}
+>
+  <div class="page">
+    <SiteHeader />
+
+    <main>
+      <section class="page-hero section--base" aria-labelledby="page-heading">
+        <div class="page-hero__inner">
+          <nav class="breadcrumb" aria-label="パンくずリスト">
+            <ol>
+              <li><a href="/">ホーム</a></li>
+              <li aria-current="page">建設業許可</li>
+            </ol>
+          </nav>
+
+          <div class="page-hero__content">
+            <p class="page-hero__label">SERVICE</p>
+            <h1 id="page-heading" class="page-hero__title">
+              大阪泉州・和歌山北部で<br />
+              建設業許可をご検討の方へ
+            </h1>
+            <p class="page-hero__lead">
+              建設業許可は、一定金額以上の工事を請け負う際に必要となる重要な許可です。
+              一方で、実際には「うちは許可が必要なのか」「要件を満たしているのか」「どの資料を用意すればよいのか」で止まってしまうことも少なくありません。
+              やちよ行政書士事務所では、大阪泉州・和歌山北部の事業者さまを中心に、建設業許可の新規申請、更新、決算変更届、業種追加など、許可取得後の継続手続も見据えて丁寧にご案内します。
+            </p>
+            <div class="page-hero__actions">
+              <a href="/contact" class="btn btn--primary">お問い合わせ</a>
+              <LineButton />
+            </div>
+          </div>
+
+          <figure class="page-hero__visual">
+            <img
+              src="/images/construction-permit-main.jpg"
+              alt="建設業許可サポートをイメージする建設現場"
+              loading="eager"
+            />
+          </figure>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="concerns-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="concerns-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              こんなお悩みはありませんか
+            </h2>
+          </div>
+
+          <ul class="concern-list">
+            {concerns.map((item) => (
+              <li class="concern-item">{item}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="overview-heading">
+        <div class="section__inner section__grid section__grid--visual">
+          <div class="section__main">
+            <h2 id="overview-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              建設業許可は「取って終わり」ではありません
+            </h2>
+            <p class="section__lead">
+              建設業許可は、取得すればそれで完了というものではありません。
+            </p>
+            <p class="section__text">
+              許可取得後も、毎年の決算変更届、5年ごとの更新、役員や営業所の変更、業種追加など、継続的に管理すべき手続が続きます。
+              そのため、建設業許可を考える際には「今、取れるかどうか」だけでなく、「取った後もきちんと維持できるか」という視点が大切です。
+            </p>
+          </div>
+
+          <figure class="section__visual">
+            <img
+              src="/images/construction-documents.jpg"
+              alt="建設業許可取得後の継続手続をイメージする書類と図面"
+              loading="lazy"
+            />
+          </figure>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="support-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="support-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              主なサポート内容
+            </h2>
+          </div>
+
+          <div class="support-list">
+            {supports.map((item) => (
+              <article class="support-card">
+                <h3 class="support-card__title">{item.title}</h3>
+                <p class="support-card__text">{item.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="strength-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="strength-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              やちよ行政書士事務所の特徴
+            </h2>
+          </div>
+
+          <div class="strength-list">
+            {strengths.map((item) => (
+              <article class="strength-card">
+                <h3 class="strength-card__title">{item.title}</h3>
+                <p class="strength-card__text">{item.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="flow-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="flow-heading" class="section__heading section__heading--center">
+              <span class="heading-icon" aria-hidden="true"></span>
+              ご相談の流れ
+            </h2>
+          </div>
+
+          <figure class="flow-visual">
+            <img
+              src="/images/consultation.jpg"
+              alt="建設業許可の相談・ヒアリングのイメージ"
+              loading="lazy"
+            />
+          </figure>
+
+          <ol class="flow-list">
+            {flowSteps.map((item) => (
+              <li class="flow-step">
+                <span class="flow-step__label">{item.step}</span>
+                <p class="flow-step__title">{item.title}</p>
+                <p class="flow-step__text">{item.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="area-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="area-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              対応エリア
+            </h2>
+            <p class="section__sub">
+              阪南市を拠点に、大阪泉州・和歌山北部を中心に対応しています。下記以外の地域も内容に応じてご案内します。
+            </p>
+          </div>
+
+          <ul class="area-list">
+            {areas.map((area) => (
+              <li class="area-item">{area}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="faq-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="faq-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              よくあるご質問
+            </h2>
+          </div>
+
+          <div class="faq-list">
+            {faqs.map((item) => (
+              <details class="faq-item">
+                <summary class="faq-item__question">{item.q}</summary>
+                <div class="faq-item__answer">
+                  <p>{item.a}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--contact-cta">
+        <div class="section__inner">
+          <div class="cta-box">
+            <h2 class="cta-box__heading">建設業許可が必要かどうか分からない段階でも、お気軽にご相談ください。</h2>
+            <p class="cta-box__text">
+              今の状況を整理しながら、必要な手続の方向性をご案内します。
+            </p>
+
+            <div class="cta-box__actions">
+              <a href="/contact" class="btn btn--primary">お問い合わせフォームへ</a>
+              <LineButton />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>
+
+<style>
+  .page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+  }
+
+  .section--base {
+    background: #ffffff;
+  }
+
+  .section--band {
+    background: #f8fafc;
+    border-block: 1px solid var(--color-border);
+  }
+
+  .section {
+    padding: var(--space-section-y) var(--space-section-x);
+  }
+
+  .section__inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+  }
+
+  .section__inner--narrow {
+    max-width: 52rem;
+  }
+
+  .section__head-block {
+    margin-bottom: 2rem;
+  }
+
+  .heading-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.4rem;
+    background: #1e3a8a;
+    flex-shrink: 0;
+    vertical-align: middle;
+    margin-right: 0.65rem;
+  }
+
+  .heading-icon::after {
+    content: '';
+    width: 0.55rem;
+    height: 0.72rem;
+    border: 2px solid #fff;
+    border-radius: 2px;
+  }
+
+  .section__heading {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0 0 1rem;
+    font-size: clamp(1.2rem, 2.8vw, 1.45rem);
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 0.05em;
+    line-height: 1.4;
+  }
+
+  .section__heading--center {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .section__sub {
+    margin: 0;
+    max-width: 44rem;
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    line-height: 1.85;
+  }
+
+  .section__lead {
+    margin: 0 0 1rem;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    line-height: 1.85;
+    color: var(--color-text);
+  }
+
+  .section__text {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.9;
+    color: var(--color-text-muted);
+  }
+
+  .page-hero {
+    padding: clamp(3.25rem, 9vw, 5.75rem) var(--space-section-x)
+      max(var(--space-section-y), 3.75rem);
+  }
+
+  .page-hero__inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+    display: grid;
+    gap: 2rem 2.5rem;
+    align-items: center;
+  }
+
+  @media (min-width: 960px) {
+    .page-hero__inner {
+      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+    }
+  }
+
+  .breadcrumb { grid-column: 1 / -1; }
+  .breadcrumb ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.5rem;
+    list-style: none;
+    margin: 0 0 0.25rem;
+    padding: 0;
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
+  .breadcrumb li:not(:last-child)::after {
+    content: '/';
+    margin-left: 0.5rem;
+    color: var(--color-border-strong);
+  }
+  .breadcrumb a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+  }
+  .breadcrumb a:hover {
+    color: var(--color-primary);
+  }
+  .breadcrumb li[aria-current='page'] {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  .page-hero__label {
+    margin: 0 0 1rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    color: var(--color-primary);
+  }
+
+  .page-hero__title {
+    margin: 0 0 1.25rem;
+    font-size: clamp(1.8rem, 6vw, 2.75rem);
+    line-height: 1.35;
+    letter-spacing: 0.04em;
+    color: var(--color-text);
+  }
+
+  .page-hero__lead {
+    margin: 0 0 1.6rem;
+    font-size: 1rem;
+    line-height: 1.95;
+    color: var(--color-text-muted);
+    max-width: 44rem;
+  }
+
+  .page-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem 1rem;
+  }
+
+  .page-hero__visual {
+    margin: 0;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+    background: #f3f6fb;
+  }
+
+  .page-hero__visual img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 260px;
+    object-fit: cover;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    padding: 0 1.5rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .btn--primary {
+    background: #1e3a8a;
+    color: #fff;
+    border: 2px solid #1e3a8a;
+  }
+
+  .btn--primary:hover {
+    background: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+    color: #fff;
+  }
+
+  .concern-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  @media (min-width: 768px) {
+    .concern-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .concern-item {
+    position: relative;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1rem 1rem 2.75rem;
+    line-height: 1.8;
+    color: var(--color-text);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .concern-item::before {
+    content: '✓';
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 50%;
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .section__grid--visual {
+    display: grid;
+    gap: 1.5rem 2rem;
+    align-items: center;
+  }
+
+  @media (min-width: 960px) {
+    .section__grid--visual {
+      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+    }
+  }
+
+  .section__visual {
+    margin: 0;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+    background: #f3f6fb;
+  }
+
+  .section__visual img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 240px;
+    object-fit: cover;
+  }
+
+  .support-list {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .support-card {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .support-card__title {
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .support-card__text {
+    margin: 0;
+    line-height: 1.9;
+    color: var(--color-text-muted);
+  }
+
+  .strength-list {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .strength-list {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .strength-card {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .strength-card__title {
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .strength-card__text {
+    margin: 0;
+    line-height: 1.85;
+    color: var(--color-text-muted);
+  }
+
+  .flow-visual {
+    margin: 0 0 1.5rem;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+    background: #f3f6fb;
+  }
+
+  .flow-visual img {
+    display: block;
+    width: 100%;
+    height: 260px;
+    object-fit: cover;
+  }
+
+  .flow-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.15rem;
+  }
+
+  .flow-step {
+    position: relative;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.35rem 1.4rem 1.35rem 1.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .flow-step::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: #1e3a8a;
+    border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+  }
+
+  .flow-step__label {
+    display: block;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--color-primary);
+    margin-bottom: 0.3rem;
+  }
+
+  .flow-step__title {
+    margin: 0 0 0.4rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .flow-step__text {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.8;
+    color: var(--color-text-muted);
+  }
+
+  .area-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+  }
+
+  .area-item {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.55rem 0.85rem;
+    border-radius: 999px;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
+    font-size: 0.875rem;
+    color: var(--color-text);
+  }
+
+  .faq-list {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .faq-item {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+
+  .faq-item__question {
+    cursor: pointer;
+    list-style: none;
+    padding: 1.15rem 1.25rem;
+    font-weight: 700;
+    line-height: 1.7;
+    color: var(--color-text);
+  }
+
+  .faq-item__question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item__answer {
+    padding: 0 1.25rem 1.15rem;
+    color: var(--color-text-muted);
+    line-height: 1.85;
+  }
+
+  .faq-item__answer p {
+    margin: 0;
+  }
+
+  .section--contact-cta {
+    background: #ffffff;
+    padding: var(--space-section-y) var(--space-section-x) max(var(--space-section-y), 4rem);
+  }
+
+  .cta-box {
+    background: #f8fafc;
+    border: 1px solid var(--color-border);
+    border-radius: 1rem;
+    padding: clamp(1.75rem, 4vw, 2.5rem);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+  }
+
+  .cta-box__heading {
+    margin: 0 0 1rem;
+    font-size: clamp(1.2rem, 2.8vw, 1.6rem);
+    line-height: 1.6;
+    color: var(--color-text);
+  }
+
+  .cta-box__text {
+    margin: 0 0 1.5rem;
+    color: var(--color-text-muted);
+    line-height: 1.9;
+  }
+
+  .cta-box__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.85rem 1rem;
+  }
+</style>

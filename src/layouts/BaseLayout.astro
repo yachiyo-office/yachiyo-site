@@ -1,15 +1,74 @@
 ---
 import '../styles/global.css';
+import {
+  SITE_NAME,
+  DEFAULT_OGP_IMAGE,
+  OGP_IMAGE_WIDTH,
+  OGP_IMAGE_HEIGHT,
+} from '../config/site';
+
+interface BreadcrumbItem {
+  name: string;
+  /** 省略時は現在ページ（リンクなし）として扱います */
+  href?: string;
+}
 
 interface Props {
   title?: string;
   description?: string;
+  ogImage?: string;
+  ogType?: 'website' | 'article';
+  breadcrumbs?: BreadcrumbItem[];
 }
 
 const {
-  title = 'やちよ行政書士事務所',
-  description = '行政書士事務所「やちよ行政書士事務所」の公式サイトです。',
+  title = SITE_NAME,
+  description = '大阪府阪南市を拠点に、大阪泉州・和歌山北部の建設業許可と継続手続を中心にサポートする行政書士事務所です。',
+  ogImage = DEFAULT_OGP_IMAGE,
+  ogType = 'website',
+  breadcrumbs,
 } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const ogImageURL = new URL(ogImage, Astro.site);
+
+const legalServiceSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'LegalService',
+  name: SITE_NAME,
+  url: Astro.site?.toString(),
+  image: ogImageURL.toString(),
+  founder: {
+    '@type': 'Person',
+    name: '鹿野正幸',
+  },
+  address: {
+    '@type': 'PostalAddress',
+    addressLocality: '阪南市',
+    addressRegion: '大阪府',
+    addressCountry: 'JP',
+  },
+  areaServed: ['大阪府泉州地域', '和歌山県北部'],
+  openingHours: 'Mo-Fr 09:00-18:00',
+  description:
+    '大阪府阪南市を拠点に、大阪泉州・和歌山北部の建設業許可（新規・更新・決算変更届・業種追加）と継続手続を中心にサポートする行政書士事務所です。',
+};
+
+const breadcrumbSchema =
+  breadcrumbs && breadcrumbs.length > 0
+    ? {
+        '@context': 'https://schema.org',
+        '@type': 'BreadcrumbList',
+        itemListElement: breadcrumbs.map((item, index) => ({
+          '@type': 'ListItem',
+          position: index + 1,
+          name: item.name,
+          ...(item.href
+            ? { item: new URL(item.href, Astro.site).toString() }
+            : {}),
+        })),
+      }
+    : null;
 ---
 
 <!doctype html>
@@ -20,6 +79,24 @@ const {
     <meta name="description" content={description} />
     <meta name="theme-color" content="#1e3a8a" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="canonical" href={canonicalURL} />
+
+    <meta property="og:site_name" content={SITE_NAME} />
+    <meta property="og:locale" content="ja_JP" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:image:width" content={String(OGP_IMAGE_WIDTH)} />
+    <meta property="og:image:height" content={String(OGP_IMAGE_HEIGHT)} />
+    <meta property="og:image:alt" content={title} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -27,6 +104,19 @@ const {
       rel="stylesheet"
     />
     <title>{title}</title>
+
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify(legalServiceSchema)}
+    />
+    {
+      breadcrumbSchema && (
+        <script
+          type="application/ld+json"
+          set:html={JSON.stringify(breadcrumbSchema)}
+        />
+      )
+    }
   </head>
   <body>
     <slot />

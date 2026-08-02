@@ -4,6 +4,7 @@ import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import { getCollection } from 'astro:content';
 import LineButton from '../components/LineButton.astro';
+import { pageTitle } from '../config/site';
 
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
 const latestPosts = allPosts
@@ -23,11 +24,91 @@ function getCategory(post: (typeof allPosts)[number]) {
   if (post.data.tags.length > 0) return post.data.tags[0];
   return 'お知らせ';
 }
+
+const trustPoints = [
+  {
+    title: '建設業許可と継続手続に注力',
+    text: '新規申請だけでなく、更新、決算変更届、業種追加など、許可取得後の継続手続も重視しています。',
+  },
+  {
+    title: '泉州と和歌山北部をまたぐ対応力',
+    text: '阪南市の立地を活かし、大阪泉州・和歌山北部を中心に、機動的で相談しやすい対応を目指しています。',
+  },
+  {
+    title: '初めての方にもわかりやすく説明',
+    text: '専門用語をできるだけ噛み砕き、必要な確認事項や手続の流れを整理してご案内します。',
+  },
+];
+
+const concerns = [
+  '元請や取引先から建設業許可の取得を求められた',
+  '500万円以上の工事を請けたい',
+  '自社が許可要件を満たすのか分からない',
+  '更新や決算変更届が不安',
+  '今後、業種追加や法人成りも考えている',
+  '泉州・和歌山北部で相談しやすい事務所を探している',
+];
+
+const services = [
+  {
+    title: '建設業許可 新規申請',
+    text: '許可が必要かどうかの確認から、要件整理、必要資料のご案内まで丁寧にサポートします。',
+    href: '/service/construction-permit/',
+  },
+  {
+    title: '建設業許可 更新申請',
+    text: '5年ごとの更新手続に向けて、必要な確認事項や準備の流れをご案内します。',
+    href: '/service/construction-permit/',
+  },
+  {
+    title: '決算変更届',
+    text: '許可取得後に毎年必要となる重要な届出です。更新や今後の手続にも関わります。',
+    href: '/service/construction-permit/',
+  },
+  {
+    title: '業種追加・各種変更届',
+    text: '事業拡大や体制変更に応じて必要となる手続について、状況に応じて整理します。',
+    href: '/service/construction-permit/',
+  },
+  {
+    title: '将来的な経審・入札の準備',
+    text: '公共工事を視野に入れた際に大切になる日頃の許可管理や、準備の流れについても見据えます。',
+    href: '/service/construction-permit/',
+  },
+  {
+    title: 'その他の許認可・法人関連手続',
+    text: '建設業以外の許認可や法人関連手続についても、内容に応じて対応いたします。',
+    href: '/service/',
+  },
+];
+
+const flowSteps = [
+  {
+    step: 'STEP 1',
+    title: 'お問い合わせ',
+    text: 'お電話・公式LINE等にて、建設業許可の要否や現在の状況を含め、ご用件の概要をお伺いします。',
+  },
+  {
+    step: 'STEP 2',
+    title: '面談・ヒアリング',
+    text: '事実関係や今後のご予定を確認し、必要な手続きとスケジュールをご説明します。',
+  },
+  {
+    step: 'STEP 3',
+    title: 'ご提案・お見積り',
+    text: '業務内容・報酬を明確にしたうえで、ご納得いただいてから着手します。',
+  },
+  {
+    step: 'STEP 4',
+    title: '受任・手続き遂行',
+    text: '書類作成、申請・提出、必要に応じた継続手続のご案内まで対応いたします。',
+  },
+];
 ---
 
 <BaseLayout
-  title="やちよ行政書士事務所 | 公式サイト"
-  description="大阪泉州・和歌山地域の、暮らしとビジネスに安心を。やちよ行政書士事務所は、許認可・契約書・相続など、行政書士業務を丁寧にサポートします。"
+  title={pageTitle('大阪泉州・和歌山北部の建設業許可')}
+  description="大阪府阪南市拠点。泉州・和歌山北部の建設業者向けに、新規申請・更新・決算変更届・業種追加を丁寧にサポート。許可取得後の継続手続も見据えたご案内。"
 >
   <div class="page">
     <SiteHeader />
@@ -35,51 +116,73 @@ function getCategory(post: (typeof allPosts)[number]) {
     <main>
       <section class="hero section--base" aria-labelledby="hero-heading">
         <div class="hero__inner">
-          <p class="hero__label">行政書士事務所</p>
-          <h1 id="hero-heading" class="hero__catch">
-            南大阪と和歌山をつなぐ、<br class="hero__catch-br" aria-hidden="true" />
-            一番身近なフットワーク。
-          </h1>
-          <p class="hero__office">やちよ行政書士事務所</p>
-          <p class="hero__lead">
-            大阪府阪南市を拠点に、建設業・産廃などの各種許認可申請から、契約書作成・相続手続きまで。地域のビジネスと暮らしの「困った」に、迅速・誠実に寄り添います。
-          </p>
-          <div class="hero__actions">
-            <a href="/contact" class="hero__btn hero__btn--primary">お問い合わせ</a>
-            <a href="#services" class="hero__btn hero__btn--outline">業務内容を見る</a>
+          <div class="hero__content">
+            <p class="hero__label">大阪泉州・和歌山北部対応</p>
+            <h1 id="hero-heading" class="hero__catch">
+              建設業許可と、その後の手続きを<br class="hero__catch-br" aria-hidden="true" />
+              わかりやすく丁寧にサポート
+            </h1>
+            <p class="hero__office">やちよ行政書士事務所</p>
+            <p class="hero__lead">
+              大阪府阪南市を拠点に、岸和田・和泉・泉佐野などの泉州エリアから和歌山北部まで。
+              建設業許可の新規申請、更新、決算変更届、業種追加など、許可取得後の継続手続まで見据えてサポートします。
+            </p>
+            <p class="hero__sublead">
+              南大阪と和歌山をまたぐ立地を活かし、地域密着のフットワークで対応します。
+            </p>
+            <div class="hero__actions">
+              <a href="/service/construction-permit/" class="hero__btn hero__btn--primary">
+                建設業許可サポートを見る
+              </a>
+              <a href="/contact" class="hero__btn hero__btn--outline">お問い合わせ</a>
+            </div>
           </div>
+
+          <figure class="hero__visual">
+            <img
+              src="/images/construction-hero.jpg"
+              alt="建設業許可サポートをイメージする建設現場"
+              loading="eager"
+            />
+          </figure>
         </div>
       </section>
 
       <section class="trust section--band" aria-label="事務所の特徴">
         <div class="trust__inner">
           <ul class="trust__list">
-            <li class="trust__item">
-              <span class="trust__icon" aria-hidden="true"></span>
-              <p class="trust__title">法令に基づく手続き</p>
-              <p class="trust__text">
-                関係法令を踏まえ、必要な書式・スケジュールを整理のうえご案内します。
-              </p>
-            </li>
-            <li class="trust__item">
-              <span class="trust__icon" aria-hidden="true"></span>
-              <p class="trust__title">わかりやすい説明</p>
-              <p class="trust__text">
-                専門用語を噛み砕き、ご状況に合わせて選択肢とリスクをお伝えします。
-              </p>
-            </li>
-            <li class="trust__item">
-              <span class="trust__icon" aria-hidden="true"></span>
-              <p class="trust__title">地域に根ざした対応</p>
-              <p class="trust__text">
-                大阪泉州・和歌山エリアを中心に、身近な相談窓口として承ります。
-              </p>
-            </li>
+            {trustPoints.map((item) => (
+              <li class="trust__item">
+                <span class="trust__icon" aria-hidden="true"></span>
+                <p class="trust__title">{item.title}</p>
+                <p class="trust__text">{item.text}</p>
+              </li>
+            ))}
           </ul>
         </div>
       </section>
 
-      <section id="about" class="section section--base">
+      <section class="section section--base" aria-labelledby="concerns-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="concerns-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              こんなお悩みはありませんか
+            </h2>
+            <p class="section__sub">
+              建設業許可は、取得の可否だけでなく、更新や決算変更届など取得後の管理まで見据えることが大切です。
+            </p>
+          </div>
+
+          <ul class="concern-list">
+            {concerns.map((item) => (
+              <li class="concern-item">{item}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section id="about" class="section section--band">
         <div class="section__inner section__grid">
           <div class="section__intro">
             <h2 class="section__heading">
@@ -89,104 +192,61 @@ function getCategory(post: (typeof allPosts)[number]) {
           </div>
           <div class="section__body">
             <p class="section__lead">
-              やちよ行政書士事務所は、お客様の権利利益を守るため、書類作成から申請手続きまで一貫してサポートする行政書士事務所です。
+              やちよ行政書士事務所は、大阪泉州・和歌山北部の事業者さまを中心に、建設業許可とその後の継続手続を支えることを重視する行政書士事務所です。
             </p>
             <p class="section__text">
-              初めての許認可申請、会社設立や役員変更、相続に関するご相談など、お困りごとに個別に対応いたします。まずはお気軽にお問い合わせください。
+              建設業許可は取得して終わりではなく、決算変更届、更新、各種変更届など継続的な管理が欠かせません。
+              当事務所では、初めて許可取得を検討される方にも、今後の流れまで見通しやすくご案内できるよう努めています。
             </p>
             <a href="/about" class="section__more">事務所概要・代表者紹介を見る →</a>
           </div>
         </div>
       </section>
 
-      <section id="services" class="section section--band">
+      <section id="services" class="section section--base">
         <div class="section__inner">
           <div class="section__head-block">
             <h2 class="section__heading">
               <span class="heading-icon" aria-hidden="true"></span>
-              業務案内
+              主なサポート内容
             </h2>
             <p class="section__sub">
-              主な取扱業務の一例です。内容により他士業と連携する場合があります。
+              建設業許可を中心に、取得から維持・変更まで継続的な手続きを見据えてご案内します。
             </p>
           </div>
+
           <ul class="service-list">
-            <li class="service-card">
-              <h3 class="service-card__title">
-                <span class="service-card__dot" aria-hidden="true"></span>
-                許認可・届出
-              </h3>
-              <p class="service-card__text">
-                建設業、古物商、飲食店営業など各種許認可の申請書作成・提出支援、届出のご相談。
-              </p>
-            </li>
-            <li class="service-card">
-              <h3 class="service-card__title">
-                <span class="service-card__dot" aria-hidden="true"></span>
-                契約書・定款・議事録
-              </h3>
-              <p class="service-card__text">
-                取引基本契約、業務委託、秘密保持、定款変更、株主総会議事録などの作成サポート。
-              </p>
-            </li>
-            <li class="service-card">
-              <h3 class="service-card__title">
-                <span class="service-card__dot" aria-hidden="true"></span>
-                相続・遺言・登記関連
-              </h3>
-              <p class="service-card__text">
-                遺産分割協議書、相続放棄・限定承認の手続き、司法書士等との連携を含むご相談。
-              </p>
-            </li>
-            <li class="service-card">
-              <h3 class="service-card__title">
-                <span class="service-card__dot" aria-hidden="true"></span>
-                会社・法人手続
-              </h3>
-              <p class="service-card__text">
-                会社設立、役員変更、本店移転、増資・減資など法務局・税務署向け書類の作成補助。
-              </p>
-            </li>
-            <li class="service-card">
-              <h3 class="service-card__title">
-                <span class="service-card__dot" aria-hidden="true"></span>
-                その他書類・手続
-              </h3>
-              <p class="service-card__text">
-                内容証明、各種宣誓供述書、官公署提出用書類の作成など、個別事情に応じて対応します。
-              </p>
-            </li>
+            {services.map((service) => (
+              <li class="service-card">
+                <a href={service.href} class="service-card__link">
+                  <h3 class="service-card__title">
+                    <span class="service-card__dot" aria-hidden="true"></span>
+                    {service.title}
+                  </h3>
+                  <p class="service-card__text">{service.text}</p>
+                  <span class="service-card__more">詳しく見る →</span>
+                </a>
+              </li>
+            ))}
           </ul>
         </div>
       </section>
 
-      <section class="section section--base" aria-labelledby="flow-heading">
+      <section class="section section--band" aria-labelledby="flow-heading">
         <div class="section__inner section__inner--narrow-flow">
           <h2 id="flow-heading" class="section__heading section__heading--center">
             <span class="heading-icon" aria-hidden="true"></span>
             ご相談の流れ
           </h2>
+
           <ol class="flow-list">
-            <li class="flow-step">
-              <span class="flow-step__label">STEP 1</span>
-              <p class="flow-step__title">お問い合わせ</p>
-              <p class="flow-step__text">お電話・公式LINE等にて、ご用件の概要をお伺いします。</p>
-            </li>
-            <li class="flow-step">
-              <span class="flow-step__label">STEP 2</span>
-              <p class="flow-step__title">面談・ヒアリング</p>
-              <p class="flow-step__text">事実関係を確認し、必要な手続きとスケジュールをご説明します。</p>
-            </li>
-            <li class="flow-step">
-              <span class="flow-step__label">STEP 3</span>
-              <p class="flow-step__title">ご提案・お見積り</p>
-              <p class="flow-step__text">業務内容・報酬を明確にしたうえで、ご納得いただいてから着手します。</p>
-            </li>
-            <li class="flow-step">
-              <span class="flow-step__label">STEP 4</span>
-              <p class="flow-step__title">受任・手続き遂行</p>
-              <p class="flow-step__text">書類作成、申請・提出、必要に応じたフォローまで対応いたします。</p>
-            </li>
+            {flowSteps.map((item) => (
+              <li class="flow-step">
+                <span class="flow-step__label">{item.step}</span>
+                <p class="flow-step__title">{item.title}</p>
+                <p class="flow-step__text">{item.text}</p>
+              </li>
+            ))}
           </ol>
         </div>
       </section>
@@ -231,8 +291,9 @@ function getCategory(post: (typeof allPosts)[number]) {
               お問い合わせ
             </h2>
             <p class="contact-card__text">
-              ご相談内容が未定の段階でも構いません。守秘義務に基づき、お預かりした情報は厳重に取り扱います。
+              建設業許可が必要かどうか分からない段階でも構いません。ご状況を整理しながら、必要な手続の方向性をご案内します。
             </p>
+
             <dl class="contact-card__dl">
               <div class="contact-card__row">
                 <dt>電話</dt>
@@ -247,9 +308,11 @@ function getCategory(post: (typeof allPosts)[number]) {
                 <dd><LineButton block /></dd>
               </div>
             </dl>
+
             <a href="/contact" class="contact-card__btn">
               お問い合わせフォームへ進む
             </a>
+
             <p class="contact-card__note">
               ※ お問い合わせフォーム・公式LINEは24時間受付しております。平日9:00〜18:00以外の時間帯のご連絡は、原則翌営業日以降のご返信となります。
             </p>
@@ -263,18 +326,84 @@ function getCategory(post: (typeof allPosts)[number]) {
 </BaseLayout>
 
 <style>
-  .page { min-height: 100vh; display: flex; flex-direction: column; background: #ffffff; }
-  .section--base { background: #ffffff; }
-  .section--band { background: #f8fafc; border-block: 1px solid var(--color-border); }
-  .heading-icon { display: inline-flex; align-items: center; justify-content: center; width: 2.25rem; height: 2.25rem; border-radius: 0.4rem; background: #1e3a8a; flex-shrink: 0; vertical-align: middle; margin-right: 0.65rem; }
-  .heading-icon::after { content: ''; width: 0.55rem; height: 0.72rem; border: 2px solid #fff; border-radius: 2px; }
-  .section__heading { display: flex; align-items: center; flex-wrap: wrap; margin: 0 0 1rem; font-size: clamp(1.2rem, 2.8vw, 1.45rem); font-weight: 700; color: var(--color-primary); letter-spacing: 0.05em; line-height: 1.4; }
-  .section__heading--center { justify-content: center; text-align: center; margin-bottom: 2.25rem; }
+  .page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+  }
+
+  .section--base {
+    background: #ffffff;
+  }
+
+  .section--band {
+    background: #f8fafc;
+    border-block: 1px solid var(--color-border);
+  }
+
+  .heading-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.4rem;
+    background: #1e3a8a;
+    flex-shrink: 0;
+    vertical-align: middle;
+    margin-right: 0.65rem;
+  }
+
+  .heading-icon::after {
+    content: '';
+    width: 0.55rem;
+    height: 0.72rem;
+    border: 2px solid #fff;
+    border-radius: 2px;
+  }
+
+  .heading-icon--light {
+    background: #1e3a8a;
+  }
+
+  .section__heading {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0 0 1rem;
+    font-size: clamp(1.2rem, 2.8vw, 1.45rem);
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 0.05em;
+    line-height: 1.4;
+  }
+
+  .section__heading--center {
+    justify-content: center;
+    text-align: center;
+    margin-bottom: 2.25rem;
+  }
+
   .hero {
     padding: clamp(3.25rem, 9vw, 5.75rem) var(--space-section-x)
       max(var(--space-section-y), 3.75rem);
   }
-  .hero__inner { max-width: var(--content-max); margin: 0 auto; }
+
+  .hero__inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+    display: grid;
+    gap: 2rem 2.5rem;
+    align-items: center;
+  }
+
+  @media (min-width: 960px) {
+    .hero__inner {
+      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+    }
+  }
+
   .hero__label {
     margin: 0 0 1rem;
     font-size: 0.8125rem;
@@ -282,6 +411,7 @@ function getCategory(post: (typeof allPosts)[number]) {
     letter-spacing: 0.16em;
     color: var(--color-primary);
   }
+
   .hero__catch {
     margin: 0 0 1.35rem;
     font-family: var(--font-sans);
@@ -292,100 +422,635 @@ function getCategory(post: (typeof allPosts)[number]) {
     color: var(--color-text);
     max-width: 14em;
   }
+
   .hero__catch-br {
     display: none;
   }
+
   @media (max-width: 767px) {
     .hero__catch-br {
       display: inline;
     }
   }
+
   .hero__office {
-    margin: 0 0 1.75rem;
+    margin: 0 0 1rem;
     font-size: clamp(1rem, 2.5vw, 1.125rem);
     font-weight: 600;
     letter-spacing: 0.08em;
     color: var(--color-primary);
   }
+
   .hero__lead {
-    margin: 0 0 2.25rem;
-    max-width: 38rem;
+    margin: 0 0 1rem;
+    max-width: 42rem;
     font-size: clamp(0.9375rem, 2.2vw, 1.0625rem);
     line-height: 1.95;
     color: var(--color-text-muted);
   }
-  .hero__actions { display: flex; flex-wrap: wrap; gap: 0.85rem 1rem; }
-  .hero__btn { display: inline-flex; align-items: center; justify-content: center; min-height: 3rem; padding: 0 1.5rem; font-size: 0.9375rem; font-weight: 700; letter-spacing: 0.04em; border-radius: var(--radius); transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease; }
-  .hero__btn--primary { background: #1e3a8a; color: #fff; border: 2px solid #1e3a8a; }
-  .hero__btn--primary:hover { background: var(--color-primary-hover); border-color: var(--color-primary-hover); color: #fff; }
-  .hero__btn--outline { background: #fff; color: var(--color-primary); border: 2px solid #1e3a8a; }
-  .hero__btn--outline:hover { background: var(--color-band); color: var(--color-primary-hover); border-color: var(--color-primary-hover); }
-  .trust { padding: var(--space-section-y) var(--space-section-x); }
-  .trust__inner { max-width: var(--content-max); margin: 0 auto; }
-  .trust__list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.5rem; }
-  @media (min-width: 768px) { .trust__list { grid-template-columns: repeat(3, 1fr); gap: 1.75rem; } }
-  .trust__item { background: #ffffff; border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.65rem 1.5rem; box-shadow: var(--shadow-sm); }
-  .trust__icon { display: block; width: 2.5rem; height: 2.5rem; border-radius: var(--radius); background: #1e3a8a; margin-bottom: 1rem; position: relative; }
-  .trust__icon::after { content: ''; position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 0.55rem; height: 0.72rem; border: 2px solid #fff; border-radius: 2px; }
-  .trust__title { margin: 0 0 0.5rem; font-size: 1rem; font-weight: 700; color: var(--color-text); letter-spacing: 0.02em; }
-  .trust__text { margin: 0; font-size: 0.875rem; line-height: 1.8; color: var(--color-text-muted); }
-  .section { padding: var(--space-section-y) var(--space-section-x); }
-  .section--contact { padding-bottom: max(var(--space-section-y), 4rem); }
-  .section__inner { max-width: var(--content-max); margin: 0 auto; }
-  .section__inner--narrow-flow { max-width: 48rem; }
-  .section__inner--contact { max-width: 42rem; }
-  .section__inner--news { max-width: 52rem; }
-  .news__head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.75rem 1.25rem; margin-bottom: 1.5rem; }
-  .news__head .section__heading { margin-bottom: 0; }
-  .news__more { font-size: 0.875rem; font-weight: 700; letter-spacing: 0.04em; color: var(--color-primary); text-decoration: none; border-bottom: 1px solid transparent; transition: color 0.15s ease, border-color 0.15s ease; }
-  .news__more:hover { color: var(--color-primary-hover); border-bottom-color: rgba(30, 58, 138, 0.35); }
-  .news__empty { margin: 0; font-size: 0.9375rem; color: var(--color-text-muted); text-align: center; padding: 1.5rem 0; }
-  .news-list { list-style: none; margin: 0; padding: 0; border: 1px solid var(--color-border); border-radius: var(--radius-lg); background: #ffffff; box-shadow: var(--shadow-sm); overflow: hidden; }
-  .news-item { display: grid; grid-template-columns: 9.5rem 6.5rem 1fr; gap: 0.75rem 1rem; align-items: center; padding: 1.1rem 1.35rem; color: inherit; text-decoration: none; border-bottom: 1px solid var(--color-border); transition: background 0.15s ease; }
-  .news-list li:last-child .news-item { border-bottom: none; }
-  .news-item:hover { background: var(--color-band); }
-  .news-item__date { font-size: 0.8125rem; font-weight: 600; letter-spacing: 0.03em; color: var(--color-text-muted); white-space: nowrap; }
-  .news-item__category { display: inline-flex; align-items: center; justify-content: center; min-width: 5.5rem; padding: 0.25rem 0.65rem; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.02em; color: var(--color-primary); background: var(--color-primary-soft); border-radius: 999px; text-align: center; white-space: nowrap; }
-  .news-item__title { font-size: 0.9375rem; font-weight: 600; line-height: 1.6; letter-spacing: 0.02em; color: var(--color-text); transition: color 0.15s ease; }
-  .news-item:hover .news-item__title { color: var(--color-primary); }
-  @media (max-width: 639px) {
-    .news-item { grid-template-columns: 1fr; gap: 0.45rem; padding: 1.15rem 1.2rem; }
-    .news-item__date { font-size: 0.75rem; }
-    .news-item__category { justify-self: start; }
+
+  .hero__sublead {
+    margin: 0 0 2.25rem;
+    font-size: 0.9375rem;
+    line-height: 1.8;
+    color: var(--color-text-muted);
   }
-  .section__grid { display: grid; gap: 1.75rem 2.75rem; }
-  @media (min-width: 768px) { .section__grid { grid-template-columns: minmax(11rem, 15rem) 1fr; align-items: start; } }
-  .section__intro { padding-top: 0.2rem; }
-  .section__sub { margin: 0 0 2rem; max-width: 42rem; font-size: 0.9375rem; color: var(--color-text-muted); line-height: 1.85; }
-  .section__lead { margin: 0 0 1.1rem; font-size: 1.0625rem; font-weight: 600; line-height: 1.85; color: var(--color-text); }
-  .section__text { margin: 0; font-size: 0.9375rem; line-height: 1.9; color: var(--color-text-muted); }
-  .section__more { display: inline-block; margin-top: 1.1rem; font-size: 0.875rem; font-weight: 700; letter-spacing: 0.03em; color: var(--color-primary); text-decoration: none; border-bottom: 1px solid transparent; transition: color 0.15s ease, border-color 0.15s ease; }
-  .section__more:hover { color: var(--color-primary-hover); border-bottom-color: rgba(30, 58, 138, 0.35); }
-  .service-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.25rem; }
-  @media (min-width: 640px) { .service-list { grid-template-columns: repeat(2, 1fr); } }
-  @media (min-width: 1024px) { .service-list { grid-template-columns: repeat(3, 1fr); } }
-  .service-card { background: #ffffff; border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.5rem 1.45rem; box-shadow: var(--shadow-sm); transition: border-color 0.2s ease, box-shadow 0.2s ease; }
-  .service-card:hover { border-color: var(--color-border-strong); box-shadow: var(--shadow-md); }
-  .service-card__title { display: flex; align-items: center; gap: 0.5rem; margin: 0 0 0.65rem; font-size: 0.9375rem; font-weight: 700; color: var(--color-primary); letter-spacing: 0.02em; }
-  .service-card__dot { width: 0.5rem; height: 0.5rem; border-radius: 50%; background: #1e3a8a; flex-shrink: 0; }
-  .service-card__text { margin: 0; font-size: 0.875rem; line-height: 1.85; color: var(--color-text-muted); }
-  .flow-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 1.15rem; }
-  .flow-step { position: relative; background: #ffffff; border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.35rem 1.4rem 1.35rem 1.5rem; box-shadow: var(--shadow-sm); }
-  .flow-step::before { content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 4px; background: #1e3a8a; border-radius: var(--radius-lg) 0 0 var(--radius-lg); }
-  .flow-step__label { display: block; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.14em; color: var(--color-primary); margin-bottom: 0.3rem; }
-  .flow-step__title { margin: 0 0 0.4rem; font-size: 1rem; font-weight: 700; color: var(--color-text); }
-  .flow-step__text { margin: 0; font-size: 0.875rem; line-height: 1.8; color: var(--color-text-muted); }
-  .contact-card { background: #ffffff; color: var(--color-text); border-radius: var(--radius-lg); padding: clamp(1.85rem, 4vw, 2.5rem); border: 1px solid var(--color-border); box-shadow: var(--shadow-md); }
-  .contact-card__heading { display: flex; align-items: center; flex-wrap: wrap; margin: 0 0 1rem; font-size: 1.35rem; font-weight: 700; letter-spacing: 0.05em; color: var(--color-primary); }
-  .contact-card__text { margin: 0 0 1.35rem; font-size: 0.9375rem; line-height: 1.9; color: var(--color-text-muted); }
-  .contact-card__dl { margin: 0 0 1.5rem; padding: 1.15rem 0 0; border-top: 1px solid var(--color-border); }
-  .contact-card__row { display: grid; grid-template-columns: 6.5rem 1fr; gap: 0.5rem 1rem; padding: 0.7rem 0; border-bottom: 1px solid var(--color-border); font-size: 0.875rem; }
-  .contact-card__row:last-of-type { border-bottom: none; }
-  .contact-card__row dt { margin: 0; font-weight: 700; color: var(--color-text-muted); }
-  .contact-card__row dd { margin: 0; color: var(--color-text); }
-  .contact-card__row--line { align-items: center; }
-  .contact-card__row--line dd { min-width: 0; }
-  .contact-card__btn { display: inline-flex; align-items: center; justify-content: center; width: 100%; min-height: 3rem; margin: 0 0 1rem; font-size: 0.9375rem; font-weight: 700; letter-spacing: 0.04em; color: #fff; background: #1e3a8a; border: 2px solid #1e3a8a; border-radius: var(--radius); text-decoration: none; transition: background 0.15s ease, border-color 0.15s ease; }
-  .contact-card__btn:hover { background: var(--color-primary-hover); border-color: var(--color-primary-hover); color: #fff; }
-  .contact-card__note { margin: 0; font-size: 0.75rem; line-height: 1.65; color: var(--color-text-muted); }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem 1rem;
+  }
+
+  .hero__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    padding: 0 1.5rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .hero__btn--primary {
+    background: #1e3a8a;
+    color: #fff;
+    border: 2px solid #1e3a8a;
+  }
+
+  .hero__btn--primary:hover {
+    background: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+    color: #fff;
+  }
+
+  .hero__btn--outline {
+    background: #fff;
+    color: var(--color-primary);
+    border: 2px solid #1e3a8a;
+  }
+
+  .hero__btn--outline:hover {
+    background: var(--color-band);
+    color: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+  }
+
+  .hero__visual {
+    margin: 0;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+    background: #f3f6fb;
+  }
+
+  .hero__visual img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 260px;
+    object-fit: cover;
+  }
+
+  .trust {
+    padding: var(--space-section-y) var(--space-section-x);
+  }
+
+  .trust__inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+  }
+
+  .trust__list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.5rem;
+  }
+
+  @media (min-width: 768px) {
+    .trust__list {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.75rem;
+    }
+  }
+
+  .trust__item {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.65rem 1.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .trust__icon {
+    display: block;
+    width: 2.5rem;
+    height: 2.5rem;
+    border-radius: var(--radius);
+    background: #1e3a8a;
+    margin-bottom: 1rem;
+    position: relative;
+  }
+
+  .trust__icon::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 0.55rem;
+    height: 0.72rem;
+    border: 2px solid #fff;
+    border-radius: 2px;
+  }
+
+  .trust__title {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-text);
+    letter-spacing: 0.02em;
+  }
+
+  .trust__text {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.8;
+    color: var(--color-text-muted);
+  }
+
+  .section {
+    padding: var(--space-section-y) var(--space-section-x);
+  }
+
+  .section--contact {
+    padding-bottom: max(var(--space-section-y), 4rem);
+  }
+
+  .section__inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+  }
+
+  .section__inner--narrow-flow {
+    max-width: 48rem;
+  }
+
+  .section__inner--contact {
+    max-width: 42rem;
+  }
+
+  .section__inner--news {
+    max-width: 52rem;
+  }
+
+  .section__head-block {
+    margin-bottom: 2rem;
+  }
+
+  .section__sub {
+    margin: 0;
+    max-width: 42rem;
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    line-height: 1.85;
+  }
+
+  .section__grid {
+    display: grid;
+    gap: 1.75rem 2.75rem;
+  }
+
+  @media (min-width: 768px) {
+    .section__grid {
+      grid-template-columns: minmax(11rem, 15rem) 1fr;
+      align-items: start;
+    }
+  }
+
+  .section__intro {
+    padding-top: 0.2rem;
+  }
+
+  .section__lead {
+    margin: 0 0 1.1rem;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    line-height: 1.85;
+    color: var(--color-text);
+  }
+
+  .section__text {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.9;
+    color: var(--color-text-muted);
+  }
+
+  .section__more {
+    display: inline-block;
+    margin-top: 1.1rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    color: var(--color-primary);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .section__more:hover {
+    color: var(--color-primary-hover);
+    border-bottom-color: rgba(30, 58, 138, 0.35);
+  }
+
+  .concern-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  @media (min-width: 768px) {
+    .concern-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .concern-item {
+    position: relative;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1rem 1rem 2.75rem;
+    line-height: 1.8;
+    color: var(--color-text);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .concern-item::before {
+    content: '✓';
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 50%;
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .service-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .service-list {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .service-list {
+      grid-template-columns: repeat(3, 1fr);
+    }
+  }
+
+  .service-card {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .service-card:hover {
+    border-color: var(--color-border-strong);
+    box-shadow: var(--shadow-md);
+  }
+
+  .service-card__link {
+    display: block;
+    height: 100%;
+    padding: 1.5rem 1.45rem;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .service-card__title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 0 0.65rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 0.02em;
+  }
+
+  .service-card__dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: #1e3a8a;
+    flex-shrink: 0;
+  }
+
+  .service-card__text {
+    margin: 0 0 0.9rem;
+    font-size: 0.875rem;
+    line-height: 1.85;
+    color: var(--color-text-muted);
+  }
+
+  .service-card__more {
+    display: inline-block;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .flow-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.15rem;
+  }
+
+  .flow-step {
+    position: relative;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.35rem 1.4rem 1.35rem 1.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .flow-step::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 4px;
+    background: #1e3a8a;
+    border-radius: var(--radius-lg) 0 0 var(--radius-lg);
+  }
+
+  .flow-step__label {
+    display: block;
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--color-primary);
+    margin-bottom: 0.3rem;
+  }
+
+  .flow-step__title {
+    margin: 0 0 0.4rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .flow-step__text {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.8;
+    color: var(--color-text-muted);
+  }
+
+  .news__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.75rem 1.25rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .news__head .section__heading {
+    margin-bottom: 0;
+  }
+
+  .news__more {
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: var(--color-primary);
+    text-decoration: none;
+    border-bottom: 1px solid transparent;
+    transition: color 0.15s ease, border-color 0.15s ease;
+  }
+
+  .news__more:hover {
+    color: var(--color-primary-hover);
+    border-bottom-color: rgba(30, 58, 138, 0.35);
+  }
+
+  .news__empty {
+    margin: 0;
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    text-align: center;
+    padding: 1.5rem 0;
+  }
+
+  .news-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: #ffffff;
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+
+  .news-item {
+    display: grid;
+    grid-template-columns: 9.5rem 6.5rem 1fr;
+    gap: 0.75rem 1rem;
+    align-items: center;
+    padding: 1.1rem 1.35rem;
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 1px solid var(--color-border);
+    transition: background 0.15s ease;
+  }
+
+  .news-list li:last-child .news-item {
+    border-bottom: none;
+  }
+
+  .news-item:hover {
+    background: var(--color-band);
+  }
+
+  .news-item__date {
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    color: var(--color-text-muted);
+    white-space: nowrap;
+  }
+
+  .news-item__category {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 5.5rem;
+    padding: 0.25rem 0.65rem;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    color: var(--color-primary);
+    background: var(--color-primary-soft);
+    border-radius: 999px;
+    text-align: center;
+    white-space: nowrap;
+  }
+
+  .news-item__title {
+    font-size: 0.9375rem;
+    font-weight: 600;
+    line-height: 1.6;
+    letter-spacing: 0.02em;
+    color: var(--color-text);
+    transition: color 0.15s ease;
+  }
+
+  .news-item:hover .news-item__title {
+    color: var(--color-primary);
+  }
+
+  @media (max-width: 639px) {
+    .news-item {
+      grid-template-columns: 1fr;
+      gap: 0.45rem;
+      padding: 1.15rem 1.2rem;
+    }
+
+    .news-item__date {
+      font-size: 0.75rem;
+    }
+
+    .news-item__category {
+      justify-self: start;
+    }
+  }
+
+  .contact-card {
+    background: #ffffff;
+    color: var(--color-text);
+    border-radius: var(--radius-lg);
+    padding: clamp(1.85rem, 4vw, 2.5rem);
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+  }
+
+  .contact-card__heading {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0 0 1rem;
+    font-size: 1.35rem;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: var(--color-primary);
+  }
+
+  .contact-card__text {
+    margin: 0 0 1.35rem;
+    font-size: 0.9375rem;
+    line-height: 1.9;
+    color: var(--color-text-muted);
+  }
+
+  .contact-card__dl {
+    margin: 0 0 1.5rem;
+    padding: 1.15rem 0 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .contact-card__row {
+    display: grid;
+    grid-template-columns: 6.5rem 1fr;
+    gap: 0.5rem 1rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 0.875rem;
+  }
+
+  .contact-card__row:last-of-type {
+    border-bottom: none;
+  }
+
+  .contact-card__row dt {
+    margin: 0;
+    font-weight: 700;
+    color: var(--color-text-muted);
+  }
+
+  .contact-card__row dd {
+    margin: 0;
+    color: var(--color-text);
+  }
+
+  .contact-card__row--line {
+    align-items: center;
+  }
+
+  .contact-card__row--line dd {
+    min-width: 0;
+  }
+
+  .contact-card__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 3rem;
+    margin: 0 0 1rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: #fff;
+    background: #1e3a8a;
+    border: 2px solid #1e3a8a;
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+
+  .contact-card__btn:hover {
+    background: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+    color: #fff;
+  }
+
+  .contact-card__note {
+    margin: 0;
+    font-size: 0.75rem;
+    line-height: 1.65;
+    color: var(--color-text-muted);
+  }
 </style>

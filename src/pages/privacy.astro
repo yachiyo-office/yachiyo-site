@@ -3,11 +3,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import { lineOfficialUrl, lineDisplayLabel } from '../config/contact';
+import { pageTitle } from '../config/site';
 ---
 
 <BaseLayout
-  title="プライバシーポリシー | やちよ行政書士事務所"
-  description="やちよ行政書士事務所のプライバシーポリシー（個人情報保護方針）です。お客様の個人情報の取扱いについて定めています。"
+  title={pageTitle('プライバシーポリシー')}
+  description="やちよ行政書士事務所における個人情報の取扱いについて定めています。お問い合わせ・ご依頼時にいただく情報の利用目的、管理方法、お問い合わせ窓口をご案内します。"
+  breadcrumbs={[{ name: 'ホーム', href: '/' }, { name: 'プライバシーポリシー' }]}
 >
   <div class="page">
     <SiteHeader />

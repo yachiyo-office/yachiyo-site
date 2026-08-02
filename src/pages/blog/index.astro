@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import SiteHeader from '../../components/SiteHeader.astro';
 import SiteFooter from '../../components/SiteFooter.astro';
 import { getCollection } from 'astro:content';
+import { pageTitle } from '../../config/site';
 
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
 const posts = allPosts.sort(
@@ -19,8 +20,9 @@ function formatDate(date: Date) {
 ---
 
 <BaseLayout
-  title="ブログ | やちよ行政書士事務所"
-  description="許認可・相続・会社設立など、暮らしとビジネスに役立つ情報をお届けします。やちよ行政書士事務所のブログ一覧です。"
+  title={pageTitle('ブログ')}
+  description="建設業許可・決算変更届・更新など、事業者さまのお役立ち情報を発信。大阪泉州・和歌山北部を中心に、許認可手続のポイントをわかりやすく解説します。"
+  breadcrumbs={[{ name: 'ホーム', href: '/' }, { name: 'ブログ' }]}
 >
   <div class="page">
     <SiteHeader />
@@ -28,6 +30,13 @@ function formatDate(date: Date) {
     <main>
       <section class="blog-hero section--base" aria-labelledby="blog-heading">
         <div class="blog-hero__inner">
+          <nav class="breadcrumb" aria-label="パンくずリスト">
+            <ol>
+              <li><a href="/">ホーム</a></li>
+              <li aria-current="page">ブログ</li>
+            </ol>
+          </nav>
+
           <p class="blog-hero__label">Blog</p>
           <h1 id="blog-heading" class="blog-hero__title">ブログ</h1>
           <p class="blog-hero__lead">
@@ -104,6 +113,33 @@ function formatDate(date: Date) {
   .blog-hero__inner {
     max-width: var(--content-max);
     margin: 0 auto;
+  }
+
+  .breadcrumb ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.5rem;
+    list-style: none;
+    margin: 0 0 1.25rem;
+    padding: 0;
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
+  .breadcrumb li:not(:last-child)::after {
+    content: '/';
+    margin-left: 0.5rem;
+    color: var(--color-border-strong);
+  }
+  .breadcrumb a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+  }
+  .breadcrumb a:hover {
+    color: var(--color-primary);
+  }
+  .breadcrumb li[aria-current='page'] {
+    color: var(--color-text);
+    font-weight: 600;
   }
 
   .blog-hero__label {
