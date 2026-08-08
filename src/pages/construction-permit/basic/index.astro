@@ -1,0 +1,894 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import SiteHeader from '../../../components/SiteHeader.astro';
+import SiteFooter from '../../../components/SiteFooter.astro';
+import LineButton from '../../../components/LineButton.astro';
+import { pageTitle } from '../../../config/site';
+
+const permitCases = [
+  '元請先や取引先から建設業許可の取得を求められている',
+  '500万円以上の工事を受注したいと考えている',
+  '自社に許可が必要かどうか判断に迷っている',
+  '個人事業のままで進めるか、法人成りも含めて検討している',
+  '将来的に業種追加や公共工事も視野に入れている',
+];
+
+const step2Cards = [
+  {
+    title: '知事許可と大臣許可',
+    text: '営業所が1つの都道府県内のみであれば知事許可、2以上の都道府県に営業所を設ける場合は国土交通大臣許可となります。工事現場の場所ではなく、営業所の所在で判断する点が重要です。',
+    href: '/construction-permit/basic/governor-vs-minister',
+    label: '詳しく見る',
+  },
+  {
+    title: '一般建設業と特定建設業',
+    text: '元請として請け負った工事について、一定以上の下請契約を締結する場合には特定建設業許可が必要になります。単に工事金額が大きいかどうかではなく、下請への発注規模がポイントです。',
+    href: '/construction-permit/basic/general-vs-specific',
+    label: '詳しく見る',
+  },
+  {
+    title: '29業種の考え方',
+    text: '建設工事は29種類に区分され、一式工事と専門工事に分かれます。一式工事の許可があれば何でも施工できるわけではないため、実際の工事内容に応じた業種判断が重要です。',
+    href: '/construction-permit/basic/29-industries',
+    label: '詳しく見る',
+  },
+  {
+    title: '申請区分',
+    text: '新規、許可換え新規、般・特新規、業種追加、更新など、建設業許可には複数の申請区分があります。現在の許可状況と今回の申請目的を整理して選ぶ必要があります。',
+    href: '/construction-permit/basic/application-types',
+    label: '詳しく見る',
+  },
+];
+
+const requirementCards = [
+  {
+    title: '1. 経営業務の管理に関する体制',
+    text: '法人であれば主として常勤役員等、個人事業主であれば本人について、建設業の経営業務を適切に管理できる体制があるかが確認されます。経験年数だけでなく、常勤性や証明資料の整合性も大切です。',
+    href: '/construction-permit/basic/requirements/management',
+  },
+  {
+    title: '2. 財産的基礎・金銭的信用',
+    text: '一般建設業では、自己資本や資金調達能力などが確認されます。特定建設業ではさらに厳しい財務要件が求められるため、決算内容や証明方法の整理が重要です。',
+    href: '/construction-permit/basic/requirements/financial',
+  },
+  {
+    title: '3. 営業所技術者等',
+    text: '許可を受けようとする業種に応じて、資格または実務経験を有する技術者が営業所ごとに必要になります。特に実務経験で立証する場合は、どの資料で証明できるかが大きな論点になります。',
+    href: '/construction-permit/basic/requirements/engineer',
+  },
+  {
+    title: '4. 営業所の実体',
+    text: '建設工事の請負契約に関する実体を持つ営業所が必要です。自宅兼事務所、賃貸物件、共有オフィスなどでは、使用権限や実在性の確認が問題になることがあります。',
+    href: '/construction-permit/basic/requirements/office',
+  },
+  {
+    title: '5. 欠格要件・誠実性',
+    text: '申請者本人や役員等に一定の欠格事由がある場合は許可を受けられません。また、請負契約に関して不正または不誠実な行為をするおそれがあると判断される場合にも注意が必要です。',
+    href: '/construction-permit/basic/requirements/disqualification',
+  },
+];
+
+const misconceptions = [
+  {
+    title: '一式工事の許可があれば何でもできる',
+    text: 'そうではありません。一式工事は工事全体を総合的に企画・指導・調整する類型であり、単一の専門工事を請け負うには、その専門工事業の許可が必要になる場合があります。',
+  },
+  {
+    title: '他府県で工事をすれば大臣許可になる',
+    text: '知事許可か大臣許可かは、工事現場の場所ではなく営業所の所在で判断します。営業所が1つの都道府県内のみであれば、他府県の現場工事があっても知事許可となるのが原則です。',
+  },
+  {
+    title: '大きな工事を取るなら必ず特定建設業が必要',
+    text: '重要なのは、元請として請け負った工事における下請契約の総額です。受注額そのものではなく、どの程度を下請に出すかで一般か特定かの判断が分かれます。',
+  },
+];
+
+const checkPoints = [
+  'どの工事を、どの業種で行っているか',
+  '今後請け負いたい工事規模はどの程度か',
+  '営業所はどこにあるか',
+  '役員や個人事業主本人にどのような経営経験があるか',
+  '技術者候補の資格・実務経験をどう整理できるか',
+  '直前決算や資金状況をどう証明できるか',
+  '許可取得後も決算変更届や更新を継続管理できるか',
+];
+
+const faqItems = [
+  {
+    q: 'うちは建設業許可が必要かどうか分からないのですが、相談できますか？',
+    a: 'はい。工事内容、請負金額、営業所の状況、今後の事業方針などを整理し、まず許可の必要性を確認するところからご案内します。',
+  },
+  {
+    q: '個人事業主でも建設業許可を取ることはできますか？',
+    a: 'はい。要件を満たせば個人事業主でも建設業許可を取得できる場合があります。現在の事業内容や経営経験、技術者要件などを確認しながら整理していきます。',
+  },
+  {
+    q: '建設業許可は取ったら終わりですか？',
+    a: 'いいえ。毎年の決算変更届、5年ごとの更新、役員や営業所に変更が生じたときの各種届出など、取得後にも継続して必要になる手続があります。',
+  },
+  {
+    q: '更新や決算変更届だけでも相談できますか？',
+    a: 'はい。新規申請だけでなく、更新、決算変更届、業種追加、各種変更届など、許可取得後の継続手続についてもご相談いただけます。',
+  },
+];
+
+const relatedLinks = [
+  {
+    title: '建設業許可サービスページ',
+    text: '新規申請、更新、決算変更届、業種追加など、主なサポート内容をご案内しています。',
+    href: '/construction-permit/',
+  },
+  {
+    title: '許可取得後に必要な手続',
+    text: '決算変更届、更新、各種変更届など、許可取得後に継続して必要になる実務を整理しています。',
+    href: '/construction-permit/after-acquisition',
+  },
+  {
+    title: 'お問い合わせ',
+    text: '自社に許可が必要か、何から確認すべきか分からない段階でもご相談いただけます。',
+    href: '/contact',
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle('建設業許可の基礎知識')}
+  description="建設業許可の基本ルール、知事許可・大臣許可、一般建設業・特定建設業、29業種、5つの許可要件を分かりやすく整理。大阪泉州・和歌山北部で建設業許可をご検討の方向けの基礎知識ページです。"
+  breadcrumbs={[
+    { name: 'ホーム', href: '/' },
+    { name: '建設業許可', href: '/construction-permit/' },
+    { name: '基礎知識' },
+  ]}
+>
+  <div class="page">
+    <SiteHeader />
+
+    <main>
+      <section class="page-hero section--base" aria-labelledby="page-heading">
+        <div class="page-hero__inner">
+          <nav class="breadcrumb" aria-label="パンくずリスト">
+            <ol>
+              <li><a href="/">ホーム</a></li>
+              <li><a href="/construction-permit/">建設業許可</a></li>
+              <li aria-current="page">基礎知識</li>
+            </ol>
+          </nav>
+
+          <div class="page-hero__content">
+            <p class="page-hero__label">BASIC KNOWLEDGE</p>
+            <h1 id="page-heading" class="page-hero__title">
+              建設業許可の基礎知識
+            </h1>
+            <p class="page-hero__lead">
+              建設業許可を検討する際には、「そもそも許可が必要なのか」「どの区分で考えるべきか」「自社は要件を満たしているのか」といった点を最初に整理することが大切です。
+              このページでは、建設業許可の基本ルール、許可の区分、主な許可要件を、初めての方にも分かりやすいよう順序立ててご案内します。
+            </p>
+
+            <div class="page-hero__actions">
+              <a href="/contact" class="btn btn--primary">相談してみる</a>
+              <LineButton />
+            </div>
+          </div>
+
+          <figure class="page-hero__visual">
+            <img
+              src="/images/construction-documents.jpg"
+              alt="建設業許可の基礎知識をイメージする書類と建設現場"
+              loading="eager"
+            />
+          </figure>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="intro-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="intro-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              まず押さえたいポイント
+            </h2>
+          </div>
+
+          <p class="section__text">
+            建設工事の完成を請け負う営業を行う場合、公共工事か民間工事かを問わず、原則として建設業許可が必要です。
+            もっとも、軽微な建設工事のみを請け負う場合は例外とされます。
+            また、建設業許可は単に「ある・ない」だけでなく、営業所の所在や下請発注の規模、工事の内容によって区分が分かれます。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="step1-heading">
+        <div class="section__inner">
+          <div class="step-block">
+            <div class="step-block__label">STEP 1</div>
+            <div class="step-block__body">
+              <div class="section__head-block">
+                <h2 id="step1-heading" class="section__heading">
+                  <span class="heading-icon" aria-hidden="true"></span>
+                  建設業を営むうえで、許可が必要になるのはどんな場合か
+                </h2>
+              </div>
+
+              <p class="section__lead">
+                建設業許可は、すべての工事に必要になるわけではありませんが、一定の場合には原則として必要になります。
+              </p>
+
+              <div class="info-card">
+                <h3 class="info-card__title">軽微な建設工事の考え方</h3>
+                <div class="info-card__content">
+                  <ul class="bullet-list">
+                    <li>
+                      <strong>建築一式工事</strong><br />
+                      1件の請負代金の額が1,500万円未満の工事、または延べ面積150㎡未満の木造住宅工事
+                    </li>
+                    <li>
+                      <strong>建築一式工事以外</strong><br />
+                      1件の請負代金の額が500万円未満の工事
+                    </li>
+                  </ul>
+                  <p class="note">
+                    ※いずれも消費税等を含む考え方です。
+                  </p>
+                </div>
+              </div>
+
+              <p class="section__text">
+                実際には、「今は小規模工事が中心だが、今後はもっと大きな工事を受注したい」「元請先から許可取得を求められている」といった事情から、
+                早めに許可取得を検討した方がよいケースも少なくありません。
+              </p>
+
+              <div class="subsection">
+                <h3 class="subsection__title">こういう場合は早めの確認がおすすめです</h3>
+                <ul class="check-list">
+                  {permitCases.map((item) => (
+                    <li class="check-list__item">{item}</li>
+                  ))}
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="step2-heading">
+        <div class="section__inner">
+          <div class="step-block">
+            <div class="step-block__label">STEP 2</div>
+            <div class="step-block__body">
+              <div class="section__head-block">
+                <h2 id="step2-heading" class="section__heading">
+                  <span class="heading-icon" aria-hidden="true"></span>
+                  建設業許可の区分を理解する
+                </h2>
+                <p class="section__sub">
+                  建設業許可は、営業所の所在、下請発注の規模、工事の内容、申請の目的に応じて区分が分かれます。
+                  ここを誤ると、必要な申請類型や確認事項の整理がずれてしまうことがあります。
+                </p>
+              </div>
+
+              <div class="card-grid card-grid--two">
+                {step2Cards.map((item) => (
+                  <article class="info-card info-card--link">
+                    <h3 class="info-card__title">{item.title}</h3>
+                    <p class="info-card__text">{item.text}</p>
+                    <a href={item.href} class="text-link">
+                      {item.label}
+                    </a>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="step3-heading">
+        <div class="section__inner">
+          <div class="step-block">
+            <div class="step-block__label">STEP 3</div>
+            <div class="step-block__body">
+              <div class="section__head-block">
+                <h2 id="step3-heading" class="section__heading">
+                  <span class="heading-icon" aria-hidden="true"></span>
+                  建設業許可の主な要件を押さえる
+                </h2>
+                <p class="section__sub">
+                  建設業許可は、申請書を提出すれば当然に取得できるものではなく、一定の要件を満たしていることが前提になります。
+                  実務上は、次の5つの観点から確認していくのが基本です。
+                </p>
+              </div>
+
+              <div class="card-grid">
+                {requirementCards.map((item) => (
+                  <article class="info-card info-card--link">
+                    <h3 class="info-card__title">{item.title}</h3>
+                    <p class="info-card__text">{item.text}</p>
+                    <a href={item.href} class="text-link">
+                      詳しく見る
+                    </a>
+                  </article>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="misconception-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="misconception-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              建設業許可で特に多い誤解
+            </h2>
+          </div>
+
+          <div class="card-grid">
+            {misconceptions.map((item) => (
+              <article class="info-card">
+                <h3 class="info-card__title">{item.title}</h3>
+                <p class="info-card__text">{item.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="checkpoint-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="checkpoint-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              自社でまず確認しておきたいポイント
+            </h2>
+          </div>
+
+          <ul class="check-list">
+            {checkPoints.map((item) => (
+              <li class="check-list__item">{item}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="after-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="after-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              許可取得後の手続も見据えることが大切です
+            </h2>
+          </div>
+
+          <p class="section__text">
+            建設業許可は、取得した時点がゴールではありません。
+            許可取得後には、決算変更届、各種変更届、更新、場合によっては業種追加や経審・入札など、継続して必要になる手続があります。
+            そのため、許可取得を検討する段階から、取得後の維持管理まで含めて考えることが、無理のない事業運営につながります。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="faq-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="faq-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              よくあるご質問
+            </h2>
+          </div>
+
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <details class="faq-item">
+                <summary class="faq-item__question">{item.q}</summary>
+                <div class="faq-item__answer">
+                  <p>{item.a}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="related-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="related-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              関連ページ
+            </h2>
+          </div>
+
+          <div class="card-grid card-grid--three">
+            {relatedLinks.map((item) => (
+              <article class="info-card info-card--link">
+                <h3 class="info-card__title">{item.title}</h3>
+                <p class="info-card__text">{item.text}</p>
+                <a href={item.href} class="text-link">ページを見る</a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--contact-cta">
+        <div class="section__inner">
+          <div class="cta-box">
+            <h2 class="cta-box__heading">
+              建設業許可が必要かどうか分からない段階でも、お気軽にご相談ください。
+            </h2>
+            <p class="cta-box__text">
+              新規申請、更新、決算変更届、業種追加など、現在の状況を整理しながら必要な手続の方向性をご案内します。
+            </p>
+
+            <div class="cta-box__actions">
+              <a href="/contact" class="btn btn--primary">お問い合わせフォームへ</a>
+              <LineButton />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>
+
+<style>
+  .page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+  }
+
+  .section--base {
+    background: #ffffff;
+  }
+
+  .section--band {
+    background: #f8fafc;
+    border-block: 1px solid var(--color-border);
+  }
+
+  .section {
+    padding: var(--space-section-y) var(--space-section-x);
+  }
+
+  .section__inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+  }
+
+  .section__inner--narrow {
+    max-width: 56rem;
+  }
+
+  .section__head-block {
+    margin-bottom: 2rem;
+  }
+
+  .heading-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.4rem;
+    background: #1e3a8a;
+    flex-shrink: 0;
+    vertical-align: middle;
+    margin-right: 0.65rem;
+  }
+
+  .heading-icon::after {
+    content: '';
+    width: 0.55rem;
+    height: 0.72rem;
+    border: 2px solid #fff;
+    border-radius: 2px;
+  }
+
+  .section__heading {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0 0 1rem;
+    font-size: clamp(1.2rem, 2.8vw, 1.5rem);
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 0.05em;
+    line-height: 1.45;
+  }
+
+  .section__sub {
+    margin: 0;
+    max-width: 52rem;
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    line-height: 1.9;
+  }
+
+  .section__lead {
+    margin: 0 0 1rem;
+    font-size: 1.05rem;
+    font-weight: 600;
+    line-height: 1.9;
+    color: var(--color-text);
+  }
+
+  .section__text {
+    margin: 0;
+    font-size: 0.95rem;
+    line-height: 1.95;
+    color: var(--color-text-muted);
+  }
+
+  .page-hero {
+    padding: clamp(3.25rem, 9vw, 5.75rem) var(--space-section-x)
+      max(var(--space-section-y), 3.75rem);
+  }
+
+  .page-hero__inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+    display: grid;
+    gap: 2rem 2.5rem;
+    align-items: center;
+  }
+
+  @media (min-width: 960px) {
+    .page-hero__inner {
+      grid-template-columns: minmax(0, 1.12fr) minmax(280px, 0.88fr);
+    }
+  }
+
+  .breadcrumb {
+    grid-column: 1 / -1;
+  }
+
+  .breadcrumb ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.5rem;
+    list-style: none;
+    margin: 0 0 0.25rem;
+    padding: 0;
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
+
+  .breadcrumb li:not(:last-child)::after {
+    content: '/';
+    margin-left: 0.5rem;
+    color: var(--color-border-strong);
+  }
+
+  .breadcrumb a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    color: var(--color-primary);
+  }
+
+  .breadcrumb li[aria-current='page'] {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  .page-hero__label {
+    margin: 0 0 1rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    color: var(--color-primary);
+  }
+
+  .page-hero__title {
+    margin: 0 0 1.25rem;
+    font-size: clamp(1.9rem, 6vw, 2.8rem);
+    line-height: 1.35;
+    letter-spacing: 0.04em;
+    color: var(--color-text);
+  }
+
+  .page-hero__lead {
+    margin: 0 0 1.6rem;
+    font-size: 1rem;
+    line-height: 1.95;
+    color: var(--color-text-muted);
+    max-width: 46rem;
+  }
+
+  .page-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem 1rem;
+  }
+
+  .page-hero__visual {
+    margin: 0;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+    background: #f3f6fb;
+  }
+
+  .page-hero__visual img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 280px;
+    object-fit: cover;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    padding: 0 1.5rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .btn--primary {
+    background: #1e3a8a;
+    color: #fff;
+    border: 2px solid #1e3a8a;
+  }
+
+  .btn--primary:hover {
+    background: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+    color: #fff;
+  }
+
+  .step-block {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .step-block {
+      grid-template-columns: 7.5rem minmax(0, 1fr);
+      align-items: start;
+    }
+  }
+
+  .step-block__label {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: fit-content;
+    min-width: 6.5rem;
+    padding: 0.7rem 1rem;
+    border-radius: 999px;
+    background: #1e3a8a;
+    color: #fff;
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .step-block__body {
+    min-width: 0;
+  }
+
+  .card-grid {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .card-grid--two {
+    grid-template-columns: 1fr;
+  }
+
+  .card-grid--three {
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 768px) {
+    .card-grid--two {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .card-grid--three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .info-card {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.4rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .info-card--link {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .info-card__title {
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.6;
+    color: var(--color-text);
+  }
+
+  .info-card__text {
+    margin: 0;
+    line-height: 1.9;
+    color: var(--color-text-muted);
+    font-size: 0.9375rem;
+  }
+
+  .info-card__content {
+    margin-top: 0.25rem;
+  }
+
+  .text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1rem;
+    width: fit-content;
+    color: var(--color-primary);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .text-link::after {
+    content: '→';
+    font-size: 0.95em;
+  }
+
+  .text-link:hover {
+    text-decoration: underline;
+  }
+
+  .bullet-list {
+    margin: 0;
+    padding-left: 1.2rem;
+    display: grid;
+    gap: 0.85rem;
+    line-height: 1.85;
+    color: var(--color-text-muted);
+  }
+
+  .note {
+    margin: 0.9rem 0 0;
+    font-size: 0.85rem;
+    color: var(--color-text-muted);
+    line-height: 1.8;
+  }
+
+  .subsection {
+    margin-top: 1.75rem;
+  }
+
+  .subsection__title {
+    margin: 0 0 1rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    line-height: 1.6;
+  }
+
+  .check-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .check-list__item {
+    position: relative;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1rem 1rem 2.75rem;
+    line-height: 1.8;
+    color: var(--color-text);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .check-list__item::before {
+    content: '✓';
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 50%;
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .faq-list {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .faq-item {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+
+  .faq-item__question {
+    cursor: pointer;
+    list-style: none;
+    padding: 1.15rem 1.25rem;
+    font-weight: 700;
+    line-height: 1.7;
+    color: var(--color-text);
+  }
+
+  .faq-item__question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item__answer {
+    padding: 0 1.25rem 1.15rem;
+    color: var(--color-text-muted);
+    line-height: 1.85;
+  }
+
+  .faq-item__answer p {
+    margin: 0;
+  }
+
+  .section--contact-cta {
+    background: #ffffff;
+    padding: var(--space-section-y) var(--space-section-x) max(var(--space-section-y), 4rem);
+  }
+
+  .cta-box {
+    background: #f8fafc;
+    border: 1px solid var(--color-border);
+    border-radius: 1rem;
+    padding: clamp(1.75rem, 4vw, 2.5rem);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+  }
+
+  .cta-box__heading {
+    margin: 0 0 1rem;
+    font-size: clamp(1.2rem, 2.8vw, 1.6rem);
+    line-height: 1.6;
+    color: var(--color-text);
+  }
+
+  .cta-box__text {
+    margin: 0 0 1.5rem;
+    color: var(--color-text-muted);
+    line-height: 1.9;
+  }
+
+  .cta-box__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.85rem 1rem;
+  }
+</style>

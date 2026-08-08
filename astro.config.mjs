@@ -5,4 +5,8 @@ export default defineConfig({
   // TODO: 本番ドメイン決定後に差し替えてください（canonical / OGP / sitemap に使われます）
   site: 'https://example.com',
   integrations: [sitemap()],
+  redirects: {
+    '/construction-permit-basic': '/construction-permit/basic/',
+    '/service/construction-permit': '/construction-permit/',
+  },
 });

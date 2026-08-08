@@ -6,49 +6,49 @@ import LineButton from '../../components/LineButton.astro';
 import { pageTitle } from '../../config/site';
 
 const concerns = [
-  '元請や取引先から建設業許可の取得を求められた',
-  '500万円以上の工事を請けたい',
+  '元請先や取引先から建設業許可の取得を求められている',
+  '500万円以上の工事を請けたいが、許可が必要か判断に迷っている',
   '自社が要件を満たしているのか分からない',
-  '更新や決算変更届に不安がある',
-  '今後、業種追加や法人成りも考えている',
-  '泉州・和歌山北部で相談しやすい事務所を探している',
+  '更新や決算変更届など、許可取得後の手続にも不安がある',
+  '今後、業種追加や法人成りも視野に入れている',
+  '泉州・和歌山北部で継続して相談できる行政書士を探している',
 ];
 
 const supports = [
   {
     title: '建設業許可 新規申請',
-    text: '初めて建設業許可を取得したい方向けのサポートです。許可の要否、要件整理、必要資料の確認など、最初に整理しておきたいポイントを分かりやすくご案内します。',
+    text: '初めて建設業許可を取得したい方向けのサポートです。許可が必要になるかどうかの整理から、申請区分、要件確認、必要資料の見通しまで、最初の段階でつまずきやすい点を分かりやすくご案内します。',
   },
   {
     title: '建設業許可 更新申請',
-    text: '建設業許可は5年ごとの更新が必要です。更新時期が近づいてから慌てないよう、必要な確認事項や準備の流れを見通しやすく整理します。',
+    text: '建設業許可は5年ごとの更新が必要です。更新時に慌てないよう、これまでの届出状況や必要な確認事項を整理し、更新に向けた準備を進めやすくします。',
   },
   {
     title: '決算変更届',
-    text: '許可取得後に毎年必要となる重要な届出です。この届出は、今後の更新や業種追加にも関わるため、後回しにせず継続して管理することが大切です。',
+    text: '決算変更届は、建設業許可を維持していくうえで毎年重要となる手続です。更新や業種追加、将来的な経審にも関わるため、後回しにせず継続して管理することが大切です。',
   },
   {
     title: '業種追加・各種変更届',
-    text: '事業拡大や体制変更に伴って、業種追加や各種変更届が必要になる場合があります。状況によって確認すべき点が異なるため、内容に応じて整理していきます。',
+    text: '事業拡大や体制変更に伴い、業種追加や役員変更、営業所変更などの届出が必要になることがあります。変更内容に応じて、何を確認し、どのように進めるべきかを整理してご案内します。',
   },
   {
     title: '将来的な経審・入札の準備',
-    text: '公共工事を見据える場合には、日頃の許可管理や決算変更届の積み重ねが重要になります。今すぐではなくても、将来を見据えた準備の方向性を意識することが役立ちます。',
+    text: '公共工事を視野に入れる場合は、日頃の許可管理や決算変更届の積み重ねが重要になります。今すぐの申請でなくても、将来を見据えた準備の方向性を早めに確認しておくことが役立ちます。',
   },
 ];
 
 const strengths = [
   {
-    title: '建設業許可と継続手続を重視',
-    text: '新規申請だけでなく、更新、決算変更届、各種変更届といった許可取得後の継続手続まで見据えています。',
+    title: '新規申請だけでなく継続手続まで見据える',
+    text: '建設業許可は取得して終わりではありません。更新、決算変更届、各種変更届など、その後の維持管理まで視野に入れてご案内します。',
   },
   {
-    title: '阪南市拠点の機動力',
-    text: '阪南市を拠点に、大阪泉州・和歌山北部をまたぐ立地を活かし、地域密着の相談先を目指しています。',
+    title: '阪南市拠点で泉州・和歌山北部に対応',
+    text: '阪南市を拠点に、大阪泉州・和歌山北部の事業者さまにとって相談しやすい身近な窓口を目指しています。',
   },
   {
-    title: '初めての方にも分かりやすく',
-    text: '専門用語を並べるのではなく、今どの段階で何を確認する必要があるかを整理してご案内します。',
+    title: '初めての方にも分かりやすく整理',
+    text: '専門用語を並べるだけでなく、今どの段階にあり、何を確認すべきか、次に何を進めればよいかを順序立ててご説明します。',
   },
 ];
 
@@ -56,22 +56,22 @@ const flowSteps = [
   {
     step: 'STEP 1',
     title: 'お問い合わせ',
-    text: 'まずはご状況の概要をお聞かせください。建設業許可が必要かどうか分からない段階でも構いません。',
+    text: 'お電話や公式LINEにてご要件の概要をお伺いします。建設業許可が必要かどうか分からない段階でもお気軽にご相談ください。',
   },
   {
     step: 'STEP 2',
-    title: 'ヒアリング',
-    text: '現在の事業内容、今後のご予定、必要となりそうな手続を整理します。',
+    title: '面談・ヒアリング（現状整理）',
+    text: '現在の事業内容や今後のご予定を確認し、必要な手続やスケジュール、進行順序を分かりやすく整理してご説明します。',
   },
   {
     step: 'STEP 3',
-    title: 'ご案内・お見積り',
-    text: '必要となる手続の流れや確認事項、進め方をご説明します。',
+    title: 'ご提案・お見積り',
+    text: '対応内容と費用の目安を明確にご提示します。ご納得いただいてから着手しますので、安心してご検討いただけます。',
   },
   {
     step: 'STEP 4',
-    title: '手続サポート',
-    text: '内容に応じて、必要な書類や今後の流れを整理しながら進めます。',
+    title: '受任・手続遂行',
+    text: '必要書類の収集・作成から申請・提出まで、内容に応じて迅速にサポートします。許可取得後に必要となる継続手続についても見据えてご案内します。',
   },
 ];
 
@@ -95,26 +95,30 @@ const areas = [
 const faqs = [
   {
     q: 'まだ建設業許可が必要かどうか分からないのですが相談できますか？',
-    a: 'はい。まずは現在の工事内容や今後のご予定を整理し、許可の必要性を確認するところからご案内します。',
+    a: 'はい。工事内容や請負金額、今後の事業方針などを整理し、まず許可の必要性を確認するところからご案内します。',
+  },
+  {
+    q: '個人事業主でも建設業許可を取ることはできますか？',
+    a: 'はい。要件を満たせば個人事業主でも建設業許可を取得できる場合があります。現在の事業内容や体制を確認しながら整理します。',
   },
   {
     q: '許可を取った後も手続はありますか？',
-    a: 'あります。毎年の決算変更届や、5年ごとの更新、変更事項が生じた際の各種届出などが必要になります。',
+    a: 'あります。毎年の決算変更届、5年ごとの更新、役員や営業所などに変更があった場合の各種届出など、継続して必要となる手続があります。',
   },
   {
     q: '更新や決算変更届だけでも相談できますか？',
-    a: 'はい。新規申請だけでなく、更新、決算変更届、業種追加など継続手続についても対応範囲として想定しています。',
+    a: 'はい。新規申請だけでなく、更新、決算変更届、業種追加、各種変更届など、許可取得後の継続手続についてもご相談いただけます。',
   },
   {
-    q: '大阪泉州以外や和歌山北部からでも相談できますか？',
-    a: '内容に応じてご案内可能です。まずはお問い合わせください。',
+    q: '大阪泉州以外や和歌山北部以外からでも相談できますか？',
+    a: '内容に応じて対応可能な場合があります。まずは現在の状況とご希望をお聞かせください。',
   },
 ];
 ---
 
 <BaseLayout
   title={pageTitle('建設業許可（新規・更新・決算変更届）')}
-  description="大阪泉州・和歌山北部で建設業許可をご検討の方へ。新規申請から更新、決算変更届、業種追加まで。阪南市拠点で、許可取得後の手続きも見据えてサポートします。"
+  description="阪南市を拠点に、大阪泉州・和歌山北部の建設業許可をサポート。新規申請、更新、決算変更届、業種追加、各種変更届まで、許可取得後の継続手続も見据えてご案内します。"
   breadcrumbs={[{ name: 'ホーム', href: '/' }, { name: '建設業許可' }]}
 >
   <div class="page">
@@ -134,12 +138,12 @@ const faqs = [
             <p class="page-hero__label">SERVICE</p>
             <h1 id="page-heading" class="page-hero__title">
               大阪泉州・和歌山北部で<br />
-              建設業許可をご検討の方へ
+              建設業許可の取得・更新・決算変更届をご検討の方へ
             </h1>
             <p class="page-hero__lead">
-              建設業許可は、一定金額以上の工事を請け負う際に必要となる重要な許可です。
-              一方で、実際には「うちは許可が必要なのか」「要件を満たしているのか」「どの資料を用意すればよいのか」で止まってしまうことも少なくありません。
-              やちよ行政書士事務所では、大阪泉州・和歌山北部の事業者さまを中心に、建設業許可の新規申請、更新、決算変更届、業種追加など、許可取得後の継続手続も見据えて丁寧にご案内します。
+              建設業許可は、一定の場合に必要となる重要な許可です。
+              もっとも、実際には「自社に許可が必要なのか」「要件を満たしているのか」「どの資料をそろえればよいのか」で止まってしまうことも少なくありません。
+              やちよ行政書士事務所では、大阪泉州・和歌山北部の事業者さまを中心に、建設業許可の新規申請、更新、決算変更届、業種追加、各種変更届まで、許可取得後の継続手続も見据えて丁寧にご案内します。
             </p>
             <div class="page-hero__actions">
               <a href="/contact" class="btn btn--primary">お問い合わせ</a>
@@ -179,14 +183,14 @@ const faqs = [
           <div class="section__main">
             <h2 id="overview-heading" class="section__heading">
               <span class="heading-icon" aria-hidden="true"></span>
-              建設業許可は「取って終わり」ではありません
+              建設業許可は取得後の管理まで見据えることが大切です
             </h2>
             <p class="section__lead">
-              建設業許可は、取得すればそれで完了というものではありません。
+              建設業許可は、取得できるかどうかだけでなく、その後も適切に維持していけるかが重要です。
             </p>
             <p class="section__text">
-              許可取得後も、毎年の決算変更届、5年ごとの更新、役員や営業所の変更、業種追加など、継続的に管理すべき手続が続きます。
-              そのため、建設業許可を考える際には「今、取れるかどうか」だけでなく、「取った後もきちんと維持できるか」という視点が大切です。
+              許可取得後には、毎年の決算変更届、5年ごとの更新、役員や営業所の変更に伴う各種届出、業種追加など、継続して確認すべき手続があります。
+              そのため、建設業許可を考える際には「今、許可が取れるか」だけでなく、「取得後の管理まで無理なく続けられるか」という視点で準備することが大切です。
             </p>
           </div>
 
@@ -197,6 +201,28 @@ const faqs = [
               loading="lazy"
             />
           </figure>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="basic-guide-heading">
+        <div class="section__inner">
+          <div class="knowledge-box">
+            <div class="knowledge-box__content">
+              <p class="knowledge-box__label">BASIC GUIDE</p>
+              <h2 id="basic-guide-heading" class="knowledge-box__heading">
+                まず制度の全体像を知りたい方へ
+              </h2>
+              <p class="knowledge-box__text">
+                「そもそも建設業許可が必要になるのはどんな場合か」「知事許可・大臣許可や一般建設業・特定建設業の違いは何か」「主な許可要件はどこを見ればよいか」など、
+                まず基本から整理したい方向けに、基礎知識ページをご用意しています。
+              </p>
+            </div>
+            <div class="knowledge-box__actions">
+              <a href="/construction-permit/basic/" class="btn btn--secondary">
+                建設業許可の基礎知識を見る
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -314,9 +340,11 @@ const faqs = [
       <section class="section section--contact-cta">
         <div class="section__inner">
           <div class="cta-box">
-            <h2 class="cta-box__heading">建設業許可が必要かどうか分からない段階でも、お気軽にご相談ください。</h2>
+            <h2 class="cta-box__heading">
+              建設業許可が必要かどうか分からない段階でも、お気軽にご相談ください。
+            </h2>
             <p class="cta-box__text">
-              今の状況を整理しながら、必要な手続の方向性をご案内します。
+              新規申請、更新、決算変更届、業種追加など、現在の状況を整理しながら必要な手続の方向性をご案内します。
             </p>
 
             <div class="cta-box__actions">
@@ -446,7 +474,10 @@ const faqs = [
     }
   }
 
-  .breadcrumb { grid-column: 1 / -1; }
+  .breadcrumb {
+    grid-column: 1 / -1;
+  }
+
   .breadcrumb ol {
     display: flex;
     flex-wrap: wrap;
@@ -457,18 +488,22 @@ const faqs = [
     font-size: 0.8125rem;
     color: var(--color-text-muted);
   }
+
   .breadcrumb li:not(:last-child)::after {
     content: '/';
     margin-left: 0.5rem;
     color: var(--color-border-strong);
   }
+
   .breadcrumb a {
     color: var(--color-text-muted);
     text-decoration: none;
   }
+
   .breadcrumb a:hover {
     color: var(--color-primary);
   }
+
   .breadcrumb li[aria-current='page'] {
     color: var(--color-text);
     font-weight: 600;
@@ -547,6 +582,17 @@ const faqs = [
     color: #fff;
   }
 
+  .btn--secondary {
+    background: #ffffff;
+    color: var(--color-primary);
+    border: 2px solid #1e3a8a;
+  }
+
+  .btn--secondary:hover {
+    background: #eff4ff;
+    color: var(--color-primary);
+  }
+
   .concern-list {
     list-style: none;
     margin: 0;
@@ -616,6 +662,52 @@ const faqs = [
     height: 100%;
     min-height: 240px;
     object-fit: cover;
+  }
+
+  .knowledge-box {
+    display: grid;
+    gap: 1.25rem;
+    align-items: center;
+    padding: 1.75rem;
+    background: linear-gradient(135deg, #f8fafc 0%, #eef4ff 100%);
+    border: 1px solid var(--color-border);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  @media (min-width: 960px) {
+    .knowledge-box {
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 1.5rem 2rem;
+    }
+  }
+
+  .knowledge-box__label {
+    margin: 0 0 0.75rem;
+    font-size: 0.78rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--color-primary);
+  }
+
+  .knowledge-box__heading {
+    margin: 0 0 0.85rem;
+    font-size: clamp(1.2rem, 2.8vw, 1.55rem);
+    line-height: 1.5;
+    color: var(--color-text);
+  }
+
+  .knowledge-box__text {
+    margin: 0;
+    font-size: 0.9375rem;
+    line-height: 1.9;
+    color: var(--color-text-muted);
+    max-width: 46rem;
+  }
+
+  .knowledge-box__actions {
+    display: flex;
+    align-items: center;
   }
 
   .support-list {

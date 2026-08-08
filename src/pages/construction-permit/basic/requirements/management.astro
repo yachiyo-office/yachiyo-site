@@ -1,0 +1,952 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import SiteHeader from '../../../../components/SiteHeader.astro';
+import SiteFooter from '../../../../components/SiteFooter.astro';
+import LineButton from '../../../../components/LineButton.astro';
+import { pageTitle } from '../../../../config/site';
+
+const whoCanBe = [
+  {
+    title: '法人の場合',
+    text: '取締役、業務を執行する社員、執行役、執行役員等の「役員等」が対象です。実務では、代表取締役を経営業務の管理責任者（経管）として申請するケースがほとんどです。',
+  },
+  {
+    title: '個人事業の場合',
+    text: '個人事業主本人、または支配人が対象です。長年事業を続けてこられた事業主さまご本人の経験で整理するのが基本形になります。',
+  },
+  {
+    title: 'なれない立場',
+    text: '一般従業員は、たとえ実質的に経営に関わった経験があっても、経営業務の管理責任者（経管）にはなれません。あくまで常勤役員等であることが前提です。',
+  },
+];
+
+const experiencePatterns = [
+  {
+    name: '役員・個人事業主・令3条使用人・支配人としての経験',
+    years: '5年以上',
+    note: '最も基本的なパターン。別々の会社での経験を合算することも可能です。',
+  },
+  {
+    name: '執行役員等としての経験',
+    years: '5年以上',
+    note: '取締役会から経営業務の執行権限を委譲されていたことが前提になります。',
+  },
+  {
+    name: '部長など「準ずる地位」で経営業務を補佐した経験',
+    years: '6年以上',
+    note: '役員等に次ぐ地位での補佐経験。立証の難易度は高めです。',
+  },
+];
+
+const proofDocsRole = [
+  {
+    title: '法人役員としての経験の場合',
+    items: [
+      '確定申告書（別表一）・決算報告書 …… 会社の営業実態と、役員給与から常勤性を確認',
+      '工事の請負契約書、注文書・請書、請求書＋入金記録 …… 建設業の営業実績を確認',
+      '商業登記簿謄本（履歴事項全部証明書等）…… 役員として登記されていた期間を確認',
+    ],
+  },
+  {
+    title: '個人事業主としての経験の場合',
+    items: [
+      '確定申告書（第一表）…… 事業の営業実態を確認',
+      '工事の請負契約書、注文書・請書、請求書＋入金記録 …… 建設業の営業実績を確認',
+    ],
+  },
+  {
+    title: '建設業許可業者での経験の場合',
+    items: [
+      '許可通知書（経験年数分）＋ 直近の決算変更届副本（受付印のあるもの）＋ 商業登記簿謄本',
+      '在籍していた会社が許可業者であれば、確定申告書や工事資料を省略できる場合があります',
+    ],
+  },
+];
+
+const permanencePoints = [
+  '主たる営業所に常勤（フルタイムで常駐して職務に従事）していること',
+  '住まいから営業所まで、常識的に通勤できる距離であること',
+  '他社で専任性を求められる立場（他社の経管・専任技術者、宅建士の専任等）に就いていないこと',
+  '役員報酬が極端に低くないこと（あまりに低額だと常勤とは認められないことがあります）',
+];
+
+const faqItems = [
+  {
+    q: '役員経験が5年あれば、それだけで要件を満たせますか？',
+    a: '経験年数だけでは判断できません。建設業に関する経営経験であること、常勤性があること、そしてその経験を資料で立証できることまで含めて確認が必要です。',
+  },
+  {
+    q: '過去に勤めていた会社の書類が手元にありません。どうすればよいですか？',
+    a: '役員経験の証明には、当時の会社の確定申告書や工事資料を借りる必要が生じることがあります。会社が現在も許可業者として営業していれば、許可通知書や登記簿謄本で代替できる可能性もあるため、諦める前に一度ご相談ください。',
+  },
+  {
+    q: '出向で迎え入れた役員を経管にすることはできますか？',
+    a: '出向者であっても、常勤性が認められれば経管になれる可能性があります。通常の常勤性資料に加えて、出向協定書や出向辞令などの確認資料が必要になります。',
+  },
+  {
+    q: '2社の取締役を兼務しています。問題ありますか？',
+    a: '注意が必要です。社会保険の適用がなく非常勤扱いになっている会社では、経管として認められません。どちらの会社で常勤しているかの整理が重要です。',
+  },
+  {
+    q: '経営経験がまだ5年に届きません。方法はありますか？',
+    a: '直接補佐者を置くチーム体制の類型もありますが、実務上のハードルは高めです。現実的には、経験が5年に達するのを待つか、経営経験のある方を常勤役員として迎える選択肢を含めて検討することになります。',
+  },
+];
+
+const relatedLinks = [
+  {
+    title: '建設業許可の基礎知識',
+    text: '建設業許可の基本ルール、区分、5要件の全体像を整理した親ページです。',
+    href: '/construction-permit/basic/',
+  },
+  {
+    title: '営業所技術者等（専任技術者）',
+    text: '経管と並んで重要な要件です。技術者要件の考え方を確認したい方はこちら。',
+    href: '/construction-permit/basic/requirements/engineer',
+  },
+  {
+    title: '建設業許可サービスページ',
+    text: '新規申請、更新、決算変更届、業種追加など、対応範囲をご案内しています。',
+    href: '/construction-permit/',
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle('経営業務の管理責任者（経管）の要件と必要書類')}
+  description="建設業許可で最も重要な「経営業務の管理責任者（経管）」の要件を解説。誰がなれるか、経営経験5年の数え方、証明資料、常勤性のポイントまで。大阪泉州・和歌山北部対応。"
+  breadcrumbs={[
+    { name: 'ホーム', href: '/' },
+    { name: '建設業許可', href: '/construction-permit/' },
+    { name: '基礎知識', href: '/construction-permit/basic/' },
+    { name: '経営業務の管理責任者' },
+  ]}
+>
+  <div class="page">
+    <SiteHeader />
+
+    <main>
+      <section class="page-hero section--base" aria-labelledby="page-heading">
+        <div class="page-hero__inner">
+          <nav class="breadcrumb" aria-label="パンくずリスト">
+            <ol>
+              <li><a href="/">ホーム</a></li>
+              <li><a href="/construction-permit/">建設業許可</a></li>
+              <li><a href="/construction-permit/basic/">基礎知識</a></li>
+              <li aria-current="page">経営業務の管理責任者</li>
+            </ol>
+          </nav>
+
+          <div class="page-hero__content">
+            <p class="page-hero__label">REQUIREMENTS</p>
+            <h1 id="page-heading" class="page-hero__title">
+              経営業務の管理責任者（経管）とは
+            </h1>
+            <p class="page-hero__lead">
+              「建設業許可を取りたくても取れない」——そのご相談で最も多い原因が、この経営業務の管理責任者（経管）の要件です。
+              特別な資格は必要ありません。それでも難しいのは、<strong>建設業の経営経験</strong>と、
+              それを<strong>客観的な資料で証明できるか</strong>が問われるからです。
+              このページでは、要件の考え方から必要書類まで順に整理します。
+            </p>
+
+            <div class="page-hero__actions">
+              <a href="/contact" class="btn btn--primary">相談してみる</a>
+              <LineButton />
+            </div>
+          </div>
+
+          <figure class="page-hero__visual">
+            <img
+              src="/images/consultation.jpg"
+              alt="経営業務の管理責任者の要件をイメージする打ち合わせ風景"
+              loading="eager"
+            />
+          </figure>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="conclusion-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="summary-box">
+            <h2 id="conclusion-heading" class="summary-box__heading">まず結論</h2>
+            <p class="summary-box__text">
+              経営業務の管理責任者（経管）に求められるのは、資格ではなく<strong>原則5年以上の建設業の経営経験</strong>です。
+              そして実務上の最大のポイントは、その経験を<strong>登記・確定申告書・工事資料などの客観的な資料で証明できるか</strong>にあります。
+              「経験はあるはずだが、資料がそろうか分からない」という段階での早めの確認が、遠回りを防ぐ近道です。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="why-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="why-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              なぜ最も重要な要件といわれるのか
+            </h2>
+          </div>
+
+          <p class="section__text">
+            建設業許可の制度は、建設工事の適正な施工の確保や発注者の保護を目的としています。
+            そのため許可業者には、工事の技術力だけでなく、契約や資金、人員を適切に管理する<strong>経営能力</strong>が求められます。
+            この経営能力は資格試験では測れないため、「一定以上の建設業の経営経験があるか」で判断される仕組みになっています。
+          </p>
+          <p class="section__text">
+            また、経管は許可を取った後も欠かすことができない存在です。
+            退任などで経管が不在になると、その時点で許可要件を満たさなくなり、
+            後任がいなければ許可を維持できません。後任と交代する場合も、交代日から14日以内の変更届が必要です。
+            許可取得時だけでなく、<strong>取得後もずっと維持し続ける要件</strong>である点も押さえておきたいポイントです。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="who-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="who-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              経管になれるのは「常勤役員等」です
+            </h2>
+            <p class="section__sub">
+              経管になれるのは、許可を受けようとする事業者の中心にいる常勤役員等に限られます。
+            </p>
+          </div>
+
+          <div class="card-grid card-grid--three">
+            {whoCanBe.map((item) => (
+              <article class="info-card">
+                <h3 class="info-card__title">{item.title}</h3>
+                <p class="info-card__text">{item.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="experience-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="experience-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              必要な経営経験は原則5年以上
+            </h2>
+            <p class="section__sub">
+              経営経験とは、法人の役員や個人事業主として建設業の経営を管理してきた経験をいいます。主なパターンは次のとおりです。
+            </p>
+          </div>
+
+          <div class="pattern-table-wrap">
+            <table class="pattern-table">
+              <thead>
+                <tr>
+                  <th scope="col">経験の内容</th>
+                  <th scope="col" class="pattern-table__years-col">必要年数</th>
+                </tr>
+              </thead>
+              <tbody>
+                {experiencePatterns.map((row) => (
+                  <tr>
+                    <th scope="row">
+                      {row.name}
+                      <span class="pattern-table__note">{row.note}</span>
+                    </th>
+                    <td class="pattern-table__years-col">{row.years}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <p class="section__note">
+            ※「役員3年＋執行役員2年で合算5年」のように、異なる立場・別々の会社での経験を組み合わせて数えることも可能です。
+          </p>
+
+          <div class="attention-box">
+            <h3 class="attention-box__title">経験が5年に満たない場合の「チーム体制」</h3>
+            <p class="attention-box__text">
+              制度上は、建設業の役員経験2年以上を含む一定の経験を持つ常勤役員等に、
+              財務管理・労務管理・業務運営をそれぞれ5年以上経験した「直接補佐者」を付けることで、
+              体制全体として要件を満たす類型もあります。
+              ただし、申請する会社自身での5年以上の補佐経験が求められるなど条件が厳しく、
+              新設会社や中小規模の会社で当てはまるケースはかなり限られるのが実情です。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="proof-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="proof-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              最大のポイントは「資料で証明できるか」
+            </h2>
+            <p class="section__sub">
+              経営経験があっても、客観的な資料で証明できなければ申請は進められません。
+              過去に勤めていた会社から書類を借りる必要が生じることも多く、ここで止まってしまうケースが実際に多くあります。
+              必要な資料が<strong>同じ期間で5年分（補佐経験は6年分）重なって</strong>そろうことがゴールです。
+            </p>
+          </div>
+
+          <div class="card-grid card-grid--three">
+            {proofDocsRole.map((group) => (
+              <article class="info-card">
+                <h3 class="info-card__title">{group.title}</h3>
+                <ul class="doc-list">
+                  {group.items.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+
+          <p class="section__note">
+            ※工事資料は、工事と工事の間が12か月以上空かないように年数分そろえる必要があります。
+            執行役員や「準ずる地位」での経験は、組織図・業務分掌規程・取締役会議事録・年金記録など、さらに踏み込んだ資料が求められます。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="permanence-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="permanence-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              経験だけでなく「現在の常勤性」も必要です
+            </h2>
+            <p class="section__sub">
+              過去の経営経験に加えて、申請時点で主たる営業所に常勤していることが求められます。
+            </p>
+          </div>
+
+          <ul class="check-list">
+            {permanencePoints.map((item) => (
+              <li class="check-list__item">{item}</li>
+            ))}
+          </ul>
+
+          <p class="section__text section__text--spaced">
+            非常勤の取締役は経管になれません。複数の会社で取締役を務めている場合、
+            社会保険の適用がない非常勤扱いの会社では経管として認められない点に注意が必要です。
+            また、常勤性は許可取得時だけでなく、更新や業種追加のたびに確認されます。
+            常勤性を欠いた状態は許可取消しの事由にもなるため、取得後の管理も含めて意識しておくことが大切です。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="faq-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="faq-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              よくあるご質問
+            </h2>
+          </div>
+
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <details class="faq-item">
+                <summary class="faq-item__question">{item.q}</summary>
+                <div class="faq-item__answer">
+                  <p>{item.a}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="lastly-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="lastly-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              経験の有無で、取れる選択肢が変わります
+            </h2>
+          </div>
+
+          <p class="section__text">
+            他の許可要件と違い、経営経験そのものがない場合には打てる手が限られます。
+            経験が5年に達するのを待つか、経営経験のある方を常勤役員として迎えるか——という大きな判断になります。
+          </p>
+          <p class="section__text">
+            一方で、<strong>「経験はあるが、資料がそろうか分からない」というケースには、まだ解決の余地があります。</strong>
+            どの資料で経験をつなげるか、許可業者での経験として省略できる部分はないか、行政への事前相談で道が開けないか。
+            整理の仕方しだいで結論が変わることがあるからこそ、自己判断で諦める前の確認をおすすめしています。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="related-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="related-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              関連ページ
+            </h2>
+          </div>
+
+          <div class="card-grid card-grid--three">
+            {relatedLinks.map((item) => (
+              <article class="info-card info-card--link">
+                <h3 class="info-card__title">{item.title}</h3>
+                <p class="info-card__text">{item.text}</p>
+                <a href={item.href} class="text-link">ページを見る</a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--contact-cta">
+        <div class="section__inner">
+          <div class="cta-box">
+            <h2 class="cta-box__heading">
+              経管の要件に当てはまるか、まずは一緒に整理しませんか。
+            </h2>
+            <p class="cta-box__text">
+              「経験はあると思うが、資料で証明できるか分からない」という段階でもご相談いただけます。
+              大阪泉州・和歌山北部を中心に、現在の経歴や資料の状況を確認しながら、見通しを分かりやすくご案内します。
+            </p>
+
+            <div class="cta-box__actions">
+              <a href="/contact" class="btn btn--primary">お問い合わせフォームへ</a>
+              <LineButton />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>
+
+<style>
+  .page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+  }
+
+  .section--base {
+    background: #ffffff;
+  }
+
+  .section--band {
+    background: #f8fafc;
+    border-block: 1px solid var(--color-border);
+  }
+
+  .section {
+    padding: var(--space-section-y) var(--space-section-x);
+  }
+
+  .section__inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+  }
+
+  .section__inner--narrow {
+    max-width: 56rem;
+  }
+
+  .section__head-block {
+    margin-bottom: 2rem;
+  }
+
+  .heading-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.4rem;
+    background: #1e3a8a;
+    flex-shrink: 0;
+    vertical-align: middle;
+    margin-right: 0.65rem;
+  }
+
+  .heading-icon::after {
+    content: '';
+    width: 0.55rem;
+    height: 0.72rem;
+    border: 2px solid #fff;
+    border-radius: 2px;
+  }
+
+  .section__heading {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0 0 1rem;
+    font-size: clamp(1.2rem, 2.8vw, 1.5rem);
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 0.05em;
+    line-height: 1.45;
+  }
+
+  .section__sub {
+    margin: 0;
+    max-width: 52rem;
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    line-height: 1.9;
+  }
+
+  .section__text {
+    margin: 0 0 1rem;
+    font-size: 0.95rem;
+    line-height: 1.95;
+    color: var(--color-text-muted);
+  }
+
+  .section__text:last-child {
+    margin-bottom: 0;
+  }
+
+  .section__text--spaced {
+    margin-top: 1.75rem;
+  }
+
+  .section__text strong,
+  .section__sub strong {
+    color: var(--color-text);
+  }
+
+  .section__note {
+    margin: 1.25rem 0 0;
+    font-size: 0.875rem;
+    line-height: 1.85;
+    color: var(--color-text-muted);
+  }
+
+  .page-hero {
+    padding: clamp(3.25rem, 9vw, 5.75rem) var(--space-section-x)
+      max(var(--space-section-y), 3.75rem);
+  }
+
+  .page-hero__inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+    display: grid;
+    gap: 2rem 2.5rem;
+    align-items: center;
+  }
+
+  @media (min-width: 960px) {
+    .page-hero__inner {
+      grid-template-columns: minmax(0, 1.12fr) minmax(280px, 0.88fr);
+    }
+  }
+
+  .breadcrumb {
+    grid-column: 1 / -1;
+  }
+
+  .breadcrumb ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.5rem;
+    list-style: none;
+    margin: 0 0 0.25rem;
+    padding: 0;
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
+
+  .breadcrumb li:not(:last-child)::after {
+    content: '/';
+    margin-left: 0.5rem;
+    color: var(--color-border-strong);
+  }
+
+  .breadcrumb a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    color: var(--color-primary);
+  }
+
+  .breadcrumb li[aria-current='page'] {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  .page-hero__label {
+    margin: 0 0 1rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    color: var(--color-primary);
+  }
+
+  .page-hero__title {
+    margin: 0 0 1.25rem;
+    font-size: clamp(1.9rem, 6vw, 2.8rem);
+    line-height: 1.35;
+    letter-spacing: 0.04em;
+    color: var(--color-text);
+  }
+
+  .page-hero__lead {
+    margin: 0 0 1.6rem;
+    font-size: 1rem;
+    line-height: 1.95;
+    color: var(--color-text-muted);
+    max-width: 46rem;
+  }
+
+  .page-hero__lead strong {
+    color: var(--color-text);
+  }
+
+  .page-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem 1rem;
+  }
+
+  .page-hero__visual {
+    margin: 0;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+    background: #f3f6fb;
+  }
+
+  .page-hero__visual img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 280px;
+    object-fit: cover;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    padding: 0 1.5rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .btn--primary {
+    background: #1e3a8a;
+    color: #fff;
+    border: 2px solid #1e3a8a;
+  }
+
+  .btn--primary:hover {
+    background: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+    color: #fff;
+  }
+
+  .summary-box {
+    padding: 1.5rem;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .summary-box__heading {
+    margin: 0 0 0.75rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .summary-box__text {
+    margin: 0;
+    line-height: 1.9;
+    color: var(--color-text-muted);
+  }
+
+  .summary-box__text strong {
+    color: var(--color-text);
+  }
+
+  .card-grid {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .card-grid--three {
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 768px) {
+    .card-grid--three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .info-card {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.4rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .info-card--link {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .info-card__title {
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.6;
+    color: var(--color-text);
+  }
+
+  .info-card__text {
+    margin: 0;
+    line-height: 1.9;
+    color: var(--color-text-muted);
+    font-size: 0.9375rem;
+  }
+
+  .doc-list {
+    margin: 0;
+    padding-left: 1.15rem;
+    display: grid;
+    gap: 0.65rem;
+    font-size: 0.9rem;
+    line-height: 1.85;
+    color: var(--color-text-muted);
+  }
+
+  .text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1rem;
+    width: fit-content;
+    color: var(--color-primary);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .text-link::after {
+    content: '→';
+    font-size: 0.95em;
+  }
+
+  .text-link:hover {
+    text-decoration: underline;
+  }
+
+  .pattern-table-wrap {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow-x: auto;
+  }
+
+  .pattern-table {
+    width: 100%;
+    min-width: 34rem;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+  }
+
+  .pattern-table thead th {
+    background: #1e3a8a;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-align: left;
+    padding: 0.85rem 1.25rem;
+    white-space: nowrap;
+  }
+
+  .pattern-table tbody th {
+    text-align: left;
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .pattern-table th,
+  .pattern-table td {
+    padding: 0.95rem 1.25rem;
+    border-bottom: 1px solid var(--color-border);
+    line-height: 1.7;
+  }
+
+  .pattern-table tbody tr:last-child th,
+  .pattern-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .pattern-table tbody tr:nth-child(even) {
+    background: var(--color-band);
+  }
+
+  .pattern-table__note {
+    display: block;
+    margin-top: 0.35rem;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    color: var(--color-text-muted);
+  }
+
+  .pattern-table__years-col {
+    white-space: nowrap;
+    font-weight: 700;
+    color: var(--color-primary);
+    text-align: right;
+  }
+
+  .pattern-table thead .pattern-table__years-col {
+    color: #fff;
+  }
+
+  .attention-box {
+    margin-top: 1.75rem;
+    background: var(--color-primary-soft);
+    border: 1px solid rgba(30, 58, 138, 0.2);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem 1.65rem;
+  }
+
+  .attention-box__title {
+    margin: 0 0 0.75rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 0.03em;
+  }
+
+  .attention-box__text {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.9;
+    color: var(--color-text);
+  }
+
+  .check-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .check-list__item {
+    position: relative;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1rem 1rem 2.75rem;
+    line-height: 1.8;
+    color: var(--color-text);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .check-list__item::before {
+    content: '✓';
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 50%;
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .faq-list {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .faq-item {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+
+  .faq-item__question {
+    cursor: pointer;
+    list-style: none;
+    padding: 1.15rem 1.25rem;
+    font-weight: 700;
+    line-height: 1.7;
+    color: var(--color-text);
+  }
+
+  .faq-item__question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item__answer {
+    padding: 0 1.25rem 1.15rem;
+    color: var(--color-text-muted);
+    line-height: 1.85;
+  }
+
+  .faq-item__answer p {
+    margin: 0;
+  }
+
+  .section--contact-cta {
+    background: #ffffff;
+    padding: var(--space-section-y) var(--space-section-x) max(var(--space-section-y), 4rem);
+  }
+
+  .cta-box {
+    background: #f8fafc;
+    border: 1px solid var(--color-border);
+    border-radius: 1rem;
+    padding: clamp(1.75rem, 4vw, 2.5rem);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+  }
+
+  .cta-box__heading {
+    margin: 0 0 1rem;
+    font-size: clamp(1.2rem, 2.8vw, 1.6rem);
+    line-height: 1.6;
+    color: var(--color-text);
+  }
+
+  .cta-box__text {
+    margin: 0 0 1.5rem;
+    color: var(--color-text-muted);
+    line-height: 1.9;
+  }
+
+  .cta-box__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.85rem 1rem;
+  }
+</style>
