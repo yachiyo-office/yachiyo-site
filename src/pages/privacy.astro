@@ -2,8 +2,12 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
-import { lineOfficialUrl, lineDisplayLabel } from '../config/contact';
-import { pageTitle } from '../config/site';
+import LineButton from '../components/LineButton.astro';
+import { contactFormButtonLabel } from '../config/contact';
+import { pageTitle, OFFICE_ADDRESS } from '../config/site';
+
+const PRIVACY_ENACTED_DATE = '2026年8月10日';
+const PRIVACY_REVISED_DATE = '2026年8月10日';
 ---
 
 <BaseLayout
@@ -34,7 +38,7 @@ import { pageTitle } from '../config/site';
       <section class="section section--base section--content">
         <div class="section__inner section__inner--narrow">
           <div class="prose">
-            <p class="prose__updated">制定日：20XX年X月X日　／　最終改定日：20XX年X月X日</p>
+            <p class="prose__updated">制定日：{PRIVACY_ENACTED_DATE}　／　最終改定日：{PRIVACY_REVISED_DATE}</p>
 
             <h2>1. 基本方針</h2>
             <p>
@@ -58,7 +62,7 @@ import { pageTitle } from '../config/site';
               <li>お問い合わせ・ご相談への対応、見積り・契約に関するご連絡</li>
               <li>業務上必要な官公署・関係機関への書類提出</li>
               <li>司法書士・税理士等の他士業との連携（お客様の同意がある場合に限ります）</li>
-              <li>当事務所からの業務に関するご案内、重要なお知らせの送付</li>
+              <li>業務の遂行に必要なご連絡、重要なお知らせの送付</li>
               <li>当事務所のサービス向上のための分析（個人を特定しない形での統計処理）</li>
             </ul>
 
@@ -77,6 +81,9 @@ import { pageTitle } from '../config/site';
             <p>
               業務の一部を外部に委託する場合、個人情報を取り扱うことがあるときは、委託先に対し適切な監督を行い、個人情報の安全管理が図られるよう必要な措置を講じます。
             </p>
+            <p>
+              お問い合わせフォームには Google LLC が提供する Google フォームを利用しており、フォームから送信された情報は当該サービス上で処理されたうえ、当事務所が取得いたします。Google フォームの利用にあたっては、Google のプライバシーポリシーも適用されます。
+            </p>
 
             <h2>7. 個人情報の安全管理</h2>
             <p>
@@ -91,6 +98,9 @@ import { pageTitle } from '../config/site';
             <h2>9. Cookie（クッキー）等の利用について</h2>
             <p>
               当事務所のウェブサイトでは、サイトの利便性向上やアクセス状況の分析のため、Cookie 等の技術を使用する場合があります。Cookie により個人を特定する情報を取得することはありません。ブラウザの設定により Cookie の受け取りを拒否することも可能ですが、一部機能がご利用いただけない場合があります。
+            </p>
+            <p>
+              なお、お問い合わせフォーム（Google フォーム）の表示・利用にあたっては、Google 側の Cookie 等が使用される場合があります。
             </p>
 
             <h2>10. 法令遵守と見直し</h2>
@@ -111,20 +121,29 @@ import { pageTitle } from '../config/site';
               </div>
               <div class="contact-dl__row">
                 <dt>所在地</dt>
-                <dd>大阪府阪南市</dd>
+                <dd>{OFFICE_ADDRESS.full}</dd>
               </div>
               <div class="contact-dl__row">
                 <dt>電話番号</dt>
                 <dd>（掲載準備中）</dd>
               </div>
-              <div class="contact-dl__row">
+            </dl>
+
+            <dl class="contact-card__dl">
+              <div class="contact-card__row contact-card__row--line">
                 <dt>公式LINE</dt>
-                <dd>
-                  <a href={lineOfficialUrl} target="_blank" rel="noopener noreferrer">{lineDisplayLabel}</a>
-                  よりご連絡ください
-                </dd>
+                <dd><LineButton block /></dd>
               </div>
             </dl>
+
+            <a href="/contact/" class="contact-card__btn">
+              {contactFormButtonLabel}
+            </a>
+
+            <p class="contact-card__note">
+              ※ お問い合わせフォーム・公式LINEは24時間受付しております。上記受付時間外のご連絡は、原則翌営業時間内にご返信いたします。<br />
+              ※ 役所への提出など、手続き上日中対応が必要な場合も、日程を調整のうえ対応します。
+            </p>
           </div>
         </div>
       </section>
@@ -267,6 +286,24 @@ import { pageTitle } from '../config/site';
     color: var(--color-primary-hover);
   }
 
+  .prose :global(.contact-card__btn) {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .prose :global(.contact-card__btn:hover) {
+    color: #fff;
+  }
+
+  .prose :global(.line-button) {
+    color: #fff;
+    text-decoration: none;
+  }
+
+  .prose :global(.line-button:hover) {
+    color: #fff;
+  }
+
   .contact-dl {
     margin: 1.25rem 0 0;
     background: #ffffff;
@@ -301,5 +338,74 @@ import { pageTitle } from '../config/site';
       grid-template-columns: 1fr;
       gap: 0.35rem;
     }
+  }
+
+  .contact-card__dl {
+    margin: 1.5rem 0 1.5rem;
+    padding: 1.15rem 0 0;
+    border-top: 1px solid var(--color-border);
+  }
+
+  .contact-card__row {
+    display: grid;
+    grid-template-columns: 7rem 1fr;
+    gap: 0.5rem 1rem;
+    padding: 0.7rem 0;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 0.875rem;
+  }
+
+  .contact-card__row:last-of-type {
+    border-bottom: none;
+  }
+
+  .contact-card__row dt {
+    margin: 0;
+    font-weight: 700;
+    color: var(--color-text-muted);
+  }
+
+  .contact-card__row dd {
+    margin: 0;
+    color: var(--color-text);
+  }
+
+  .contact-card__row--line {
+    align-items: center;
+  }
+
+  .contact-card__row--line dd {
+    min-width: 0;
+  }
+
+  .contact-card__btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 3rem;
+    margin: 0 0 1rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    color: #fff;
+    background: #1e3a8a;
+    border: 2px solid #1e3a8a;
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: background 0.15s ease, border-color 0.15s ease;
+  }
+
+  .contact-card__btn:hover {
+    background: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+    color: #fff;
+  }
+
+  .contact-card__note {
+    margin: 0;
+    font-size: 0.75rem;
+    line-height: 1.65;
+    color: var(--color-text-muted);
   }
 </style>

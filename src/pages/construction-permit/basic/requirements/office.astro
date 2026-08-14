@@ -1,0 +1,783 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import SiteHeader from '../../../../components/SiteHeader.astro';
+import SiteFooter from '../../../../components/SiteFooter.astro';
+import LineButton from '../../../../components/LineButton.astro';
+import { pageTitle } from '../../../../config/site';
+
+const officeTypes = [
+  {
+    title: '主たる営業所',
+    text: '建設業許可を受けるには、主たる営業所を必ず設置しなければなりません。営業所が1箇所だけの場合、その営業所が主たる営業所です。主たる営業所には、経営業務の管理に関する体制（経管）が常勤している必要があります。',
+  },
+  {
+    title: '従たる営業所',
+    text: '主たる営業所以外の営業所が従たる営業所です。従たる営業所には、その営業所の代表として支店長や営業所長（令3条使用人）が常勤している必要があります。従たる営業所ごとに、許可を受けた業種の専任技術者も配置が必要です。',
+  },
+  {
+    title: '営業所に該当しない例',
+    text: '資材置き場や作業場、工事事務所のように請負契約締結業務を行わない場所、登記上の本社で経理業務のみを行う事務所、兼業の不動産仲介のみを行う支店などは、原則として営業所に該当しません。',
+  },
+];
+
+const facilityPoints = [
+  '事務所スペースとして常時使用する権限を有していること',
+  '固定電話、机、事務備品・機器、応接セット等を備えていること',
+  '建物の外観または入口で商号・屋号が確認できること',
+  '許可を受けている場合は、許可票を掲示していること',
+];
+
+const peoplePoints = [
+  '営業所ごとに、許可を受けた業種に対応した専任技術者が常勤していること',
+  '主たる営業所には、経営業務の管理に関する体制（経管）が常勤していること',
+  '従たる営業所には、支店長・営業所長（令3条使用人）が常勤していること',
+  '従たる営業所に専任技術者がいない業種は、その営業所では当該業種の工事を請け負えない',
+];
+
+const specialCases = [
+  {
+    title: '自宅を営業所とする場合',
+    text: '住居スペースとは分けられた独立した事務スペースが必要です。電話番号も自宅用とは別に取得するのが一般的です。外観から商号が確認できる表札や看板の設置も求められます。',
+  },
+  {
+    title: '賃貸物件・マンションの場合',
+    text: '使用承諾書や賃貸借契約書で、建設業の営業所として使用できる権限があることが確認されます。管理規約で事務所利用が制限されている場合は、事前確認が必要です。',
+  },
+  {
+    title: '共有オフィス・バーチャルオフィス',
+    text: '固定電話の設置、商号の表示、事務所としての専用スペースの確保など、営業所の実体性を示せるかが問われます。形式的な住所借りだけでは不十分と判断されることがあります。',
+  },
+];
+
+const proofDocs = [
+  {
+    title: '新規申請・許可換え新規',
+    items: [
+      '営業概要書 …… 営業所の所在地、設備、配置人員等を記載',
+      '事務所の内外観写真 …… 実在性と設備状況を確認',
+      '賃貸借契約書・使用承諾書 …… 使用権限を確認',
+      '不動産登記簿謄本 …… 必要に応じて、物件の権利関係を確認',
+    ],
+  },
+  {
+    title: '営業所追加・移転',
+    items: [
+      '変更届または許可換え新規の申請書 …… 手続区分により異なる',
+      '追加・移転先の営業概要書と写真 …… 新営業所の実体を確認',
+      '支店長・専任技術者の配置に関する資料 …… 従たる営業所の場合',
+    ],
+  },
+  {
+    title: '許可後の確認',
+    items: [
+      '許可通知書の受領 …… 許可票の掲示',
+      '許可票の営業所内掲示 …… 許可業者としての表示義務',
+      '変更届 …… 営業所の移転・追加時は14日以内等の期限あり',
+    ],
+  },
+];
+
+const faqItems = [
+  {
+    q: '自宅兼事務所でも営業所として認められますか？',
+    a: '住居と事務所が明確に区分され、固定電話・事務設備・商号表示などの要件を満たしていれば、認められるケースがあります。ただし、外観上「事務所として機能している」と説明できる状態にしておくことが重要です。',
+  },
+  {
+    q: '営業所の現地調査は必ずありますか？',
+    a: '都道府県によって異なります。書面と写真での確認が中心の場合もあれば、許可通知書が届かない等の事情で現地確認が行われる場合もあります。公共工事の落札後に確認されるケースもあります。',
+  },
+  {
+    q: '他府県に営業所を追加するとどうなりますか？',
+    a: '営業所が2つ以上の都道府県にまたがる場合、許可の区分が大臣許可になります。知事許可のまま変更届だけで済むわけではなく、許可換え新規などの手続が必要になる点に注意が必要です。',
+  },
+  {
+    q: '本店に専任技術者がいれば、支店にもいなくて大丈夫ですか？',
+    a: 'いいえ。許可を受けた業種の工事を請け負う営業所ごとに、その業種の専任技術者が必要です。支店に専任技術者がいない業種は、その支店では当該業種の工事（軽微な工事を含む）を請け負えません。',
+  },
+  {
+    q: '許可取得後に営業所を移転できますか？',
+    a: 'できますが、移転届（変更届）の提出が必要です。移転先が営業所要件を満たしているか、移転先の写真や契約書類の準備も必要になります。期限（原則14日以内）を過ぎないよう注意してください。',
+  },
+];
+
+const relatedLinks = [
+  {
+    title: '建設業許可の基礎知識',
+    text: '建設業許可の基本ルール、区分、5要件の全体像を整理した親ページです。',
+    href: '/construction-permit/basic/',
+  },
+  {
+    title: '営業所技術者等（専任技術者）',
+    text: '営業所ごとに配置が必要な専任技術者の要件を確認したい方はこちら。',
+    href: '/construction-permit/basic/requirements/engineer',
+  },
+  {
+    title: '経営業務の管理に関する体制（経管）',
+    text: '主たる営業所に常勤する必要がある経管の要件を確認したい方はこちら。',
+    href: '/construction-permit/basic/requirements/management',
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle('営業所の実体と要件｜建設業許可')}
+  description="建設業許可の「営業所」要件を解説。主たる・従たる営業所の違い、必要な設備、自宅兼事務所の注意点、必要書類まで。大阪泉州・和歌山北部対応。"
+  breadcrumbs={[
+    { name: 'ホーム', href: '/' },
+    { name: '建設業許可', href: '/construction-permit/' },
+    { name: '基礎知識', href: '/construction-permit/basic/' },
+    { name: '営業所の実体' },
+  ]}
+>
+  <div class="page">
+    <SiteHeader />
+
+    <main>
+      <section class="page-hero section--base" aria-labelledby="page-heading">
+        <div class="page-hero__inner">
+          <nav class="breadcrumb" aria-label="パンくずリスト">
+            <ol>
+              <li><a href="/">ホーム</a></li>
+              <li><a href="/construction-permit/">建設業許可</a></li>
+              <li><a href="/construction-permit/basic/">基礎知識</a></li>
+              <li aria-current="page">営業所の実体</li>
+            </ol>
+          </nav>
+
+          <div class="page-hero__content">
+            <p class="page-hero__label">REQUIREMENTS</p>
+            <h1 id="page-heading" class="page-hero__title">
+              建設業許可の営業所とは
+            </h1>
+            <p class="page-hero__lead">
+              建設業許可には、<strong>建設工事の請負契約に関する実体を持つ営業所</strong>が必要です。
+              ペーパーカンパニーを排除するための要件でもあり、事務所の設備や使用権限、配置する人員まで含めて確認されます。
+              自宅兼事務所や賃貸物件、共有オフィスなど、形態によって注意点が異なります。
+              このページでは、営業所の定義から必要書類まで順に整理します。
+            </p>
+
+            <div class="page-hero__actions">
+              <a href="/contact" class="btn btn--primary">相談してみる</a>
+              <LineButton />
+            </div>
+          </div>
+
+          <figure class="page-hero__visual">
+            <img
+              src="/images/requirement-office.jpg"
+              alt="建設業許可の営業所要件をイメージする事務所の風景"
+              loading="eager"
+            />
+          </figure>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="conclusion-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="summary-box">
+            <h2 id="conclusion-heading" class="summary-box__heading">まず結論</h2>
+            <p class="summary-box__text">
+              営業所とは、<strong>常時建設工事の請負契約を締結する事務所</strong>（本店・支店を含む）をいいます。
+              固定電話・事務設備・商号表示に加え、<strong>専任技術者や経管等の配置</strong>も要件の一部です。
+              新規申請・許可換え新規では、写真や契約書類で実体が確認されます。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="definition-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="definition-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              営業所の定義
+            </h2>
+          </div>
+
+          <p class="section__text">
+            建設業の「営業所」とは、本店・支店、または常時建設工事の請負契約を締結する事務所を指します。
+            見積り、入札、契約締結など、<strong>請負契約に係る実体的な行為を行う場所</strong>が営業所に該当します。
+          </p>
+          <p class="section__text">
+            契約名義人が本社の代表者であっても、実態として請負契約を締結する権限がある支店等は営業所に該当します。
+            逆に、請負契約締結業務を行わない資材置き場や工事事務所は、原則として営業所にはなりません。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="types-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="types-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              主たる営業所と従たる営業所
+            </h2>
+            <p class="section__sub">
+              営業所の所在は、知事許可か大臣許可かの判断にも関わります。
+            </p>
+          </div>
+
+          <div class="card-grid card-grid--three">
+            {officeTypes.map((item) => (
+              <article class="info-card">
+                <h3 class="info-card__title">{item.title}</h3>
+                <p class="info-card__text">{item.text}</p>
+              </article>
+            ))}
+          </div>
+
+          <p class="section__note">
+            ※営業所が1つの都道府県内のみ → 知事許可。2つ以上の都道府県にまたがる → 大臣許可（許可換え新規等の手続が必要）。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="facility-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="facility-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              営業所に必要な設備等（ハード面）
+            </h2>
+            <p class="section__sub">
+              原則として、以下のすべてを満たしている必要があります。
+            </p>
+          </div>
+
+          <ul class="check-list">
+            {facilityPoints.map((item) => (
+              <li class="check-list__item">{item}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="people-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="people-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              営業所に配置しなければならない人（ソフト面）
+            </h2>
+            <p class="section__sub">
+              営業所の要件は、場所と設備だけでなく、人員配置も含みます。
+            </p>
+          </div>
+
+          <ul class="check-list">
+            {peoplePoints.map((item) => (
+              <li class="check-list__item">{item}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="special-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="special-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              形態別の注意点
+            </h2>
+            <p class="section__sub">
+              自宅兼事務所や賃貸物件など、よくあるケースごとのポイントです。
+            </p>
+          </div>
+
+          <div class="card-grid card-grid--three">
+            {specialCases.map((item) => (
+              <article class="info-card">
+                <h3 class="info-card__title">{item.title}</h3>
+                <p class="info-card__text">{item.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="proof-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="proof-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              申請時に必要となる主な書類
+            </h2>
+            <p class="section__sub">
+              新規申請・許可換え新規では営業所の確認が行われます。追加・移転時も届出が必要です。
+            </p>
+          </div>
+
+          <div class="card-grid card-grid--three">
+            {proofDocs.map((group) => (
+              <article class="info-card">
+                <h3 class="info-card__title">{group.title}</h3>
+                <ul class="doc-list">
+                  {group.items.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+
+          <p class="section__note">
+            ※都道府県によって様式名や添付資料の詳細が異なります。申請先の最新手引きで確認してください。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="faq-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="faq-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              よくあるご質問
+            </h2>
+          </div>
+
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <details class="faq-item">
+                <summary class="faq-item__question">{item.q}</summary>
+                <div class="faq-item__answer">
+                  <p>{item.a}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="lastly-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="lastly-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              営業所は「住所」だけでは足りません
+            </h2>
+          </div>
+
+          <p class="section__text">
+            営業所要件でつまずくケースの多くは、<strong>「形式上の住所はあるが、事務所として機能している実態が説明できない」</strong>というパターンです。
+            固定電話、商号表示、事務設備、使用権限——どれか一つが弱いと、許可後の届出や更新の段階で問題になることもあります。
+          </p>
+          <p class="section__text">
+            申請前に、写真で説明できる状態まで整えておくこと、
+            営業所追加や移転を見据えた届出手続の整理をしておくことが、長期的な許可管理の土台になります。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="related-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="related-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              関連ページ
+            </h2>
+          </div>
+
+          <div class="card-grid card-grid--three">
+            {relatedLinks.map((item) => (
+              <article class="info-card info-card--link">
+                <h3 class="info-card__title">{item.title}</h3>
+                <p class="info-card__text">{item.text}</p>
+                <a href={item.href} class="text-link">ページを見る</a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--contact-cta">
+        <div class="section__inner">
+          <div class="cta-box">
+            <h2 class="cta-box__heading">
+              営業所の要件、一緒に確認しませんか。
+            </h2>
+            <p class="cta-box__text">
+              「自宅兼事務所で大丈夫か」「賃貸物件を営業所にできるか」——そうした段階でもご相談いただけます。
+              大阪泉州・和歌山北部を中心に、営業所の形態と必要書類を確認しながら、見通しを分かりやすくご案内します。
+            </p>
+
+            <div class="cta-box__actions">
+              <a href="/contact" class="btn btn--primary">お問い合わせフォームへ</a>
+              <LineButton />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>
+
+<style>
+  .page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+  }
+
+  .section--base { background: #ffffff; }
+  .section--band { background: #f8fafc; border-block: 1px solid var(--color-border); }
+  .section { padding: var(--space-section-y) var(--space-section-x); }
+  .section__inner { max-width: var(--content-max); margin: 0 auto; }
+  .section__inner--narrow { max-width: 56rem; }
+  .section__head-block { margin-bottom: 2rem; }
+
+  .heading-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.4rem;
+    background: #1e3a8a;
+    flex-shrink: 0;
+    vertical-align: middle;
+    margin-right: 0.65rem;
+  }
+
+  .heading-icon::after {
+    content: '';
+    width: 0.55rem;
+    height: 0.72rem;
+    border: 2px solid #fff;
+    border-radius: 2px;
+  }
+
+  .section__heading {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0 0 1rem;
+    font-size: clamp(1.2rem, 2.8vw, 1.5rem);
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 0.05em;
+    line-height: 1.45;
+  }
+
+  .section__sub {
+    margin: 0;
+    max-width: 52rem;
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    line-height: 1.9;
+  }
+
+  .section__text {
+    margin: 0 0 1rem;
+    font-size: 0.95rem;
+    line-height: 1.95;
+    color: var(--color-text-muted);
+  }
+
+  .section__text:last-child { margin-bottom: 0; }
+  .section__text strong, .section__sub strong { color: var(--color-text); }
+
+  .section__note {
+    margin: 1.25rem 0 0;
+    font-size: 0.875rem;
+    line-height: 1.85;
+    color: var(--color-text-muted);
+  }
+
+  .page-hero {
+    padding: clamp(3.25rem, 9vw, 5.75rem) var(--space-section-x)
+      max(var(--space-section-y), 3.75rem);
+  }
+
+  .page-hero__inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+    display: grid;
+    gap: 2rem 2.5rem;
+    align-items: center;
+  }
+
+  @media (min-width: 960px) {
+    .page-hero__inner {
+      grid-template-columns: minmax(0, 1.12fr) minmax(280px, 0.88fr);
+    }
+  }
+
+  .breadcrumb { grid-column: 1 / -1; }
+
+  .breadcrumb ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.5rem;
+    list-style: none;
+    margin: 0 0 0.25rem;
+    padding: 0;
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
+
+  .breadcrumb li:not(:last-child)::after {
+    content: '/';
+    margin-left: 0.5rem;
+    color: var(--color-border-strong);
+  }
+
+  .breadcrumb a { color: var(--color-text-muted); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--color-primary); }
+  .breadcrumb li[aria-current='page'] { color: var(--color-text); font-weight: 600; }
+
+  .page-hero__label {
+    margin: 0 0 1rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    color: var(--color-primary);
+  }
+
+  .page-hero__title {
+    margin: 0 0 1.25rem;
+    font-size: clamp(1.9rem, 6vw, 2.8rem);
+    line-height: 1.35;
+    letter-spacing: 0.04em;
+    color: var(--color-text);
+  }
+
+  .page-hero__lead {
+    margin: 0 0 1.6rem;
+    font-size: 1rem;
+    line-height: 1.95;
+    color: var(--color-text-muted);
+    max-width: 46rem;
+  }
+
+  .page-hero__lead strong { color: var(--color-text); }
+
+  .page-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem 1rem;
+  }
+
+  .page-hero__visual {
+    margin: 0;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+    background: #f3f6fb;
+  }
+
+  .page-hero__visual img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 280px;
+    object-fit: cover;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    padding: 0 1.5rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .btn--primary {
+    background: #1e3a8a;
+    color: #fff;
+    border: 2px solid #1e3a8a;
+  }
+
+  .btn--primary:hover {
+    background: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+    color: #fff;
+  }
+
+  .summary-box {
+    padding: 1.5rem;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .summary-box__heading {
+    margin: 0 0 0.75rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .summary-box__text {
+    margin: 0;
+    line-height: 1.9;
+    color: var(--color-text-muted);
+  }
+
+  .summary-box__text strong { color: var(--color-text); }
+
+  .card-grid { display: grid; gap: 1.25rem; }
+  .card-grid--three { grid-template-columns: 1fr; }
+
+  @media (min-width: 768px) {
+    .card-grid--three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+
+  .info-card {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.4rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .info-card--link { display: flex; flex-direction: column; }
+
+  .info-card__title {
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.6;
+    color: var(--color-text);
+  }
+
+  .info-card__text {
+    margin: 0;
+    line-height: 1.9;
+    color: var(--color-text-muted);
+    font-size: 0.9375rem;
+  }
+
+  .doc-list {
+    margin: 0;
+    padding-left: 1.15rem;
+    display: grid;
+    gap: 0.65rem;
+    font-size: 0.9rem;
+    line-height: 1.85;
+    color: var(--color-text-muted);
+  }
+
+  .text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1rem;
+    width: fit-content;
+    color: var(--color-primary);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .text-link::after { content: '→'; font-size: 0.95em; }
+  .text-link:hover { text-decoration: underline; }
+
+  .check-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .check-list__item {
+    position: relative;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1rem 1rem 2.75rem;
+    line-height: 1.8;
+    color: var(--color-text);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .check-list__item::before {
+    content: '✓';
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 50%;
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .faq-list { display: grid; gap: 1rem; }
+
+  .faq-item {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+
+  .faq-item__question {
+    cursor: pointer;
+    list-style: none;
+    padding: 1.15rem 1.25rem;
+    font-weight: 700;
+    line-height: 1.7;
+    color: var(--color-text);
+  }
+
+  .faq-item__question::-webkit-details-marker { display: none; }
+
+  .faq-item__answer {
+    padding: 0 1.25rem 1.15rem;
+    color: var(--color-text-muted);
+    line-height: 1.85;
+  }
+
+  .faq-item__answer p { margin: 0; }
+
+  .section--contact-cta {
+    background: #ffffff;
+    padding: var(--space-section-y) var(--space-section-x) max(var(--space-section-y), 4rem);
+  }
+
+  .cta-box {
+    background: #f8fafc;
+    border: 1px solid var(--color-border);
+    border-radius: 1rem;
+    padding: clamp(1.75rem, 4vw, 2.5rem);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+  }
+
+  .cta-box__heading {
+    margin: 0 0 1rem;
+    font-size: clamp(1.2rem, 2.8vw, 1.6rem);
+    line-height: 1.6;
+    color: var(--color-text);
+  }
+
+  .cta-box__text {
+    margin: 0 0 1.5rem;
+    color: var(--color-text-muted);
+    line-height: 1.9;
+  }
+
+  .cta-box__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.85rem 1rem;
+  }
+</style>

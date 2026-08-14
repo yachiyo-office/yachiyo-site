@@ -1,0 +1,624 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import SiteHeader from '../../../components/SiteHeader.astro';
+import SiteFooter from '../../../components/SiteFooter.astro';
+import LineButton from '../../../components/LineButton.astro';
+import { pageTitle } from '../../../config/site';
+
+const industryTypes = [
+  {
+    name: '土木一式工事業',
+    category: 'integrated',
+    scope: '総合的な企画・指導・調整のもとに土木工作物を建設する工事',
+    examples: '橋梁工事、道路工事、トンネル工事等（原則、元請として請け負う一式工事）',
+  },
+  {
+    name: '建築一式工事業',
+    category: 'integrated',
+    scope: '総合的な企画・指導・調整のもとに建築物を建設する工事',
+    examples: '戸建て・ビル・商業施設の新築、建築確認が必要な増改築工事等',
+  },
+  {
+    name: '大工事業',
+    category: 'specialist',
+    scope: '木材の加工・取付けにより工作物を築造し、木製設備を取付ける工事',
+    examples: '大工工事、造作工事、型枠工事',
+  },
+  {
+    name: '左官工事業',
+    category: 'specialist',
+    scope: '壁土、モルタル、漆くい、プラスター等をこて塗り、吹付け、張り付ける工事',
+    examples: '左官工事、モルタル工事、吹付け工事、とぎ出し工事',
+  },
+  {
+    name: 'とび・土工工事業',
+    category: 'specialist',
+    scope: '足場組立て、重量物の揚重運搬、くい打ち、土砂の掘削・盛土、コンクリート打設等の基礎・準備工事',
+    examples: 'とび工事、足場仮設工事、くい工事、土工事、コンクリート工事、外構工事',
+  },
+  {
+    name: '石工事業',
+    category: 'specialist',
+    scope: '石材の加工・積方により工作物を築造し、石材を取付ける工事',
+    examples: '石積み（張り）工事、コンクリートブロック積み（張り）工事',
+  },
+  {
+    name: '屋根工事業',
+    category: 'specialist',
+    scope: '瓦、スレート、金属薄板等により屋根をふく工事',
+    examples: '屋根ふき工事',
+  },
+  {
+    name: '電気工事業',
+    category: 'specialist',
+    scope: '発電・変電・送配電・構内電気設備等を設置する工事',
+    examples: '送配電線工事、変電設備工事、照明設備工事、信号設備工事',
+  },
+  {
+    name: '管工事業',
+    category: 'specialist',
+    scope: '冷暖房・給排水・衛生等の設備設置、管を用いた送配設備の配置工事',
+    examples: '空調設備工事、給排水・給湯設備工事、厨房設備工事、ダクト工事',
+  },
+  {
+    name: 'タイル・れんが・ブロック工事業',
+    category: 'specialist',
+    scope: 'れんが・ブロック等で築造し、タイル等を取付け・張り付ける工事',
+    examples: 'レンガ積み（張り）工事、タイル張り工事、サイディング工事',
+  },
+  {
+    name: '鋼構造物工事業',
+    category: 'specialist',
+    scope: '形鋼・鋼板等の加工・組立てにより工作物を築造する工事',
+    examples: '鉄骨工事、橋梁工事、貯蔵タンク設置工事、屋外広告工事',
+  },
+  {
+    name: '鉄筋工事業',
+    category: 'specialist',
+    scope: '棒鋼等の鋼材を加工し、接合・組み立てる工事',
+    examples: '鉄筋加工組立て工事、鉄筋継手工事',
+  },
+  {
+    name: '舗装工事業',
+    category: 'specialist',
+    scope: '道路等の地盤面をアスファルト、コンクリート、砂利等で舗装する工事',
+    examples: 'アスファルト舗装工事、コンクリート舗装工事、路盤築造工事',
+  },
+  {
+    name: 'しゅんせつ工事業',
+    category: 'specialist',
+    scope: '河川、港湾等の水底をしゅんせつする工事',
+    examples: 'しゅんせつ工事',
+  },
+  {
+    name: '板金工事業',
+    category: 'specialist',
+    scope: '金属薄板等を加工して工作物に取付け、金属製付属物を取付ける工事',
+    examples: '板金加工取付け工事、建築板金工事',
+  },
+  {
+    name: 'ガラス工事業',
+    category: 'specialist',
+    scope: '工作物にガラスを加工して取付ける工事',
+    examples: 'ガラス加工取付け工事、ガラスフィルム工事',
+  },
+  {
+    name: '塗装工事業',
+    category: 'specialist',
+    scope: '塗料・塗材等を工作物に吹付け、塗付け、はりつける工事',
+    examples: '塗装工事、溶射工事、鋼構造物塗装工事、路面標示工事',
+  },
+  {
+    name: '防水工事業',
+    category: 'specialist',
+    scope: 'アスファルト、モルタル、シーリング材等で防水を行う工事',
+    examples: 'アスファルト防水工事、シーリング工事、塗膜防水工事、シート防水工事',
+  },
+  {
+    name: '内装仕上工事業',
+    category: 'specialist',
+    scope: '木材、石膏ボード、壁紙、床材等で建築物の内装仕上げを行う工事',
+    examples: 'インテリア工事、天井・壁・床仕上工事、内装間仕切り工事',
+  },
+  {
+    name: '機械器具設置工事業',
+    category: 'specialist',
+    scope: '機械器具の組立て等により工作物を建設し、機械器具を取付ける工事',
+    examples: 'プラント設備工事、運搬機器設置工事、立体駐車設備工事',
+  },
+  {
+    name: '熱絶縁工事業',
+    category: 'specialist',
+    scope: '工作物又は設備を熱絶縁する工事',
+    examples: '冷暖房・冷凍冷蔵設備の熱絶縁工事、ウレタン吹付け断熱工事',
+  },
+  {
+    name: '電気通信工事業',
+    category: 'specialist',
+    scope: '有線・無線電気通信設備、ネットワーク・情報・放送機械設備等を設置する工事',
+    examples: 'データ通信設備工事、情報処理設備工事、放送機械設備工事',
+  },
+  {
+    name: '造園工事業',
+    category: 'specialist',
+    scope: '植栽、景石のすえ付け等により庭園・公園・緑地を築造し、緑化・植生復元を行う工事',
+    examples: '植栽工事、公園設備工事、園路工事、屋上等緑化工事',
+  },
+  {
+    name: 'さく井工事業',
+    category: 'specialist',
+    scope: 'さく井機械等を用いてさく孔・さく井を行う工事、揚水設備設置等',
+    examples: 'さく井工事、井戸築造工事、温泉掘削工事',
+  },
+  {
+    name: '建具工事業',
+    category: 'specialist',
+    scope: '工作物に木製又は金属製の建具等を取付ける工事',
+    examples: 'サッシ取付け工事、シャッター取付け工事、自動ドア取付け工事',
+  },
+  {
+    name: '水道施設工事業',
+    category: 'specialist',
+    scope: '上水道・工業用水道の取水・浄水・配水施設、下水道処理設備を築造・設置する工事',
+    examples: '取水施設工事、浄水施設工事、配水施設工事、下水処理設備工事',
+  },
+  {
+    name: '消防施設工事業',
+    category: 'specialist',
+    scope: '火災警報・消火・避難設備等を設置し、工作物に取付ける工事',
+    examples: '屋内消火栓設置工事、スプリンクラー設置工事、火災報知設備工事',
+  },
+  {
+    name: '清掃施設工事業',
+    category: 'specialist',
+    scope: 'し尿処理施設又はごみ処理施設を設置する工事',
+    examples: 'ごみ処理施設工事、し尿処理施設工事',
+  },
+  {
+    name: '解体工事業',
+    category: 'specialist',
+    scope: '工作物の解体を行う工事',
+    examples: '工作物解体工事',
+  },
+];
+
+const integratedNotes = [
+  '複数の専門工事が含まれているだけで、自動的に一式工事になるとは限らない',
+  '大規模なリフォーム工事は、内容によって建築一式に該当する場合がある',
+  '一式工事は原則として、総合的な企画・指導・調整を伴う',
+  '下請として一式工事を請け負うケースは限定的',
+];
+
+const trickyCases = [
+  {
+    title: 'リフォーム・改修工事',
+    text: '「リフォーム工事」という名称だけでは業種を判断できません。壁紙・床材の張替えが中心なら内装仕上工事、給排水設備の交換なら管工事、外壁塗装なら塗装工事に該当する可能性があります。複数の改修をまとめて請け負っても、自動的に建築一式になるわけではありません。',
+  },
+  {
+    title: 'エアコン・空調設備工事',
+    text: 'エアコンや空調設備の設置は、基本的に管工事に該当します。専用回路の増設や配線工事を伴う場合、その部分は電気工事に該当します。附帯工事として整理できる範囲かを確認し、電気施工には電気工事士が必要な点も忘れてはなりません。',
+  },
+  {
+    title: '機械・設備の設置工事',
+    text: '機械を据え付ける工事がすべて機械器具設置工事に該当するわけではありません。プラント設備、運搬機器、立体駐車設備など、他の専門工事に明確に分類されない工事が該当します。機械の種類だけでなく、施工方法や配管・配線を含む範囲から判断します。',
+  },
+  {
+    title: '看板・屋外広告物工事',
+    text: '簡易な看板を建物や工作物へ取り付ける工事は、基本的にとび・土工工事に該当します。現場で鋼材を加工・組立てて設置する場合は、鋼構造物工事に該当する可能性があります。構造と施工内容で業種が分かれます。',
+  },
+  {
+    title: '解体工事',
+    text: '建物や工作物を取り壊す工事は、基本的に解体工事に該当します。ただし、内装材の撤去や空調設備のみの撤去など、各専門工事で施工された部分だけを撤去する作業は、必ずしも解体工事とは限りません。',
+  },
+];
+
+const applicationPoints = [
+  '現在請け負っている工事',
+  '今後受注する予定の工事',
+  '元請や取引先から求められている許可業種',
+  '専任技術者の資格や実務経験',
+  '将来の経審や入札参加の予定',
+];
+
+const faqItems = [
+  {
+    q: '建築一式の許可があれば、電気工事も全部できますか？',
+    a: 'いいえ。一式工事は工事全体を総合的に企画・指導・調整する類型であり、単一の専門工事（電気工事業など）を請け負うには、その専門工事業の許可が必要になる場合があります。',
+  },
+  {
+    q: '附帯工事とは何ですか？',
+    a: '許可を受けた業種の建設工事に附帯する、他の業種に該当する工事のことです。主たる工事の施工に必要を生じた従たる工事で、それ自体が独立した使用目的に供されないものが該当します。附帯工事であれば、対応する業種の許可がなくても、主たる工事とあわせて請け負える場合があります。',
+  },
+  {
+    q: '複数の業種を同時に許可してもらえますか？',
+    a: 'はい。必要な業種をまとめて新規申請することも、後から業種追加することも可能です。業種ごとに専任技術者の配置が必要になる点に注意が必要です。',
+  },
+  {
+    q: '29業種すべての許可を取る必要がありますか？',
+    a: 'いいえ。実際に請け負う工事内容に必要な業種だけ許可を受ければ足ります。資格上取得できても、受注予定のない業種まで取得する必要はありません。',
+  },
+  {
+    q: '業種の選び方に迷った場合は？',
+    a: '工事の目的と具体的な施工内容を確認し、作業を業種ごとに分けて整理します。過去の工事実績、今後受注したい工事、元請先から求められる業種なども踏まえ、申請前に行政書士や許可行政庁への相談をおすすめします。',
+  },
+  {
+    q: '許可業種と実際の工事内容が違うとどうなりますか？',
+    a: '許可を受けていない業種の建設工事を請け負うことは、無許可営業に該当する可能性があります。業種判断を誤ると、許可取得後に予定していた工事を請け負えないことにもつながります。',
+  },
+];
+
+const relatedLinks = [
+  { title: '建設業許可の基礎知識', text: 'STEP 1〜3の全体像を整理した親ページです。', href: '/construction-permit/basic/' },
+  { title: '営業所技術者等（専任技術者）', text: '業種ごとに必要となる専任技術者の要件はこちら。', href: '/construction-permit/basic/requirements/engineer' },
+  { title: '申請区分', text: '業種追加など、申請目的に応じた区分はこちら。', href: '/construction-permit/basic/application-types' },
+];
+---
+
+<BaseLayout
+  title={pageTitle('建設業許可の29業種の考え方')}
+  description="建設業許可の29業種を解説。一式工事2業種と専門工事27業種の違い、附帯工事、業種判断で迷いやすい工事例、選び方のポイントまで。大阪泉州・和歌山北部対応。"
+  breadcrumbs={[
+    { name: 'ホーム', href: '/' },
+    { name: '建設業許可', href: '/construction-permit/' },
+    { name: '基礎知識', href: '/construction-permit/basic/' },
+    { name: '29業種の考え方' },
+  ]}
+>
+  <div class="page">
+    <SiteHeader />
+    <main>
+      <section class="page-hero section--base" aria-labelledby="page-heading">
+        <div class="page-hero__inner">
+          <nav class="breadcrumb" aria-label="パンくずリスト">
+            <ol>
+              <li><a href="/">ホーム</a></li>
+              <li><a href="/construction-permit/">建設業許可</a></li>
+              <li><a href="/construction-permit/basic/">基礎知識</a></li>
+              <li aria-current="page">29業種の考え方</li>
+            </ol>
+          </nav>
+          <div class="page-hero__content">
+            <p class="page-hero__label">BASIC KNOWLEDGE</p>
+            <h1 id="page-heading" class="page-hero__title">建設業許可の29業種</h1>
+            <p class="page-hero__lead">
+              建設業許可では、実際に請け負う工事の内容に対応する<strong>業種ごと</strong>に許可を取得する必要があります。
+              29業種は<strong>一式工事（2業種）</strong>と<strong>専門工事（27業種）</strong>に分かれます。
+              業種判断を誤ると、取得後に予定していた工事を請け負えないことにもつながるため、
+              工事名称ではなく<strong>具体的な施工内容</strong>から整理することが大切です。
+            </p>
+            <div class="page-hero__actions">
+              <a href="/contact" class="btn btn--primary">相談してみる</a>
+              <LineButton />
+            </div>
+          </div>
+          <figure class="page-hero__visual">
+            <img src="/images/29-industries.jpg" alt="建設業許可29業種をイメージする風景" loading="eager" />
+          </figure>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="conclusion-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="summary-box">
+            <h2 id="conclusion-heading" class="summary-box__heading">まず結論</h2>
+            <ul class="summary-box__list">
+              <li>建設業許可は、<strong>実際に請け負う工事内容に対応する業種ごと</strong>に取得する</li>
+              <li>一式工事の許可があっても、<strong>単体で専門工事を請け負えるわけではない</strong></li>
+              <li>附帯工事であれば、許可のない業種でも<strong>主たる工事とあわせて請け負える場合がある</strong>（条件あり）</li>
+              <li>取得できる業種は<strong>専任技術者の資格・実務経験</strong>で決まる</li>
+              <li>業種判断を誤ると、許可取得後の<strong>受注や入札参加</strong>にも影響する</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="list-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="list-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              建設業許可の29業種一覧
+            </h2>
+            <p class="section__sub">
+              土木一式・建築一式の2つの一式工事と、27の専門工事で構成されます。
+              業種ごとに500万円以上の工事を請け負うには、それぞれの許可が必要です。
+            </p>
+          </div>
+          <div class="pattern-table-wrap">
+            <table class="pattern-table">
+              <thead>
+                <tr>
+                  <th scope="col">建設工事の種類</th>
+                  <th scope="col">内容</th>
+                  <th scope="col">具体例</th>
+                </tr>
+              </thead>
+              <tbody>
+                {industryTypes.map((item) => (
+                  <tr class={item.category === 'integrated' ? 'pattern-table__row--integrated' : undefined}>
+                    <th scope="row">
+                      {item.name}
+                      {item.category === 'integrated' && (
+                        <span class="pattern-table__badge">一式工事</span>
+                      )}
+                    </th>
+                    <td>{item.scope}</td>
+                    <td>{item.examples}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="integrated-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="integrated-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              建築一式・土木一式と専門工事の違い
+            </h2>
+            <p class="section__sub">
+              一式工事とは、主に元請の立場で専門業者等をマネジメントし、土木工作物や建築物を総合的に建設する工事です。
+              名称から「どんな工事でもカバーできる業種」と誤解されやすい点に注意が必要です。
+            </p>
+          </div>
+          <div class="attention-box">
+            <p class="attention-box__text">
+              土木一式工事業や建築一式工事業の許可があっても、
+              請負金額500万円以上の<strong>他の専門工事を単体で請け負うことはできません</strong>。
+              一式工事は「工事全体の調整役」であり、すべての専門施工をカバーする許可ではありません。
+            </p>
+          </div>
+          <ul class="bullet-list bullet-list--spaced">
+            {integratedNotes.map((item) => (
+              <li>{item}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="ancillary-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="ancillary-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              複数業種が含まれる工事は、主たる工事と附帯工事を整理する
+            </h2>
+            <p class="section__sub">
+              住宅リフォームや店舗改修のように、一つの契約に複数の業種に該当する工事が含まれることがあります。
+              注文書や見積書が一つにまとまっているからといって、工事全体を一つの業種に集約できるとは限りません。
+            </p>
+          </div>
+          <p class="section__text">
+            まず施工内容を業種ごとに分け、工事全体の目的や中心となる施工内容から<strong>主たる工事</strong>を確認します。
+            主たる工事以外が、独立した専門工事として請け負われているのか、
+            主たる工事に伴う<strong>附帯工事</strong>として扱えるのかを判断します。
+          </p>
+          <p class="section__text">
+            附帯工事に該当する場合には、その附帯工事に対応する業種の許可を受けていなくても、
+            主たる工事とあわせて請け負うことができます。
+            附帯工事とは、主たる建設工事の施工に必要を生じた従たる工事で、
+            それ自体が独立の使用目的に供されないものを指します。
+          </p>
+          <p class="section__text section__text--muted">
+            附帯工事の判断は、工事の目的、契約の慣行、一連・一体の工事として施工する必要性などを総合的に検討します。
+            内装工事を中心とする契約に、独立した目的を持つ外壁塗装が含まれる場合などは、
+            内装仕上工事の附帯として扱えず、塗装工事業の許可も必要になることがあります。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="tricky-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="tricky-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              業種判断で迷いやすい工事例
+            </h2>
+            <p class="section__sub">
+              契約書や見積書の工事名称だけでは、建設業許可上の業種を判断できないことがあります。
+              同じ工事名称でも、実際の施工内容によって該当する業種が異なります。
+            </p>
+          </div>
+          <div class="card-grid card-grid--two">
+            {trickyCases.map((item) => (
+              <article class="info-card">
+                <h3 class="info-card__title">{item.title}</h3>
+                <p class="info-card__text">{item.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="engineer-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="engineer-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              必要な業種が分かったら、許可を取得できるか確認する
+            </h2>
+          </div>
+          <p class="section__text">
+            建設業許可を取得するには、許可を受けたい業種について、
+            要件を満たす<a href="/construction-permit/basic/requirements/engineer">営業所技術者等（専任技術者）</a>を営業所に配置する必要があります。
+          </p>
+          <p class="section__text">
+            専任技術者になる方法は、主に<strong>許可業種に対応する国家資格等を保有している</strong>か、
+            <strong>許可業種について必要な実務経験がある</strong>かの2つです。
+            1つの資格が複数の建設業種に対応している場合は、一度の申請で複数業種の許可を取得することもできます。
+          </p>
+          <p class="section__text">
+            実務経験で要件を満たす場合は、許可を取得したい業種ごとに経験内容と経験期間を証明する必要があり、
+            原則として同じ期間の実務経験を複数業種に重複して使用できません。
+            取得前に、人員と証明資料の整理まで含めて確認しておきましょう。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="choose-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="choose-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              申請する業種を決めるときの注意点
+            </h2>
+            <p class="section__sub">
+              建設業許可は一度の申請で複数業種を同時に取得できます。
+              同じ区分の許可を同時に申請する限り、申請手数料が業種ごとに加算されるわけではありません。
+            </p>
+          </div>
+          <ul class="check-list">
+            {applicationPoints.map((item) => (
+              <li class="check-list__item">{item}</li>
+            ))}
+          </ul>
+          <p class="section__text section__text--spaced">
+            近い将来受注する可能性があり、専任技術者の要件を継続して満たせる業種については、
+            最初から同時に申請することも検討できます。
+            逆に、資格上取得できても受注予定のない業種まで取得する必要はありません。
+            業種を追加したい場合は「<a href="/construction-permit/basic/application-types">業種追加</a>」申請が必要です。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="faq-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="faq-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              よくあるご質問
+            </h2>
+          </div>
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <details class="faq-item">
+                <summary class="faq-item__question">{item.q}</summary>
+                <div class="faq-item__answer"><p>{item.a}</p></div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="related-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="related-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              関連ページ
+            </h2>
+          </div>
+          <div class="card-grid card-grid--three">
+            {relatedLinks.map((item) => (
+              <article class="info-card info-card--link">
+                <h3 class="info-card__title">{item.title}</h3>
+                <p class="info-card__text">{item.text}</p>
+                <a href={item.href} class="text-link">ページを見る</a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--contact-cta">
+        <div class="section__inner">
+          <div class="cta-box">
+            <h2 class="cta-box__heading">どの業種が必要か、一緒に整理しませんか。</h2>
+            <p class="cta-box__text">
+              過去の工事実績や今後の事業計画から、必要な業種を確認したい方はご相談ください。
+              大阪泉州・和歌山北部を中心に、専任技術者の配置まで見据えてご案内します。
+            </p>
+            <div class="cta-box__actions">
+              <a href="/contact" class="btn btn--primary">お問い合わせフォームへ</a>
+              <LineButton />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <SiteFooter />
+  </div>
+</BaseLayout>
+
+<style>
+  .page { min-height: 100vh; display: flex; flex-direction: column; background: #fff; }
+  .section--base { background: #fff; }
+  .section--band { background: #f8fafc; border-block: 1px solid var(--color-border); }
+  .section { padding: var(--space-section-y) var(--space-section-x); }
+  .section__inner { max-width: var(--content-max); margin: 0 auto; }
+  .section__inner--narrow { max-width: 56rem; }
+  .section__head-block { margin-bottom: 2rem; }
+  .section__sub { margin: 0; max-width: 52rem; font-size: 0.9375rem; color: var(--color-text-muted); line-height: 1.9; }
+  .heading-icon { display: inline-flex; align-items: center; justify-content: center; width: 2.25rem; height: 2.25rem; border-radius: 0.4rem; background: #1e3a8a; flex-shrink: 0; vertical-align: middle; margin-right: 0.65rem; }
+  .heading-icon::after { content: ''; width: 0.55rem; height: 0.72rem; border: 2px solid #fff; border-radius: 2px; }
+  .section__heading { display: flex; align-items: center; flex-wrap: wrap; margin: 0 0 1rem; font-size: clamp(1.2rem, 2.8vw, 1.5rem); font-weight: 700; color: var(--color-primary); letter-spacing: 0.05em; line-height: 1.45; }
+  .section__text { margin: 0 0 1rem; font-size: 0.95rem; line-height: 1.95; color: var(--color-text-muted); }
+  .section__text--spaced { margin-top: 1.75rem; }
+  .section__text--muted { font-size: 0.9rem; }
+  .section__text a { color: var(--color-primary); font-weight: 600; }
+  .page-hero { padding: clamp(3.25rem, 9vw, 5.75rem) var(--space-section-x) max(var(--space-section-y), 3.75rem); }
+  .page-hero__inner { max-width: var(--content-max); margin: 0 auto; display: grid; gap: 2rem 2.5rem; align-items: center; }
+  @media (min-width: 960px) { .page-hero__inner { grid-template-columns: minmax(0, 1.12fr) minmax(280px, 0.88fr); } }
+  .breadcrumb { grid-column: 1 / -1; }
+  .breadcrumb ol { display: flex; flex-wrap: wrap; gap: 0.35rem 0.5rem; list-style: none; margin: 0 0 0.25rem; padding: 0; font-size: 0.8125rem; color: var(--color-text-muted); }
+  .breadcrumb li:not(:last-child)::after { content: '/'; margin-left: 0.5rem; color: var(--color-border-strong); }
+  .breadcrumb a { color: var(--color-text-muted); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--color-primary); }
+  .breadcrumb li[aria-current='page'] { color: var(--color-text); font-weight: 600; }
+  .page-hero__label { margin: 0 0 1rem; font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.16em; color: var(--color-primary); }
+  .page-hero__title { margin: 0 0 1.25rem; font-size: clamp(1.9rem, 6vw, 2.8rem); line-height: 1.35; letter-spacing: 0.04em; color: var(--color-text); }
+  .page-hero__lead { margin: 0 0 1.6rem; font-size: 1rem; line-height: 1.95; color: var(--color-text-muted); max-width: 46rem; }
+  .page-hero__lead strong { color: var(--color-text); }
+  .page-hero__actions { display: flex; flex-wrap: wrap; gap: 0.85rem 1rem; }
+  .page-hero__visual { margin: 0; border-radius: 1rem; overflow: hidden; border: 1px solid var(--color-border); box-shadow: var(--shadow-md); background: #f3f6fb; }
+  .page-hero__visual img { display: block; width: 100%; height: 100%; min-height: 280px; object-fit: cover; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 3rem; padding: 0 1.5rem; font-size: 0.9375rem; font-weight: 700; border-radius: var(--radius); text-decoration: none; }
+  .btn--primary { background: #1e3a8a; color: #fff; border: 2px solid #1e3a8a; }
+  .btn--primary:hover { background: var(--color-primary-hover); border-color: var(--color-primary-hover); color: #fff; }
+  .summary-box { padding: 1.5rem; background: #fff; border: 1px solid var(--color-border); border-radius: 1rem; box-shadow: var(--shadow-sm); }
+  .summary-box__heading { margin: 0 0 0.75rem; font-size: 1.15rem; font-weight: 700; color: var(--color-primary); }
+  .summary-box__list { margin: 0; padding-left: 1.25rem; display: grid; gap: 0.65rem; line-height: 1.9; color: var(--color-text-muted); font-size: 0.95rem; }
+  .summary-box__list strong { color: var(--color-text); }
+  .pattern-table-wrap { background: #fff; border: 1px solid var(--color-border); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow-x: auto; }
+  .pattern-table { width: 100%; min-width: 42rem; border-collapse: collapse; font-size: 0.875rem; }
+  .pattern-table thead th { background: #1e3a8a; color: #fff; font-weight: 700; letter-spacing: 0.03em; text-align: left; padding: 0.85rem 1rem; }
+  .pattern-table tbody th { text-align: left; font-weight: 700; color: var(--color-text); min-width: 9rem; }
+  .pattern-table th, .pattern-table td { padding: 0.85rem 1rem; border-bottom: 1px solid var(--color-border); line-height: 1.7; vertical-align: top; }
+  .pattern-table tbody tr:last-child th, .pattern-table tbody tr:last-child td { border-bottom: none; }
+  .pattern-table tbody tr:nth-child(even) { background: var(--color-band); }
+  .pattern-table__row--integrated { background: rgba(30, 58, 138, 0.04); }
+  .pattern-table__row--integrated:nth-child(even) { background: rgba(30, 58, 138, 0.07); }
+  .pattern-table__badge { display: inline-block; margin-top: 0.35rem; padding: 0.15rem 0.45rem; font-size: 0.6875rem; font-weight: 700; letter-spacing: 0.04em; color: var(--color-primary); background: var(--color-primary-soft); border-radius: 0.25rem; }
+  .attention-box { background: var(--color-primary-soft); border: 1px solid rgba(30, 58, 138, 0.2); border-radius: var(--radius-lg); padding: 1.5rem 1.65rem; }
+  .attention-box__text { margin: 0; font-size: 0.9rem; line-height: 1.9; color: var(--color-text); }
+  .bullet-list { margin: 0; padding-left: 1.25rem; display: grid; gap: 0.55rem; font-size: 0.9375rem; line-height: 1.85; color: var(--color-text-muted); }
+  .bullet-list--spaced { margin-top: 1.25rem; }
+  .card-grid { display: grid; gap: 1.25rem; }
+  .card-grid--three { grid-template-columns: 1fr; }
+  .card-grid--two { grid-template-columns: 1fr; }
+  @media (min-width: 768px) { .card-grid--three { grid-template-columns: repeat(3, minmax(0, 1fr)); } .card-grid--two { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+  .info-card { background: #fff; border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.4rem; box-shadow: var(--shadow-sm); }
+  .info-card--link { display: flex; flex-direction: column; }
+  .info-card__title { margin: 0 0 0.75rem; font-size: 1rem; font-weight: 700; line-height: 1.6; color: var(--color-text); }
+  .info-card__text { margin: 0; line-height: 1.9; color: var(--color-text-muted); font-size: 0.9375rem; }
+  .text-link { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 1rem; width: fit-content; color: var(--color-primary); font-weight: 700; text-decoration: none; }
+  .text-link::after { content: '→'; }
+  .text-link:hover { text-decoration: underline; }
+  .check-list { list-style: none; margin: 0; padding: 0; display: grid; gap: 0.85rem; }
+  .check-list__item { position: relative; background: #fff; border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1rem 1rem 1rem 2.75rem; line-height: 1.8; color: var(--color-text); box-shadow: var(--shadow-sm); }
+  .check-list__item::before { content: '✓'; position: absolute; left: 1rem; top: 1rem; display: inline-flex; align-items: center; justify-content: center; width: 1.1rem; height: 1.1rem; border-radius: 50%; background: var(--color-primary-soft); color: var(--color-primary); font-size: 0.8rem; font-weight: 700; }
+  .faq-list { display: grid; gap: 1rem; }
+  .faq-item { background: #fff; border: 1px solid var(--color-border); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden; }
+  .faq-item__question { cursor: pointer; list-style: none; padding: 1.15rem 1.25rem; font-weight: 700; line-height: 1.7; color: var(--color-text); }
+  .faq-item__question::-webkit-details-marker { display: none; }
+  .faq-item__answer { padding: 0 1.25rem 1.15rem; color: var(--color-text-muted); line-height: 1.85; }
+  .faq-item__answer p { margin: 0; }
+  .section--contact-cta { background: #fff; padding: var(--space-section-y) var(--space-section-x) max(var(--space-section-y), 4rem); }
+  .cta-box { background: #f8fafc; border: 1px solid var(--color-border); border-radius: 1rem; padding: clamp(1.75rem, 4vw, 2.5rem); box-shadow: var(--shadow-md); text-align: center; }
+  .cta-box__heading { margin: 0 0 1rem; font-size: clamp(1.2rem, 2.8vw, 1.6rem); line-height: 1.6; color: var(--color-text); }
+  .cta-box__text { margin: 0 0 1.5rem; color: var(--color-text-muted); line-height: 1.9; }
+  .cta-box__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.85rem 1rem; }
+</style>

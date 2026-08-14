@@ -1,0 +1,824 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import SiteHeader from '../../../../components/SiteHeader.astro';
+import SiteFooter from '../../../../components/SiteFooter.astro';
+import LineButton from '../../../../components/LineButton.astro';
+import { pageTitle } from '../../../../config/site';
+
+const disqualificationItems = [
+  { no: '1', text: '破産手続開始の決定を受けて復権を得ない者' },
+  { no: '2', text: '建設業許可を取り消されてから5年を経過しない者' },
+  { no: '3', text: '許可取り消しを免れるため廃業届を提出してから5年を経過しない者' },
+  { no: '4', text: '廃業届提出前60日以内に役員等であった者で、提出から5年を経過しない者' },
+  { no: '5', text: '営業停止処分を受け、その期間が経過しない者' },
+  { no: '6', text: '営業禁止処分を受け、その期間が経過しない者' },
+  { no: '7', text: '禁固以上の刑に処せられ、5年を経過しない者（執行猶予中は該当）' },
+  { no: '8', text: '一定法令違反により罰金以上の刑に処せられ、5年を経過しない者' },
+  { no: '9', text: '暴力団員でなくなった日から5年を経過しない者' },
+  { no: '10', text: '心身の故障により建設業を適正に営むことができない者' },
+  { no: '11', text: '未成年者で法定代理人が欠格要件等に該当する者' },
+  { no: '12', text: '法人でその役員等または令3条使用人が1～4または6～10に該当する場合' },
+  { no: '13', text: '個人でその支配人または令3条使用人が1～4または6～10に該当する場合' },
+  { no: '14', text: '暴力団員がその事業活動を支配する者' },
+];
+
+const subjectScope = [
+  {
+    title: '法人の場合',
+    text: '法人自体に加え、取締役・執行役・社員（持分会社）、令3条使用人（支店長等）、相談役・顧問・株主等で実質的な支配力がある者などが対象になります。役員の選任・変更時にも確認が必要です。',
+  },
+  {
+    title: '個人事業の場合',
+    text: '申請者本人に加え、支配人や令3条使用人が対象になります。個人事業主本人が欠格要件に該当する場合は、原則として許可を受けられません。',
+  },
+  {
+    title: '更新申請との違い',
+    text: '新規申請では欠格要件1～14すべてが対象です。更新申請では、2～6（許可取消・廃業届・営業停止・営業禁止）に該当していても不許可の事由にはなりません。7～14は更新時も引き続き確認されます。',
+  },
+];
+
+const integrityPoints = [
+  {
+    title: '不正な行為',
+    text: '請負契約の締結または履行の際における詐欺、脅迫、横領など、法律に違反する行為を指します。建設業許可事務ガイドラインに基づく判断となります。',
+  },
+  {
+    title: '不誠実な行為',
+    text: '工事内容、工期、天災等不可抗力による損害の負担等について、請負契約に違反する行為を指します。契約履行における誠実さが問われます。',
+  },
+  {
+    title: '関連法令の処分歴',
+    text: '建築士法、宅地建物取引業法等の規定により不正または不誠実な行為を行い、免許等の取消処分を受けてから5年を経過していない場合、原則として誠実性の要件を満たさないものとして取り扱われます。',
+  },
+];
+
+const proofDocs = [
+  {
+    title: '申請時に提出する主な書類',
+    items: [
+      '誓約書（様式第6号）…… 欠格要件に該当していないことの誓約',
+      '役員等調書（様式第12号）…… 賞罰の有無を記載',
+      '令3条使用人調書（様式第13号）…… 賞罰の有無を記載',
+      '身分証明書 …… 本籍地の役所で発行',
+      '登記されていないことの証明書 …… 法務局で発行',
+    ],
+  },
+  {
+    title: '行政庁による調査',
+    items: [
+      '警察を含む関係各署への犯歴照会 …… 受理後に実施',
+      '申請書・添付書類の虚偽・欠落の確認 …… 不許可事由',
+      '許可業者の継続調査 …… 許可後も該当すれば取消事由',
+    ],
+  },
+  {
+    title: '申請者側でできること',
+    items: [
+      '役員・令3条使用人への事前ヒアリング …… 処分歴・訴訟歴の確認',
+      '登記・戸籍関連書類の早期取得 …… 発行に日数がかかる場合あり',
+      '疑義がある場合の事前相談 …… 行政書士・許可行政庁への確認',
+    ],
+  },
+];
+
+const faqItems = [
+  {
+    q: '過去に交通違反の反則金だけ受けた場合は欠格要件に該当しますか？',
+    a: '反則金のみの場合は、原則として欠格要件8（罰金以上の刑）には該当しません。ただし、内容によっては個別確認が必要な場合もあるため、心当たりがある場合は早めに整理しておくことをおすすめします。',
+  },
+  {
+    q: '役員に心当たりがあるが、本人に確認しづらい場合は？',
+    a: '欠格要件は隠し通すことができず、行政庁の照会で判明します。該当する可能性がある場合は、申請前に役員構成の見直しや、該当しない役員への交代を検討する必要があります。早めの相談が重要です。',
+  },
+  {
+    q: '申請書に虚偽があった場合はどうなりますか？',
+    a: '欠格要件とは別に、建設業法第8条本文により、重要な事項の虚偽記載や重要な事実の欠落も不許可事由になります。許可後に判明した場合は許可取消の対象となる可能性があります。申請手数料の返金も原則ありません。',
+  },
+  {
+    q: '誠実性はどうやって証明するのですか？',
+    a: '他の許可要件と異なり、申請者側が書類で「誠実であること」を証明する仕組みではありません。誓約書の提出と、行政庁による調査・照会の結果で判断されます。疑われる事実がなければ、通常は問題になりません。',
+  },
+  {
+    q: '許可を取った後に欠格要件に該当したら？',
+    a: '許可取消しの事由になります。役員の変更、会社の代表者交代など、該当者を許可要件から外す届出が必要になる場合があります。許可維持のため、役員構成の継続管理が重要です。',
+  },
+];
+
+const relatedLinks = [
+  {
+    title: '建設業許可の基礎知識',
+    text: '建設業許可の基本ルール、区分、5要件の全体像を整理した親ページです。',
+    href: '/construction-permit/basic/',
+  },
+  {
+    title: '経営業務の管理に関する体制（経管）',
+    text: '欠格要件と並んで確認される人的要件です。経営経験の考え方を確認したい方はこちら。',
+    href: '/construction-permit/basic/requirements/management',
+  },
+  {
+    title: '建設業許可サービスページ',
+    text: '新規申請、更新、決算変更届、業種追加など、対応範囲をご案内しています。',
+    href: '/construction-permit/',
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle('欠格要件・誠実性｜建設業許可')}
+  description="建設業許可の「欠格要件」と「誠実性」要件を解説。14の欠格事由、対象者の範囲、行政調査、必要書類、更新時の違いまで。大阪泉州・和歌山北部対応。"
+  breadcrumbs={[
+    { name: 'ホーム', href: '/' },
+    { name: '建設業許可', href: '/construction-permit/' },
+    { name: '基礎知識', href: '/construction-permit/basic/' },
+    { name: '欠格要件・誠実性' },
+  ]}
+>
+  <div class="page">
+    <SiteHeader />
+
+    <main>
+      <section class="page-hero section--base" aria-labelledby="page-heading">
+        <div class="page-hero__inner">
+          <nav class="breadcrumb" aria-label="パンくずリスト">
+            <ol>
+              <li><a href="/">ホーム</a></li>
+              <li><a href="/construction-permit/">建設業許可</a></li>
+              <li><a href="/construction-permit/basic/">基礎知識</a></li>
+              <li aria-current="page">欠格要件・誠実性</li>
+            </ol>
+          </nav>
+
+          <div class="page-hero__content">
+            <p class="page-hero__label">REQUIREMENTS</p>
+            <h1 id="page-heading" class="page-hero__title">
+              欠格要件・誠実性とは
+            </h1>
+            <p class="page-hero__lead">
+              建設業許可の5要件のうち、欠格要件と誠実性は<strong>他の要件とは性質が異なります</strong>。
+              経営経験や財務力のように「基準を満たせばよい」のではなく、
+              <strong>該当すると許可されない</strong>という否定要件です。
+              申請者本人や役員等に一定の事由がある場合、書類が整っていても許可はおりません。
+              このページでは、14の欠格要件と誠実性の考え方を整理します。
+            </p>
+
+            <div class="page-hero__actions">
+              <a href="/contact" class="btn btn--primary">相談してみる</a>
+              <LineButton />
+            </div>
+          </div>
+
+          <figure class="page-hero__visual">
+            <img
+              src="/images/requirement-disqualification.jpg"
+              alt="欠格要件と誠実性をイメージする書類整理の風景"
+              loading="eager"
+            />
+          </figure>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="conclusion-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="summary-box">
+            <h2 id="conclusion-heading" class="summary-box__heading">まず結論</h2>
+            <p class="summary-box__text">
+              欠格要件は建設業法第8条に定められた<strong>14の事由</strong>のいずれかに該当すると、許可されません。
+              誠実性は、請負契約に関して<strong>不正または不誠実な行為をするおそれが明らかな者</strong>でないことが求められます。
+              いずれも申請者側が証明するというより、<strong>行政庁の調査で該当しないことが確認される</strong>仕組みです。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="difference-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="difference-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              他の許可要件との違い
+            </h2>
+          </div>
+
+          <p class="section__text">
+            経営能力、財産的基礎、技術力、営業所などの要件は、建設業法第7条に定められ、
+            「基準を満たしているか」が問われます。一方、欠格要件は第8条に別途定められ、
+            <strong>「該当すると許可してはならない」</strong>という位置づけです。
+          </p>
+          <p class="section__text">
+            また、申請書や添付書類に<strong>重要な虚偽記載や重要な事実の欠落</strong>がある場合も、
+            欠格要件と並んで不許可事由になります。許可後に判明した場合は許可取消の対象となる可能性があります。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="list-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="list-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              14の欠格要件（概要）
+            </h2>
+            <p class="section__sub">
+              以下のいずれかに該当する場合、新規申請は不許可となります。詳細は建設業法第8条および関連法令をご確認ください。
+            </p>
+          </div>
+
+          <div class="pattern-table-wrap">
+            <table class="pattern-table">
+              <thead>
+                <tr>
+                  <th scope="col" class="pattern-table__no-col">No.</th>
+                  <th scope="col">内容</th>
+                </tr>
+              </thead>
+              <tbody>
+                {disqualificationItems.map((row) => (
+                  <tr>
+                    <td class="pattern-table__no-col">{row.no}</td>
+                    <td>{row.text}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div class="attention-box">
+            <h3 class="attention-box__title">押さえておきたい補足</h3>
+            <p class="attention-box__text">
+              禁固以上の刑（7号）はあらゆる法令が対象です。執行猶予中は欠格要件に該当し、猶予期間満了後に該当しなくなります。
+              罰金以上の刑（8号）は、建設業法・建築基準法・刑法等の一定法令が対象です。
+              法人の場合は役員等、個人の場合は本人・支配人・令3条使用人が対象範囲に含まれます。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="scope-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="scope-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              誰が対象になるのか
+            </h2>
+          </div>
+
+          <div class="card-grid card-grid--three">
+            {subjectScope.map((item) => (
+              <article class="info-card">
+                <h3 class="info-card__title">{item.title}</h3>
+                <p class="info-card__text">{item.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="integrity-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="integrity-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              誠実性の要件
+            </h2>
+            <p class="section__sub">
+              建設業法第7条3号に定められています。「誠実かどうか」は書類だけでは判断されず、過去の行為や処分歴が照会されます。
+            </p>
+          </div>
+
+          <div class="card-grid card-grid--three">
+            {integrityPoints.map((item) => (
+              <article class="info-card">
+                <h3 class="info-card__title">{item.title}</h3>
+                <p class="info-card__text">{item.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="proof-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="proof-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              書類と行政調査
+            </h2>
+            <p class="section__sub">
+              欠格要件・誠実性は、他の要件と比べて提出書類自体はシンプルです。しかし、受理後の調査に時間がかかることがあります。
+            </p>
+          </div>
+
+          <div class="card-grid card-grid--three">
+            {proofDocs.map((group) => (
+              <article class="info-card">
+                <h3 class="info-card__title">{group.title}</h3>
+                <ul class="doc-list">
+                  {group.items.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+
+          <p class="section__note">
+            ※該当する事実があれば隠し通すことはできません。不許可となった場合、申請手数料の返金も原則ありません。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="faq-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="faq-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              よくあるご質問
+            </h2>
+          </div>
+
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <details class="faq-item">
+                <summary class="faq-item__question">{item.q}</summary>
+                <div class="faq-item__answer">
+                  <p>{item.a}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="lastly-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="lastly-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              普段から確認しておきたいポイント
+            </h2>
+          </div>
+
+          <p class="section__text">
+            欠格要件・誠実性は、「問題ないはずだから大丈夫」と軽く見過ごされがちです。
+            しかし、役員の選任や更新のタイミングで該当が判明すると、
+            <strong>許可そのものが危うくなる</strong>ことがあります。
+          </p>
+          <p class="section__text">
+            新規申請前、役員変更前、更新前——これらの節目で、対象者の処分歴や訴訟歴を整理しておくこと。
+            疑義がある場合は、申請を進める前に専門家や許可行政庁に相談すること。
+            この2点が、後から大きな損失を防ぐ基本になります。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="related-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="related-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              関連ページ
+            </h2>
+          </div>
+
+          <div class="card-grid card-grid--three">
+            {relatedLinks.map((item) => (
+              <article class="info-card info-card--link">
+                <h3 class="info-card__title">{item.title}</h3>
+                <p class="info-card__text">{item.text}</p>
+                <a href={item.href} class="text-link">ページを見る</a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--contact-cta">
+        <div class="section__inner">
+          <div class="cta-box">
+            <h2 class="cta-box__heading">
+              欠格要件が心配な場合も、まずはご相談ください。
+            </h2>
+            <p class="cta-box__text">
+              「役員に心当たりがあるが申請できるか分からない」——そうした段階でも、早めの整理が重要です。
+              大阪泉州・和歌山北部を中心に、状況を確認しながら、取れる選択肢を分かりやすくご案内します。
+            </p>
+
+            <div class="cta-box__actions">
+              <a href="/contact" class="btn btn--primary">お問い合わせフォームへ</a>
+              <LineButton />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>
+
+<style>
+  .page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+  }
+
+  .section--base { background: #ffffff; }
+  .section--band { background: #f8fafc; border-block: 1px solid var(--color-border); }
+  .section { padding: var(--space-section-y) var(--space-section-x); }
+  .section__inner { max-width: var(--content-max); margin: 0 auto; }
+  .section__inner--narrow { max-width: 56rem; }
+  .section__head-block { margin-bottom: 2rem; }
+
+  .heading-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.4rem;
+    background: #1e3a8a;
+    flex-shrink: 0;
+    vertical-align: middle;
+    margin-right: 0.65rem;
+  }
+
+  .heading-icon::after {
+    content: '';
+    width: 0.55rem;
+    height: 0.72rem;
+    border: 2px solid #fff;
+    border-radius: 2px;
+  }
+
+  .section__heading {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0 0 1rem;
+    font-size: clamp(1.2rem, 2.8vw, 1.5rem);
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 0.05em;
+    line-height: 1.45;
+  }
+
+  .section__sub {
+    margin: 0;
+    max-width: 52rem;
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    line-height: 1.9;
+  }
+
+  .section__text {
+    margin: 0 0 1rem;
+    font-size: 0.95rem;
+    line-height: 1.95;
+    color: var(--color-text-muted);
+  }
+
+  .section__text:last-child { margin-bottom: 0; }
+  .section__text strong, .section__sub strong { color: var(--color-text); }
+
+  .section__note {
+    margin: 1.25rem 0 0;
+    font-size: 0.875rem;
+    line-height: 1.85;
+    color: var(--color-text-muted);
+  }
+
+  .page-hero {
+    padding: clamp(3.25rem, 9vw, 5.75rem) var(--space-section-x)
+      max(var(--space-section-y), 3.75rem);
+  }
+
+  .page-hero__inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+    display: grid;
+    gap: 2rem 2.5rem;
+    align-items: center;
+  }
+
+  @media (min-width: 960px) {
+    .page-hero__inner {
+      grid-template-columns: minmax(0, 1.12fr) minmax(280px, 0.88fr);
+    }
+  }
+
+  .breadcrumb { grid-column: 1 / -1; }
+
+  .breadcrumb ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.5rem;
+    list-style: none;
+    margin: 0 0 0.25rem;
+    padding: 0;
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
+
+  .breadcrumb li:not(:last-child)::after {
+    content: '/';
+    margin-left: 0.5rem;
+    color: var(--color-border-strong);
+  }
+
+  .breadcrumb a { color: var(--color-text-muted); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--color-primary); }
+  .breadcrumb li[aria-current='page'] { color: var(--color-text); font-weight: 600; }
+
+  .page-hero__label {
+    margin: 0 0 1rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    color: var(--color-primary);
+  }
+
+  .page-hero__title {
+    margin: 0 0 1.25rem;
+    font-size: clamp(1.9rem, 6vw, 2.8rem);
+    line-height: 1.35;
+    letter-spacing: 0.04em;
+    color: var(--color-text);
+  }
+
+  .page-hero__lead {
+    margin: 0 0 1.6rem;
+    font-size: 1rem;
+    line-height: 1.95;
+    color: var(--color-text-muted);
+    max-width: 46rem;
+  }
+
+  .page-hero__lead strong { color: var(--color-text); }
+
+  .page-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem 1rem;
+  }
+
+  .page-hero__visual {
+    margin: 0;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+    background: #f3f6fb;
+  }
+
+  .page-hero__visual img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 280px;
+    object-fit: cover;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    padding: 0 1.5rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .btn--primary {
+    background: #1e3a8a;
+    color: #fff;
+    border: 2px solid #1e3a8a;
+  }
+
+  .btn--primary:hover {
+    background: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+    color: #fff;
+  }
+
+  .summary-box {
+    padding: 1.5rem;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .summary-box__heading {
+    margin: 0 0 0.75rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .summary-box__text {
+    margin: 0;
+    line-height: 1.9;
+    color: var(--color-text-muted);
+  }
+
+  .summary-box__text strong { color: var(--color-text); }
+
+  .card-grid { display: grid; gap: 1.25rem; }
+  .card-grid--three { grid-template-columns: 1fr; }
+
+  @media (min-width: 768px) {
+    .card-grid--three { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+
+  .info-card {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.4rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .info-card--link { display: flex; flex-direction: column; }
+
+  .info-card__title {
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.6;
+    color: var(--color-text);
+  }
+
+  .info-card__text {
+    margin: 0;
+    line-height: 1.9;
+    color: var(--color-text-muted);
+    font-size: 0.9375rem;
+  }
+
+  .doc-list {
+    margin: 0;
+    padding-left: 1.15rem;
+    display: grid;
+    gap: 0.65rem;
+    font-size: 0.9rem;
+    line-height: 1.85;
+    color: var(--color-text-muted);
+  }
+
+  .text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1rem;
+    width: fit-content;
+    color: var(--color-primary);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .text-link::after { content: '→'; font-size: 0.95em; }
+  .text-link:hover { text-decoration: underline; }
+
+  .pattern-table-wrap {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow-x: auto;
+  }
+
+  .pattern-table {
+    width: 100%;
+    min-width: 34rem;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+  }
+
+  .pattern-table thead th {
+    background: #1e3a8a;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-align: left;
+    padding: 0.85rem 1.25rem;
+  }
+
+  .pattern-table th,
+  .pattern-table td {
+    padding: 0.95rem 1.25rem;
+    border-bottom: 1px solid var(--color-border);
+    line-height: 1.7;
+    vertical-align: top;
+  }
+
+  .pattern-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .pattern-table tbody tr:nth-child(even) {
+    background: var(--color-band);
+  }
+
+  .pattern-table__no-col {
+    white-space: nowrap;
+    font-weight: 700;
+    color: var(--color-primary);
+    width: 3.5rem;
+  }
+
+  .pattern-table thead .pattern-table__no-col {
+    color: #fff;
+  }
+
+  .attention-box {
+    margin-top: 1.75rem;
+    background: var(--color-primary-soft);
+    border: 1px solid rgba(30, 58, 138, 0.2);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem 1.65rem;
+  }
+
+  .attention-box__title {
+    margin: 0 0 0.75rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 0.03em;
+  }
+
+  .attention-box__text {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.9;
+    color: var(--color-text);
+  }
+
+  .faq-list { display: grid; gap: 1rem; }
+
+  .faq-item {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+
+  .faq-item__question {
+    cursor: pointer;
+    list-style: none;
+    padding: 1.15rem 1.25rem;
+    font-weight: 700;
+    line-height: 1.7;
+    color: var(--color-text);
+  }
+
+  .faq-item__question::-webkit-details-marker { display: none; }
+
+  .faq-item__answer {
+    padding: 0 1.25rem 1.15rem;
+    color: var(--color-text-muted);
+    line-height: 1.85;
+  }
+
+  .faq-item__answer p { margin: 0; }
+
+  .section--contact-cta {
+    background: #ffffff;
+    padding: var(--space-section-y) var(--space-section-x) max(var(--space-section-y), 4rem);
+  }
+
+  .cta-box {
+    background: #f8fafc;
+    border: 1px solid var(--color-border);
+    border-radius: 1rem;
+    padding: clamp(1.75rem, 4vw, 2.5rem);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+  }
+
+  .cta-box__heading {
+    margin: 0 0 1rem;
+    font-size: clamp(1.2rem, 2.8vw, 1.6rem);
+    line-height: 1.6;
+    color: var(--color-text);
+  }
+
+  .cta-box__text {
+    margin: 0 0 1.5rem;
+    color: var(--color-text-muted);
+    line-height: 1.9;
+  }
+
+  .cta-box__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.85rem 1rem;
+  }
+</style>

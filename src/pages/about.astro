@@ -3,7 +3,7 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import LineButton from '../components/LineButton.astro';
-import { pageTitle } from '../config/site';
+import { pageTitle, OFFICE_ADDRESS, OFFICE_GOOGLE_MAPS_URL, OFFICE_GOOGLE_MAPS_EMBED_URL } from '../config/site';
 
 const strengths = [
   {
@@ -141,7 +141,7 @@ const strengths = [
               </div>
               <div class="office-info__row">
                 <dt>所在地</dt>
-                <dd>大阪府阪南市（詳細住所はお問い合わせ時にご案内）</dd>
+                <dd>{OFFICE_ADDRESS.full}</dd>
               </div>
               <div class="office-info__row">
                 <dt>対応エリア</dt>
@@ -152,14 +152,47 @@ const strengths = [
                 <dd>建設業許可、新規申請、更新、決算変更届、業種追加、その他許認可・法人関連手続</dd>
               </div>
               <div class="office-info__row">
-                <dt>営業時間</dt>
-                <dd>平日 9:00〜18:00 ※事前予約で土日祝・時間外も対応可</dd>
+                <dt>ご相談時間</dt>
+                <dd>平日 18:30〜21:00　土日 9:00〜18:00</dd>
+              </div>
+              <div class="office-info__row">
+                <dt>ご相談方法</dt>
+                <dd>
+                  オンライン・対面のいずれも可能（事前予約制）<br />
+                  対面は原則事務所外（オンライン／ご指定場所）。平日夜・土日の対面も承ります<br />
+                  事務所へのご来訪をご希望の場合も、事前予約にて対応します
+                </dd>
               </div>
               <div class="office-info__row">
                 <dt>お問い合わせ</dt>
-                <dd>お問い合わせフォーム・公式LINEより24時間受付</dd>
+                <dd>お問い合わせフォーム・公式LINEより24時間受付（返信はご相談時間内を目安）</dd>
               </div>
             </dl>
+
+            <div class="office-map">
+              <p class="office-map__note">
+                ※ 事務所へのご来訪は<strong>事前予約制</strong>です。対面のご相談は、原則事務所外でも承ります。
+              </p>
+              <div class="office-map__embed">
+                <iframe
+                  src={OFFICE_GOOGLE_MAPS_EMBED_URL}
+                  title="やちよ行政書士事務所の地図（大阪府阪南市自然田753-14）"
+                  loading="lazy"
+                  referrerpolicy="no-referrer-when-downgrade"
+                  allowfullscreen
+                ></iframe>
+              </div>
+              <p class="office-map__link-wrap">
+                <a
+                  href={OFFICE_GOOGLE_MAPS_URL}
+                  class="office-map__link"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Googleマップで開く
+                </a>
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -251,6 +284,43 @@ const strengths = [
   .office-info__row:first-child { border-top: 1px solid var(--color-border); }
   .office-info__row dt { font-weight: 700; color: var(--color-text-muted); }
   .office-info__row dd { margin: 0; color: var(--color-text); line-height: 1.8; }
+
+  .office-map { margin-top: 2rem; }
+  .office-map__note {
+    margin: 0 0 1rem;
+    font-size: 0.8125rem;
+    line-height: 1.85;
+    color: var(--color-text-muted);
+  }
+  .office-map__note strong { color: var(--color-text); font-weight: 700; }
+  .office-map__embed {
+    position: relative;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    background: #f3f6fb;
+    aspect-ratio: 16 / 10;
+  }
+  .office-map__embed iframe {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+  .office-map__link-wrap { margin: 0.85rem 0 0; text-align: right; }
+  .office-map__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+  .office-map__link::after { content: '↗'; font-size: 0.85em; }
+  .office-map__link:hover { text-decoration: underline; }
 
   .section--contact-cta { background: #fff; padding: var(--space-section-y) var(--space-section-x) max(var(--space-section-y), 4rem); }
   .cta-box { background: #f8fafc; border: 1px solid var(--color-border); border-radius: 1rem; padding: clamp(1.75rem, 4vw, 2.5rem); box-shadow: var(--shadow-md); text-align: center; }

@@ -5,6 +5,7 @@ import {
   DEFAULT_OGP_IMAGE,
   OGP_IMAGE_WIDTH,
   OGP_IMAGE_HEIGHT,
+  OFFICE_ADDRESS,
 } from '../config/site';
 
 interface BreadcrumbItem {
@@ -44,12 +45,13 @@ const legalServiceSchema = {
   },
   address: {
     '@type': 'PostalAddress',
-    addressLocality: '阪南市',
-    addressRegion: '大阪府',
+    streetAddress: OFFICE_ADDRESS.streetAddress,
+    addressLocality: OFFICE_ADDRESS.locality,
+    addressRegion: OFFICE_ADDRESS.region,
     addressCountry: 'JP',
   },
   areaServed: ['大阪府泉州地域', '和歌山県北部'],
-  openingHours: 'Mo-Fr 09:00-18:00',
+  openingHours: ['Mo-Fr 18:30-21:00', 'Sa-Su 09:00-18:00'],
   description:
     '大阪府阪南市を拠点に、大阪泉州・和歌山北部の建設業許可（新規・更新・決算変更届・業種追加）と継続手続を中心にサポートする行政書士事務所です。',
 };

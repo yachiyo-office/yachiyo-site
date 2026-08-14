@@ -1,0 +1,1071 @@
+---
+import BaseLayout from '../../../../layouts/BaseLayout.astro';
+import SiteHeader from '../../../../components/SiteHeader.astro';
+import SiteFooter from '../../../../components/SiteFooter.astro';
+import LineButton from '../../../../components/LineButton.astro';
+import { pageTitle } from '../../../../config/site';
+
+const permitTypes = [
+  {
+    title: '一般建設業',
+    basis: '自己資本500万円以上、または預金等500万円以上（目安）',
+    credit: '上記に加え、経営状態が事業規模に見合っているか',
+    note: 'いずれかを満たせば財産的基礎・金銭的信用があると認められるのが基本です。決算全体も総合的に確認されます。',
+  },
+  {
+    title: '特定建設業',
+    basis: '直前決算で資本金2,000万円・自己資本4,000万円等、4項目すべて',
+    credit: '大規模な下請契約を適切に管理できる財務力',
+    note: '4項目をすべてクリアする必要があります。退職金共済・保証協会の保証等、代替手段もあります。',
+  },
+];
+
+const generalCriteria = [
+  {
+    name: '自己資本（純資産）500万円以上',
+    note: '直近の決算報告書（貸借対照表）の自己資本（純資産合計）で確認します。',
+  },
+  {
+    name: '金融機関の預金等500万円以上',
+    note: '自己資本が500万円に満たない場合でも、預金残高証明書等で資金力を確認できる場合があります。',
+  },
+];
+
+const specificCriteria = [
+  {
+    name: '資本金',
+    standard: '2,000万円以上',
+    note: '直前の決算期の貸借対照表に記載された資本金の額。',
+  },
+  {
+    name: '自己資本（純資産合計）',
+    standard: '4,000万円以上',
+    note: '貸借対照表の純資産合計（自己資本）の額。4項目のひとつです。',
+  },
+  {
+    name: '欠損金',
+    standard: '資本金の20%以内',
+    note: '欠損金の額が資本金の20パーセントを超えないこと。',
+  },
+  {
+    name: '流動比率',
+    standard: '75%以上',
+    note: '流動資産÷流動負債×100。短期の支払い能力の目安になります。',
+  },
+];
+
+const generalPoints = [
+  {
+    title: '500万円基準の考え方',
+    text: '一般建設業では、自己資本500万円以上、または金融機関の預金等500万円以上あることが確認できれば、財産的基礎・金銭的信用があると認められるのが基本です。いずれか一方を満たせば足りますが、決算全体の収支状況もあわせて確認されます。',
+  },
+  {
+    title: '法人の場合',
+    text: '直近の決算報告書（貸借対照表・損益計算書）や法人税申告書をもとに、自己資本や経常的な収支の状況が確認されます。自己資本が500万円に満たない場合は、預金残高証明書等で資金力を説明する必要が生じることがあります。',
+  },
+  {
+    title: '個人事業・新設法人',
+    text: '個人事業主は確定申告書等で資産状況を確認します。設立直後で決算がない法人では、出資金、設立時の財産目録、創業計画書、預金残高証明などで、許可後の事業運営に必要な財産的基礎を説明します。',
+  },
+];
+
+const proofDocs = [
+  {
+    title: '法人（決算がある場合）',
+    items: [
+      '決算報告書（貸借対照表・損益計算書）…… 自己資本や収支の状況を確認',
+      '法人税申告書（別表等）…… 申告内容との整合性を確認',
+      '預金残高証明書 …… 必要に応じて、手元資金の確認',
+      '借入契約書・返済予定表 …… 借入がある場合の負債状況を確認',
+    ],
+  },
+  {
+    title: '個人事業主',
+    items: [
+      '確定申告書（第一表・第二表）…… 事業所得と収入規模を確認',
+      '青色申告決算書（青色申告の場合）…… 資産・負債の状況を確認',
+      '預金残高証明書 …… 必要に応じて、事業用資金の確認',
+    ],
+  },
+  {
+    title: '特定建設業・追加資料',
+    items: [
+      '決算報告書 …… 資本金・自己資本・欠損金・流動比率の4項目を確認',
+      '法人税申告書（別表等）…… 決算書との整合性を確認',
+      '建設業退職金共済の加入証明 …… 代替要件を用いる場合',
+      '保証協会の保証書・親会社の支援誓約書等 …… 代替要件を用いる場合',
+    ],
+  },
+];
+
+const ongoingPoints = [
+  '許可取得後も、毎年の決算変更届で財務状況が継続的に確認されます',
+  '更新申請時には、過去5年分の決算変更届が揃っていることが前提になります',
+  '業種追加や般・特新規の際にも、直近の財務状況が再確認されます',
+  '財務状態が大きく悪化した場合、許可取消しの事由になる可能性があります',
+];
+
+const faqItems = [
+  {
+    q: '自己資本が500万円に満たなくても一般建設業の許可は取れますか？',
+    a: '自己資本500万円以上、または金融機関の預金等500万円以上のいずれかを満たせば、財産的基礎・金銭的信用の要件を満たすと認められるのが基本です。自己資本が不足していても、預金残高証明書等で資金力を確認できれば対応できる場合があります。ただし、赤字続きや自己資本マイナスなど、決算全体の状態によっては追加説明が必要になることもあります。',
+  },
+  {
+    q: '特定建設業の4項目は、すべて同時に満たす必要がありますか？',
+    a: 'はい。資本金2,000万円以上、自己資本4,000万円以上、欠損金が資本金の20%以内、流動比率75%以上——直前の決算期において、これら4項目をすべてクリアしている必要があります。1項目でも不足している場合は、代替要件（退職金共済・保証協会の保証等）の検討が必要になります。',
+  },
+  {
+    q: '特定建設業の要件は、どの時点の決算を見ますか？',
+    a: '申請時点で直近の決算期（直前決算）の数字が基準になります。決算期の選び方や、申請タイミングとの関係で数字が変わることがあるため、早めの確認をおすすめします。',
+  },
+  {
+    q: '個人事業主でも特定建設業の許可は取れますか？',
+    a: '制度上は可能ですが、資本金2,000万円・自己資本4,000万円等の要件を個人で満たすケースは限られます。まずは一般建設業から始め、事業規模の拡大に合わせて検討するのが現実的なケースが多いです。',
+  },
+  {
+    q: '設立したばかりの法人で、決算書がまだありません。',
+    a: '新設法人では、出資状況や設立時の財産、創業計画、預金残高などで財産的基礎を説明します。ただし、許可後の事業運営に必要な資金計画が説得力を持つことが重要です。事前に整理しておくとスムーズです。',
+  },
+  {
+    q: '許可を取ったあと、決算変更届は毎年必要ですか？',
+    a: 'はい。許可取得後は毎事業年度の終了後4か月以内に決算変更届を提出する義務があります。ここで毎年の財務状況が報告され、更新や業種追加の前提資料にもなります。',
+  },
+];
+
+const relatedLinks = [
+  {
+    title: '建設業許可の基礎知識',
+    text: '建設業許可の基本ルール、区分、5要件の全体像を整理した親ページです。',
+    href: '/construction-permit/basic/',
+  },
+  {
+    title: '経営業務の管理に関する体制（経管）',
+    text: '財産的基礎と並んで確認される主要要件です。経営経験と証明資料の考え方を確認したい方はこちら。',
+    href: '/construction-permit/basic/requirements/management',
+  },
+  {
+    title: '建設業許可サービスページ',
+    text: '新規申請、更新、決算変更届、業種追加など、対応範囲をご案内しています。',
+    href: '/construction-permit/',
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle('財産的基礎・金銭的信用の要件と必要書類')}
+  description="建設業許可の「財産的基礎・金銭的信用」要件を解説。一般建設業の500万円基準、特定建設業の4項目（資本金・自己資本・欠損金・流動比率）、必要書類まで。大阪泉州・和歌山北部対応。"
+  breadcrumbs={[
+    { name: 'ホーム', href: '/' },
+    { name: '建設業許可', href: '/construction-permit/' },
+    { name: '基礎知識', href: '/construction-permit/basic/' },
+    { name: '財産的基礎・金銭的信用' },
+  ]}
+>
+  <div class="page">
+    <SiteHeader />
+
+    <main>
+      <section class="page-hero section--base" aria-labelledby="page-heading">
+        <div class="page-hero__inner">
+          <nav class="breadcrumb" aria-label="パンくずリスト">
+            <ol>
+              <li><a href="/">ホーム</a></li>
+              <li><a href="/construction-permit/">建設業許可</a></li>
+              <li><a href="/construction-permit/basic/">基礎知識</a></li>
+              <li aria-current="page">財産的基礎・金銭的信用</li>
+            </ol>
+          </nav>
+
+          <div class="page-hero__content">
+            <p class="page-hero__label">REQUIREMENTS</p>
+            <h1 id="page-heading" class="page-hero__title">
+              財産的基礎・金銭的信用とは
+            </h1>
+            <p class="page-hero__lead">
+              建設業許可の5要件のひとつに、<strong>財産的基礎</strong>と<strong>金銭的信用</strong>があります。
+              経営経験や技術者要件ほど話題にはなりにくいものの、決算内容や資産状況によっては申請の可否が左右される重要なポイントです。
+              このページでは、一般建設業と特定建設業それぞれの確認の考え方から、必要書類まで順に整理します。
+            </p>
+
+            <div class="page-hero__actions">
+              <a href="/contact" class="btn btn--primary">相談してみる</a>
+              <LineButton />
+            </div>
+          </div>
+
+          <figure class="page-hero__visual">
+            <img
+              src="/images/requirement-financial.jpg"
+              alt="財産的基礎の要件をイメージする書類整理の風景"
+              loading="eager"
+            />
+          </figure>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="conclusion-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="summary-box">
+            <h2 id="conclusion-heading" class="summary-box__heading">まず結論</h2>
+            <p class="summary-box__text">
+              財産的基礎・金銭的信用とは、<strong>建設工事を請け負うに足る財務力があるか</strong>を確認する要件です。
+              一般建設業では<strong>自己資本500万円以上、または預金等500万円以上</strong>が目安です。
+              特定建設業では直前決算で<strong>資本金2,000万円・自己資本4,000万円・欠損金・流動比率の4項目すべて</strong>を満たす必要があります。
+              申請前に直近の決算内容を確認しておくことが、遠回りを防ぐ近道です。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="why-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="why-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              なぜ財務要件が必要なのか
+            </h2>
+          </div>
+
+          <p class="section__text">
+            建設業許可制度は、発注者や下請業者を保護し、建設工事を適正に施工するための仕組みです。
+            工事を請け負う事業者には、契約履行や下請代金の支払い、従業員への給与支払いなど、
+            一定の<strong>資金繰り能力</strong>が求められます。
+          </p>
+          <p class="section__text">
+            そのため許可審査では、経営経験や技術力だけでなく、
+            決算書や申告書をもとに<strong>財産的基礎</strong>（資産としての土台）と
+            <strong>金銭的信用</strong>（資金調達や支払い能力）が確認されます。
+            また、許可取得後も毎年の決算変更届で財務状況が継続的に報告される点も押さえておきたいポイントです。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="types-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="types-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              一般建設業と特定建設業では確認の厳しさが異なります
+            </h2>
+            <p class="section__sub">
+              下請契約の規模によって一般建設業と特定建設業に分かれ、財務要件の厳しさも大きく異なります。
+            </p>
+          </div>
+
+          <div class="pattern-table-wrap">
+            <table class="pattern-table">
+              <thead>
+                <tr>
+                  <th scope="col">区分</th>
+                  <th scope="col">財産的基礎</th>
+                  <th scope="col">金銭的信用</th>
+                </tr>
+              </thead>
+              <tbody>
+                {permitTypes.map((row) => (
+                  <tr>
+                    <th scope="row">
+                      {row.title}
+                      <span class="pattern-table__note">{row.note}</span>
+                    </th>
+                    <td>{row.basis}</td>
+                    <td>{row.credit}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <p class="section__note">
+            ※特定建設業は4項目をすべて満たす必要があります。満たせない場合は、建設業退職金共済への加入、保証協会の保証、親会社の連帯保証など、法令で定められた代替手段が認められる場合があります。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="general-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="general-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              一般建設業で確認される主なポイント
+            </h2>
+            <p class="section__sub">
+              一般建設業では、建設業法施行規則に基づき、次のいずれかを満たせば財産的基礎・金銭的信用があると認められるのが基本です。
+            </p>
+          </div>
+
+          <div class="pattern-table-wrap">
+            <table class="pattern-table">
+              <thead>
+                <tr>
+                  <th scope="col">確認項目</th>
+                  <th scope="col">基準（目安）</th>
+                </tr>
+              </thead>
+              <tbody>
+                {generalCriteria.map((row) => (
+                  <tr>
+                    <th scope="row">
+                      {row.name}
+                      <span class="pattern-table__note">{row.note}</span>
+                    </th>
+                    <td class="pattern-table__years-col">500万円以上</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <p class="section__note section__note--spaced">
+            ※上記はいずれか一方を満たせば足ります（両方必要ではありません）。ただし、自己資本がマイナス、赤字が複数期続くなど、決算全体の状態によっては追加の説明資料が求められることもあります。
+          </p>
+
+          <div class="card-grid card-grid--three section__cards--spaced">
+            {generalPoints.map((item) => (
+              <article class="info-card">
+                <h3 class="info-card__title">{item.title}</h3>
+                <p class="info-card__text">{item.text}</p>
+              </article>
+            ))}
+          </div>
+
+          <div class="attention-box">
+            <h3 class="attention-box__title">特に注意が必要なケース</h3>
+            <p class="attention-box__text">
+              自己資本がマイナス、赤字が複数期続いている、短期借入が多く資金繰りが逼迫している——
+              こうした状況では、申請前に原因と改善見込みを整理しておくことが重要です。
+              状況によっては、親会社からの支援や借入条件の見直しなど、説明資料の準備が必要になることもあります。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="specific-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="specific-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              特定建設業の4項目要件
+            </h2>
+            <p class="section__sub">
+              特定建設業では、直前の決算期において、以下の<strong>4項目すべて</strong>をクリアしている必要があります。
+            </p>
+          </div>
+
+          <div class="pattern-table-wrap">
+            <table class="pattern-table">
+              <thead>
+                <tr>
+                  <th scope="col">項目</th>
+                  <th scope="col" class="pattern-table__years-col">基準</th>
+                </tr>
+              </thead>
+              <tbody>
+                {specificCriteria.map((row) => (
+                  <tr>
+                    <th scope="row">
+                      {row.name}
+                      <span class="pattern-table__note">{row.note}</span>
+                    </th>
+                    <td class="pattern-table__years-col">{row.standard}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <p class="section__text section__text--spaced">
+            流動比率は「流動資産÷流動負債×100」で算出します。たとえば流動資産3,000万円・流動負債4,000万円の場合、
+            流動比率は75%となり、ぎりぎり基準を満たす計算です。自己資本4,000万円以上あっても、
+            欠損金や流動比率が基準を下回れば、特定建設業の財務要件は満たせません。
+          </p>
+          <p class="section__text">
+            4項目をすべて満たせない場合でも、<strong>建設業退職金共済への加入</strong>、
+            <strong>保証協会の保証</strong>、<strong>親会社の連帯保証</strong>など、
+            法令で定められた代替手段を用いる方法があります。
+            ただし、代替要件を使う場合は追加の書類や手続が必要になるため、
+            早めに方針を決めておくことが大切です。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="proof-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="proof-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              必要となる主な書類
+            </h2>
+            <p class="section__sub">
+              法人・個人、一般・特定によって必要書類は異なります。申請区分や都道府県の求め方も確認が必要です。
+            </p>
+          </div>
+
+          <div class="card-grid card-grid--three">
+            {proofDocs.map((group) => (
+              <article class="info-card">
+                <h3 class="info-card__title">{group.title}</h3>
+                <ul class="doc-list">
+                  {group.items.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              </article>
+            ))}
+          </div>
+
+          <p class="section__note">
+            ※申請書類の様式や添付資料は、都道府県・申請区分によって異なります。最新の手引きや行政への事前相談で確認することをおすすめします。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="ongoing-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="ongoing-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              許可取得後も財務管理は続きます
+            </h2>
+            <p class="section__sub">
+              財産的基礎・金銭的信用は、新規申請時だけでなく、許可を維持するあいだも継続的に関わる要件です。
+            </p>
+          </div>
+
+          <ul class="check-list">
+            {ongoingPoints.map((item) => (
+              <li class="check-list__item">{item}</li>
+            ))}
+          </ul>
+
+          <p class="section__text section__text--spaced">
+            決算変更届を毎年きちんと提出しておくことは、更新や業種追加の前提になるだけでなく、
+            日頃の経営管理の習慣としても大切です。財務状況の悪化が続く場合は、
+            許可取消しの事由に該当する可能性もあるため、取得後の管理まで見据えておくことが重要です。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="faq-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="faq-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              よくあるご質問
+            </h2>
+          </div>
+
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <details class="faq-item">
+                <summary class="faq-item__question">{item.q}</summary>
+                <div class="faq-item__answer">
+                  <p>{item.a}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="lastly-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="lastly-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              決算内容次第で、取れる選択肢が変わります
+            </h2>
+          </div>
+
+          <p class="section__text">
+            財産的基礎・金銭的信用は、経営経験のように「年数を待てば解決する」類の要件ではありません。
+            直近の決算数字や資産状況が、そのまま申請の可否や、一般・特定のどちらを目指すかに影響します。
+          </p>
+          <p class="section__text">
+            一方で、<strong>「決算が厳しいが、説明できる材料はある」というケースには、まだ整理の余地がある</strong>こともあります。
+            申請時期の調整、代替要件の検討、説明資料の準備——状況を早めに把握しておくことで、
+            取れる道筋が見えてくることがあります。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="related-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="related-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              関連ページ
+            </h2>
+          </div>
+
+          <div class="card-grid card-grid--three">
+            {relatedLinks.map((item) => (
+              <article class="info-card info-card--link">
+                <h3 class="info-card__title">{item.title}</h3>
+                <p class="info-card__text">{item.text}</p>
+                <a href={item.href} class="text-link">ページを見る</a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--contact-cta">
+        <div class="section__inner">
+          <div class="cta-box">
+            <h2 class="cta-box__heading">
+              決算内容から要件を確認しませんか。
+            </h2>
+            <p class="cta-box__text">
+              「自己資本が心配」「特定建設業を目指したいが数字が足りるか分からない」——そうした段階でもご相談いただけます。
+              大阪泉州・和歌山北部を中心に、直近の決算内容を確認しながら、見通しを分かりやすくご案内します。
+            </p>
+
+            <div class="cta-box__actions">
+              <a href="/contact" class="btn btn--primary">お問い合わせフォームへ</a>
+              <LineButton />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>
+
+<style>
+  .page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+  }
+
+  .section--base {
+    background: #ffffff;
+  }
+
+  .section--band {
+    background: #f8fafc;
+    border-block: 1px solid var(--color-border);
+  }
+
+  .section {
+    padding: var(--space-section-y) var(--space-section-x);
+  }
+
+  .section__inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+  }
+
+  .section__inner--narrow {
+    max-width: 56rem;
+  }
+
+  .section__head-block {
+    margin-bottom: 2rem;
+  }
+
+  .heading-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.4rem;
+    background: #1e3a8a;
+    flex-shrink: 0;
+    vertical-align: middle;
+    margin-right: 0.65rem;
+  }
+
+  .heading-icon::after {
+    content: '';
+    width: 0.55rem;
+    height: 0.72rem;
+    border: 2px solid #fff;
+    border-radius: 2px;
+  }
+
+  .section__heading {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0 0 1rem;
+    font-size: clamp(1.2rem, 2.8vw, 1.5rem);
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 0.05em;
+    line-height: 1.45;
+  }
+
+  .section__sub {
+    margin: 0;
+    max-width: 52rem;
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    line-height: 1.9;
+  }
+
+  .section__text {
+    margin: 0 0 1rem;
+    font-size: 0.95rem;
+    line-height: 1.95;
+    color: var(--color-text-muted);
+  }
+
+  .section__text:last-child {
+    margin-bottom: 0;
+  }
+
+  .section__text--spaced {
+    margin-top: 1.75rem;
+  }
+
+  .section__text strong,
+  .section__sub strong {
+    color: var(--color-text);
+  }
+
+  .section__note {
+    margin: 1.25rem 0 0;
+    font-size: 0.875rem;
+    line-height: 1.85;
+    color: var(--color-text-muted);
+  }
+
+  .section__note--spaced {
+    margin-bottom: 2rem;
+  }
+
+  .section__cards--spaced {
+    margin-top: 0.5rem;
+  }
+
+  .page-hero {
+    padding: clamp(3.25rem, 9vw, 5.75rem) var(--space-section-x)
+      max(var(--space-section-y), 3.75rem);
+  }
+
+  .page-hero__inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+    display: grid;
+    gap: 2rem 2.5rem;
+    align-items: center;
+  }
+
+  @media (min-width: 960px) {
+    .page-hero__inner {
+      grid-template-columns: minmax(0, 1.12fr) minmax(280px, 0.88fr);
+    }
+  }
+
+  .breadcrumb {
+    grid-column: 1 / -1;
+  }
+
+  .breadcrumb ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.5rem;
+    list-style: none;
+    margin: 0 0 0.25rem;
+    padding: 0;
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
+
+  .breadcrumb li:not(:last-child)::after {
+    content: '/';
+    margin-left: 0.5rem;
+    color: var(--color-border-strong);
+  }
+
+  .breadcrumb a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    color: var(--color-primary);
+  }
+
+  .breadcrumb li[aria-current='page'] {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  .page-hero__label {
+    margin: 0 0 1rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    color: var(--color-primary);
+  }
+
+  .page-hero__title {
+    margin: 0 0 1.25rem;
+    font-size: clamp(1.9rem, 6vw, 2.8rem);
+    line-height: 1.35;
+    letter-spacing: 0.04em;
+    color: var(--color-text);
+  }
+
+  .page-hero__lead {
+    margin: 0 0 1.6rem;
+    font-size: 1rem;
+    line-height: 1.95;
+    color: var(--color-text-muted);
+    max-width: 46rem;
+  }
+
+  .page-hero__lead strong {
+    color: var(--color-text);
+  }
+
+  .page-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem 1rem;
+  }
+
+  .page-hero__visual {
+    margin: 0;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+    background: #f3f6fb;
+  }
+
+  .page-hero__visual img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 280px;
+    object-fit: cover;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    padding: 0 1.5rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .btn--primary {
+    background: #1e3a8a;
+    color: #fff;
+    border: 2px solid #1e3a8a;
+  }
+
+  .btn--primary:hover {
+    background: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+    color: #fff;
+  }
+
+  .summary-box {
+    padding: 1.5rem;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .summary-box__heading {
+    margin: 0 0 0.75rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .summary-box__text {
+    margin: 0;
+    line-height: 1.9;
+    color: var(--color-text-muted);
+  }
+
+  .summary-box__text strong {
+    color: var(--color-text);
+  }
+
+  .card-grid {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .card-grid--three {
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 768px) {
+    .card-grid--three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .info-card {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.4rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .info-card--link {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .info-card__title {
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.6;
+    color: var(--color-text);
+  }
+
+  .info-card__text {
+    margin: 0;
+    line-height: 1.9;
+    color: var(--color-text-muted);
+    font-size: 0.9375rem;
+  }
+
+  .doc-list {
+    margin: 0;
+    padding-left: 1.15rem;
+    display: grid;
+    gap: 0.65rem;
+    font-size: 0.9rem;
+    line-height: 1.85;
+    color: var(--color-text-muted);
+  }
+
+  .text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1rem;
+    width: fit-content;
+    color: var(--color-primary);
+    font-weight: 700;
+    text-decoration: none;
+  }
+
+  .text-link::after {
+    content: '→';
+    font-size: 0.95em;
+  }
+
+  .text-link:hover {
+    text-decoration: underline;
+  }
+
+  .pattern-table-wrap {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow-x: auto;
+  }
+
+  .pattern-table {
+    width: 100%;
+    min-width: 34rem;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+  }
+
+  .pattern-table thead th {
+    background: #1e3a8a;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-align: left;
+    padding: 0.85rem 1.25rem;
+    white-space: nowrap;
+  }
+
+  .pattern-table tbody th {
+    text-align: left;
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .pattern-table th,
+  .pattern-table td {
+    padding: 0.95rem 1.25rem;
+    border-bottom: 1px solid var(--color-border);
+    line-height: 1.7;
+    vertical-align: top;
+  }
+
+  .pattern-table tbody tr:last-child th,
+  .pattern-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .pattern-table tbody tr:nth-child(even) {
+    background: var(--color-band);
+  }
+
+  .pattern-table__note {
+    display: block;
+    margin-top: 0.35rem;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    color: var(--color-text-muted);
+  }
+
+  .pattern-table__years-col {
+    white-space: nowrap;
+    font-weight: 700;
+    color: var(--color-primary);
+    text-align: right;
+  }
+
+  .pattern-table thead .pattern-table__years-col {
+    color: #fff;
+  }
+
+  .attention-box {
+    margin-top: 1.75rem;
+    background: var(--color-primary-soft);
+    border: 1px solid rgba(30, 58, 138, 0.2);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem 1.65rem;
+  }
+
+  .attention-box__title {
+    margin: 0 0 0.75rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 0.03em;
+  }
+
+  .attention-box__text {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.9;
+    color: var(--color-text);
+  }
+
+  .check-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .check-list__item {
+    position: relative;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1rem 1rem 2.75rem;
+    line-height: 1.8;
+    color: var(--color-text);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .check-list__item::before {
+    content: '✓';
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 50%;
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .faq-list {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .faq-item {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+
+  .faq-item__question {
+    cursor: pointer;
+    list-style: none;
+    padding: 1.15rem 1.25rem;
+    font-weight: 700;
+    line-height: 1.7;
+    color: var(--color-text);
+  }
+
+  .faq-item__question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item__answer {
+    padding: 0 1.25rem 1.15rem;
+    color: var(--color-text-muted);
+    line-height: 1.85;
+  }
+
+  .faq-item__answer p {
+    margin: 0;
+  }
+
+  .section--contact-cta {
+    background: #ffffff;
+    padding: var(--space-section-y) var(--space-section-x) max(var(--space-section-y), 4rem);
+  }
+
+  .cta-box {
+    background: #f8fafc;
+    border: 1px solid var(--color-border);
+    border-radius: 1rem;
+    padding: clamp(1.75rem, 4vw, 2.5rem);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+  }
+
+  .cta-box__heading {
+    margin: 0 0 1rem;
+    font-size: clamp(1.2rem, 2.8vw, 1.6rem);
+    line-height: 1.6;
+    color: var(--color-text);
+  }
+
+  .cta-box__text {
+    margin: 0 0 1.5rem;
+    color: var(--color-text-muted);
+    line-height: 1.9;
+  }
+
+  .cta-box__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.85rem 1rem;
+  }
+</style>

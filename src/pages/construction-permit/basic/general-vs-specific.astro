@@ -1,0 +1,328 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import SiteHeader from '../../../components/SiteHeader.astro';
+import SiteFooter from '../../../components/SiteFooter.astro';
+import LineButton from '../../../components/LineButton.astro';
+import { pageTitle } from '../../../config/site';
+
+const thresholds = [
+  {
+    type: '一般建設業',
+    limit: '下請契約 5,000万円未満',
+    limitAlt: '建築一式工事は 8,000万円未満',
+    note: '元請として請け負った工事について、下請に発注する契約の総額がこの範囲内であれば一般建設業許可で足ります。',
+  },
+  {
+    type: '特定建設業',
+    limit: '下請契約 5,000万円以上',
+    limitAlt: '建築一式工事は 8,000万円以上',
+    note: '一定規模以上の下請契約を締結する場合に特定建設業許可が必要です。財務・技術者要件も厳しくなります。',
+  },
+];
+
+const diffPoints = [
+  {
+    title: '判断の軸は「下請発注規模」',
+    text: '受注金額そのものではなく、元請として請け負った工事について下請業者に発注する契約の総額がポイントです。大きな工事を受注しても、下請に出す規模が小さければ一般建設業のままのケースもあります。',
+  },
+  {
+    title: '財務要件の違い',
+    text: '一般建設業は自己資本500万円以上または預金等500万円以上が目安。特定建設業は直前決算で資本金2,000万円・自己資本4,000万円・欠損金・流動比率の4項目すべてが必要です。',
+  },
+  {
+    title: '技術者要件の違い',
+    text: '特定建設業では、専任技術者の資格・実務経験要件が一般建設業より厳しくなります。指定建設業7業種の特定建設業は1級相当の資格が必要な場合があります。',
+  },
+];
+
+const faqItems = [
+  {
+    q: '1億円の工事を受注したら特定建設業が必要ですか？',
+    a: '必ずしもそうではありません。元請として請け負った工事における下請契約の総額で判断します。下請発注が5,000万円未満（建築一式は8,000万円未満）であれば、受注額が大きくても一般建設業の範囲内の場合があります。',
+  },
+  {
+    q: '一般建設業から特定建設業に変えるには？',
+    a: '「般・特新規」申請が必要です。新規申請と同様に許可要件の確認が行われ、財務・技術者要件を満たしている必要があります。',
+  },
+  {
+    q: '特定建設業の方が「格が上」ですか？',
+    a: '下請発注の規模に応じた区分であり、優劣の関係ではありません。事業規模に見合った許可を受けるという整理です。',
+  },
+  {
+    q: '個人事業主でも特定建設業の許可は取れますか？',
+    a: '制度上は可能ですが、財務要件（資本金・自己資本等）を個人で満たすケースは限られます。まず一般建設業から始めるのが現実的なケースが多いです。',
+  },
+  {
+    q: '一般と特定、両方の許可を同時に持てますか？',
+    a: '許可は業種ごとに一般か特定かが定められます。同じ業種で一般と特定を同時に持つわけではなく、事業内容に応じてどちらかを選択して許可を受けます。',
+  },
+];
+
+const relatedLinks = [
+  { title: '建設業許可の基礎知識', text: 'STEP 1〜3の全体像を整理した親ページです。', href: '/construction-permit/basic/' },
+  { title: '財産的基礎・金銭的信用', text: '一般と特定で異なる財務要件の詳細はこちら。', href: '/construction-permit/basic/requirements/financial' },
+  { title: '申請区分', text: '般・特新規など、申請目的に応じた区分の選び方はこちら。', href: '/construction-permit/basic/application-types' },
+];
+---
+
+<BaseLayout
+  title={pageTitle('一般建設業と特定建設業の違い')}
+  description="建設業許可の「一般建設業」と「特定建設業」の違いを解説。下請契約5,000万円基準、財務・技術者要件の違い、般特新規まで。大阪泉州・和歌山北部対応。"
+  breadcrumbs={[
+    { name: 'ホーム', href: '/' },
+    { name: '建設業許可', href: '/construction-permit/' },
+    { name: '基礎知識', href: '/construction-permit/basic/' },
+    { name: '一般建設業と特定建設業' },
+  ]}
+>
+  <div class="page">
+    <SiteHeader />
+    <main>
+      <section class="page-hero section--base" aria-labelledby="page-heading">
+        <div class="page-hero__inner">
+          <nav class="breadcrumb" aria-label="パンくずリスト">
+            <ol>
+              <li><a href="/">ホーム</a></li>
+              <li><a href="/construction-permit/">建設業許可</a></li>
+              <li><a href="/construction-permit/basic/">基礎知識</a></li>
+              <li aria-current="page">一般建設業と特定建設業</li>
+            </ol>
+          </nav>
+          <div class="page-hero__content">
+            <p class="page-hero__label">BASIC KNOWLEDGE</p>
+            <h1 id="page-heading" class="page-hero__title">一般建設業と特定建設業の違い</h1>
+            <p class="page-hero__lead">
+              建設業許可には<strong>一般建設業</strong>と<strong>特定建設業</strong>があります。
+              どちらが必要かは、受注金額そのものではなく、
+              <strong>元請として請け負った工事における下請契約の規模</strong>で判断します。
+              区分によって財務要件や技術者要件も異なるため、事業計画に合わせて早めに整理しておくことが大切です。
+            </p>
+            <div class="page-hero__actions">
+              <a href="/contact" class="btn btn--primary">相談してみる</a>
+              <LineButton />
+            </div>
+          </div>
+          <figure class="page-hero__visual">
+            <img src="/images/general-specific-permit.jpg" alt="一般建設業と特定建設業をイメージする建設現場" loading="eager" />
+          </figure>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="conclusion-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="summary-box">
+            <h2 id="conclusion-heading" class="summary-box__heading">まず結論</h2>
+            <p class="summary-box__text">
+              元請としての<strong>下請契約が5,000万円未満</strong>（建築一式工事は<strong>8,000万円未満</strong>）→ 一般建設業。
+              <strong>5,000万円以上</strong>（建築一式は<strong>8,000万円以上</strong>）→ 特定建設業。
+              受注額が大きくても、下請発注規模が小さければ一般のままのケースもあります。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="threshold-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="threshold-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              下請契約の金額基準
+            </h2>
+            <p class="section__sub">1件の元請工事について、下請業者との契約総額で一般か特定かが分かれます。</p>
+          </div>
+          <div class="pattern-table-wrap">
+            <table class="pattern-table">
+              <thead>
+                <tr>
+                  <th scope="col">区分</th>
+                  <th scope="col">下請契約の目安</th>
+                </tr>
+              </thead>
+              <tbody>
+                {thresholds.map((row) => (
+                  <tr>
+                    <th scope="row">
+                      {row.type}
+                      <span class="pattern-table__note">{row.note}</span>
+                    </th>
+                    <td>
+                      {row.limit}
+                      <span class="pattern-table__note">{row.limitAlt}</span>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <p class="section__note">※下請契約の計算方法や例外規定は法令・ガイドラインで詳細が定められています。境界付近の案件は個別確認をおすすめします。</p>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="diff-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="diff-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              一般と特定で異なる主なポイント
+            </h2>
+          </div>
+          <div class="card-grid card-grid--three">
+            {diffPoints.map((item) => (
+              <article class="info-card">
+                <h3 class="info-card__title">{item.title}</h3>
+                <p class="info-card__text">{item.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="upgrade-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="upgrade-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              一般から特定へ移行する場合
+            </h2>
+          </div>
+          <p class="section__text">
+            事業拡大に伴い特定建設業許可が必要になった場合、「<strong>般・特新規</strong>」申請を行います。
+            新規申請と同様に許可要件（経管、財務、専任技術者、営業所、欠格要件）が確認されます。
+          </p>
+          <p class="section__text">
+            特に財務要件は一般建設業より厳しくなるため、
+            <a href="/construction-permit/basic/requirements/financial">直前決算の4項目</a>を早めに確認しておくことが重要です。
+            申請区分の詳細は<a href="/construction-permit/basic/application-types">申請区分のページ</a>もあわせてご確認ください。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="faq-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="faq-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              よくあるご質問
+            </h2>
+          </div>
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <details class="faq-item">
+                <summary class="faq-item__question">{item.q}</summary>
+                <div class="faq-item__answer"><p>{item.a}</p></div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="related-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="related-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              関連ページ
+            </h2>
+          </div>
+          <div class="card-grid card-grid--three">
+            {relatedLinks.map((item) => (
+              <article class="info-card info-card--link">
+                <h3 class="info-card__title">{item.title}</h3>
+                <p class="info-card__text">{item.text}</p>
+                <a href={item.href} class="text-link">ページを見る</a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--contact-cta">
+        <div class="section__inner">
+          <div class="cta-box">
+            <h2 class="cta-box__heading">一般か特定か、事業計画から一緒に整理しませんか。</h2>
+            <p class="cta-box__text">
+              今後の下請発注規模や財務状況から、どちらの許可を目指すべきか確認したい方はご相談ください。
+              大阪泉州・和歌山北部を中心に、要件まで見据えてご案内します。
+            </p>
+            <div class="cta-box__actions">
+              <a href="/contact" class="btn btn--primary">お問い合わせフォームへ</a>
+              <LineButton />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+    <SiteFooter />
+  </div>
+</BaseLayout>
+
+<style>
+  .page { min-height: 100vh; display: flex; flex-direction: column; background: #fff; }
+  .section--base { background: #fff; }
+  .section--band { background: #f8fafc; border-block: 1px solid var(--color-border); }
+  .section { padding: var(--space-section-y) var(--space-section-x); }
+  .section__inner { max-width: var(--content-max); margin: 0 auto; }
+  .section__inner--narrow { max-width: 56rem; }
+  .section__head-block { margin-bottom: 2rem; }
+  .section__sub { margin: 0; max-width: 52rem; font-size: 0.9375rem; color: var(--color-text-muted); line-height: 1.9; }
+  .section__note { margin: 1.25rem 0 0; font-size: 0.875rem; line-height: 1.85; color: var(--color-text-muted); }
+  .heading-icon { display: inline-flex; align-items: center; justify-content: center; width: 2.25rem; height: 2.25rem; border-radius: 0.4rem; background: #1e3a8a; flex-shrink: 0; vertical-align: middle; margin-right: 0.65rem; }
+  .heading-icon::after { content: ''; width: 0.55rem; height: 0.72rem; border: 2px solid #fff; border-radius: 2px; }
+  .section__heading { display: flex; align-items: center; flex-wrap: wrap; margin: 0 0 1rem; font-size: clamp(1.2rem, 2.8vw, 1.5rem); font-weight: 700; color: var(--color-primary); letter-spacing: 0.05em; line-height: 1.45; }
+  .section__text { margin: 0 0 1rem; font-size: 0.95rem; line-height: 1.95; color: var(--color-text-muted); }
+  .section__text:last-child { margin-bottom: 0; }
+  .section__text strong { color: var(--color-text); }
+  .section__text a { color: var(--color-primary); font-weight: 600; }
+  .page-hero { padding: clamp(3.25rem, 9vw, 5.75rem) var(--space-section-x) max(var(--space-section-y), 3.75rem); }
+  .page-hero__inner { max-width: var(--content-max); margin: 0 auto; display: grid; gap: 2rem 2.5rem; align-items: center; }
+  @media (min-width: 960px) { .page-hero__inner { grid-template-columns: minmax(0, 1.12fr) minmax(280px, 0.88fr); } }
+  .breadcrumb { grid-column: 1 / -1; }
+  .breadcrumb ol { display: flex; flex-wrap: wrap; gap: 0.35rem 0.5rem; list-style: none; margin: 0 0 0.25rem; padding: 0; font-size: 0.8125rem; color: var(--color-text-muted); }
+  .breadcrumb li:not(:last-child)::after { content: '/'; margin-left: 0.5rem; color: var(--color-border-strong); }
+  .breadcrumb a { color: var(--color-text-muted); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--color-primary); }
+  .breadcrumb li[aria-current='page'] { color: var(--color-text); font-weight: 600; }
+  .page-hero__label { margin: 0 0 1rem; font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.16em; color: var(--color-primary); }
+  .page-hero__title { margin: 0 0 1.25rem; font-size: clamp(1.9rem, 6vw, 2.8rem); line-height: 1.35; letter-spacing: 0.04em; color: var(--color-text); }
+  .page-hero__lead { margin: 0 0 1.6rem; font-size: 1rem; line-height: 1.95; color: var(--color-text-muted); max-width: 46rem; }
+  .page-hero__lead strong { color: var(--color-text); }
+  .page-hero__actions { display: flex; flex-wrap: wrap; gap: 0.85rem 1rem; }
+  .page-hero__visual { margin: 0; border-radius: 1rem; overflow: hidden; border: 1px solid var(--color-border); box-shadow: var(--shadow-md); background: #f3f6fb; }
+  .page-hero__visual img { display: block; width: 100%; height: 100%; min-height: 280px; object-fit: cover; }
+  .btn { display: inline-flex; align-items: center; justify-content: center; min-height: 3rem; padding: 0 1.5rem; font-size: 0.9375rem; font-weight: 700; letter-spacing: 0.04em; border-radius: var(--radius); text-decoration: none; }
+  .btn--primary { background: #1e3a8a; color: #fff; border: 2px solid #1e3a8a; }
+  .btn--primary:hover { background: var(--color-primary-hover); border-color: var(--color-primary-hover); color: #fff; }
+  .summary-box { padding: 1.5rem; background: #fff; border: 1px solid var(--color-border); border-radius: 1rem; box-shadow: var(--shadow-sm); }
+  .summary-box__heading { margin: 0 0 0.75rem; font-size: 1.15rem; font-weight: 700; color: var(--color-primary); }
+  .summary-box__text { margin: 0; line-height: 1.9; color: var(--color-text-muted); }
+  .summary-box__text strong { color: var(--color-text); }
+  .card-grid { display: grid; gap: 1.25rem; }
+  .card-grid--three { grid-template-columns: 1fr; }
+  @media (min-width: 768px) { .card-grid--three { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+  .info-card { background: #fff; border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.4rem; box-shadow: var(--shadow-sm); }
+  .info-card--link { display: flex; flex-direction: column; }
+  .info-card__title { margin: 0 0 0.75rem; font-size: 1rem; font-weight: 700; line-height: 1.6; color: var(--color-text); }
+  .info-card__text { margin: 0; line-height: 1.9; color: var(--color-text-muted); font-size: 0.9375rem; }
+  .text-link { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 1rem; width: fit-content; color: var(--color-primary); font-weight: 700; text-decoration: none; }
+  .text-link::after { content: '→'; }
+  .text-link:hover { text-decoration: underline; }
+  .pattern-table-wrap { background: #fff; border: 1px solid var(--color-border); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow-x: auto; }
+  .pattern-table { width: 100%; min-width: 34rem; border-collapse: collapse; font-size: 0.9375rem; }
+  .pattern-table thead th { background: #1e3a8a; color: #fff; font-weight: 700; padding: 0.85rem 1.25rem; text-align: left; }
+  .pattern-table tbody th { text-align: left; font-weight: 700; color: var(--color-text); }
+  .pattern-table th, .pattern-table td { padding: 0.95rem 1.25rem; border-bottom: 1px solid var(--color-border); line-height: 1.7; vertical-align: top; }
+  .pattern-table tbody tr:last-child th, .pattern-table tbody tr:last-child td { border-bottom: none; }
+  .pattern-table tbody tr:nth-child(even) { background: var(--color-band); }
+  .pattern-table__note { display: block; margin-top: 0.35rem; font-size: 0.8125rem; font-weight: 400; color: var(--color-text-muted); }
+  .faq-list { display: grid; gap: 1rem; }
+  .faq-item { background: #fff; border: 1px solid var(--color-border); border-radius: var(--radius-lg); box-shadow: var(--shadow-sm); overflow: hidden; }
+  .faq-item__question { cursor: pointer; list-style: none; padding: 1.15rem 1.25rem; font-weight: 700; line-height: 1.7; color: var(--color-text); }
+  .faq-item__question::-webkit-details-marker { display: none; }
+  .faq-item__answer { padding: 0 1.25rem 1.15rem; color: var(--color-text-muted); line-height: 1.85; }
+  .faq-item__answer p { margin: 0; }
+  .section--contact-cta { background: #fff; padding: var(--space-section-y) var(--space-section-x) max(var(--space-section-y), 4rem); }
+  .cta-box { background: #f8fafc; border: 1px solid var(--color-border); border-radius: 1rem; padding: clamp(1.75rem, 4vw, 2.5rem); box-shadow: var(--shadow-md); text-align: center; }
+  .cta-box__heading { margin: 0 0 1rem; font-size: clamp(1.2rem, 2.8vw, 1.6rem); line-height: 1.6; color: var(--color-text); }
+  .cta-box__text { margin: 0 0 1.5rem; color: var(--color-text-muted); line-height: 1.9; }
+  .cta-box__actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 0.85rem 1rem; }
+</style>
