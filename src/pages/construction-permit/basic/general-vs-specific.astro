@@ -3,6 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import SiteHeader from '../../../components/SiteHeader.astro';
 import SiteFooter from '../../../components/SiteFooter.astro';
 import LineButton from '../../../components/LineButton.astro';
+import BasicContentVisual from '../../../components/BasicContentVisual.astro';
 import { pageTitle } from '../../../config/site';
 
 const thresholds = [
@@ -160,20 +161,25 @@ const relatedLinks = [
 
       <section class="section section--band" aria-labelledby="diff-heading">
         <div class="section__inner">
-          <div class="section__head-block">
-            <h2 id="diff-heading" class="section__heading">
-              <span class="heading-icon" aria-hidden="true"></span>
-              一般と特定で異なる主なポイント
-            </h2>
-          </div>
-          <div class="card-grid card-grid--three">
-            {diffPoints.map((item) => (
-              <article class="info-card">
-                <h3 class="info-card__title">{item.title}</h3>
-                <p class="info-card__text">{item.text}</p>
-              </article>
-            ))}
-          </div>
+          <BasicContentVisual
+            src="/images/29-industries.jpg"
+            alt="一般・特定建設業をイメージする住宅建設現場"
+          >
+            <div class="section__head-block">
+              <h2 id="diff-heading" class="section__heading">
+                <span class="heading-icon" aria-hidden="true"></span>
+                一般と特定で異なる主なポイント
+              </h2>
+            </div>
+            <div class="card-grid card-grid--three">
+              {diffPoints.map((item) => (
+                <article class="info-card">
+                  <h3 class="info-card__title">{item.title}</h3>
+                  <p class="info-card__text">{item.text}</p>
+                </article>
+              ))}
+            </div>
+          </BasicContentVisual>
         </div>
       </section>
 

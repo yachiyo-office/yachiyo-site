@@ -3,6 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import SiteHeader from '../../../components/SiteHeader.astro';
 import SiteFooter from '../../../components/SiteFooter.astro';
 import LineButton from '../../../components/LineButton.astro';
+import BasicContentVisual from '../../../components/BasicContentVisual.astro';
 import { pageTitle } from '../../../config/site';
 
 const permitCases = [
@@ -370,21 +371,26 @@ const relatedLinks = [
 
       <section class="section section--band" aria-labelledby="misconception-heading">
         <div class="section__inner">
-          <div class="section__head-block">
-            <h2 id="misconception-heading" class="section__heading">
-              <span class="heading-icon" aria-hidden="true"></span>
-              建設業許可で特に多い誤解
-            </h2>
-          </div>
+          <BasicContentVisual
+            src="/images/construction-permit-main.jpg"
+            alt="建設業許可の区分整理をイメージする相談風景"
+          >
+            <div class="section__head-block">
+              <h2 id="misconception-heading" class="section__heading">
+                <span class="heading-icon" aria-hidden="true"></span>
+                建設業許可で特に多い誤解
+              </h2>
+            </div>
 
-          <div class="card-grid">
-            {misconceptions.map((item) => (
-              <article class="info-card">
-                <h3 class="info-card__title">{item.title}</h3>
-                <p class="info-card__text">{item.text}</p>
-              </article>
-            ))}
-          </div>
+            <div class="card-grid card-grid--misconception">
+              {misconceptions.map((item) => (
+                <article class="info-card">
+                  <h3 class="info-card__title">{item.title}</h3>
+                  <p class="info-card__text">{item.text}</p>
+                </article>
+              ))}
+            </div>
+          </BasicContentVisual>
         </div>
       </section>
 
@@ -778,6 +784,12 @@ const relatedLinks = [
   @media (min-width: 1024px) {
     .card-grid:not(.card-grid--two):not(.card-grid--three) {
       grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 768px) {
+    .card-grid--misconception {
+      grid-template-columns: 1fr;
     }
   }
 

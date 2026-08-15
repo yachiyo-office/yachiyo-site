@@ -3,6 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import SiteHeader from '../../../components/SiteHeader.astro';
 import SiteFooter from '../../../components/SiteFooter.astro';
 import LineButton from '../../../components/LineButton.astro';
+import BasicContentVisual from '../../../components/BasicContentVisual.astro';
 import { pageTitle } from '../../../config/site';
 
 const industryTypes = [
@@ -354,28 +355,34 @@ const relatedLinks = [
 
       <section class="section section--band" aria-labelledby="integrated-heading">
         <div class="section__inner section__inner--narrow">
-          <div class="section__head-block">
-            <h2 id="integrated-heading" class="section__heading">
-              <span class="heading-icon" aria-hidden="true"></span>
-              建築一式・土木一式と専門工事の違い
-            </h2>
-            <p class="section__sub">
-              一式工事とは、主に元請の立場で専門業者等をマネジメントし、土木工作物や建築物を総合的に建設する工事です。
-              名称から「どんな工事でもカバーできる業種」と誤解されやすい点に注意が必要です。
-            </p>
-          </div>
-          <div class="attention-box">
-            <p class="attention-box__text">
-              土木一式工事業や建築一式工事業の許可があっても、
-              請負金額500万円以上の<strong>他の専門工事を単体で請け負うことはできません</strong>。
-              一式工事は「工事全体の調整役」であり、すべての専門施工をカバーする許可ではありません。
-            </p>
-          </div>
-          <ul class="bullet-list bullet-list--spaced">
-            {integratedNotes.map((item) => (
-              <li>{item}</li>
-            ))}
-          </ul>
+          <BasicContentVisual
+            src="/images/construction-hero.jpg"
+            alt="一式工事と専門工事をイメージする書類と現場"
+            imageFirst
+          >
+            <div class="section__head-block">
+              <h2 id="integrated-heading" class="section__heading">
+                <span class="heading-icon" aria-hidden="true"></span>
+                建築一式・土木一式と専門工事の違い
+              </h2>
+              <p class="section__sub">
+                一式工事とは、主に元請の立場で専門業者等をマネジメントし、土木工作物や建築物を総合的に建設する工事です。
+                名称から「どんな工事でもカバーできる業種」と誤解されやすい点に注意が必要です。
+              </p>
+            </div>
+            <div class="attention-box">
+              <p class="attention-box__text">
+                土木一式工事業や建築一式工事業の許可があっても、
+                請負金額500万円以上の<strong>他の専門工事を単体で請け負うことはできません</strong>。
+                一式工事は「工事全体の調整役」であり、すべての専門施工をカバーする許可ではありません。
+              </p>
+            </div>
+            <ul class="bullet-list bullet-list--spaced">
+              {integratedNotes.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+          </BasicContentVisual>
         </div>
       </section>
 

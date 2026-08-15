@@ -3,6 +3,7 @@ import BaseLayout from '../../../layouts/BaseLayout.astro';
 import SiteHeader from '../../../components/SiteHeader.astro';
 import SiteFooter from '../../../components/SiteFooter.astro';
 import LineButton from '../../../components/LineButton.astro';
+import BasicContentVisual from '../../../components/BasicContentVisual.astro';
 import { pageTitle } from '../../../config/site';
 
 const comparison = [
@@ -156,43 +157,54 @@ const relatedLinks = [
 
       <section class="section section--band" aria-labelledby="cases-heading">
         <div class="section__inner">
-          <div class="section__head-block">
-            <h2 id="cases-heading" class="section__heading">
-              <span class="heading-icon" aria-hidden="true"></span>
-              具体例で見る判断のしかた
-            </h2>
-          </div>
-          <div class="card-grid card-grid--three">
-            {caseCards.map((item) => (
-              <article class="info-card">
-                <h3 class="info-card__title">{item.title}</h3>
-                <p class="info-card__text">{item.text}</p>
-              </article>
-            ))}
-          </div>
+          <BasicContentVisual
+            src="/images/home-hero-senshu.jpg"
+            alt="泉州・阪南エリアの事業所立地をイメージする風景"
+          >
+            <div class="section__head-block">
+              <h2 id="cases-heading" class="section__heading">
+                <span class="heading-icon" aria-hidden="true"></span>
+                具体例で見る判断のしかた
+              </h2>
+            </div>
+            <div class="card-grid card-grid--three">
+              {caseCards.map((item) => (
+                <article class="info-card">
+                  <h3 class="info-card__title">{item.title}</h3>
+                  <p class="info-card__text">{item.text}</p>
+                </article>
+              ))}
+            </div>
+          </BasicContentVisual>
         </div>
       </section>
 
       <section class="section section--base" aria-labelledby="misconception-heading">
         <div class="section__inner section__inner--narrow">
-          <div class="section__head-block">
-            <h2 id="misconception-heading" class="section__heading">
-              <span class="heading-icon" aria-hidden="true"></span>
-              よくある誤解
-            </h2>
-          </div>
-          <div class="attention-box">
-            <h3 class="attention-box__title">「他府県の現場工事＝大臣許可」ではない</h3>
-            <p class="attention-box__text">
-              泉州エリアの会社が和歌山の現場で工事をする場合でも、営業所が大阪府内のみであれば大阪府知事許可です。
-              逆に、営業所を和歌山にも設置すれば、たとえ大阪の現場ばかりでも大臣許可が必要になります。
+          <BasicContentVisual
+            src="/images/construction-documents.jpg"
+            alt="許可行政庁の整理をイメージする書類"
+            imageFirst
+          >
+            <div class="section__head-block">
+              <h2 id="misconception-heading" class="section__heading">
+                <span class="heading-icon" aria-hidden="true"></span>
+                よくある誤解
+              </h2>
+            </div>
+            <div class="attention-box">
+              <h3 class="attention-box__title">「他府県の現場工事＝大臣許可」ではない</h3>
+              <p class="attention-box__text">
+                泉州エリアの会社が和歌山の現場で工事をする場合でも、営業所が大阪府内のみであれば大阪府知事許可です。
+                逆に、営業所を和歌山にも設置すれば、たとえ大阪の現場ばかりでも大臣許可が必要になります。
+              </p>
+            </div>
+            <p class="section__text section__text--spaced">
+              また、知事許可から大臣許可へ（またはその逆）行政庁が変わる場合は、
+              通常の変更届ではなく<strong>許可換え新規</strong>申請が必要です。
+              営業所の追加・移転を計画している場合は、<a href="/construction-permit/basic/application-types">申請区分</a>もあわせて確認してください。
             </p>
-          </div>
-          <p class="section__text section__text--spaced">
-            また、知事許可から大臣許可へ（またはその逆）行政庁が変わる場合は、
-            通常の変更届ではなく<strong>許可換え新規</strong>申請が必要です。
-            営業所の追加・移転を計画している場合は、<a href="/construction-permit/basic/application-types">申請区分</a>もあわせて確認してください。
-          </p>
+          </BasicContentVisual>
         </div>
       </section>
 

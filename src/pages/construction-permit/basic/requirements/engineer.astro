@@ -3,6 +3,7 @@ import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import SiteHeader from '../../../../components/SiteHeader.astro';
 import SiteFooter from '../../../../components/SiteFooter.astro';
 import LineButton from '../../../../components/LineButton.astro';
+import BasicContentVisual from '../../../../components/BasicContentVisual.astro';
 import { pageTitle } from '../../../../config/site';
 
 const routeCards = [
@@ -201,24 +202,29 @@ const relatedLinks = [
 
       <section class="section section--base" aria-labelledby="why-heading">
         <div class="section__inner section__inner--narrow">
-          <div class="section__head-block">
-            <h2 id="why-heading" class="section__heading">
-              <span class="heading-icon" aria-hidden="true"></span>
-              なぜ重要な要件なのか
-            </h2>
-          </div>
+          <BasicContentVisual
+            src="/images/basic-knowledge.jpg"
+            alt="専任技術者の要件をイメージする書類確認"
+          >
+            <div class="section__head-block">
+              <h2 id="why-heading" class="section__heading">
+                <span class="heading-icon" aria-hidden="true"></span>
+                なぜ重要な要件なのか
+              </h2>
+            </div>
 
-          <p class="section__text">
-            建設業許可制度は、適正な施工と発注者保護を目的としています。
-            経営能力（経管）に加え、<strong>営業所として建設工事を適切に受注・管理する技術力</strong>があるかが問われます。
-            見積りや請負契約に関する技術面の確認、施工に関する技術的対応など、
-            営業所の技術的な中枢を担う存在が専任技術者です。
-          </p>
-          <p class="section__text">
-            また、専任技術者は経管と同様に<strong>「人」に関する継続要件</strong>です。
-            許可を取った後に退職や異動で不在になると、その時点で許可要件を満たさなくなります。
-            許可取得時だけでなく、取得後の人員管理まで見据える必要があります。
-          </p>
+            <p class="section__text">
+              建設業許可制度は、適正な施工と発注者保護を目的としています。
+              経営能力（経管）に加え、<strong>営業所として建設工事を適切に受注・管理する技術力</strong>があるかが問われます。
+              見積りや請負契約に関する技術面の確認、施工に関する技術的対応など、
+              営業所の技術的な中枢を担う存在が専任技術者です。
+            </p>
+            <p class="section__text">
+              また、専任技術者は経管と同様に<strong>「人」に関する継続要件</strong>です。
+              許可を取った後に退職や異動で不在になると、その時点で許可要件を満たさなくなります。
+              許可取得時だけでなく、取得後の人員管理まで見据える必要があります。
+            </p>
+          </BasicContentVisual>
         </div>
       </section>
 

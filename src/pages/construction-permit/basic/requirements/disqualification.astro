@@ -3,6 +3,7 @@ import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import SiteHeader from '../../../../components/SiteHeader.astro';
 import SiteFooter from '../../../../components/SiteFooter.astro';
 import LineButton from '../../../../components/LineButton.astro';
+import BasicContentVisual from '../../../../components/BasicContentVisual.astro';
 import { pageTitle } from '../../../../config/site';
 
 const disqualificationItems = [
@@ -192,22 +193,27 @@ const relatedLinks = [
 
       <section class="section section--base" aria-labelledby="difference-heading">
         <div class="section__inner section__inner--narrow">
-          <div class="section__head-block">
-            <h2 id="difference-heading" class="section__heading">
-              <span class="heading-icon" aria-hidden="true"></span>
-              他の許可要件との違い
-            </h2>
-          </div>
+          <BasicContentVisual
+            src="/images/consultation.jpg"
+            alt="欠格要件の確認をイメージする書類レビュー"
+          >
+            <div class="section__head-block">
+              <h2 id="difference-heading" class="section__heading">
+                <span class="heading-icon" aria-hidden="true"></span>
+                他の許可要件との違い
+              </h2>
+            </div>
 
-          <p class="section__text">
-            経営能力、財産的基礎、技術力、営業所などの要件は、建設業法第7条に定められ、
-            「基準を満たしているか」が問われます。一方、欠格要件は第8条に別途定められ、
-            <strong>「該当すると許可してはならない」</strong>という位置づけです。
-          </p>
-          <p class="section__text">
-            また、申請書や添付書類に<strong>重要な虚偽記載や重要な事実の欠落</strong>がある場合も、
-            欠格要件と並んで不許可事由になります。許可後に判明した場合は許可取消の対象となる可能性があります。
-          </p>
+            <p class="section__text">
+              経営能力、財産的基礎、技術力、営業所などの要件は、建設業法第7条に定められ、
+              「基準を満たしているか」が問われます。一方、欠格要件は第8条に別途定められ、
+              <strong>「該当すると許可してはならない」</strong>という位置づけです。
+            </p>
+            <p class="section__text">
+              また、申請書や添付書類に<strong>重要な虚偽記載や重要な事実の欠落</strong>がある場合も、
+              欠格要件と並んで不許可事由になります。許可後に判明した場合は許可取消の対象となる可能性があります。
+            </p>
+          </BasicContentVisual>
         </div>
       </section>
 

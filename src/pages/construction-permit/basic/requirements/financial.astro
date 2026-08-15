@@ -3,6 +3,7 @@ import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import SiteHeader from '../../../../components/SiteHeader.astro';
 import SiteFooter from '../../../../components/SiteFooter.astro';
 import LineButton from '../../../../components/LineButton.astro';
+import BasicContentVisual from '../../../../components/BasicContentVisual.astro';
 import { pageTitle } from '../../../../config/site';
 
 const permitTypes = [
@@ -219,24 +220,30 @@ const relatedLinks = [
 
       <section class="section section--base" aria-labelledby="why-heading">
         <div class="section__inner section__inner--narrow">
-          <div class="section__head-block">
-            <h2 id="why-heading" class="section__heading">
-              <span class="heading-icon" aria-hidden="true"></span>
-              なぜ財務要件が必要なのか
-            </h2>
-          </div>
+          <BasicContentVisual
+            src="/images/construction-documents.jpg"
+            alt="財務要件の確認をイメージする書類と図面"
+            imageFirst
+          >
+            <div class="section__head-block">
+              <h2 id="why-heading" class="section__heading">
+                <span class="heading-icon" aria-hidden="true"></span>
+                なぜ財務要件が必要なのか
+              </h2>
+            </div>
 
-          <p class="section__text">
-            建設業許可制度は、発注者や下請業者を保護し、建設工事を適正に施工するための仕組みです。
-            工事を請け負う事業者には、契約履行や下請代金の支払い、従業員への給与支払いなど、
-            一定の<strong>資金繰り能力</strong>が求められます。
-          </p>
-          <p class="section__text">
-            そのため許可審査では、経営経験や技術力だけでなく、
-            決算書や申告書をもとに<strong>財産的基礎</strong>（資産としての土台）と
-            <strong>金銭的信用</strong>（資金調達や支払い能力）が確認されます。
-            また、許可取得後も毎年の決算変更届で財務状況が継続的に報告される点も押さえておきたいポイントです。
-          </p>
+            <p class="section__text">
+              建設業許可制度は、発注者や下請業者を保護し、建設工事を適正に施工するための仕組みです。
+              工事を請け負う事業者には、契約履行や下請代金の支払い、従業員への給与支払いなど、
+              一定の<strong>資金繰り能力</strong>が求められます。
+            </p>
+            <p class="section__text">
+              そのため許可審査では、経営経験や技術力だけでなく、
+              決算書や申告書をもとに<strong>財産的基礎</strong>（資産としての土台）と
+              <strong>金銭的信用</strong>（資金調達や支払い能力）が確認されます。
+              また、許可取得後も毎年の決算変更届で財務状況が継続的に報告される点も押さえておきたいポイントです。
+            </p>
+          </BasicContentVisual>
         </div>
       </section>
 

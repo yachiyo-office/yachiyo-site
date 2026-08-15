@@ -1,0 +1,26 @@
+---
+import '../styles/basic-visual.css';
+
+interface Props {
+  src: string;
+  alt: string;
+  imageFirst?: boolean;
+}
+
+const { src, alt, imageFirst = false } = Astro.props;
+---
+
+<div
+  class:list={[
+    'section__grid',
+    'section__grid--visual',
+    imageFirst && 'section__grid--visual-lead',
+  ]}
+>
+  <div class="section__main">
+    <slot />
+  </div>
+  <figure class="section__visual">
+    <img src={src} alt={alt} loading="lazy" width="1344" height="768" />
+  </figure>
+</div>

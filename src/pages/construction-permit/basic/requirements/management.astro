@@ -3,6 +3,7 @@ import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import SiteHeader from '../../../../components/SiteHeader.astro';
 import SiteFooter from '../../../../components/SiteFooter.astro';
 import LineButton from '../../../../components/LineButton.astro';
+import BasicContentVisual from '../../../../components/BasicContentVisual.astro';
 import { pageTitle } from '../../../../config/site';
 
 const whoCanBe = [
@@ -183,24 +184,29 @@ const relatedLinks = [
 
       <section class="section section--base" aria-labelledby="why-heading">
         <div class="section__inner section__inner--narrow">
-          <div class="section__head-block">
-            <h2 id="why-heading" class="section__heading">
-              <span class="heading-icon" aria-hidden="true"></span>
-              なぜ最も重要な要件といわれるのか
-            </h2>
-          </div>
+          <BasicContentVisual
+            src="/images/construction-permit-main.jpg"
+            alt="経営業務の管理をイメージする相談風景"
+          >
+            <div class="section__head-block">
+              <h2 id="why-heading" class="section__heading">
+                <span class="heading-icon" aria-hidden="true"></span>
+                なぜ最も重要な要件といわれるのか
+              </h2>
+            </div>
 
-          <p class="section__text">
-            建設業許可の制度は、建設工事の適正な施工の確保や発注者の保護を目的としています。
-            そのため許可業者には、工事の技術力だけでなく、契約や資金、人員を適切に管理する<strong>経営能力</strong>が求められます。
-            この経営能力は資格試験では測れないため、「一定以上の建設業の経営経験があるか」で判断される仕組みになっています。
-          </p>
-          <p class="section__text">
-            また、経管は許可を取った後も欠かすことができない存在です。
-            退任などで経管が不在になると、その時点で許可要件を満たさなくなり、
-            後任がいなければ許可を維持できません。後任と交代する場合も、交代日から14日以内の変更届が必要です。
-            許可取得時だけでなく、<strong>取得後もずっと維持し続ける要件</strong>である点も押さえておきたいポイントです。
-          </p>
+            <p class="section__text">
+              建設業許可の制度は、建設工事の適正な施工の確保や発注者の保護を目的としています。
+              そのため許可業者には、工事の技術力だけでなく、契約や資金、人員を適切に管理する<strong>経営能力</strong>が求められます。
+              この経営能力は資格試験では測れないため、「一定以上の建設業の経営経験があるか」で判断される仕組みになっています。
+            </p>
+            <p class="section__text">
+              また、経管は許可を取った後も欠かすことができない存在です。
+              退任などで経管が不在になると、その時点で許可要件を満たさなくなり、
+              後任がいなければ許可を維持できません。後任と交代する場合も、交代日から14日以内の変更届が必要です。
+              許可取得時だけでなく、<strong>取得後もずっと維持し続ける要件</strong>である点も押さえておきたいポイントです。
+            </p>
+          </BasicContentVisual>
         </div>
       </section>
 

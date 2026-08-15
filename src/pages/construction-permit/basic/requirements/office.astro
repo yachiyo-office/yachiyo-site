@@ -3,6 +3,7 @@ import BaseLayout from '../../../../layouts/BaseLayout.astro';
 import SiteHeader from '../../../../components/SiteHeader.astro';
 import SiteFooter from '../../../../components/SiteFooter.astro';
 import LineButton from '../../../../components/LineButton.astro';
+import BasicContentVisual from '../../../../components/BasicContentVisual.astro';
 import { pageTitle } from '../../../../config/site';
 
 const officeTypes = [
@@ -187,21 +188,27 @@ const relatedLinks = [
 
       <section class="section section--base" aria-labelledby="definition-heading">
         <div class="section__inner section__inner--narrow">
-          <div class="section__head-block">
-            <h2 id="definition-heading" class="section__heading">
-              <span class="heading-icon" aria-hidden="true"></span>
-              営業所の定義
-            </h2>
-          </div>
+          <BasicContentVisual
+            src="/images/governor-minister-permit.jpg"
+            alt="営業所の実体をイメージする事業所外観"
+            imageFirst
+          >
+            <div class="section__head-block">
+              <h2 id="definition-heading" class="section__heading">
+                <span class="heading-icon" aria-hidden="true"></span>
+                営業所の定義
+              </h2>
+            </div>
 
-          <p class="section__text">
-            建設業の「営業所」とは、本店・支店、または常時建設工事の請負契約を締結する事務所を指します。
-            見積り、入札、契約締結など、<strong>請負契約に係る実体的な行為を行う場所</strong>が営業所に該当します。
-          </p>
-          <p class="section__text">
-            契約名義人が本社の代表者であっても、実態として請負契約を締結する権限がある支店等は営業所に該当します。
-            逆に、請負契約締結業務を行わない資材置き場や工事事務所は、原則として営業所にはなりません。
-          </p>
+            <p class="section__text">
+              建設業の「営業所」とは、本店・支店、または常時建設工事の請負契約を締結する事務所を指します。
+              見積り、入札、契約締結など、<strong>請負契約に係る実体的な行為を行う場所</strong>が営業所に該当します。
+            </p>
+            <p class="section__text">
+              契約名義人が本社の代表者であっても、実態として請負契約を締結する権限がある支店等は営業所に該当します。
+              逆に、請負契約締結業務を行わない資材置き場や工事事務所は、原則として営業所にはなりません。
+            </p>
+          </BasicContentVisual>
         </div>
       </section>
 
