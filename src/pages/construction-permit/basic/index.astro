@@ -19,24 +19,32 @@ const step2Cards = [
     text: '営業所が1つの都道府県内のみであれば知事許可、2以上の都道府県に営業所を設ける場合は国土交通大臣許可となります。工事現場の場所ではなく、営業所の所在で判断する点が重要です。',
     href: '/construction-permit/basic/governor-vs-minister',
     label: '詳しく見る',
+    image: '/images/governor-minister-permit.jpg',
+    alt: '知事許可と大臣許可',
   },
   {
     title: '一般建設業と特定建設業',
     text: '元請として請け負った工事について、一定以上の下請契約を締結する場合には特定建設業許可が必要になります。単に工事金額が大きいかどうかではなく、下請への発注規模がポイントです。',
     href: '/construction-permit/basic/general-vs-specific',
     label: '詳しく見る',
+    image: '/images/general-specific-permit.jpg',
+    alt: '一般建設業と特定建設業',
   },
   {
     title: '29業種の考え方',
     text: '建設工事は29種類に区分され、一式工事と専門工事に分かれます。一式工事の許可があれば何でも施工できるわけではないため、実際の工事内容に応じた業種判断が重要です。',
     href: '/construction-permit/basic/29-industries',
     label: '詳しく見る',
+    image: '/images/29-industries.jpg',
+    alt: '建設業許可29業種',
   },
   {
     title: '申請区分',
     text: '新規、許可換え新規、般・特新規、業種追加、更新など、建設業許可には複数の申請区分があります。現在の許可状況と今回の申請目的を整理して選ぶ必要があります。',
     href: '/construction-permit/basic/application-types',
     label: '詳しく見る',
+    image: '/images/application-types.jpg',
+    alt: '建設業許可の申請区分',
   },
 ];
 
@@ -45,26 +53,36 @@ const requirementCards = [
     title: '1. 経営業務の管理に関する体制',
     text: '法人であれば主として常勤役員等、個人事業主であれば本人について、建設業の経営業務を適切に管理できる体制があるかが確認されます。経験年数だけでなく、常勤性や証明資料の整合性も大切です。',
     href: '/construction-permit/basic/requirements/management',
+    image: '/images/requirement-management.jpg',
+    alt: '経営業務の管理に関する体制',
   },
   {
     title: '2. 財産的基礎・金銭的信用',
     text: '一般建設業では、自己資本や資金調達能力などが確認されます。特定建設業ではさらに厳しい財務要件が求められるため、決算内容や証明方法の整理が重要です。',
     href: '/construction-permit/basic/requirements/financial',
+    image: '/images/requirement-financial.jpg',
+    alt: '財産的基礎・金銭的信用',
   },
   {
     title: '3. 営業所技術者等',
     text: '許可を受けようとする業種に応じて、資格または実務経験を有する技術者が営業所ごとに必要になります。特に実務経験で立証する場合は、どの資料で証明できるかが大きな論点になります。',
     href: '/construction-permit/basic/requirements/engineer',
+    image: '/images/requirement-engineer.jpg',
+    alt: '営業所技術者等',
   },
   {
     title: '4. 営業所の実体',
     text: '建設工事の請負契約に関する実体を持つ営業所が必要です。自宅兼事務所、賃貸物件、共有オフィスなどでは、使用権限や実在性の確認が問題になることがあります。',
     href: '/construction-permit/basic/requirements/office',
+    image: '/images/requirement-office.jpg',
+    alt: '営業所の実体',
   },
   {
     title: '5. 欠格要件・誠実性',
     text: '申請者本人や役員等に一定の欠格事由がある場合は許可を受けられません。また、請負契約に関して不正または不誠実な行為をするおそれがあると判断される場合にも注意が必要です。',
     href: '/construction-permit/basic/requirements/disqualification',
+    image: '/images/requirement-disqualification.jpg',
+    alt: '欠格要件・誠実性',
   },
 ];
 
@@ -181,61 +199,87 @@ const relatedLinks = [
       </section>
 
       <section class="section section--band" aria-labelledby="intro-heading">
-        <div class="section__inner section__inner--narrow">
-          <div class="section__head-block">
-            <h2 id="intro-heading" class="section__heading">
-              <span class="heading-icon" aria-hidden="true"></span>
-              まず押さえたいポイント
-            </h2>
+        <div class="section__inner section__grid section__grid--visual">
+          <div class="section__main">
+            <div class="section__head-block">
+              <h2 id="intro-heading" class="section__heading">
+                <span class="heading-icon" aria-hidden="true"></span>
+                まず押さえたいポイント
+              </h2>
+            </div>
+
+            <p class="section__text">
+              建設工事の完成を請け負う営業を行う場合、公共工事か民間工事かを問わず、原則として建設業許可が必要です。
+              もっとも、軽微な建設工事のみを請け負う場合は例外とされます。
+              また、建設業許可は単に「ある・ない」だけでなく、営業所の所在や下請発注の規模、工事の内容によって区分が分かれます。
+            </p>
           </div>
 
-          <p class="section__text">
-            建設工事の完成を請け負う営業を行う場合、公共工事か民間工事かを問わず、原則として建設業許可が必要です。
-            もっとも、軽微な建設工事のみを請け負う場合は例外とされます。
-            また、建設業許可は単に「ある・ない」だけでなく、営業所の所在や下請発注の規模、工事の内容によって区分が分かれます。
-          </p>
+          <figure class="section__visual">
+            <img
+              src="/images/construction-documents.jpg"
+              alt="建設業許可の書類と図面"
+              loading="lazy"
+              width="1344"
+              height="768"
+            />
+          </figure>
         </div>
       </section>
 
       <section class="section section--base" aria-labelledby="step1-heading">
         <div class="section__inner">
-          <div class="step-block">
+          <div class="step-block step-block--visual">
             <div class="step-block__label">STEP 1</div>
             <div class="step-block__body">
-              <div class="section__head-block">
-                <h2 id="step1-heading" class="section__heading">
-                  <span class="heading-icon" aria-hidden="true"></span>
-                  建設業を営むうえで、許可が必要になるのはどんな場合か
-                </h2>
-              </div>
+              <div class="section__grid section__grid--visual section__grid--step">
+                <div class="section__main">
+                  <div class="section__head-block">
+                    <h2 id="step1-heading" class="section__heading">
+                      <span class="heading-icon" aria-hidden="true"></span>
+                      建設業を営むうえで、許可が必要になるのはどんな場合か
+                    </h2>
+                  </div>
 
-              <p class="section__lead">
-                建設業許可は、すべての工事に必要になるわけではありませんが、一定の場合には原則として必要になります。
-              </p>
+                  <p class="section__lead">
+                    建設業許可は、すべての工事に必要になるわけではありませんが、一定の場合には原則として必要になります。
+                  </p>
 
-              <div class="info-card">
-                <h3 class="info-card__title">軽微な建設工事の考え方</h3>
-                <div class="info-card__content">
-                  <ul class="bullet-list">
-                    <li>
-                      <strong>建築一式工事</strong><br />
-                      1件の請負代金の額が1,500万円未満の工事、または延べ面積150㎡未満の木造住宅工事
-                    </li>
-                    <li>
-                      <strong>建築一式工事以外</strong><br />
-                      1件の請負代金の額が500万円未満の工事
-                    </li>
-                  </ul>
-                  <p class="note">
-                    ※いずれも消費税等を含む考え方です。
+                  <div class="info-card">
+                    <h3 class="info-card__title">軽微な建設工事の考え方</h3>
+                    <div class="info-card__content">
+                      <ul class="bullet-list">
+                        <li>
+                          <strong>建築一式工事</strong><br />
+                          1件の請負代金の額が1,500万円未満の工事、または延べ面積150㎡未満の木造住宅工事
+                        </li>
+                        <li>
+                          <strong>建築一式工事以外</strong><br />
+                          1件の請負代金の額が500万円未満の工事
+                        </li>
+                      </ul>
+                      <p class="note">
+                        ※いずれも消費税等を含む考え方です。
+                      </p>
+                    </div>
+                  </div>
+
+                  <p class="section__text">
+                    実際には、「今は小規模工事が中心だが、今後はもっと大きな工事を受注したい」「元請先から許可取得を求められている」といった事情から、
+                    早めに許可取得を検討した方がよいケースも少なくありません。
                   </p>
                 </div>
-              </div>
 
-              <p class="section__text">
-                実際には、「今は小規模工事が中心だが、今後はもっと大きな工事を受注したい」「元請先から許可取得を求められている」といった事情から、
-                早めに許可取得を検討した方がよいケースも少なくありません。
-              </p>
+                <figure class="section__visual">
+                  <img
+                    src="/images/construction-hero.jpg"
+                    alt="建設業許可の書類整理と現場のイメージ"
+                    loading="lazy"
+                    width="1344"
+                    height="768"
+                  />
+                </figure>
+              </div>
 
               <div class="subsection">
                 <h3 class="subsection__title">こういう場合は早めの確認がおすすめです</h3>
@@ -268,12 +312,17 @@ const relatedLinks = [
 
               <div class="card-grid card-grid--two">
                 {step2Cards.map((item) => (
-                  <article class="info-card info-card--link">
-                    <h3 class="info-card__title">{item.title}</h3>
-                    <p class="info-card__text">{item.text}</p>
-                    <a href={item.href} class="text-link">
-                      {item.label}
-                    </a>
+                  <article class="info-card info-card--link info-card--visual">
+                    <figure class="info-card__visual">
+                      <img src={item.image} alt={item.alt} loading="lazy" width="1344" height="768" />
+                    </figure>
+                    <div class="info-card__body">
+                      <h3 class="info-card__title">{item.title}</h3>
+                      <p class="info-card__text">{item.text}</p>
+                      <a href={item.href} class="text-link">
+                        {item.label}
+                      </a>
+                    </div>
                   </article>
                 ))}
               </div>
@@ -300,12 +349,17 @@ const relatedLinks = [
 
               <div class="card-grid">
                 {requirementCards.map((item) => (
-                  <article class="info-card info-card--link">
-                    <h3 class="info-card__title">{item.title}</h3>
-                    <p class="info-card__text">{item.text}</p>
-                    <a href={item.href} class="text-link">
-                      詳しく見る
-                    </a>
+                  <article class="info-card info-card--link info-card--visual">
+                    <figure class="info-card__visual">
+                      <img src={item.image} alt={item.alt} loading="lazy" width="1344" height="768" />
+                    </figure>
+                    <div class="info-card__body">
+                      <h3 class="info-card__title">{item.title}</h3>
+                      <p class="info-card__text">{item.text}</p>
+                      <a href={item.href} class="text-link">
+                        詳しく見る
+                      </a>
+                    </div>
                   </article>
                 ))}
               </div>
@@ -352,19 +406,30 @@ const relatedLinks = [
       </section>
 
       <section class="section section--band" aria-labelledby="after-heading">
-        <div class="section__inner section__inner--narrow">
-          <div class="section__head-block">
-            <h2 id="after-heading" class="section__heading">
-              <span class="heading-icon" aria-hidden="true"></span>
-              許可取得後の手続も見据えることが大切です
-            </h2>
-          </div>
+        <div class="section__inner section__grid section__grid--visual">
+          <figure class="section__visual section__visual--lead">
+            <img
+              src="/images/consultation.jpg"
+              alt="建設業許可取得後の継続手続のご相談"
+              loading="lazy"
+              width="1344"
+              height="768"
+            />
+          </figure>
+          <div class="section__main">
+            <div class="section__head-block">
+              <h2 id="after-heading" class="section__heading">
+                <span class="heading-icon" aria-hidden="true"></span>
+                許可取得後の手続も見据えることが大切です
+              </h2>
+            </div>
 
-          <p class="section__text">
-            建設業許可は、取得した時点がゴールではありません。
-            許可取得後には、決算変更届、各種変更届、更新、場合によっては業種追加や経審・入札など、継続して必要になる手続があります。
-            そのため、許可取得を検討する段階から、取得後の維持管理まで含めて考えることが、無理のない事業運営につながります。
-          </p>
+            <p class="section__text">
+              建設業許可は、取得した時点がゴールではありません。
+              許可取得後には、決算変更届、各種変更届、更新、場合によっては業種追加や経審・入札など、継続して必要になる手続があります。
+              そのため、許可取得を検討する段階から、取得後の維持管理まで含めて考えることが、無理のない事業運営につながります。
+            </p>
+          </div>
         </div>
       </section>
 
@@ -704,6 +769,95 @@ const relatedLinks = [
     .card-grid--three {
       grid-template-columns: repeat(3, minmax(0, 1fr));
     }
+
+    .card-grid:not(.card-grid--two):not(.card-grid--three) {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .card-grid:not(.card-grid--two):not(.card-grid--three) {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .section__grid {
+    display: grid;
+    gap: 1.75rem 2.75rem;
+    align-items: center;
+  }
+
+  @media (min-width: 960px) {
+    .section__grid--visual {
+      grid-template-columns: minmax(0, 1fr) minmax(280px, 0.92fr);
+      gap: 2rem 3rem;
+    }
+
+    .section__grid--visual .section__visual--lead {
+      order: -1;
+    }
+  }
+
+  .section__grid--step {
+    margin-bottom: 1.75rem;
+  }
+
+  .section__main {
+    min-width: 0;
+  }
+
+  .section__visual {
+    margin: 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+    background: #f3f6fb;
+  }
+
+  .section__visual img {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+  }
+
+  .step-block--visual .step-block__body {
+    width: 100%;
+  }
+
+  .info-card--visual {
+    padding: 0;
+    overflow: hidden;
+  }
+
+  .info-card__visual {
+    margin: 0;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #f3f6fb;
+  }
+
+  .info-card__visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.35s ease;
+  }
+
+  .info-card--visual:hover .info-card__visual img {
+    transform: scale(1.03);
+  }
+
+  .info-card__body {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    padding: 1.35rem 1.4rem 1.45rem;
+  }
+
+  .info-card--visual .info-card__text {
+    flex: 1;
   }
 
   .info-card {
@@ -717,6 +871,14 @@ const relatedLinks = [
   .info-card--link {
     display: flex;
     flex-direction: column;
+  }
+
+  .info-card--visual.info-card--link {
+    height: 100%;
+  }
+
+  .info-card:not(.info-card--visual) {
+    padding: 1.4rem;
   }
 
   .info-card__title {
