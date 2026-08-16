@@ -14,26 +14,31 @@ const concerns = [
   '泉州・和歌山北部で継続して相談できる行政書士を探している',
 ];
 
-const supports = [
+const supports: { title: string; text: string; href?: string }[] = [
   {
     title: '建設業許可 新規申請',
     text: '初めて建設業許可を取得したい方向けのサポートです。許可が必要になるかどうかの整理から、申請区分、要件確認、必要資料の見通しまで、最初の段階でつまずきやすい点を分かりやすくご案内します。',
+    href: '/construction-permit/new',
   },
   {
     title: '建設業許可 更新申請',
     text: '建設業許可は5年ごとの更新が必要です。更新時に慌てないよう、これまでの届出状況や必要な確認事項を整理し、更新に向けた準備を進めやすくします。',
+    href: '/construction-permit/renewal',
   },
   {
     title: '決算変更届',
     text: '決算変更届は、建設業許可を維持していくうえで毎年重要となる手続です。更新や業種追加、将来的な経審にも関わるため、後回しにせず継続して管理することが大切です。',
+    href: '/construction-permit/annual-report',
   },
   {
     title: '業種追加・各種変更届',
     text: '事業拡大や体制変更に伴い、業種追加や役員変更、営業所変更などの届出が必要になることがあります。変更内容に応じて、何を確認し、どのように進めるべきかを整理してご案内します。',
+    href: '/construction-permit/changes',
   },
   {
     title: '将来的な経審・入札の準備',
     text: '公共工事を視野に入れる場合は、日頃の許可管理や決算変更届の積み重ねが重要になります。今すぐの申請でなくても、将来を見据えた準備の方向性を早めに確認しておくことが役立ちます。',
+    href: '/construction-permit/keishin',
   },
 ];
 
@@ -240,6 +245,9 @@ const faqs = [
               <article class="support-card">
                 <h3 class="support-card__title">{item.title}</h3>
                 <p class="support-card__text">{item.text}</p>
+                {item.href && (
+                  <a href={item.href} class="support-card__link">詳しいご案内を見る</a>
+                )}
               </article>
             ))}
           </div>
@@ -734,6 +742,26 @@ const faqs = [
     margin: 0;
     line-height: 1.9;
     color: var(--color-text-muted);
+  }
+
+  .support-card__link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+
+  .support-card__link::after {
+    content: '→';
+    font-size: 0.95em;
+  }
+
+  .support-card__link:hover {
+    text-decoration: underline;
   }
 
   .strength-list {

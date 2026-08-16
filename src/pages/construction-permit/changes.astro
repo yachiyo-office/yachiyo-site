@@ -1,0 +1,1218 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import LineButton from '../../components/LineButton.astro';
+import BasicContentVisual from '../../components/BasicContentVisual.astro';
+import { pageTitle } from '../../config/site';
+
+const targetCases = [
+  '受注できる工事の幅を広げるため、業種を追加したい',
+  '元請から「その工事も請けてほしい」と言われ、対応業種を増やしたい',
+  '役員が就任・退任したが、届出をしていない',
+  '会社の商号や本店所在地を変更した',
+  '専任技術者が退職し、後任を配置した',
+  '営業所を新設・移転・廃止した',
+];
+
+const deadline2Weeks = [
+  '経営業務の管理責任者（常勤役員等）の交代・氏名の変更',
+  '営業所技術者等（専任技術者）の交代・氏名の変更・担当業種の変更',
+  '令3条使用人（支店長・営業所長等）の変更',
+  '欠格要件に該当することとなった場合',
+];
+
+const deadline30Days = [
+  '商号または名称の変更',
+  '営業所の名称・所在地の変更、新設・廃止',
+  '営業所が取り扱う業種の変更',
+  '資本金額の変更',
+  '役員等の就任・退任・氏名の変更',
+  '支配人の変更',
+  '廃業等の届出',
+];
+
+const addIndustryPoints = [
+  {
+    no: '01',
+    title: '業種ごとに専任技術者が必要です',
+    text: '追加したい業種について、資格または実務経験の要件を満たす技術者を営業所に常勤で配置しなければなりません。既存業種の専任技術者が要件を満たしていれば兼任できる場合もあり、まずは資格の内容から確認します。',
+    href: '/construction-permit/basic/requirements/engineer',
+    linkLabel: '専任技術者の要件を見る',
+  },
+  {
+    no: '02',
+    title: '一般と特定は別々の許可です',
+    text: '現在お持ちの許可が一般建設業であれば、追加する業種も原則として一般建設業です。特定建設業を新たに取得する場合は「般・特新規」という別の申請区分になり、財務要件も特定建設業の基準で審査されます。',
+    href: '/construction-permit/basic/general-vs-specific',
+    linkLabel: '一般と特定の違いを見る',
+  },
+  {
+    no: '03',
+    title: '決算変更届が済んでいることが前提です',
+    text: '業種追加も、決算変更届が未提出のままでは受け付けてもらえません。追加を検討し始めた段階で、まず提出状況を確認しておくと、その後の段取りがスムーズになります。',
+    href: '/construction-permit/annual-report',
+    linkLabel: '決算変更届について見る',
+  },
+];
+
+const flowSteps = [
+  {
+    step: 'STEP 1',
+    title: 'お問い合わせ・現状の確認',
+    period: '当日〜数日',
+    text: '追加したい業種、または生じた変更の内容をお伺いします。あわせて現在の許可内容と決算変更届の提出状況を確認し、必要な手続を特定します。',
+  },
+  {
+    step: 'STEP 2',
+    title: '要件の確認（業種追加の場合）',
+    period: '1〜2週間',
+    text: '追加業種の専任技術者を誰にするか、資格で証明するか実務経験で証明するかを整理します。実務経験による場合は、証明資料がそろうかどうかがポイントになります。',
+  },
+  {
+    step: 'STEP 3',
+    title: 'お見積り・ご契約',
+    period: '数日',
+    text: '手続の内容が固まった段階で、報酬と法定費用を明示したお見積りをご提示します。複数の変更届が必要な場合も、総額でご案内します。',
+  },
+  {
+    step: 'STEP 4',
+    title: '書類の収集・作成',
+    period: '1〜3週間',
+    text: '登記事項証明書などの証明書は当事務所で取得し、申請書・届出書を作成します。変更届は期限が短いものがあるため、優先順位をつけて進めます。',
+  },
+  {
+    step: 'STEP 5',
+    title: '提出・審査',
+    period: '変更届は即日 / 業種追加は約30日',
+    text: '変更届は受理された時点で完了です。業種追加は申請となるため、知事許可でおおむね30日程度の審査期間があります。',
+  },
+];
+
+const costRows = [
+  {
+    name: '業種追加（知事許可）',
+    detail: '1業種につき',
+    fee: '55,000円〜',
+    legal: '50,000円',
+  },
+  {
+    name: '業種追加（大臣許可）',
+    detail: '1業種につき',
+    fee: '88,000円〜',
+    legal: '50,000円',
+  },
+  {
+    name: '般・特新規',
+    detail: '特定建設業への切替 等',
+    fee: '132,000円〜',
+    legal: '90,000円',
+  },
+  {
+    name: '各種変更届',
+    detail: '役員・所在地・商号の変更 等',
+    fee: '16,500円〜',
+    legal: 'なし',
+  },
+];
+
+const faqItems = [
+  {
+    q: '業種追加はいつでもできますか？',
+    a: '決算変更届が提出済みであれば、いつでも申請できます。ただし追加業種の専任技術者を確保できていることが前提です。また、更新の時期が近い場合は、更新と同時に申請したほうが手間と費用を抑えられることがあるため、時期の判断もあわせてご相談ください。',
+  },
+  {
+    q: '業種を追加すると、許可の有効期限はどうなりますか？',
+    a: '追加した業種は、その許可日から新たに5年間の有効期間となるため、既存業種とは満了日が異なります。管理が煩雑になるため、次回の更新時に「許可の一本化」を行い、すべての業種の有効期限をそろえるのが一般的です。当事務所では、一本化を前提としたスケジュールでご案内しています。',
+  },
+  {
+    q: '変更届を出し忘れていました。今からでも出せますか？',
+    a: '出せます。期限を過ぎていても届出は受け付けられますので、気づいた時点で提出することが大切です。未提出のまま放置すると、更新申請の際にまとめて是正を求められ、そのぶん更新の準備が長引きます。',
+  },
+  {
+    q: '専任技術者が退職してしまいました。どうすればよいですか？',
+    a: 'まず、その業種について要件を満たす後任を配置できるかを確認します。後任を2週間以内に届け出る必要があり、配置できない場合はその業種を廃業する届出が必要になります。技術者の退職予定が分かった時点でご相談いただけると、選択肢を検討する時間を確保できます。',
+  },
+  {
+    q: '役員が代わっただけでも届出は必要ですか？',
+    a: '必要です。役員等の就任・退任は30日以内の届出事項です。あわせてその役員が欠格要件に該当しないことの確認も行われます。登記だけ済ませて届出を忘れているケースが多く、更新時に指摘されることがよくあります。',
+  },
+  {
+    q: '複数の変更が同時に発生しました。まとめて出せますか？',
+    a: 'まとめて提出できる場合が多いです。ただし、届出期限が2週間のものと30日のものが混在する場合は、期限の短いものに合わせて進めます。内容を整理したうえで、最も効率的な出し方をご提案します。',
+  },
+];
+
+const relatedLinks = [
+  {
+    title: '決算変更届',
+    text: '業種追加の前提となる毎年の届出です。未提出があると申請を進められません。',
+    href: '/construction-permit/annual-report',
+  },
+  {
+    title: '建設業許可 更新申請',
+    text: '業種追加後の有効期限の一本化は、更新のタイミングで行います。',
+    href: '/construction-permit/renewal',
+  },
+  {
+    title: '建設業許可の29業種',
+    text: 'どの工事がどの業種にあたるのか、区分の考え方を整理しています。',
+    href: '/construction-permit/basic/29-industries',
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle('業種追加・各種変更届のサポート')}
+  description="建設業許可の業種追加と各種変更届を大阪泉州・和歌山北部でサポート。専任技術者の要件、2週間・30日の届出期限、許可の一本化、費用の目安まで分かりやすくご案内します。"
+  breadcrumbs={[
+    { name: 'ホーム', href: '/' },
+    { name: '建設業許可', href: '/construction-permit/' },
+    { name: '業種追加・各種変更届' },
+  ]}
+>
+  <div class="page">
+    <SiteHeader />
+
+    <main>
+      <section class="page-hero section--base" aria-labelledby="page-heading">
+        <div class="page-hero__inner">
+          <nav class="breadcrumb" aria-label="パンくずリスト">
+            <ol>
+              <li><a href="/">ホーム</a></li>
+              <li><a href="/construction-permit/">建設業許可</a></li>
+              <li aria-current="page">業種追加・各種変更届</li>
+            </ol>
+          </nav>
+
+          <div class="page-hero__content">
+            <p class="page-hero__label">SERVICE</p>
+            <h1 id="page-heading" class="page-hero__title">
+              業種追加・各種変更届のサポート
+            </h1>
+            <p class="page-hero__lead">
+              事業を続けていれば、受注する工事の幅は広がり、役員や技術者の顔ぶれも変わります。
+              建設業許可は、そうした変化を<strong>その都度届け出ることで維持される</strong>制度です。
+              業種を増やす「業種追加」も、体制の変化を伝える「変更届」も、
+              放置すると次の更新でまとめて跳ね返ってきます。
+            </p>
+            <p class="page-hero__note">
+              届出には2週間以内のものと30日以内のものがあります。
+              期限を過ぎていても提出は可能ですので、気づいた時点でご相談ください。
+            </p>
+
+            <div class="page-hero__actions">
+              <a href="/contact" class="btn btn--primary">相談してみる</a>
+              <LineButton />
+            </div>
+          </div>
+
+          <figure class="page-hero__visual">
+            <img
+              src="/images/application-types.jpg"
+              alt="業種追加や変更届の書類を確認するイメージ"
+              loading="eager"
+            />
+          </figure>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="conclusion-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="summary-box">
+            <h2 id="conclusion-heading" class="summary-box__heading">まず結論</h2>
+            <p class="summary-box__text">
+              業種追加のポイントは<strong>追加する業種の専任技術者を確保できるか</strong>、
+              変更届のポイントは<strong>期限内に出せているか</strong>です。
+              いずれも決算変更届が提出済みであることが前提になります。
+              変更届は1件あたりの負担は小さいものの、溜まると更新時の是正作業が一気に膨らみます。
+              「変化があったら届け出る」を習慣にできる状態を目指してご案内しています。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="target-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="target-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              こんな方にご利用いただいています
+            </h2>
+          </div>
+
+          <ul class="check-list">
+            {targetCases.map((item) => (
+              <li class="check-list__item">{item}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="add-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="add-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              業種追加で確認する3つのこと
+            </h2>
+            <p class="section__sub">
+              業種追加は「申請」であり、単なる届出ではありません。
+              新規申請と同じように要件審査があり、審査期間も発生します。
+            </p>
+          </div>
+
+          <div class="card-grid card-grid--three">
+            {addIndustryPoints.map((item) => (
+              <article class="point-card">
+                <span class="point-card__no">{item.no}</span>
+                <h3 class="point-card__title">{item.title}</h3>
+                <p class="point-card__text">{item.text}</p>
+                <a href={item.href} class="text-link">{item.linkLabel}</a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="unify-heading">
+        <div class="section__inner section__inner--narrow">
+          <BasicContentVisual
+            src="/images/29-industries.jpg"
+            alt="複数業種の許可を管理するイメージ"
+          >
+            <div class="section__head-block">
+              <h2 id="unify-heading" class="section__heading">
+                <span class="heading-icon" aria-hidden="true"></span>
+                業種を追加すると、有効期限がずれます
+              </h2>
+            </div>
+
+            <p class="section__text">
+              業種追加をすると、追加した業種はその許可日から新たに5年間の有効期間となります。
+              つまり、既存業種と追加業種で満了日が別々になるということです。
+              業種を追加するたびに期限が増えていくと、更新の手続も回数が増え、そのぶん手数料もかかります。
+            </p>
+            <p class="section__text">
+              これを解消するのが<strong>「許可の一本化」</strong>です。
+              次回の更新の際に、有効期間が残っている業種もあわせて更新することで、
+              すべての業種の満了日をそろえられます。
+              当事務所では、業種追加をご依頼いただいた時点で一本化のタイミングまで見据えたスケジュールをお渡しし、
+              更新回数が無駄に増えないよう管理します。
+            </p>
+          </BasicContentVisual>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="deadline-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="deadline-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              変更届の期限は「2週間」と「30日」の2種類
+            </h2>
+            <p class="section__sub">
+              許可の根幹に関わる人的な要件ほど、期限が短く設定されています。
+              どちらに該当するかで、動き出すスピードが変わります。
+            </p>
+          </div>
+
+          <div class="deadline-grid">
+            <article class="deadline-card deadline-card--urgent">
+              <p class="deadline-card__label">変更後 2週間以内</p>
+              <h3 class="deadline-card__title">許可要件に直結する変更</h3>
+              <ul class="deadline-list">
+                {deadline2Weeks.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </article>
+
+            <article class="deadline-card">
+              <p class="deadline-card__label">変更後 30日以内</p>
+              <h3 class="deadline-card__title">会社の基本情報に関する変更</h3>
+              <ul class="deadline-list">
+                {deadline30Days.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </article>
+          </div>
+
+          <p class="section__note">
+            ※このほか、毎事業年度終了後4か月以内に提出する決算変更届があります。
+            詳しくは<a href="/construction-permit/annual-report">決算変更届のページ</a>をご覧ください。
+          </p>
+
+          <div class="attention-box">
+            <h3 class="attention-box__title">経管・専任技術者の不在は、許可そのものに関わります</h3>
+            <p class="attention-box__text">
+              経営業務の管理責任者や専任技術者が退任・退職して不在になると、その時点で許可要件を満たさなくなります。
+              後任を配置できれば2週間以内の変更届で対応できますが、配置できない場合は、
+              該当する業種の廃業届が必要になることもあります。
+              退職の予定が分かった段階でご相談いただければ、後任候補の要件を先に確認しておくことができます。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="flow-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="flow-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              ご依頼から完了までの流れ
+            </h2>
+            <p class="section__sub">
+              変更届のみであれば1〜2週間、業種追加を伴う場合は審査期間を含めて2か月程度が目安です。
+            </p>
+          </div>
+
+          <ol class="flow-list">
+            {flowSteps.map((item) => (
+              <li class="flow-step">
+                <div class="flow-step__head">
+                  <span class="flow-step__label">{item.step}</span>
+                  <span class="flow-step__period">{item.period}</span>
+                </div>
+                <p class="flow-step__title">{item.title}</p>
+                <p class="flow-step__text">{item.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="cost-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="cost-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              費用の目安
+            </h2>
+            <p class="section__sub">
+              報酬額は税込表示です。法定費用（申請手数料）は別途、実費としてご負担いただきます。
+              変更届に法定費用はかかりません。
+            </p>
+          </div>
+
+          <div class="pattern-table-wrap">
+            <table class="pattern-table">
+              <thead>
+                <tr>
+                  <th scope="col">手続</th>
+                  <th scope="col" class="pattern-table__num-col">報酬（税込）</th>
+                  <th scope="col" class="pattern-table__num-col">法定費用</th>
+                </tr>
+              </thead>
+              <tbody>
+                {costRows.map((row) => (
+                  <tr>
+                    <th scope="row">
+                      {row.name}
+                      <span class="pattern-table__note">{row.detail}</span>
+                    </th>
+                    <td class="pattern-table__num-col">{row.fee}</td>
+                    <td class="pattern-table__num-col">{row.legal}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <p class="section__note">
+            ※業種数や証明資料の状況によって変動します。複数の手続が必要な場合は総額でお見積りします。
+            その他の手続の費用は<a href="/price">料金案内</a>をご覧ください。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="engineer-heading">
+        <div class="section__inner section__inner--narrow">
+          <BasicContentVisual
+            src="/images/requirement-engineer.jpg"
+            alt="技術者の資格と実務経験を確認するイメージ"
+            imageFirst={true}
+          >
+            <div class="section__head-block">
+              <h2 id="engineer-heading" class="section__heading">
+                <span class="heading-icon" aria-hidden="true"></span>
+                「どの業種を追加できるか」は技術者で決まります
+              </h2>
+            </div>
+
+            <p class="section__text">
+              業種追加のご相談で最初に確認するのは、社内にどのような資格を持つ方がいるかです。
+              施工管理技士や建築士などの国家資格は、資格の種類ごとに担当できる業種が定められており、
+              1つの資格で複数の業種の専任技術者になれる場合もあります。
+            </p>
+            <p class="section__text">
+              資格がない場合は、その業種についての実務経験10年で証明する方法もありますが、
+              10年分の工事資料をそろえる必要があるため、実務上のハードルは上がります。
+            </p>
+            <p class="section__text">
+              <strong>「増やしたい業種」から考えるのではなく、「今の人員で取れる業種」から逆算する</strong>——
+              この順序で整理すると、現実的な選択肢が見えてきます。
+              取得を見据えて資格取得を計画される場合も、どの資格がどの業種につながるかをご案内します。
+            </p>
+          </BasicContentVisual>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="faq-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="faq-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              よくあるご質問
+            </h2>
+          </div>
+
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <details class="faq-item">
+                <summary class="faq-item__question">{item.q}</summary>
+                <div class="faq-item__answer">
+                  <p>{item.a}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="related-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="related-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              関連ページ
+            </h2>
+          </div>
+
+          <div class="card-grid card-grid--three">
+            {relatedLinks.map((item) => (
+              <article class="info-card info-card--link">
+                <h3 class="info-card__title">{item.title}</h3>
+                <p class="info-card__text">{item.text}</p>
+                <a href={item.href} class="text-link">ページを見る</a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--contact-cta">
+        <div class="section__inner">
+          <div class="cta-box">
+            <h2 class="cta-box__heading">
+              「これは届出が必要？」の段階でご相談ください。
+            </h2>
+            <p class="cta-box__text">
+              変更届が必要かどうかの判断だけでもお受けしています。
+              大阪泉州・和歌山北部を中心に、現在の許可内容を確認したうえで、
+              必要な手続と期限を整理してご案内します。
+            </p>
+
+            <div class="cta-box__actions">
+              <a href="/contact" class="btn btn--primary">お問い合わせフォームへ</a>
+              <LineButton />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>
+
+<style>
+  .page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+  }
+
+  .section--base {
+    background: #ffffff;
+  }
+
+  .section--band {
+    background: #f8fafc;
+    border-block: 1px solid var(--color-border);
+  }
+
+  .section {
+    padding: var(--space-section-y) var(--space-section-x);
+  }
+
+  .section__inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+  }
+
+  .section__inner--narrow {
+    max-width: 56rem;
+  }
+
+  .section__head-block {
+    margin-bottom: 2rem;
+  }
+
+  .heading-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.4rem;
+    background: #1e3a8a;
+    flex-shrink: 0;
+    vertical-align: middle;
+    margin-right: 0.65rem;
+  }
+
+  .heading-icon::after {
+    content: '';
+    width: 0.55rem;
+    height: 0.72rem;
+    border: 2px solid #fff;
+    border-radius: 2px;
+  }
+
+  .section__heading {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0 0 1rem;
+    font-size: clamp(1.2rem, 2.8vw, 1.5rem);
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 0.05em;
+    line-height: 1.45;
+  }
+
+  .section__sub {
+    margin: 0;
+    max-width: 52rem;
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    line-height: 1.9;
+  }
+
+  .section__text {
+    margin: 0 0 1rem;
+    font-size: 0.95rem;
+    line-height: 1.95;
+    color: var(--color-text-muted);
+  }
+
+  .section__text:last-child {
+    margin-bottom: 0;
+  }
+
+  .section__text strong,
+  .section__sub strong {
+    color: var(--color-text);
+  }
+
+  .section__note {
+    margin: 1.25rem 0 0;
+    font-size: 0.875rem;
+    line-height: 1.85;
+    color: var(--color-text-muted);
+  }
+
+  .section__note a {
+    color: var(--color-primary);
+  }
+
+  .page-hero {
+    padding: clamp(3.25rem, 9vw, 5.75rem) var(--space-section-x)
+      max(var(--space-section-y), 3.75rem);
+  }
+
+  .page-hero__inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+    display: grid;
+    gap: 2rem 2.5rem;
+    align-items: center;
+  }
+
+  @media (min-width: 960px) {
+    .page-hero__inner {
+      grid-template-columns: minmax(0, 1.12fr) minmax(280px, 0.88fr);
+    }
+  }
+
+  .breadcrumb {
+    grid-column: 1 / -1;
+  }
+
+  .breadcrumb ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.5rem;
+    list-style: none;
+    margin: 0 0 0.25rem;
+    padding: 0;
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
+
+  .breadcrumb li:not(:last-child)::after {
+    content: '/';
+    margin-left: 0.5rem;
+    color: var(--color-border-strong);
+  }
+
+  .breadcrumb a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    color: var(--color-primary);
+  }
+
+  .breadcrumb li[aria-current='page'] {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  .page-hero__label {
+    margin: 0 0 1rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    color: var(--color-primary);
+  }
+
+  .page-hero__title {
+    margin: 0 0 1.25rem;
+    font-size: clamp(1.9rem, 6vw, 2.8rem);
+    line-height: 1.35;
+    letter-spacing: 0.04em;
+    color: var(--color-text);
+  }
+
+  .page-hero__lead {
+    margin: 0 0 1.6rem;
+    font-size: 1rem;
+    line-height: 1.95;
+    color: var(--color-text-muted);
+    max-width: 46rem;
+  }
+
+  .page-hero__lead strong {
+    color: var(--color-text);
+  }
+
+  .page-hero__note {
+    margin: 0 0 1.6rem;
+    padding: 0.85rem 1rem;
+    font-size: 0.875rem;
+    line-height: 1.85;
+    color: var(--color-text-muted);
+    background: #f3f6fb;
+    border-left: 3px solid var(--color-primary);
+    border-radius: 0 0.5rem 0.5rem 0;
+    max-width: 46rem;
+  }
+
+  .page-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem 1rem;
+  }
+
+  .page-hero__visual {
+    margin: 0;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+    background: #f3f6fb;
+  }
+
+  .page-hero__visual img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 280px;
+    object-fit: cover;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    padding: 0 1.5rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .btn--primary {
+    background: #1e3a8a;
+    color: #fff;
+    border: 2px solid #1e3a8a;
+  }
+
+  .btn--primary:hover {
+    background: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+    color: #fff;
+  }
+
+  .summary-box {
+    padding: 1.5rem;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .summary-box__heading {
+    margin: 0 0 0.75rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .summary-box__text {
+    margin: 0;
+    line-height: 1.9;
+    color: var(--color-text-muted);
+  }
+
+  .summary-box__text strong {
+    color: var(--color-text);
+  }
+
+  .check-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .check-list__item {
+    position: relative;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1rem 1rem 2.75rem;
+    line-height: 1.8;
+    color: var(--color-text);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .check-list__item::before {
+    content: '✓';
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 50%;
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .card-grid {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .card-grid--three {
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 768px) {
+    .card-grid--three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .point-card {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem 1.4rem 1.4rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .point-card__no {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    margin-bottom: 0.9rem;
+    border-radius: 0.5rem;
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  .point-card__title {
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.65;
+    color: var(--color-text);
+  }
+
+  .point-card__text {
+    margin: 0 0 0.5rem;
+    flex: 1;
+    font-size: 0.9375rem;
+    line-height: 1.9;
+    color: var(--color-text-muted);
+  }
+
+  .info-card {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.4rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .info-card--link {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .info-card__title {
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.6;
+    color: var(--color-text);
+  }
+
+  .info-card__text {
+    margin: 0;
+    flex: 1;
+    line-height: 1.9;
+    color: var(--color-text-muted);
+    font-size: 0.9375rem;
+  }
+
+  .text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1rem;
+    width: fit-content;
+    color: var(--color-primary);
+    font-weight: 700;
+    font-size: 0.9375rem;
+    text-decoration: none;
+  }
+
+  .text-link::after {
+    content: '→';
+    font-size: 0.95em;
+  }
+
+  .text-link:hover {
+    text-decoration: underline;
+  }
+
+  .deadline-grid {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .deadline-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  .deadline-card {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem 1.6rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .deadline-card--urgent {
+    border-color: rgba(185, 28, 28, 0.25);
+    background: #fef6f6;
+  }
+
+  .deadline-card__label {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 0 0.85rem;
+    padding: 0.3rem 0.85rem;
+    border-radius: 999px;
+    background: #1e3a8a;
+    color: #fff;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  .deadline-card--urgent .deadline-card__label {
+    background: #b91c1c;
+  }
+
+  .deadline-card__title {
+    margin: 0 0 1rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 1px solid var(--color-border);
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .deadline-list {
+    margin: 0;
+    padding-left: 1.15rem;
+    display: grid;
+    gap: 0.7rem;
+    font-size: 0.9125rem;
+    line-height: 1.85;
+    color: var(--color-text-muted);
+  }
+
+  .pattern-table-wrap {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow-x: auto;
+  }
+
+  .pattern-table {
+    width: 100%;
+    min-width: 34rem;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+  }
+
+  .pattern-table thead th {
+    background: #1e3a8a;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-align: left;
+    padding: 0.85rem 1.25rem;
+    white-space: nowrap;
+  }
+
+  .pattern-table tbody th {
+    text-align: left;
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .pattern-table th,
+  .pattern-table td {
+    padding: 0.95rem 1.25rem;
+    border-bottom: 1px solid var(--color-border);
+    line-height: 1.7;
+    vertical-align: top;
+  }
+
+  .pattern-table tbody tr:last-child th,
+  .pattern-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .pattern-table tbody tr:nth-child(even) {
+    background: var(--color-band);
+  }
+
+  .pattern-table__note {
+    display: block;
+    margin-top: 0.35rem;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    color: var(--color-text-muted);
+  }
+
+  .pattern-table__num-col {
+    white-space: nowrap;
+    text-align: right;
+  }
+
+  .pattern-table tbody .pattern-table__num-col {
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .attention-box {
+    margin-top: 1.75rem;
+    background: var(--color-primary-soft);
+    border: 1px solid rgba(30, 58, 138, 0.2);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem 1.65rem;
+  }
+
+  .attention-box__title {
+    margin: 0 0 0.75rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 0.03em;
+    line-height: 1.6;
+  }
+
+  .attention-box__text {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.9;
+    color: var(--color-text);
+  }
+
+  .flow-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.15rem;
+  }
+
+  .flow-step {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.35rem 1.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .flow-step__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.85rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .flow-step__label {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    background: #1e3a8a;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+
+  .flow-step__period {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--color-text-muted);
+  }
+
+  .flow-step__title {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-text);
+    line-height: 1.6;
+  }
+
+  .flow-step__text {
+    margin: 0;
+    font-size: 0.9125rem;
+    line-height: 1.9;
+    color: var(--color-text-muted);
+  }
+
+  .faq-list {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .faq-item {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+
+  .faq-item__question {
+    cursor: pointer;
+    list-style: none;
+    padding: 1.15rem 1.25rem;
+    font-weight: 700;
+    line-height: 1.7;
+    color: var(--color-text);
+  }
+
+  .faq-item__question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item__answer {
+    padding: 0 1.25rem 1.15rem;
+    color: var(--color-text-muted);
+    line-height: 1.85;
+  }
+
+  .faq-item__answer p {
+    margin: 0;
+  }
+
+  .section--contact-cta {
+    background: #ffffff;
+    padding: var(--space-section-y) var(--space-section-x) max(var(--space-section-y), 4rem);
+  }
+
+  .cta-box {
+    background: #f8fafc;
+    border: 1px solid var(--color-border);
+    border-radius: 1rem;
+    padding: clamp(1.75rem, 4vw, 2.5rem);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+  }
+
+  .cta-box__heading {
+    margin: 0 0 1rem;
+    font-size: clamp(1.2rem, 2.8vw, 1.6rem);
+    line-height: 1.6;
+    color: var(--color-text);
+  }
+
+  .cta-box__text {
+    margin: 0 0 1.5rem;
+    color: var(--color-text-muted);
+    line-height: 1.9;
+  }
+
+  .cta-box__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.85rem 1rem;
+  }
+</style>

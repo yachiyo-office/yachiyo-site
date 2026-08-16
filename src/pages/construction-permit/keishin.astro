@@ -1,0 +1,1193 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import LineButton from '../../components/LineButton.astro';
+import BasicContentVisual from '../../components/BasicContentVisual.astro';
+import { pageTitle } from '../../config/site';
+
+const targetCases = [
+  '将来的に公共工事に参入したいが、何から始めればよいか分からない',
+  '元請や同業者から「経審を受けたほうがよい」と勧められた',
+  '民間工事が中心だが、受注先を分散させたい',
+  '経審は聞いたことがあるが、費用や手間の見通しが立たない',
+  '今すぐではないが、数年先を見据えて準備を始めたい',
+  '一度経審を受けたが、点数を上げる方法が分からない',
+];
+
+const steps = [
+  {
+    no: '01',
+    title: '決算変更届の提出',
+    text: '経審は決算内容をもとに審査されるため、審査対象となる事業年度の決算変更届が提出済みであることが出発点です。未提出の年度があると、この時点で先に進めません。',
+  },
+  {
+    no: '02',
+    title: '経営状況分析の申請',
+    text: '国土交通大臣の登録を受けた経営状況分析機関へ財務諸表を提出し、Y点（経営状況）の分析を受けます。結果通知書は次の経営規模等評価の申請に必要です。',
+  },
+  {
+    no: '03',
+    title: '経営規模等評価・総合評定値の申請',
+    text: '許可を出した行政庁へ申請し、企業規模・技術力・社会性などの審査を受けます。総合評定値（P点）の請求もあわせて行うのが一般的です。',
+  },
+  {
+    no: '04',
+    title: '入札参加資格審査の申請',
+    text: '経審の結果通知書を添えて、参加したい発注者（国・都道府県・市町村など）ごとに入札参加資格の申請を行います。定期受付の時期は発注者ごとに決まっています。',
+  },
+];
+
+const scoreItems = [
+  {
+    code: 'X1',
+    name: '完成工事高',
+    weight: '0.25',
+    detail: '業種ごとの年間平均完成工事高。2年平均か3年平均かを選択でき、有利なほうを選べます。',
+  },
+  {
+    code: 'X2',
+    name: '自己資本額・平均利益額',
+    weight: '0.15',
+    detail: '自己資本の額と、営業利益に減価償却実施額を加えた平均利益額で評価されます。',
+  },
+  {
+    code: 'Y',
+    name: '経営状況',
+    weight: '0.20',
+    detail: '負債抵抗力、収益性・効率性、財務健全性、絶対的力量の4区分8指標から算出されます。',
+  },
+  {
+    code: 'Z',
+    name: '技術力',
+    weight: '0.25',
+    detail: '技術職員数と、元請としての完成工事高で評価されます。資格保有者ほど高く配点されます。',
+  },
+  {
+    code: 'W',
+    name: 'その他の審査項目（社会性等）',
+    weight: '0.15',
+    detail: '社会保険の加入、建退共や退職一時金制度、法定外労災、防災協定、若年技術者の育成、監査の受審状況などが評価されます。',
+  },
+];
+
+const prepareItems = [
+  {
+    no: '01',
+    title: '決算変更届を毎年きちんと出す',
+    text: '完成工事高も自己資本も、決算変更届で提出した数字がそのまま評価の基礎になります。数年分を慌ててまとめて作ると、業種ごとの工事高の振り分けを最適化する余地がなくなります。',
+    href: '/construction-permit/annual-report',
+    linkLabel: '決算変更届について見る',
+  },
+  {
+    no: '02',
+    title: '技術職員の資格取得を計画的に進める',
+    text: 'Z点は技術職員の資格レベルによって配点が変わります。1級・2級の施工管理技士の取得は、点数への効果が大きい一方で、試験の時期に左右されるため、数年単位の計画が必要です。',
+    href: '/construction-permit/basic/requirements/engineer',
+    linkLabel: '技術者の資格要件を見る',
+  },
+  {
+    no: '03',
+    title: 'W点の加点項目を早めに整える',
+    text: '建退共への加入、退職一時金制度や法定外労災の整備、防災協定への参加などは、加入・締結してすぐ加点されるものばかりではありません。審査基準日時点での状況が見られるため、決算日から逆算した準備が必要です。',
+  },
+];
+
+const flowSteps = [
+  {
+    step: 'STEP 1',
+    title: 'お問い合わせ・現状の確認',
+    period: '当日〜数日',
+    text: '公共工事への参入をいつ頃に見据えているか、現在の許可内容、決算変更届の提出状況、技術職員の構成をお伺いします。今すぐ経審を受けない段階でのご相談も歓迎です。',
+  },
+  {
+    step: 'STEP 2',
+    title: '準備状況の整理とスケジュールのご提案',
+    period: '1〜2週間',
+    text: '入札参加までに何が必要か、どの項目に時間がかかるかを洗い出し、決算日を起点としたスケジュールをご提案します。数年計画になる場合もあります。',
+  },
+  {
+    step: 'STEP 3',
+    title: '決算変更届の提出',
+    period: '2〜4週間',
+    text: '審査対象事業年度の決算変更届を提出します。経審を受けることを前提に、工事経歴書の記載方法を調整します。',
+  },
+  {
+    step: 'STEP 4',
+    title: '経営状況分析の申請',
+    period: '2週間程度',
+    text: '登録経営状況分析機関へ申請し、Y点の結果通知書を取得します。',
+  },
+  {
+    step: 'STEP 5',
+    title: '経営規模等評価・総合評定値の申請',
+    period: '1〜2か月',
+    text: '行政庁へ申請し、審査を受けます。技術職員名簿や社会性に関する確認資料など、添付書類が多い工程です。',
+  },
+  {
+    step: 'STEP 6',
+    title: '入札参加資格の申請',
+    period: '発注者の受付時期による',
+    text: '経審の結果通知書をもとに、参加を希望する発注者へ入札参加資格審査を申請します。受付時期は発注者ごとに異なるため、逃さないようご案内します。',
+  },
+];
+
+const faqItems = [
+  {
+    q: '経審を受ければ、すぐに公共工事を受注できますか？',
+    a: '経審は入り口にすぎません。経審で総合評定値（P点）を取得したあと、参加したい発注者ごとに入札参加資格審査の申請を行い、名簿に登載されて初めて入札に参加できます。発注者ごとに定期受付の時期が決まっているため、経審の完了時期をそこから逆算して計画することが重要です。',
+  },
+  {
+    q: '経審の結果には有効期間がありますか？',
+    a: 'あります。経審の結果は、審査基準日（決算日）から1年7か月間有効です。公共工事を継続して受注するには、毎年決算のたびに経審を受け直し、有効期間が切れないようにする必要があります。空白期間ができると、その間は公共工事を元請として請け負えません。',
+  },
+  {
+    q: '小さな会社でも経審を受ける意味はありますか？',
+    a: 'あります。公共工事は工事規模ごとに等級が分かれており、小規模な工事は点数の低い等級の業者が対象となる仕組みです。大手と同じ土俵で競うわけではないため、規模が小さくても参入の余地はあります。むしろ、民間工事の受注が景気に左右されやすいなかで、受注先を分散させる手段として検討する価値があります。',
+  },
+  {
+    q: '点数（P点）はどうすれば上げられますか？',
+    a: '短期で効果が出やすいのはW点の加点項目です。建退共への加入、法定外労災の付保、防災協定への参加などは比較的取り組みやすい項目です。一方、完成工事高や技術職員の資格は数年単位の取り組みになります。まず現状のP点を把握し、費用対効果の高い項目から順に整えていくのが現実的です。',
+  },
+  {
+    q: '決算変更届を出していなくても経審は受けられますか？',
+    a: '受けられません。経審は決算変更届で提出した財務諸表と工事経歴書を前提に審査されるため、未提出の年度があると手続を進められません。経審を検討し始めた時点で、まず提出状況を確認することをおすすめします。',
+  },
+  {
+    q: '今すぐではありませんが、相談してもよいですか？',
+    a: 'ぜひご相談ください。むしろ、経審は「受ける年になってから準備する」のでは間に合わない項目が多い手続です。決算変更届の積み重ね、技術職員の資格取得、W点の加点項目——いずれも数年前からの取り組みが結果に表れます。参入の可能性が少しでもあるなら、早い段階での相談が有効です。',
+  },
+];
+
+const relatedLinks = [
+  {
+    title: '決算変更届',
+    text: '経審の前提となる毎年の届出です。ここが整っていないと経審には進めません。',
+    href: '/construction-permit/annual-report',
+  },
+  {
+    title: '業種追加・各種変更届',
+    text: '技術職員の配置や業種の構成は、経審の技術力評価にも関わります。',
+    href: '/construction-permit/changes',
+  },
+  {
+    title: '財産的基礎・金銭的信用',
+    text: '経営状況（Y点）の評価につながる、決算内容の考え方を整理しています。',
+    href: '/construction-permit/basic/requirements/financial',
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle('経営事項審査（経審）・入札参加の準備サポート')}
+  description="公共工事への参入を見据えた経営事項審査（経審）と入札参加資格の準備を大阪泉州・和歌山北部でサポート。P点の仕組み、手続の順序、数年単位の準備計画まで分かりやすくご案内します。"
+  breadcrumbs={[
+    { name: 'ホーム', href: '/' },
+    { name: '建設業許可', href: '/construction-permit/' },
+    { name: '経審・入札の準備' },
+  ]}
+>
+  <div class="page">
+    <SiteHeader />
+
+    <main>
+      <section class="page-hero section--base" aria-labelledby="page-heading">
+        <div class="page-hero__inner">
+          <nav class="breadcrumb" aria-label="パンくずリスト">
+            <ol>
+              <li><a href="/">ホーム</a></li>
+              <li><a href="/construction-permit/">建設業許可</a></li>
+              <li aria-current="page">経審・入札の準備</li>
+            </ol>
+          </nav>
+
+          <div class="page-hero__content">
+            <p class="page-hero__label">SERVICE</p>
+            <h1 id="page-heading" class="page-hero__title">
+              経営事項審査（経審）・入札参加の準備サポート
+            </h1>
+            <p class="page-hero__lead">
+              公共工事を元請として直接請け負うには、
+              <strong>経営事項審査（経審）を受けていることが必須</strong>です。
+              そして経審は、申請したその年の努力だけで結果が決まるものではありません。
+              決算変更届の積み重ね、技術職員の資格、社内制度の整備——
+              <strong>数年前からの準備が、そのまま点数に表れます</strong>。
+            </p>
+            <p class="page-hero__note">
+              「まだ具体的な予定はないが、いずれは公共工事も」という段階でのご相談を歓迎しています。
+              早く動くほど、選べる打ち手が増える手続です。
+            </p>
+
+            <div class="page-hero__actions">
+              <a href="/contact" class="btn btn--primary">相談してみる</a>
+              <LineButton />
+            </div>
+          </div>
+
+          <figure class="page-hero__visual">
+            <img
+              src="/images/construction-hero.jpg"
+              alt="公共工事への参入準備をイメージする現場と書類"
+              loading="eager"
+            />
+          </figure>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="conclusion-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="summary-box">
+            <h2 id="conclusion-heading" class="summary-box__heading">まず結論</h2>
+            <p class="summary-box__text">
+              経審で問われるのは、その年の申請書の出来ではなく、
+              <strong>これまでの数年間をどう積み上げてきたか</strong>です。
+              完成工事高も、技術職員の資格も、社会保険や退職金制度の整備も、
+              思い立ってすぐ点数に反映されるものではありません。
+              だからこそ、公共工事への参入を少しでも考えているなら、
+              <strong>受ける年ではなく、その数年前が動き出すタイミング</strong>です。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="target-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="target-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              こんな方にご利用いただいています
+            </h2>
+          </div>
+
+          <ul class="check-list">
+            {targetCases.map((item) => (
+              <li class="check-list__item">{item}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="steps-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="steps-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              公共工事に参入するまでの4つの段階
+            </h2>
+            <p class="section__sub">
+              経審は単独の手続ではなく、決算変更届から入札参加資格申請までの一連の流れの一部です。
+              どれか一つでも欠けると、次に進めません。
+            </p>
+          </div>
+
+          <div class="step-grid">
+            {steps.map((item) => (
+              <article class="point-card">
+                <span class="point-card__no">{item.no}</span>
+                <h3 class="point-card__title">{item.title}</h3>
+                <p class="point-card__text">{item.text}</p>
+              </article>
+            ))}
+          </div>
+
+          <div class="attention-box">
+            <h3 class="attention-box__title">経審の結果には「1年7か月」の有効期間があります</h3>
+            <p class="attention-box__text">
+              経審の結果は、審査基準日（決算日）から1年7か月間有効です。
+              公共工事を継続して受注するには、毎年の決算後に経審を受け直し、有効期間を切らさないようにする必要があります。
+              1年（12か月）に対して1年7か月という期間が設定されているのは、
+              決算から経審完了までにかかる期間を見込んだ猶予です。
+              言い換えれば、<strong>この7か月以内に毎年の手続を回し続ける</strong>ことが求められます。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="score-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="score-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              総合評定値（P点）の構成
+            </h2>
+            <p class="section__sub">
+              経審の結果は、5つの評価項目を重み付けして合計した総合評定値（P点）で示されます。
+              このP点が、入札参加資格の等級区分を決める基礎になります。
+            </p>
+          </div>
+
+          <div class="pattern-table-wrap">
+            <table class="pattern-table">
+              <thead>
+                <tr>
+                  <th scope="col" class="pattern-table__code-col">記号</th>
+                  <th scope="col">評価項目</th>
+                  <th scope="col" class="pattern-table__num-col">ウエイト</th>
+                </tr>
+              </thead>
+              <tbody>
+                {scoreItems.map((row) => (
+                  <tr>
+                    <th scope="row" class="pattern-table__code-col">{row.code}</th>
+                    <td>
+                      <span class="pattern-table__name">{row.name}</span>
+                      <span class="pattern-table__note">{row.detail}</span>
+                    </td>
+                    <td class="pattern-table__num-col">{row.weight}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <p class="section__note">
+            ※総合評定値 P ＝ 0.25×X1 ＋ 0.15×X2 ＋ 0.20×Y ＋ 0.25×Z ＋ 0.15×W として算出されます。
+            評価項目や算定方法は制度改正によって見直されることがあるため、申請時点の基準にもとづいてご案内します。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="prepare-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="prepare-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              早く始めるほど効いてくる3つの準備
+            </h2>
+            <p class="section__sub">
+              P点を構成する要素の多くは、申請直前に手を打っても間に合いません。
+              逆にいえば、早くから意識しておくだけで差がつく部分でもあります。
+            </p>
+          </div>
+
+          <div class="card-grid card-grid--three">
+            {prepareItems.map((item) => (
+              <article class="point-card">
+                <span class="point-card__no">{item.no}</span>
+                <h3 class="point-card__title">{item.title}</h3>
+                <p class="point-card__text">{item.text}</p>
+                {item.href && (
+                  <a href={item.href} class="text-link">{item.linkLabel}</a>
+                )}
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="basis-heading">
+        <div class="section__inner section__inner--narrow">
+          <BasicContentVisual
+            src="/images/requirement-management.jpg"
+            alt="経審に向けた社内体制を整えるイメージ"
+          >
+            <div class="section__head-block">
+              <h2 id="basis-heading" class="section__heading">
+                <span class="heading-icon" aria-hidden="true"></span>
+                「審査基準日」から逆算して考えます
+              </h2>
+            </div>
+
+            <p class="section__text">
+              経審の評価は、原則として<strong>審査基準日（直前の決算日）時点の状況</strong>で判断されます。
+              技術職員として数えられるのも、基準日以前6か月を超えて恒常的に雇用されている方です。
+              社会保険や退職金制度についても、基準日時点で加入・整備されていることが求められます。
+            </p>
+            <p class="section__text">
+              つまり、決算日を過ぎてから「加入しておけばよかった」と気づいても、その年の点数には反映されません。
+              評価されるかどうかは、決算日という一つの区切りで決まります。
+            </p>
+            <p class="section__text">
+              当事務所では、経審を見据えたご相談をいただいた際に、
+              <strong>次の決算日までに何を整えるかを逆算した計画</strong>をお渡ししています。
+              数年かけて段階的に点数を積み上げていく前提で、無理のない優先順位をご提案します。
+            </p>
+          </BasicContentVisual>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="flow-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="flow-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              ご依頼から入札参加までの流れ
+            </h2>
+            <p class="section__sub">
+              決算変更届から経審の結果通知まで、おおむね3〜4か月を見込みます。
+              入札参加資格の申請時期は発注者ごとに異なるため、そこから逆算して着手します。
+            </p>
+          </div>
+
+          <ol class="flow-list">
+            {flowSteps.map((item) => (
+              <li class="flow-step">
+                <div class="flow-step__head">
+                  <span class="flow-step__label">{item.step}</span>
+                  <span class="flow-step__period">{item.period}</span>
+                </div>
+                <p class="flow-step__title">{item.title}</p>
+                <p class="flow-step__text">{item.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="cost-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="cost-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              費用について
+            </h2>
+          </div>
+
+          <p class="section__text">
+            経審は、申請する業種数、技術職員の人数、決算変更届の提出状況などによって作業量が大きく変わります。
+            そのため、あらかじめ一律の金額をお示しするのではなく、
+            現在の状況をお伺いしたうえで<strong>個別にお見積り</strong>をご提示しています。
+          </p>
+          <p class="section__text">
+            経営状況分析機関へ支払う分析手数料、経営規模等評価の申請手数料などの法定費用は、
+            いずれも実費としてご負担いただきます。お見積りの際には、報酬と法定費用を分けて明示します。
+          </p>
+          <p class="section__note">
+            決算変更届などの各手続の費用は<a href="/price">料金案内</a>をご覧ください。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="faq-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="faq-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              よくあるご質問
+            </h2>
+          </div>
+
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <details class="faq-item">
+                <summary class="faq-item__question">{item.q}</summary>
+                <div class="faq-item__answer">
+                  <p>{item.a}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="related-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="related-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              関連ページ
+            </h2>
+          </div>
+
+          <div class="card-grid card-grid--three">
+            {relatedLinks.map((item) => (
+              <article class="info-card info-card--link">
+                <h3 class="info-card__title">{item.title}</h3>
+                <p class="info-card__text">{item.text}</p>
+                <a href={item.href} class="text-link">ページを見る</a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--contact-cta">
+        <div class="section__inner">
+          <div class="cta-box">
+            <h2 class="cta-box__heading">
+              「いずれは公共工事も」の段階から、ご相談ください。
+            </h2>
+            <p class="cta-box__text">
+              経審は、思い立った年からでは間に合わない準備が多い手続です。
+              大阪泉州・和歌山北部を中心に、現在の体制を確認したうえで、
+              いつまでに何を整えるべきかを逆算してご案内します。
+            </p>
+
+            <div class="cta-box__actions">
+              <a href="/contact" class="btn btn--primary">お問い合わせフォームへ</a>
+              <LineButton />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>
+
+<style>
+  .page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+  }
+
+  .section--base {
+    background: #ffffff;
+  }
+
+  .section--band {
+    background: #f8fafc;
+    border-block: 1px solid var(--color-border);
+  }
+
+  .section {
+    padding: var(--space-section-y) var(--space-section-x);
+  }
+
+  .section__inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+  }
+
+  .section__inner--narrow {
+    max-width: 56rem;
+  }
+
+  .section__head-block {
+    margin-bottom: 2rem;
+  }
+
+  .heading-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.4rem;
+    background: #1e3a8a;
+    flex-shrink: 0;
+    vertical-align: middle;
+    margin-right: 0.65rem;
+  }
+
+  .heading-icon::after {
+    content: '';
+    width: 0.55rem;
+    height: 0.72rem;
+    border: 2px solid #fff;
+    border-radius: 2px;
+  }
+
+  .section__heading {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0 0 1rem;
+    font-size: clamp(1.2rem, 2.8vw, 1.5rem);
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 0.05em;
+    line-height: 1.45;
+  }
+
+  .section__sub {
+    margin: 0;
+    max-width: 52rem;
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    line-height: 1.9;
+  }
+
+  .section__text {
+    margin: 0 0 1rem;
+    font-size: 0.95rem;
+    line-height: 1.95;
+    color: var(--color-text-muted);
+  }
+
+  .section__text:last-child {
+    margin-bottom: 0;
+  }
+
+  .section__text strong,
+  .section__sub strong {
+    color: var(--color-text);
+  }
+
+  .section__note {
+    margin: 1.25rem 0 0;
+    font-size: 0.875rem;
+    line-height: 1.85;
+    color: var(--color-text-muted);
+  }
+
+  .section__note a {
+    color: var(--color-primary);
+  }
+
+  .page-hero {
+    padding: clamp(3.25rem, 9vw, 5.75rem) var(--space-section-x)
+      max(var(--space-section-y), 3.75rem);
+  }
+
+  .page-hero__inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+    display: grid;
+    gap: 2rem 2.5rem;
+    align-items: center;
+  }
+
+  @media (min-width: 960px) {
+    .page-hero__inner {
+      grid-template-columns: minmax(0, 1.12fr) minmax(280px, 0.88fr);
+    }
+  }
+
+  .breadcrumb {
+    grid-column: 1 / -1;
+  }
+
+  .breadcrumb ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.5rem;
+    list-style: none;
+    margin: 0 0 0.25rem;
+    padding: 0;
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
+
+  .breadcrumb li:not(:last-child)::after {
+    content: '/';
+    margin-left: 0.5rem;
+    color: var(--color-border-strong);
+  }
+
+  .breadcrumb a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    color: var(--color-primary);
+  }
+
+  .breadcrumb li[aria-current='page'] {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  .page-hero__label {
+    margin: 0 0 1rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    color: var(--color-primary);
+  }
+
+  .page-hero__title {
+    margin: 0 0 1.25rem;
+    font-size: clamp(1.75rem, 5.4vw, 2.55rem);
+    line-height: 1.4;
+    letter-spacing: 0.04em;
+    color: var(--color-text);
+  }
+
+  .page-hero__lead {
+    margin: 0 0 1.6rem;
+    font-size: 1rem;
+    line-height: 1.95;
+    color: var(--color-text-muted);
+    max-width: 46rem;
+  }
+
+  .page-hero__lead strong {
+    color: var(--color-text);
+  }
+
+  .page-hero__note {
+    margin: 0 0 1.6rem;
+    padding: 0.85rem 1rem;
+    font-size: 0.875rem;
+    line-height: 1.85;
+    color: var(--color-text-muted);
+    background: #f3f6fb;
+    border-left: 3px solid var(--color-primary);
+    border-radius: 0 0.5rem 0.5rem 0;
+    max-width: 46rem;
+  }
+
+  .page-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem 1rem;
+  }
+
+  .page-hero__visual {
+    margin: 0;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+    background: #f3f6fb;
+  }
+
+  .page-hero__visual img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 280px;
+    object-fit: cover;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    padding: 0 1.5rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .btn--primary {
+    background: #1e3a8a;
+    color: #fff;
+    border: 2px solid #1e3a8a;
+  }
+
+  .btn--primary:hover {
+    background: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+    color: #fff;
+  }
+
+  .summary-box {
+    padding: 1.5rem;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .summary-box__heading {
+    margin: 0 0 0.75rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .summary-box__text {
+    margin: 0;
+    line-height: 1.9;
+    color: var(--color-text-muted);
+  }
+
+  .summary-box__text strong {
+    color: var(--color-text);
+  }
+
+  .check-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .check-list__item {
+    position: relative;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1rem 1rem 2.75rem;
+    line-height: 1.8;
+    color: var(--color-text);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .check-list__item::before {
+    content: '✓';
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 50%;
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .card-grid {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .card-grid--three {
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 768px) {
+    .card-grid--three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .step-grid {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .step-grid {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+  }
+
+  @media (min-width: 1024px) {
+    .step-grid {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+  }
+
+  .point-card {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem 1.4rem 1.4rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .point-card__no {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    margin-bottom: 0.9rem;
+    border-radius: 0.5rem;
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  .point-card__title {
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.65;
+    color: var(--color-text);
+  }
+
+  .point-card__text {
+    margin: 0 0 0.5rem;
+    flex: 1;
+    font-size: 0.9375rem;
+    line-height: 1.9;
+    color: var(--color-text-muted);
+  }
+
+  .info-card {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.4rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .info-card--link {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .info-card__title {
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.6;
+    color: var(--color-text);
+  }
+
+  .info-card__text {
+    margin: 0;
+    flex: 1;
+    line-height: 1.9;
+    color: var(--color-text-muted);
+    font-size: 0.9375rem;
+  }
+
+  .text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1rem;
+    width: fit-content;
+    color: var(--color-primary);
+    font-weight: 700;
+    font-size: 0.9375rem;
+    text-decoration: none;
+  }
+
+  .text-link::after {
+    content: '→';
+    font-size: 0.95em;
+  }
+
+  .text-link:hover {
+    text-decoration: underline;
+  }
+
+  .pattern-table-wrap {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow-x: auto;
+  }
+
+  .pattern-table {
+    width: 100%;
+    min-width: 34rem;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+  }
+
+  .pattern-table thead th {
+    background: #1e3a8a;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-align: left;
+    padding: 0.85rem 1.25rem;
+    white-space: nowrap;
+  }
+
+  .pattern-table tbody th {
+    text-align: left;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .pattern-table th,
+  .pattern-table td {
+    padding: 0.95rem 1.25rem;
+    border-bottom: 1px solid var(--color-border);
+    line-height: 1.7;
+    vertical-align: top;
+  }
+
+  .pattern-table tbody tr:last-child th,
+  .pattern-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .pattern-table tbody tr:nth-child(even) {
+    background: var(--color-band);
+  }
+
+  .pattern-table td {
+    color: var(--color-text-muted);
+  }
+
+  .pattern-table__code-col {
+    width: 4.5rem;
+    white-space: nowrap;
+  }
+
+  .pattern-table__name {
+    display: block;
+    font-weight: 700;
+    color: var(--color-text);
+  }
+
+  .pattern-table__note {
+    display: block;
+    margin-top: 0.35rem;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    color: var(--color-text-muted);
+  }
+
+  .pattern-table__num-col {
+    white-space: nowrap;
+    text-align: right;
+  }
+
+  .pattern-table tbody .pattern-table__num-col {
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .attention-box {
+    margin-top: 1.75rem;
+    background: var(--color-primary-soft);
+    border: 1px solid rgba(30, 58, 138, 0.2);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem 1.65rem;
+  }
+
+  .attention-box__title {
+    margin: 0 0 0.75rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 0.03em;
+    line-height: 1.6;
+  }
+
+  .attention-box__text {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.9;
+    color: var(--color-text);
+  }
+
+  .attention-box__text strong {
+    font-weight: 700;
+  }
+
+  .flow-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.15rem;
+  }
+
+  .flow-step {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.35rem 1.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .flow-step__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.85rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .flow-step__label {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    background: #1e3a8a;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+
+  .flow-step__period {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--color-text-muted);
+  }
+
+  .flow-step__title {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-text);
+    line-height: 1.6;
+  }
+
+  .flow-step__text {
+    margin: 0;
+    font-size: 0.9125rem;
+    line-height: 1.9;
+    color: var(--color-text-muted);
+  }
+
+  .faq-list {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .faq-item {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+
+  .faq-item__question {
+    cursor: pointer;
+    list-style: none;
+    padding: 1.15rem 1.25rem;
+    font-weight: 700;
+    line-height: 1.7;
+    color: var(--color-text);
+  }
+
+  .faq-item__question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item__answer {
+    padding: 0 1.25rem 1.15rem;
+    color: var(--color-text-muted);
+    line-height: 1.85;
+  }
+
+  .faq-item__answer p {
+    margin: 0;
+  }
+
+  .section--contact-cta {
+    background: #ffffff;
+    padding: var(--space-section-y) var(--space-section-x) max(var(--space-section-y), 4rem);
+  }
+
+  .cta-box {
+    background: #f8fafc;
+    border: 1px solid var(--color-border);
+    border-radius: 1rem;
+    padding: clamp(1.75rem, 4vw, 2.5rem);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+  }
+
+  .cta-box__heading {
+    margin: 0 0 1rem;
+    font-size: clamp(1.2rem, 2.8vw, 1.6rem);
+    line-height: 1.6;
+    color: var(--color-text);
+  }
+
+  .cta-box__text {
+    margin: 0 0 1.5rem;
+    color: var(--color-text-muted);
+    line-height: 1.9;
+  }
+
+  .cta-box__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.85rem 1rem;
+  }
+</style>

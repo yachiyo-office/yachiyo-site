@@ -1,0 +1,1230 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import LineButton from '../../components/LineButton.astro';
+import BasicContentVisual from '../../components/BasicContentVisual.astro';
+import { pageTitle } from '../../config/site';
+
+const targetCases = [
+  '許可の有効期限が近づいているが、何から手をつければよいか分からない',
+  '決算変更届を数年分出していないまま、更新時期を迎えてしまった',
+  '前回の更新は自分で行ったが、今回は任せたい',
+  '役員や専任技術者が変わったのに、変更届を出せていない',
+  '有効期限がいつなのか、そもそも把握できていない',
+  '更新を機に、業種追加もあわせて検討したい',
+];
+
+const scheduleRows = [
+  {
+    timing: '有効期間満了日の3か月前',
+    label: '受付開始',
+    text: '多くの行政庁で、この時期から更新申請の受付が始まります。決算変更届の未提出がないかを確認し、準備を始めるタイミングです。',
+  },
+  {
+    timing: '満了日の30日前',
+    label: '申請期限',
+    text: '建設業法上、更新申請は満了日の30日前までに行うこととされています。この期限を過ぎても受け付けてもらえる場合はありますが、余裕を持った申請が原則です。',
+  },
+  {
+    timing: '満了日',
+    label: '期限',
+    text: '申請さえ済んでいれば、審査中に満了日を迎えても、処分があるまでは従前の許可が有効なものとして扱われます。',
+  },
+  {
+    timing: '満了日の翌日',
+    label: '失効',
+    text: '申請しないまま満了日を過ぎると許可は失効します。復活の手続はなく、新規申請からやり直しになります。',
+  },
+];
+
+const blockers = [
+  {
+    no: '01',
+    title: '決算変更届の未提出',
+    text: '更新申請で最も多いつまずきです。決算変更届（事業年度終了報告）が提出されていないと、更新申請そのものを受け付けてもらえません。5年分がまとめて必要になると、決算書の組み替えや工事経歴書の作成に相当の時間がかかります。',
+  },
+  {
+    no: '02',
+    title: '各種変更届の未提出',
+    text: '役員の就任・退任、商号や所在地の変更、専任技術者の交代などは、その都度届出が必要です。届出内容と登記の内容が食い違ったままだと、更新時にまとめて是正を求められます。',
+  },
+  {
+    no: '03',
+    title: '経管・専任技術者の不在',
+    text: '更新時にも、経営業務の管理責任者と専任技術者が在籍し、常勤していることが確認されます。退職や退任で不在になっている場合、後任を立てられなければ更新はできません。',
+  },
+];
+
+const checkItems = [
+  '許可の有効期限（許可通知書・許可票に記載）を確認する',
+  '決算変更届を、直近まで毎年提出できているか確認する',
+  '役員・商号・所在地・営業所に変更がなかったか確認する',
+  '経営業務の管理責任者が現在も在籍・常勤しているか確認する',
+  '業種ごとの専任技術者が現在も在籍・常勤しているか確認する',
+  '社会保険の加入状況に変更がないか確認する',
+  '欠格要件に該当する事由が生じていないか確認する',
+];
+
+const flowSteps = [
+  {
+    step: 'STEP 1',
+    title: 'お問い合わせ・現状の確認',
+    period: '当日〜数日',
+    text: '許可通知書をお手元にご用意のうえ、ご連絡ください。有効期限、許可業種、決算変更届の提出状況をお伺いし、更新に向けて何が不足しているかを洗い出します。',
+  },
+  {
+    step: 'STEP 2',
+    title: '未提出の届出の確認・整理',
+    period: '1〜4週間',
+    text: '決算変更届や各種変更届に未提出のものがあれば、更新申請の前に提出します。ここが更新手続で最も時間を要する工程です。未提出の年数が多いほど、早めの着手が重要になります。',
+  },
+  {
+    step: 'STEP 3',
+    title: 'お見積り・ご契約',
+    period: '数日',
+    text: '更新申請の報酬に加え、未提出分の決算変更届や変更届が必要な場合はその費用も含め、総額を明示したお見積りをご提示します。',
+  },
+  {
+    step: 'STEP 4',
+    title: '要件の再確認・書類作成',
+    period: '1〜2週間',
+    text: '経管・専任技術者の在籍と常勤性、欠格要件、社会保険の加入状況を確認し、更新申請書一式を作成します。前回申請時から体制が変わっている場合は、変更点を正確に反映します。',
+  },
+  {
+    step: 'STEP 5',
+    title: '申請・審査',
+    period: '知事許可 約30日 / 大臣許可 約90〜120日',
+    text: '管轄の窓口へ申請します。審査中に満了日を迎えても、申請が受理されていれば従前の許可が有効なものとして扱われるため、営業を止める必要はありません。',
+  },
+  {
+    step: 'STEP 6',
+    title: '許可通知・次期スケジュールのご案内',
+    period: '—',
+    text: '新しい許可通知書が届いたら完了です。次の5年間に必要となる決算変更届の期限と、次回更新の時期をあわせてご案内します。',
+  },
+];
+
+const costRows = [
+  {
+    name: '更新申請（知事許可）',
+    detail: '5年ごとの更新',
+    fee: '66,000円〜',
+    legal: '50,000円',
+  },
+  {
+    name: '更新申請（大臣許可）',
+    detail: '5年ごとの更新',
+    fee: '99,000円〜',
+    legal: '50,000円',
+  },
+  {
+    name: '決算変更届（未提出分）',
+    detail: '複数年分をまとめて対応　1期につき',
+    fee: '27,500円〜',
+    legal: 'なし',
+  },
+  {
+    name: '各種変更届',
+    detail: '役員・所在地・商号の変更 等',
+    fee: '16,500円〜',
+    legal: 'なし',
+  },
+];
+
+const faqItems = [
+  {
+    q: '更新はいつから準備すればよいですか？',
+    a: '有効期間満了日の3〜6か月前からの準備をおすすめしています。決算変更届がすべて提出済みであれば3か月前でも間に合いますが、未提出分がある場合は、その作成に1〜2か月かかることも珍しくありません。期限が近い場合ほど、早めにご連絡ください。',
+  },
+  {
+    q: '決算変更届を5年分出していません。更新できますか？',
+    a: '未提出分をすべて提出すれば、更新申請は可能です。ただし各年度の工事経歴書と財務諸表を作成する必要があるため、相応の期間と費用がかかります。期限まで日がない場合は、まず優先順位を整理してご案内しますので、諦める前にご相談ください。',
+  },
+  {
+    q: '有効期限を過ぎてしまいました。どうなりますか？',
+    a: '許可は失効します。更新という形での復活はできず、あらためて新規申請を行うことになります。手数料も更新の5万円ではなく新規の9万円（知事許可）となり、要件も新規と同じ基準で審査されます。失効期間中は500万円以上の工事を請け負えない点にもご注意ください。',
+  },
+  {
+    q: '更新のときも、財産的基礎の500万円は必要ですか？',
+    a: '一般建設業の更新では、許可を継続して有していること自体で財産的基礎の要件を満たすものとして扱われるのが原則です。一方、特定建設業は更新のたびに資本金・自己資本・欠損比率・流動比率の財務要件を満たしている必要があります。特定建設業をお持ちの場合は、直前決算の内容確認が重要になります。',
+  },
+  {
+    q: '更新と業種追加を同時に申請できますか？',
+    a: 'できます。更新申請と業種追加を同時に行うことで、手数料や書類の重複を抑えられる場合があります。ただし業種追加には専任技術者の要件確認が必要なため、更新の準備と並行して早めに検討を始めることをおすすめします。',
+  },
+  {
+    q: '審査中に有効期限が来てしまいますが、工事を続けられますか？',
+    a: '期限内に更新申請が受理されていれば、審査結果が出るまでの間は従前の許可が有効なものとして扱われます。そのため、営業や工事の受注を止める必要はありません。ただし、これは申請が期限内に済んでいる場合に限られます。',
+  },
+];
+
+const relatedLinks = [
+  {
+    title: '建設業許可 新規申請',
+    text: 'これから初めて許可を取得する方向けに、要件確認から申請までの流れをご案内しています。',
+    href: '/construction-permit/new',
+  },
+  {
+    title: '建設業許可の基礎知識',
+    text: '許可の区分や5つの要件など、制度の全体像を体系的に整理しています。',
+    href: '/construction-permit/basic/',
+  },
+  {
+    title: '決算変更届',
+    text: '更新申請の前提となる毎年の届出です。未提出があると更新を進められません。',
+    href: '/construction-permit/annual-report',
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle('建設業許可の更新申請サポート')}
+  description="大阪泉州・和歌山北部の建設業許可 更新申請をサポート。決算変更届の未提出、変更届の漏れ、更新期限のスケジュール、費用の目安まで、更新でつまずかないための要点をご案内します。"
+  breadcrumbs={[
+    { name: 'ホーム', href: '/' },
+    { name: '建設業許可', href: '/construction-permit/' },
+    { name: '更新申請' },
+  ]}
+>
+  <div class="page">
+    <SiteHeader />
+
+    <main>
+      <section class="page-hero section--base" aria-labelledby="page-heading">
+        <div class="page-hero__inner">
+          <nav class="breadcrumb" aria-label="パンくずリスト">
+            <ol>
+              <li><a href="/">ホーム</a></li>
+              <li><a href="/construction-permit/">建設業許可</a></li>
+              <li aria-current="page">更新申請</li>
+            </ol>
+          </nav>
+
+          <div class="page-hero__content">
+            <p class="page-hero__label">SERVICE</p>
+            <h1 id="page-heading" class="page-hero__title">
+              建設業許可の更新申請サポート
+            </h1>
+            <p class="page-hero__lead">
+              建設業許可の有効期間は5年間です。更新そのものは難しい手続ではありません。
+              それでも更新でつまずく事業者さまが多いのは、
+              <strong>更新の可否が、それまでの5年間の届出の積み重ねで決まる</strong>からです。
+              決算変更届が未提出のままだと、更新申請は受け付けてもらえません。
+            </p>
+            <p class="page-hero__note">
+              「決算変更届を何年も出していない」「期限まで日がない」という状況でもご相談いただけます。
+              まず何から着手すべきかを整理してご案内します。
+            </p>
+
+            <div class="page-hero__actions">
+              <a href="/contact" class="btn btn--primary">相談してみる</a>
+              <LineButton />
+            </div>
+          </div>
+
+          <figure class="page-hero__visual">
+            <img
+              src="/images/construction-documents.jpg"
+              alt="建設業許可の更新手続に必要な書類のイメージ"
+              loading="eager"
+            />
+          </figure>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="conclusion-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="summary-box">
+            <h2 id="conclusion-heading" class="summary-box__heading">まず結論</h2>
+            <p class="summary-box__text">
+              更新でやるべきことは、実質的に2つです。
+              <strong>①これまでの決算変更届・各種変更届がすべて提出済みか確認すること</strong>、
+              <strong>②経管と専任技術者が現在も在籍・常勤しているか確認すること</strong>。
+              この2点がクリアできていれば、更新申請自体はスムーズに進みます。
+              期限を過ぎて失効すると新規申請からやり直しになるため、
+              満了日の<strong>3〜6か月前</strong>からの準備をおすすめします。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="target-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="target-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              こんな方にご利用いただいています
+            </h2>
+          </div>
+
+          <ul class="check-list">
+            {targetCases.map((item) => (
+              <li class="check-list__item">{item}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="schedule-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="schedule-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              更新のスケジュールと期限
+            </h2>
+            <p class="section__sub">
+              建設業許可の有効期間は、許可のあった日から5年目の対応する日の前日までです。
+              満了日から逆算して、次のスケジュールで進みます。
+            </p>
+          </div>
+
+          <div class="pattern-table-wrap">
+            <table class="pattern-table">
+              <thead>
+                <tr>
+                  <th scope="col">時期</th>
+                  <th scope="col">内容</th>
+                </tr>
+              </thead>
+              <tbody>
+                {scheduleRows.map((row) => (
+                  <tr>
+                    <th scope="row">
+                      {row.timing}
+                      <span class="pattern-table__tag">{row.label}</span>
+                    </th>
+                    <td>{row.text}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <p class="section__note">
+            ※受付開始の時期は行政庁によって異なる場合があります。申請先の取扱いを確認したうえでご案内します。
+          </p>
+
+          <div class="attention-box attention-box--warn">
+            <h3 class="attention-box__title">失効すると「新規申請」からやり直しになります</h3>
+            <p class="attention-box__text">
+              更新には、うっかり忘れを救済する制度がありません。満了日を過ぎれば許可は失効し、
+              あらためて新規申請を行うことになります。手数料は5万円から9万円（知事許可）に上がり、
+              経営経験や専任技術者の要件も新規と同じ基準で審査されます。
+              さらに、失効から新しい許可が下りるまでの間は、500万円以上の工事を請け負えません。
+              元請との契約に影響が及ぶこともあるため、期限管理はとりわけ重要です。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="blocker-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="blocker-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              更新を止めてしまう3つの原因
+            </h2>
+            <p class="section__sub">
+              更新申請そのものより、その手前で引っかかるケースがほとんどです。
+              いずれも、これまでの5年間に本来行っておくべきだった手続の積み残しから生じます。
+            </p>
+          </div>
+
+          <div class="card-grid card-grid--three">
+            {blockers.map((item) => (
+              <article class="point-card">
+                <span class="point-card__no">{item.no}</span>
+                <h3 class="point-card__title">{item.title}</h3>
+                <p class="point-card__text">{item.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="kessan-heading">
+        <div class="section__inner section__inner--narrow">
+          <BasicContentVisual
+            src="/images/requirement-financial.jpg"
+            alt="決算変更届の作成に必要な決算書類のイメージ"
+          >
+            <div class="section__head-block">
+              <h2 id="kessan-heading" class="section__heading">
+                <span class="heading-icon" aria-hidden="true"></span>
+                更新の鍵を握るのは「決算変更届」です
+              </h2>
+            </div>
+
+            <p class="section__text">
+              決算変更届（事業年度終了報告）は、事業年度終了後4か月以内に毎年提出する届出です。
+              提出しないままでも日々の営業に支障はないため、後回しにされがちですが、
+              <strong>未提出のままでは更新申請を受け付けてもらえません</strong>。
+            </p>
+            <p class="section__text">
+              決算変更届では、税務申告用の決算書をそのまま使うことはできず、
+              建設業法で定められた様式に組み替えた財務諸表を作成する必要があります。
+              あわせて、その年度に施工した工事の工事経歴書も作成します。
+              5年分をまとめて作るとなると、決算書と工事資料をさかのぼって突き合わせる作業が発生し、
+              1〜2か月かかることも珍しくありません。
+            </p>
+            <p class="section__text">
+              未提出の状態が続いていると、行政指導や監督処分の対象となる可能性もあります。
+              更新のタイミングを待たず、気づいた時点で整理しておくことが望ましい手続です。
+            </p>
+            <a href="/construction-permit/annual-report" class="text-link">決算変更届について詳しく見る</a>
+          </BasicContentVisual>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="check-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="check-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              更新前セルフチェック
+            </h2>
+            <p class="section__sub">
+              ご相談前に、次の項目をご確認いただけるとスムーズです。
+              分からない項目があっても問題ありません。こちらで一緒に確認します。
+            </p>
+          </div>
+
+          <ul class="check-list">
+            {checkItems.map((item) => (
+              <li class="check-list__item">{item}</li>
+            ))}
+          </ul>
+
+          <p class="section__note">
+            ※許可の有効期限は、許可通知書または現場に掲示している建設業の許可票に記載されています。
+            見当たらない場合でも、行政庁の許可業者名簿から確認できますのでご相談ください。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="flow-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="flow-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              更新申請の流れ
+            </h2>
+            <p class="section__sub">
+              決算変更届がすべて提出済みであれば、ご相談から申請まで2〜4週間程度です。
+              未提出分がある場合は、その整理に要する期間が加わります。
+            </p>
+          </div>
+
+          <ol class="flow-list">
+            {flowSteps.map((item) => (
+              <li class="flow-step">
+                <div class="flow-step__head">
+                  <span class="flow-step__label">{item.step}</span>
+                  <span class="flow-step__period">{item.period}</span>
+                </div>
+                <p class="flow-step__title">{item.title}</p>
+                <p class="flow-step__text">{item.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="cost-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="cost-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              費用の目安
+            </h2>
+            <p class="section__sub">
+              報酬額は税込表示です。法定費用（申請手数料）は別途、実費としてご負担いただきます。
+              未提出の決算変更届がある場合は、更新申請の報酬に加えて年度ごとの費用が発生します。
+            </p>
+          </div>
+
+          <div class="pattern-table-wrap">
+            <table class="pattern-table">
+              <thead>
+                <tr>
+                  <th scope="col">手続</th>
+                  <th scope="col" class="pattern-table__num-col">報酬（税込）</th>
+                  <th scope="col" class="pattern-table__num-col">法定費用</th>
+                </tr>
+              </thead>
+              <tbody>
+                {costRows.map((row) => (
+                  <tr>
+                    <th scope="row">
+                      {row.name}
+                      <span class="pattern-table__note">{row.detail}</span>
+                    </th>
+                    <td class="pattern-table__num-col">{row.fee}</td>
+                    <td class="pattern-table__num-col">{row.legal}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <p class="section__note">
+            ※業種数や資料の状況によって変動します。着手前に総額を明示したお見積りをご提示します。
+            その他の手続の費用は<a href="/price">料金案内</a>をご覧ください。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="manage-heading">
+        <div class="section__inner section__inner--narrow">
+          <BasicContentVisual
+            src="/images/consultation.jpg"
+            alt="許可の期限管理について相談する様子"
+            imageFirst={true}
+          >
+            <div class="section__head-block">
+              <h2 id="manage-heading" class="section__heading">
+                <span class="heading-icon" aria-hidden="true"></span>
+                次の5年で、同じことを繰り返さないために
+              </h2>
+            </div>
+
+            <p class="section__text">
+              更新でご相談いただく方の多くが、「気づいたら何年分も溜まっていた」とおっしゃいます。
+              決算変更届は毎年のことなので、一度リズムを崩すと元に戻しにくいという事情があります。
+            </p>
+            <p class="section__text">
+              当事務所が新規申請だけでなく継続手続を重視しているのは、この点にあります。
+              更新の完了時には、<strong>次の5年間に必要な手続と期限を一覧でお渡しし</strong>、
+              決算変更届の時期が近づいた際にはこちらからご連絡します。
+              次回の更新を、慌てずに迎えられる状態を一緒に作っていきます。
+            </p>
+          </BasicContentVisual>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="faq-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="faq-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              よくあるご質問
+            </h2>
+          </div>
+
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <details class="faq-item">
+                <summary class="faq-item__question">{item.q}</summary>
+                <div class="faq-item__answer">
+                  <p>{item.a}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="related-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="related-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              関連ページ
+            </h2>
+          </div>
+
+          <div class="card-grid card-grid--three">
+            {relatedLinks.map((item) => (
+              <article class="info-card info-card--link">
+                <h3 class="info-card__title">{item.title}</h3>
+                <p class="info-card__text">{item.text}</p>
+                <a href={item.href} class="text-link">ページを見る</a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--contact-cta">
+        <div class="section__inner">
+          <div class="cta-box">
+            <h2 class="cta-box__heading">
+              期限が近い場合ほど、早めにご連絡ください。
+            </h2>
+            <p class="cta-box__text">
+              決算変更届が溜まっている状態でも、間に合うケースは少なくありません。
+              大阪泉州・和歌山北部を中心に、現在の状況を確認したうえで、
+              更新までの段取りを整理してご案内します。
+            </p>
+
+            <div class="cta-box__actions">
+              <a href="/contact" class="btn btn--primary">お問い合わせフォームへ</a>
+              <LineButton />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>
+
+<style>
+  .page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+  }
+
+  .section--base {
+    background: #ffffff;
+  }
+
+  .section--band {
+    background: #f8fafc;
+    border-block: 1px solid var(--color-border);
+  }
+
+  .section {
+    padding: var(--space-section-y) var(--space-section-x);
+  }
+
+  .section__inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+  }
+
+  .section__inner--narrow {
+    max-width: 56rem;
+  }
+
+  .section__head-block {
+    margin-bottom: 2rem;
+  }
+
+  .heading-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    border-radius: 0.4rem;
+    background: #1e3a8a;
+    flex-shrink: 0;
+    vertical-align: middle;
+    margin-right: 0.65rem;
+  }
+
+  .heading-icon::after {
+    content: '';
+    width: 0.55rem;
+    height: 0.72rem;
+    border: 2px solid #fff;
+    border-radius: 2px;
+  }
+
+  .section__heading {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    margin: 0 0 1rem;
+    font-size: clamp(1.2rem, 2.8vw, 1.5rem);
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 0.05em;
+    line-height: 1.45;
+  }
+
+  .section__sub {
+    margin: 0;
+    max-width: 52rem;
+    font-size: 0.9375rem;
+    color: var(--color-text-muted);
+    line-height: 1.9;
+  }
+
+  .section__text {
+    margin: 0 0 1rem;
+    font-size: 0.95rem;
+    line-height: 1.95;
+    color: var(--color-text-muted);
+  }
+
+  .section__text:last-child {
+    margin-bottom: 0;
+  }
+
+  .section__text strong,
+  .section__sub strong {
+    color: var(--color-text);
+  }
+
+  .section__note {
+    margin: 1.25rem 0 0;
+    font-size: 0.875rem;
+    line-height: 1.85;
+    color: var(--color-text-muted);
+  }
+
+  .section__note a {
+    color: var(--color-primary);
+  }
+
+  .page-hero {
+    padding: clamp(3.25rem, 9vw, 5.75rem) var(--space-section-x)
+      max(var(--space-section-y), 3.75rem);
+  }
+
+  .page-hero__inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+    display: grid;
+    gap: 2rem 2.5rem;
+    align-items: center;
+  }
+
+  @media (min-width: 960px) {
+    .page-hero__inner {
+      grid-template-columns: minmax(0, 1.12fr) minmax(280px, 0.88fr);
+    }
+  }
+
+  .breadcrumb {
+    grid-column: 1 / -1;
+  }
+
+  .breadcrumb ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem 0.5rem;
+    list-style: none;
+    margin: 0 0 0.25rem;
+    padding: 0;
+    font-size: 0.8125rem;
+    color: var(--color-text-muted);
+  }
+
+  .breadcrumb li:not(:last-child)::after {
+    content: '/';
+    margin-left: 0.5rem;
+    color: var(--color-border-strong);
+  }
+
+  .breadcrumb a {
+    color: var(--color-text-muted);
+    text-decoration: none;
+  }
+
+  .breadcrumb a:hover {
+    color: var(--color-primary);
+  }
+
+  .breadcrumb li[aria-current='page'] {
+    color: var(--color-text);
+    font-weight: 600;
+  }
+
+  .page-hero__label {
+    margin: 0 0 1rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    color: var(--color-primary);
+  }
+
+  .page-hero__title {
+    margin: 0 0 1.25rem;
+    font-size: clamp(1.9rem, 6vw, 2.8rem);
+    line-height: 1.35;
+    letter-spacing: 0.04em;
+    color: var(--color-text);
+  }
+
+  .page-hero__lead {
+    margin: 0 0 1.6rem;
+    font-size: 1rem;
+    line-height: 1.95;
+    color: var(--color-text-muted);
+    max-width: 46rem;
+  }
+
+  .page-hero__lead strong {
+    color: var(--color-text);
+  }
+
+  .page-hero__note {
+    margin: 0 0 1.6rem;
+    padding: 0.85rem 1rem;
+    font-size: 0.875rem;
+    line-height: 1.85;
+    color: var(--color-text-muted);
+    background: #f3f6fb;
+    border-left: 3px solid var(--color-primary);
+    border-radius: 0 0.5rem 0.5rem 0;
+    max-width: 46rem;
+  }
+
+  .page-hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem 1rem;
+  }
+
+  .page-hero__visual {
+    margin: 0;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+    background: #f3f6fb;
+  }
+
+  .page-hero__visual img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 280px;
+    object-fit: cover;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 3rem;
+    padding: 0 1.5rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    border-radius: var(--radius);
+    text-decoration: none;
+    transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  }
+
+  .btn--primary {
+    background: #1e3a8a;
+    color: #fff;
+    border: 2px solid #1e3a8a;
+  }
+
+  .btn--primary:hover {
+    background: var(--color-primary-hover);
+    border-color: var(--color-primary-hover);
+    color: #fff;
+  }
+
+  .summary-box {
+    padding: 1.5rem;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: 1rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .summary-box__heading {
+    margin: 0 0 0.75rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .summary-box__text {
+    margin: 0;
+    line-height: 1.9;
+    color: var(--color-text-muted);
+  }
+
+  .summary-box__text strong {
+    color: var(--color-text);
+  }
+
+  .check-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 0.85rem;
+  }
+
+  .check-list__item {
+    position: relative;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1rem 1rem 1rem 2.75rem;
+    line-height: 1.8;
+    color: var(--color-text);
+    box-shadow: var(--shadow-sm);
+  }
+
+  .check-list__item::before {
+    content: '✓';
+    position: absolute;
+    left: 1rem;
+    top: 1rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 1.1rem;
+    height: 1.1rem;
+    border-radius: 50%;
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+  }
+
+  .card-grid {
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  .card-grid--three {
+    grid-template-columns: 1fr;
+  }
+
+  @media (min-width: 768px) {
+    .card-grid--three {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .point-card {
+    display: flex;
+    flex-direction: column;
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem 1.4rem 1.4rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .point-card__no {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 2.25rem;
+    margin-bottom: 0.9rem;
+    border-radius: 0.5rem;
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+    font-size: 0.875rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  .point-card__title {
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.65;
+    color: var(--color-text);
+  }
+
+  .point-card__text {
+    margin: 0;
+    flex: 1;
+    font-size: 0.9375rem;
+    line-height: 1.9;
+    color: var(--color-text-muted);
+  }
+
+  .info-card {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.4rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .info-card--link {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .info-card__title {
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+    font-weight: 700;
+    line-height: 1.6;
+    color: var(--color-text);
+  }
+
+  .info-card__text {
+    margin: 0;
+    flex: 1;
+    line-height: 1.9;
+    color: var(--color-text-muted);
+    font-size: 0.9375rem;
+  }
+
+  .text-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    margin-top: 1rem;
+    width: fit-content;
+    color: var(--color-primary);
+    font-weight: 700;
+    font-size: 0.9375rem;
+    text-decoration: none;
+  }
+
+  .text-link::after {
+    content: '→';
+    font-size: 0.95em;
+  }
+
+  .text-link:hover {
+    text-decoration: underline;
+  }
+
+  .pattern-table-wrap {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow-x: auto;
+  }
+
+  .pattern-table {
+    width: 100%;
+    min-width: 34rem;
+    border-collapse: collapse;
+    font-size: 0.9375rem;
+  }
+
+  .pattern-table thead th {
+    background: #1e3a8a;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: 0.03em;
+    text-align: left;
+    padding: 0.85rem 1.25rem;
+    white-space: nowrap;
+  }
+
+  .pattern-table tbody th {
+    text-align: left;
+    font-weight: 700;
+    color: var(--color-text);
+    white-space: nowrap;
+  }
+
+  .pattern-table th,
+  .pattern-table td {
+    padding: 0.95rem 1.25rem;
+    border-bottom: 1px solid var(--color-border);
+    line-height: 1.7;
+    vertical-align: top;
+  }
+
+  .pattern-table tbody tr:last-child th,
+  .pattern-table tbody tr:last-child td {
+    border-bottom: none;
+  }
+
+  .pattern-table tbody tr:nth-child(even) {
+    background: var(--color-band);
+  }
+
+  .pattern-table td {
+    color: var(--color-text-muted);
+    white-space: normal;
+  }
+
+  .pattern-table__note {
+    display: block;
+    margin-top: 0.35rem;
+    font-size: 0.8125rem;
+    font-weight: 400;
+    color: var(--color-text-muted);
+    white-space: normal;
+  }
+
+  .pattern-table__tag {
+    display: inline-block;
+    margin-top: 0.4rem;
+    padding: 0.15rem 0.55rem;
+    border-radius: 999px;
+    background: var(--color-primary-soft);
+    color: var(--color-primary);
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+  }
+
+  .pattern-table__num-col {
+    white-space: nowrap;
+    text-align: right;
+  }
+
+  .pattern-table tbody .pattern-table__num-col {
+    font-weight: 700;
+    color: var(--color-primary);
+  }
+
+  .attention-box {
+    margin-top: 1.75rem;
+    background: var(--color-primary-soft);
+    border: 1px solid rgba(30, 58, 138, 0.2);
+    border-radius: var(--radius-lg);
+    padding: 1.5rem 1.65rem;
+  }
+
+  .attention-box--warn {
+    background: #fef6f6;
+    border-color: rgba(185, 28, 28, 0.25);
+  }
+
+  .attention-box__title {
+    margin: 0 0 0.75rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 0.03em;
+    line-height: 1.6;
+  }
+
+  .attention-box--warn .attention-box__title {
+    color: #b91c1c;
+  }
+
+  .attention-box__text {
+    margin: 0;
+    font-size: 0.9rem;
+    line-height: 1.9;
+    color: var(--color-text);
+  }
+
+  .flow-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 1.15rem;
+  }
+
+  .flow-step {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    padding: 1.35rem 1.5rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .flow-step__head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem 0.85rem;
+    margin-bottom: 0.6rem;
+  }
+
+  .flow-step__label {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.7rem;
+    border-radius: 999px;
+    background: #1e3a8a;
+    color: #fff;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+  }
+
+  .flow-step__period {
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--color-text-muted);
+  }
+
+  .flow-step__title {
+    margin: 0 0 0.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--color-text);
+    line-height: 1.6;
+  }
+
+  .flow-step__text {
+    margin: 0;
+    font-size: 0.9125rem;
+    line-height: 1.9;
+    color: var(--color-text-muted);
+  }
+
+  .faq-list {
+    display: grid;
+    gap: 1rem;
+  }
+
+  .faq-item {
+    background: #ffffff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+
+  .faq-item__question {
+    cursor: pointer;
+    list-style: none;
+    padding: 1.15rem 1.25rem;
+    font-weight: 700;
+    line-height: 1.7;
+    color: var(--color-text);
+  }
+
+  .faq-item__question::-webkit-details-marker {
+    display: none;
+  }
+
+  .faq-item__answer {
+    padding: 0 1.25rem 1.15rem;
+    color: var(--color-text-muted);
+    line-height: 1.85;
+  }
+
+  .faq-item__answer p {
+    margin: 0;
+  }
+
+  .section--contact-cta {
+    background: #ffffff;
+    padding: var(--space-section-y) var(--space-section-x) max(var(--space-section-y), 4rem);
+  }
+
+  .cta-box {
+    background: #f8fafc;
+    border: 1px solid var(--color-border);
+    border-radius: 1rem;
+    padding: clamp(1.75rem, 4vw, 2.5rem);
+    box-shadow: var(--shadow-md);
+    text-align: center;
+  }
+
+  .cta-box__heading {
+    margin: 0 0 1rem;
+    font-size: clamp(1.2rem, 2.8vw, 1.6rem);
+    line-height: 1.6;
+    color: var(--color-text);
+  }
+
+  .cta-box__text {
+    margin: 0 0 1.5rem;
+    color: var(--color-text-muted);
+    line-height: 1.9;
+  }
+
+  .cta-box__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.85rem 1rem;
+  }
+</style>

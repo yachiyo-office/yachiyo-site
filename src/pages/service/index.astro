@@ -9,18 +9,26 @@ const otherServices = [
   {
     title: 'その他の許認可・届出',
     text: '古物商許可、飲食店営業許可など、建設業以外の営業許可・届出についても、業種や自治体ごとの要件を確認しながらご案内します。',
+    image: '/images/other-permits-procedures.jpg',
+    alt: '許認可・届出の書類手続き',
   },
   {
     title: '会社設立・法人関連手続',
     text: '定款の作成をはじめ、会社設立や役員変更などの法人関連手続をサポートします。建設業許可の取得を見据えた法人成りのご相談にも対応します。',
+    image: '/images/service-corporate-documents.jpg',
+    alt: '法人設立・届出に関する書類整理',
   },
   {
     title: '契約書・議事録等の書類作成',
     text: '取引に関わる契約書、定款、議事録などの書類作成を承ります。内容や分量に応じて、必要な確認事項を整理しながら進めます。',
+    image: '/images/service-contract-documents.jpg',
+    alt: '契約書・議事録などの書類作成',
   },
   {
     title: '相続・遺言に関する手続',
     text: '遺言書の作成支援や遺産分割協議書の作成など、相続に関する手続をお手伝いします。ご家族の状況に合わせて丁寧にご案内します。',
+    image: '/images/service-inheritance.jpg',
+    alt: '相続・遺言に関するご相談風景',
   },
 ];
 ---
@@ -42,45 +50,87 @@ const otherServices = [
               <li aria-current="page">業務案内</li>
             </ol>
           </nav>
-          <p class="page-hero__label">SERVICE</p>
-          <h1 id="service-heading" class="page-hero__title">業務案内</h1>
-          <p class="page-hero__lead">
-            やちよ行政書士事務所では、建設業許可を中心に、事業と暮らしに関わる各種手続をサポートしています。
-            「どこに相談すればよいか分からない」という段階でも、まずはお気軽にご相談ください。
-          </p>
+
+          <div class="page-hero__content">
+            <p class="page-hero__label">SERVICE</p>
+            <h1 id="service-heading" class="page-hero__title">業務案内</h1>
+            <p class="page-hero__lead">
+              やちよ行政書士事務所では、建設業許可を中心に、事業と暮らしに関わる各種手続をサポートしています。
+              「どこに相談すればよいか分からない」という段階でも、まずはお気軽にご相談ください。
+            </p>
+          </div>
+
+          <figure class="page-hero__visual">
+            <img
+              src="/images/consultation.jpg"
+              alt="業務内容のご相談風景"
+              loading="eager"
+              width="1344"
+              height="768"
+            />
+          </figure>
         </div>
       </section>
 
       <section class="section section--band" aria-labelledby="main-service-heading">
-        <div class="section__inner">
-          <h2 id="main-service-heading" class="section__heading">
-            <span class="heading-icon" aria-hidden="true"></span>
-            建設業許可サポート（主要業務）
-          </h2>
-          <div class="main-service">
-            <p class="main-service__text">
+        <div class="section__inner section__grid section__grid--visual">
+          <div class="section__main">
+            <h2 id="main-service-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              建設業許可サポート（主要業務）
+            </h2>
+            <p class="section__lead">
               新規申請、更新、決算変更届、業種追加など、建設業許可の取得から取得後の継続手続まで一貫して対応します。
-              大阪泉州・和歌山北部の建設業者さまを中心にサポートしています。
             </p>
-            <a href="/construction-permit/" class="btn btn--primary">
+            <p class="section__text">
+              大阪泉州・和歌山北部の建設業者さまを中心にサポートしています。
+              許可が必要かどうかの整理から、要件確認、必要資料の見通し、取得後の継続手続まで、段階に応じてご案内します。
+            </p>
+            <a href="/construction-permit/" class="btn btn--primary section__action">
               建設業許可サポートの詳細を見る
             </a>
           </div>
+
+          <figure class="section__visual">
+            <img
+              src="/images/construction-permit-main.jpg"
+              alt="建設業許可サポートのご相談風景"
+              loading="lazy"
+              width="1360"
+              height="768"
+            />
+          </figure>
         </div>
       </section>
 
       <section class="section section--base" aria-labelledby="other-service-heading">
         <div class="section__inner">
-          <h2 id="other-service-heading" class="section__heading">
-            <span class="heading-icon" aria-hidden="true"></span>
-            その他の取扱業務
-          </h2>
+          <div class="section__head-block">
+            <h2 id="other-service-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              その他の取扱業務
+            </h2>
+            <p class="section__sub">
+              建設業許可以外にも、事業や暮らしに関わる各種手続を取り扱っています。
+            </p>
+          </div>
+
           <ul class="service-list">
             {
               otherServices.map((item) => (
-                <li class="service-card">
-                  <h3 class="service-card__title">{item.title}</h3>
-                  <p class="service-card__text">{item.text}</p>
+                <li class:list={['service-card', { 'service-card--no-image': !item.image }]}>
+                  {item.image && (
+                    <figure class="service-card__visual">
+                      <img src={item.image} alt={item.alt} loading="lazy" width="1344" height="768" />
+                    </figure>
+                  )}
+                  <div class="service-card__body">
+                    <h3 class="service-card__title">
+                      <span class="service-card__dot" aria-hidden="true"></span>
+                      {item.title}
+                    </h3>
+                    <p class="service-card__text">{item.text}</p>
+                  </div>
                 </li>
               ))
             }
@@ -118,18 +168,53 @@ const otherServices = [
   .section { padding: var(--space-section-y) var(--space-section-x); }
   .section__inner { max-width: var(--content-max); margin: 0 auto; }
 
-  .page-hero { padding: clamp(3.25rem, 9vw, 5.75rem) var(--space-section-x) max(var(--space-section-y), 3.25rem); }
-  .page-hero__inner { max-width: var(--content-max); margin: 0 auto; }
+  .page-hero {
+    padding: clamp(3.25rem, 9vw, 5.75rem) var(--space-section-x) max(var(--space-section-y), 3.75rem);
+  }
+
+  .page-hero__inner {
+    max-width: var(--content-max);
+    margin: 0 auto;
+    display: grid;
+    gap: 2rem 2.5rem;
+    align-items: center;
+  }
+
+  @media (min-width: 960px) {
+    .page-hero__inner {
+      grid-template-columns: minmax(0, 1.15fr) minmax(280px, 0.85fr);
+    }
+  }
+
+  .breadcrumb { grid-column: 1 / -1; }
+
   .page-hero__label { margin: 0 0 1rem; font-size: 0.8125rem; font-weight: 700; letter-spacing: 0.16em; color: var(--color-primary); }
   .page-hero__title { margin: 0 0 1.25rem; font-size: clamp(1.8rem, 6vw, 2.75rem); line-height: 1.35; color: var(--color-text); }
   .page-hero__lead { margin: 0; font-size: 1rem; line-height: 1.95; color: var(--color-text-muted); max-width: 44rem; }
+
+  .page-hero__visual {
+    margin: 0;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+    background: #f3f6fb;
+  }
+
+  .page-hero__visual img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 260px;
+    object-fit: cover;
+  }
 
   .breadcrumb ol {
     display: flex;
     flex-wrap: wrap;
     gap: 0.35rem 0.5rem;
     list-style: none;
-    margin: 0 0 1.5rem;
+    margin: 0 0 0.25rem;
     padding: 0;
     font-size: 0.8125rem;
     color: var(--color-text-muted);
@@ -147,14 +232,122 @@ const otherServices = [
   .heading-icon::after { content: ''; width: 0.55rem; height: 0.72rem; border: 2px solid #fff; border-radius: 2px; }
   .section__heading { display: flex; align-items: center; flex-wrap: wrap; margin: 0 0 1.5rem; font-size: clamp(1.2rem, 2.8vw, 1.45rem); font-weight: 700; color: var(--color-primary); line-height: 1.4; }
 
-  .main-service { background: #fff; border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: clamp(1.5rem, 4vw, 2.25rem); box-shadow: var(--shadow-sm); }
-  .main-service__text { margin: 0 0 1.5rem; line-height: 1.95; color: var(--color-text-muted); }
+  .section__head-block { margin-bottom: 1.75rem; }
+  .section__head-block .section__heading { margin-bottom: 0.75rem; }
+  .section__sub { margin: 0; max-width: 44rem; font-size: 0.9375rem; color: var(--color-text-muted); line-height: 1.85; }
 
-  .service-list { display: grid; gap: 1.25rem; list-style: none; margin: 0 0 1.75rem; padding: 0; }
-  @media (min-width: 768px) { .service-list { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-  .service-card { background: #fff; border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: var(--shadow-sm); }
-  .service-card__title { margin: 0 0 0.75rem; font-size: 1rem; font-weight: 700; color: var(--color-text); }
-  .service-card__text { margin: 0; line-height: 1.85; color: var(--color-text-muted); }
+  .section__grid {
+    display: grid;
+    gap: 2rem 2.5rem;
+    align-items: center;
+  }
+
+  @media (min-width: 960px) {
+    .section__grid--visual {
+      grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
+    }
+  }
+
+  .section__lead {
+    margin: 0 0 1rem;
+    font-size: 1.0625rem;
+    font-weight: 600;
+    line-height: 1.85;
+    color: var(--color-text);
+  }
+
+  .section__text {
+    margin: 0 0 1.5rem;
+    font-size: 0.9375rem;
+    line-height: 1.9;
+    color: var(--color-text-muted);
+  }
+
+  .section__action { margin-top: 0.25rem; }
+
+  .section__visual {
+    margin: 0;
+    border-radius: 1rem;
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-sm);
+    background: #f3f6fb;
+  }
+
+  .section__visual img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    min-height: 220px;
+    object-fit: cover;
+  }
+
+  .service-list {
+    list-style: none;
+    margin: 0 0 1.75rem;
+    padding: 0;
+    display: grid;
+    gap: 1.25rem;
+  }
+
+  @media (min-width: 640px) {
+    .service-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+
+  .service-card {
+    background: #fff;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    overflow: hidden;
+  }
+
+  .service-card__visual {
+    margin: 0;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    background: #f3f6fb;
+  }
+
+  .service-card__visual img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .service-card__body {
+    padding: 1.35rem 1.45rem 1.5rem;
+  }
+
+  .service-card--no-image .service-card__body {
+    padding: 1.5rem;
+  }
+
+  .service-card__title {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin: 0 0 0.65rem;
+    font-size: 0.9375rem;
+    font-weight: 700;
+    color: var(--color-primary);
+    letter-spacing: 0.02em;
+  }
+
+  .service-card__dot {
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background: #1e3a8a;
+    flex-shrink: 0;
+  }
+
+  .service-card__text {
+    margin: 0;
+    font-size: 0.875rem;
+    line-height: 1.85;
+    color: var(--color-text-muted);
+  }
 
   .section__note { margin: 0; font-size: 0.9375rem; line-height: 1.9; color: var(--color-text-muted); }
   .section__note a { color: var(--color-primary); }
