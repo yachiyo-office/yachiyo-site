@@ -1,0 +1,484 @@
+---
+import '../../styles/service-detail.css';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import LineButton from '../../components/LineButton.astro';
+import BasicContentVisual from '../../components/BasicContentVisual.astro';
+import { pageTitle } from '../../config/site';
+
+const targetCases = [
+  '許可を持っていた親族が亡くなり、事業を続けたい',
+  '個人事業の許可を、設立した会社へ引き継ぎたい（法人成り）',
+  '会社の合併や事業譲渡で、許可を承継したい',
+  '後継者へ事業を渡す準備を、許可の面から整えたい',
+  '許可の有効期限が残っているので、新規申請ではなく承継できないか知りたい',
+  '相続の手続と、許可の手続を並行して進めたい',
+];
+
+const keyPoints = [
+  {
+    no: '01',
+    title: '許可は、何もしなければ消える',
+    text: '建設業許可は相続や会社設立によって自動的には引き継がれません。認可を受けないまま事業を続けると、無許可営業になるおそれがあります。個人の許可を法人へ移す場合も、原則として事業譲渡の認可が必要です。',
+  },
+  {
+    no: '02',
+    title: '承継する側も、許可要件を満たす必要がある',
+    text: '認可を受けるには、承継する個人または法人が、経営業務の管理責任者、専任技術者、財産的基礎、欠格要件など、許可の要件を満たしていることが前提です。許可の「器」を引き継いでも、中身の要件が足りなければ認可されません。',
+  },
+  {
+    no: '03',
+    title: '相続と、譲渡・合併では期限の考え方が違う',
+    text: '相続は死亡後30日以内の申請が原則です。譲渡・合併・分割は、効力が発生する前に認可を受ける必要があります。法人成りも、会社を作ってから慌てるのではなく、設立と認可の順序を先に決めることが大切です。',
+  },
+];
+
+const successionTypes = [
+  {
+    name: '相続',
+    timing: '死亡後30日以内に申請',
+    detail:
+      '許可を持っていた方が亡くなり、相続人が建設業を続ける場合です。認可があるまでの間、相続人は暫定的に営業を継続できる取扱いがあります。戸籍による相続人の確定と、許可要件の確認が並行します。',
+  },
+  {
+    name: '譲渡（法人成りを含む）',
+    timing: '効力発生前に認可',
+    detail:
+      '個人事業を株式会社へ移す場合や、事業の全部を他社へ渡す場合です。許可の残存期間や業種を引き継げる点が、新規申請との大きな違いです。',
+  },
+  {
+    name: '合併・分割',
+    timing: '効力発生前に認可',
+    detail:
+      '会社の合併や分割に伴い、許可を承継する場合です。会社法上の手続と、建設業法上の認可を、日程を合わせて進める必要があります。',
+  },
+];
+
+const comparedToNew = [
+  {
+    name: '許可の残存期間',
+    succession: '被承継者の許可の残りの期間を引き継ぐ',
+    fresh: '許可日から新たに5年',
+  },
+  {
+    name: '業種',
+    succession: '被承継者が持っていた業種を引き継げる',
+    fresh: '要件を満たす業種を新たに申請する',
+  },
+  {
+    name: '空白期間',
+    succession: '認可のタイミングを合わせれば、空白を避けやすい',
+    fresh: '旧許可の廃業と新規許可の間に空白が生じることがある',
+  },
+  {
+    name: '要件',
+    succession: '承継する側が許可要件を満たすこと',
+    fresh: '申請する側が許可要件を満たすこと',
+  },
+];
+
+const flowSteps = [
+  {
+    step: 'STEP 1',
+    title: 'お問い合わせ・現状の確認',
+    period: '当日〜数日',
+    text: '相続、法人成り、合併・譲渡のいずれに当たるか、許可の有効期限、決算変更届の提出状況、後継者の体制をお伺いします。相続の場合は、死亡日からの日数も確認します。',
+  },
+  {
+    step: 'STEP 2',
+    title: '承継の可否と方針の整理',
+    period: '1〜2週間',
+    text: '承継する側が経管・専任技術者・財産的基礎などの要件を満たすかを確認します。認可が難しい場合は、新規申請に切り替える判断も含めてご提案します。',
+  },
+  {
+    step: 'STEP 3',
+    title: 'お見積り・ご契約',
+    period: '数日',
+    text: '認可申請の内容に応じたお見積りをご提示します。会社設立、相続の書類、変更届が同時に必要な場合は、総額と進め方を分けてご案内します。',
+  },
+  {
+    step: 'STEP 4',
+    title: '書類の収集・作成',
+    period: '2〜4週間',
+    text: '許可要件の証明資料、承継の事実を示す書類（戸籍、譲渡契約、合併契約など）をそろえ、認可申請書一式を作成します。',
+  },
+  {
+    step: 'STEP 5',
+    title: '申請・認可',
+    period: '行政庁の審査による',
+    text: '管轄の窓口へ申請します。認可後は、許可の残存期間と業種が承継されます。その後の決算変更届や更新のスケジュールもご案内します。',
+  },
+];
+
+const costRows = [
+  {
+    name: '事業承継の認可申請',
+    detail: '相続・譲渡・合併等　内容により変動',
+    fee: '要お見積り',
+    legal: '別途',
+  },
+];
+
+const faqItems = [
+  {
+    q: '許可を持っていた親族が亡くなりました。何日以内に動けばよいですか？',
+    a: '相続による承継の認可は、死亡後30日以内の申請が原則です。この期間を過ぎると、認可ではなく新規申請になることがあります。まずは死亡日、許可の内容、事業を続ける方が誰かを確認してください。相続の戸籍収集と並行して進められます。',
+  },
+  {
+    q: '個人事業の許可を、新しく作った会社へ移せますか？',
+    a: '事業譲渡の認可を受けることで、個人の許可を法人へ承継できる場合があります。会社を先に設立し、許可要件（経管・専任技術者・財産的基礎など）を法人側で満たしたうえで申請します。設立と認可の順序を誤ると、空白期間が生じることがあるため、先に段取りを組むことをおすすめします。',
+  },
+  {
+    q: '認可と新規申請、どちらがよいですか？',
+    a: '許可の残存期間や業種を引き継ぎたい場合、空白を避けたい場合は認可が有利です。一方、承継する側が要件を満たせない、期限に間に合わない、業種を見直したいといった場合は新規申請の方が適することがあります。現状を確認したうえで、どちらがよいかをご案内します。',
+  },
+  {
+    q: '決算変更届が未提出でも承継できますか？',
+    a: '未提出のままでは、認可申請も新規申請も進められないことがほとんどです。承継の準備と並行して、未提出分の決算変更届を片づける必要があります。',
+  },
+  {
+    q: '相続の書類作成と、許可の承継は別々に依頼する必要がありますか？',
+    a: '同じ事務所で並行して進められます。戸籍による相続人の確定は、遺産分割協議書にも認可申請にも使います。許可の期限と相続の手続を、一つの見通しとしてご案内します。',
+  },
+];
+
+const relatedLinks = [
+  {
+    title: '相続・遺言',
+    text: '許可を持つ方の相続では、戸籍の収集や遺産分割協議書と認可申請が並行します。',
+    href: '/service/inheritance',
+  },
+  {
+    title: '会社設立サポート',
+    text: '法人成りで許可を承継する場合、設立と認可の順序が重要です。',
+    href: '/service/company-setup',
+  },
+  {
+    title: '建設業許可 新規申請',
+    text: '認可が難しい場合の選択肢として、新規申請の流れも確認できます。',
+    href: '/construction-permit/new',
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle('建設業許可の事業承継（相続・法人成り）')}
+  description="大阪泉州・和歌山北部の建設業許可の事業承継をサポート。相続、法人成り、合併・譲渡による認可申請の期限、許可要件、新規申請との違いを分かりやすくご案内します。"
+  breadcrumbs={[
+    { name: 'ホーム', href: '/' },
+    { name: '建設業許可', href: '/construction-permit/' },
+    { name: '事業承継' },
+  ]}
+>
+  <div class="page">
+    <SiteHeader />
+
+    <main>
+      <section class="page-hero section--base" aria-labelledby="page-heading">
+        <div class="page-hero__inner">
+          <nav class="breadcrumb" aria-label="パンくずリスト">
+            <ol>
+              <li><a href="/">ホーム</a></li>
+              <li><a href="/construction-permit/">建設業許可</a></li>
+              <li aria-current="page">事業承継</li>
+            </ol>
+          </nav>
+
+          <div class="page-hero__content">
+            <p class="page-hero__label">SERVICE</p>
+            <h1 id="page-heading" class="page-hero__title">
+              建設業許可の事業承継（相続・法人成り）
+            </h1>
+            <p class="page-hero__lead">
+              建設業許可は、<strong>相続しても、会社を設立しても、自動的には引き継がれません</strong>。
+              認可を受けることで、許可の残存期間や業種を承継できる制度があります。
+              やちよ行政書士事務所では、大阪泉州・和歌山北部を中心に、
+              相続、法人成り、合併・譲渡に伴う認可申請をサポートします。
+            </p>
+            <p class="page-hero__note">
+              相続の場合は死亡後30日以内の申請が原則です。日数が気になる段階からご相談ください。
+            </p>
+
+            <div class="page-hero__actions">
+              <a href="/contact" class="btn btn--primary">相談してみる</a>
+              <LineButton />
+            </div>
+          </div>
+
+          <figure class="page-hero__visual">
+            <img
+              src="/images/requirement-management.jpg"
+              alt="建設業許可の事業承継を検討する打ち合わせ"
+              loading="eager"
+            />
+          </figure>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="conclusion-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="summary-box">
+            <h2 id="conclusion-heading" class="summary-box__heading">まず結論</h2>
+            <p class="summary-box__text">
+              事業承継で急ぐべきなのは、申請書を書くことではなく、
+              <strong>「認可で承継できるか、新規申請に切り替えるか」の判断</strong>です。
+              承継する側が許可要件を満たせるか、期限に間に合うかを最初に確認します。
+              ここが固まれば、相続の書類や会社設立と日程を合わせて進められます。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="target-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="target-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              こんな方にご利用いただいています
+            </h2>
+          </div>
+
+          <ul class="check-list">
+            {targetCases.map((item) => (
+              <li class="check-list__item">{item}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="points-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="points-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              承継でつまずきやすい3つのポイント
+            </h2>
+          </div>
+
+          <div class="card-grid card-grid--three">
+            {keyPoints.map((item) => (
+              <article class="point-card">
+                <span class="point-card__no">{item.no}</span>
+                <h3 class="point-card__title">{item.title}</h3>
+                <p class="point-card__text">{item.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="types-heading">
+        <div class="section__inner">
+          <BasicContentVisual
+            src="/images/application-types.jpg"
+            alt="事業承継の種類を整理するイメージ"
+          >
+            <div class="section__head-block">
+              <h2 id="types-heading" class="section__heading">
+                <span class="heading-icon" aria-hidden="true"></span>
+                承継の種類と、申請のタイミング
+              </h2>
+              <p class="section__sub">
+                どの類型に当たるかで、申請の期限も、そろえる書類も変わります。
+              </p>
+            </div>
+          </BasicContentVisual>
+
+          <div class="pattern-table-wrap">
+            <table class="pattern-table">
+              <thead>
+                <tr>
+                  <th scope="col">類型</th>
+                  <th scope="col">申請の時期</th>
+                  <th scope="col">内容</th>
+                </tr>
+              </thead>
+              <tbody>
+                {successionTypes.map((row) => (
+                  <tr>
+                    <th scope="row">{row.name}</th>
+                    <td>{row.timing}</td>
+                    <td>{row.detail}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="compare-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="compare-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              認可による承継と、新規申請の違い
+            </h2>
+            <p class="section__sub">
+              どちらがよいかは、許可の残り期間、業種、後継者の要件、空白を避けたいかで決まります。
+            </p>
+          </div>
+
+          <div class="pattern-table-wrap">
+            <table class="pattern-table">
+              <thead>
+                <tr>
+                  <th scope="col">項目</th>
+                  <th scope="col">認可による承継</th>
+                  <th scope="col">新規申請</th>
+                </tr>
+              </thead>
+              <tbody>
+                {comparedToNew.map((row) => (
+                  <tr>
+                    <th scope="row">{row.name}</th>
+                    <td>{row.succession}</td>
+                    <td>{row.fresh}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div class="attention-box" style="margin-top: 1.75rem;">
+            <h3 class="attention-box__title">決算変更届が未提出だと、承継も新規も止まります</h3>
+            <p class="attention-box__text">
+              被承継者の決算変更届が未提出のままでは、認可申請を進められないことがほとんどです。
+              相続や法人成りの話が出た時点で、まず提出状況を確認することをおすすめします。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="flow-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="flow-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              ご依頼から認可までの流れ
+            </h2>
+          </div>
+
+          <ol class="flow-list">
+            {flowSteps.map((item) => (
+              <li class="flow-step">
+                <div class="flow-step__head">
+                  <span class="flow-step__label">{item.step}</span>
+                  <span class="flow-step__period">{item.period}</span>
+                </div>
+                <p class="flow-step__title">{item.title}</p>
+                <p class="flow-step__text">{item.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="cost-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="cost-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              費用の目安
+            </h2>
+            <p class="section__sub">
+              相続、法人成り、合併では必要書類と関係者が大きく異なるため、一律の料金は設けていません。
+              内容をお伺いしたうえでお見積りします。
+            </p>
+          </div>
+
+          <div class="pattern-table-wrap">
+            <table class="pattern-table">
+              <thead>
+                <tr>
+                  <th scope="col">手続</th>
+                  <th scope="col" class="pattern-table__num-col">報酬（税込）</th>
+                  <th scope="col" class="pattern-table__num-col">法定費用</th>
+                </tr>
+              </thead>
+              <tbody>
+                {costRows.map((row) => (
+                  <tr>
+                    <th scope="row">
+                      {row.name}
+                      <span class="pattern-table__note">{row.detail}</span>
+                    </th>
+                    <td class="pattern-table__num-col">{row.fee}</td>
+                    <td class="pattern-table__num-col">{row.legal}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <p class="section__note">
+            ※会社設立、遺産分割協議書、決算変更届が同時に必要な場合は、それぞれ別途となります。
+            その他の手続の費用は<a href="/price">料金案内</a>をご覧ください。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="faq-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="faq-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              よくあるご質問
+            </h2>
+          </div>
+
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <details class="faq-item">
+                <summary class="faq-item__question">{item.q}</summary>
+                <div class="faq-item__answer">
+                  <p>{item.a}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="related-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="related-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              関連ページ
+            </h2>
+          </div>
+
+          <div class="card-grid card-grid--three">
+            {relatedLinks.map((item) => (
+              <article class="info-card info-card--link">
+                <h3 class="info-card__title">{item.title}</h3>
+                <p class="info-card__text">{item.text}</p>
+                <a href={item.href} class="text-link">ページを見る</a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--contact-cta">
+        <div class="section__inner">
+          <div class="cta-box">
+            <h2 class="cta-box__heading">期限がある手続です。まず可否を確認しましょう。</h2>
+            <p class="cta-box__text">
+              相続の日数、法人成りの予定、許可の残り期間をお伺いし、認可と新規申請のどちらがよいかをご案内します。
+              大阪泉州・和歌山北部を中心に対応しています。
+            </p>
+            <div class="cta-box__actions">
+              <a href="/contact" class="btn btn--primary">お問い合わせフォームへ</a>
+              <LineButton />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>

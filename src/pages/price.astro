@@ -10,48 +10,63 @@ const constructionLicensePrices = [
     detail: '般・特　1業種',
     price: '99,000円〜',
     legal: '90,000円',
+    href: '/construction-permit/new',
   },
   {
     name: '新規申請（知事許可・法人）',
     detail: '般・特　1業種',
     price: '121,000円〜',
     legal: '90,000円',
+    href: '/construction-permit/new',
   },
   {
     name: '新規申請（大臣許可）',
     detail: '般・特　1業種',
     price: '176,000円〜',
     legal: '150,000円',
+    href: '/construction-permit/new',
   },
   {
     name: '更新申請（知事許可）',
     detail: '5年ごとの更新',
     price: '66,000円〜',
     legal: '50,000円',
+    href: '/construction-permit/renewal',
   },
   {
     name: '更新申請（大臣許可）',
     detail: '5年ごとの更新',
     price: '99,000円〜',
     legal: '50,000円',
+    href: '/construction-permit/renewal',
   },
   {
     name: '業種追加（知事許可）',
     detail: '1業種につき',
     price: '55,000円〜',
     legal: '50,000円',
+    href: '/construction-permit/changes',
   },
   {
     name: '業種追加（大臣許可）',
     detail: '1業種につき',
     price: '88,000円〜',
     legal: '50,000円',
+    href: '/construction-permit/changes',
   },
   {
     name: '般・特新規（般特新規）',
     detail: '特定建設業への切替 等',
     price: '132,000円〜',
     legal: '90,000円',
+    href: '/construction-permit/changes',
+  },
+  {
+    name: '事業承継の認可申請',
+    detail: '相続・法人成り・合併等',
+    price: '要お見積り',
+    legal: '別途',
+    href: '/construction-permit/succession',
   },
 ];
 
@@ -61,24 +76,28 @@ const kessanHenkoPrices = [
     detail: '事業年度終了後の届出　1期分',
     price: '33,000円〜',
     legal: 'なし',
+    href: '/construction-permit/annual-report',
   },
   {
     name: '決算変更届（未提出分）',
     detail: '複数年分をまとめて対応　1期につき',
     price: '27,500円〜',
     legal: 'なし',
+    href: '/construction-permit/annual-report',
   },
   {
     name: '各種変更届',
     detail: '役員・所在地・商号の変更 等',
     price: '16,500円〜',
     legal: 'なし',
+    href: '/construction-permit/changes',
   },
   {
     name: '経営事項審査申請とのセット',
     detail: '決算変更届＋経審申請',
     price: '要お見積り',
     legal: '別途',
+    href: '/construction-permit/keishin',
   },
 ];
 
@@ -88,36 +107,42 @@ const otherServicePrices = [
     detail: '警察署経由・公安委員会への申請',
     price: '44,000円〜',
     legal: '19,000円',
+    href: '/service/secondhand-dealer',
   },
   {
     name: '飲食店営業許可申請',
     detail: '保健所への申請',
     price: '44,000円〜',
     legal: '約16,000〜19,000円（自治体による）',
+    href: '/service/food-business',
   },
   {
     name: '会社設立サポート',
     detail: '定款作成・電子定款認証 ※設立登記は別途',
     price: '66,000円〜',
     legal: '定款認証手数料 30,000円〜 等',
+    href: '/service/company-setup',
   },
   {
     name: '遺言書作成支援（公正証書）',
     detail: '文案作成・公証役場との調整',
     price: '66,000円〜',
     legal: '公証人手数料（財産額による）',
+    href: '/service/inheritance',
   },
   {
     name: '遺産分割協議書の作成',
     detail: '相続人数・財産内容により変動',
     price: '55,000円〜',
     legal: 'なし',
+    href: '/service/inheritance',
   },
   {
     name: '契約書・議事録等の作成',
     detail: '内容・分量により変動',
     price: '22,000円〜',
     legal: 'なし',
+    href: '/service/contracts',
   },
 ];
 ---
@@ -181,7 +206,13 @@ const otherServicePrices = [
                 {
                   constructionLicensePrices.map((row) => (
                     <tr>
-                      <th scope="row">{row.name}</th>
+                      <th scope="row">
+                        {row.href ? (
+                          <a href={row.href} class="price-table__link">{row.name}</a>
+                        ) : (
+                          row.name
+                        )}
+                      </th>
                       <td>{row.detail}</td>
                       <td class="price-table__price-col">{row.price}</td>
                       <td class="price-table__legal-col">{row.legal}</td>
@@ -217,7 +248,13 @@ const otherServicePrices = [
                 {
                   kessanHenkoPrices.map((row) => (
                     <tr>
-                      <th scope="row">{row.name}</th>
+                      <th scope="row">
+                        {row.href ? (
+                          <a href={row.href} class="price-table__link">{row.name}</a>
+                        ) : (
+                          row.name
+                        )}
+                      </th>
                       <td>{row.detail}</td>
                       <td class="price-table__price-col">{row.price}</td>
                       <td class="price-table__legal-col">{row.legal}</td>
@@ -250,7 +287,13 @@ const otherServicePrices = [
                 {
                   otherServicePrices.map((row) => (
                     <tr>
-                      <th scope="row">{row.name}</th>
+                      <th scope="row">
+                        {row.href ? (
+                          <a href={row.href} class="price-table__link">{row.name}</a>
+                        ) : (
+                          row.name
+                        )}
+                      </th>
                       <td>{row.detail}</td>
                       <td class="price-table__price-col">{row.price}</td>
                       <td class="price-table__legal-col">{row.legal}</td>
@@ -460,6 +503,13 @@ const otherServicePrices = [
     text-align: left;
     font-weight: 700;
     color: var(--color-text);
+  }
+  .price-table__link {
+    color: var(--color-primary);
+    text-decoration: none;
+  }
+  .price-table__link:hover {
+    text-decoration: underline;
   }
   .price-table th,
   .price-table td {

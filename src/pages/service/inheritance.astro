@@ -1,0 +1,519 @@
+---
+import '../../styles/service-detail.css';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import LineButton from '../../components/LineButton.astro';
+import BasicContentVisual from '../../components/BasicContentVisual.astro';
+import { pageTitle } from '../../config/site';
+
+const targetCases = [
+  '公正証書遺言の文案を整え、公証役場との調整まで任せたい',
+  '相続人どうしで話し合いがまとまったので、遺産分割協議書を作りたい',
+  '戸籍を集めて、相続人が誰かを確定したい',
+  '不動産や預貯金の名義変更に必要な書類を整理したい',
+  '建設業許可を持つ親族の相続で、許可の扱いも確認したい',
+  '何から手をつければよいか分からない段階から相談したい',
+];
+
+const keyPoints = [
+  {
+    no: '01',
+    title: '最初にやるのは「相続人の確定」',
+    text: '遺言の有無にかかわらず、戸籍をたどって相続人を確定することが出発点です。戸籍が古い、転籍が多い、養子縁組があるといった場合は、収集そのものに時間がかかります。ここが固まらないと、その先の協議書も名義変更も進められません。',
+  },
+  {
+    no: '02',
+    title: '公正証書遺言は「検認」が不要',
+    text: '自筆証書遺言は、原則として家庭裁判所の検認が必要です。公正証書遺言は公証人が関与して作成するため検認が不要で、相続開始後にすぐに手続へ進めます。文案の整理と公証役場との調整が、行政書士がお手伝いできる中心部分です。',
+  },
+  {
+    no: '03',
+    title: '不動産登記と相続税は他の専門家へ',
+    text: '不動産の名義変更（相続登記）は司法書士、相続税の申告は税理士の業務です。争いがある場合は弁護士への相談が必要です。当事務所では、書類作成と手続の整理を担い、必要に応じて他の専門家をご案内します。',
+  },
+];
+
+const ourScope = [
+  {
+    name: '公正証書遺言の作成支援',
+    detail: 'ご意向の整理、文案の作成、必要書類の案内、公証役場との日程・内容の調整',
+  },
+  {
+    name: '遺産分割協議書の作成',
+    detail: '合意内容を、銀行・法務局・役所で使える形に文書化する',
+  },
+  {
+    name: '相続人調査・相続関係説明図',
+    detail: '戸籍の収集と読み取り、相続人の確定、関係図の作成',
+  },
+  {
+    name: '相続手続の全体整理',
+    detail: '預貯金・自動車・各種届出など、何をどの順で進めるかの見通しづくり',
+  },
+];
+
+const otherExperts = [
+  {
+    name: '司法書士',
+    detail: '不動産の相続登記、抵当権抹消など、登記が必要な手続',
+  },
+  {
+    name: '税理士',
+    detail: '相続税の申告、準確定申告、財産評価が必要な場合',
+  },
+  {
+    name: '弁護士',
+    detail: '相続人どうしで争いがある場合、遺留分の請求など紛争の解決',
+  },
+];
+
+const willFlow = [
+  {
+    step: 'STEP 1',
+    title: 'ご意向の確認',
+    period: '当日〜数日',
+    text: 'どなたに、どの財産を、どのように残したいかをお伺いします。推定相続人の構成、不動産の有無、事業用資産の扱いなどもあわせて確認します。',
+  },
+  {
+    step: 'STEP 2',
+    title: '文案の作成',
+    period: '1〜2週間',
+    text: 'ご意向を公正証書として成立する文言に整え、内容をご確認いただきます。遺留分への配慮が必要な場合は、その旨もご説明します。',
+  },
+  {
+    step: 'STEP 3',
+    title: '公証役場との調整',
+    period: '1〜2週間',
+    text: '必要書類（戸籍、不動産の登記事項証明書など）をそろえ、公証役場へ文案を送付して日程を調整します。証人2名の手配もご案内します。',
+  },
+  {
+    step: 'STEP 4',
+    title: '公正証書の作成',
+    period: '当日',
+    text: '公証役場で内容を確認し、遺言者と証人の面前で公正証書を作成します。原本は公証役場で保管され、正本・謄本をお渡しします。',
+  },
+];
+
+const agreementFlow = [
+  {
+    step: 'STEP 1',
+    title: '相続人の確定',
+    period: '1〜4週間',
+    text: '被相続人の出生から死亡までの戸籍を収集し、相続人を確定します。転籍や養子がある場合は、この工程が長くなります。',
+  },
+  {
+    step: 'STEP 2',
+    title: '財産と合意内容の確認',
+    period: '数日〜2週間',
+    text: '不動産、預貯金、自動車、負債など、分ける対象を整理します。相続人の間で合意が取れていることが前提です。争いがある場合は、弁護士への相談をご案内します。',
+  },
+  {
+    step: 'STEP 3',
+    title: '協議書の作成',
+    period: '数日〜1週間',
+    text: '合意内容を、金融機関や法務局で使える形の遺産分割協議書にします。不動産の所在・地番、口座情報など、後から差し戻されない記載を心がけます。',
+  },
+  {
+    step: 'STEP 4',
+    title: '署名・押印と次の手続',
+    period: '相続人の人数による',
+    text: '相続人全員の署名と実印、印鑑証明書が必要です。作成後は、相続登記や預金解約など、次に進む手続の順番をご案内します。',
+  },
+];
+
+const costRows = [
+  {
+    name: '遺言書作成支援（公正証書）',
+    detail: '文案作成・公証役場との調整',
+    fee: '66,000円〜',
+    legal: '公証人手数料（財産額による）',
+  },
+  {
+    name: '遺産分割協議書の作成',
+    detail: '相続人数・財産内容により変動',
+    fee: '55,000円〜',
+    legal: 'なし',
+  },
+];
+
+const faqItems = [
+  {
+    q: '自筆証書遺言と公正証書遺言、どちらがよいですか？',
+    a: '残されたご家族の負担を考えると、公正証書遺言をおすすめすることが多いです。自筆証書は費用を抑えられますが、方式不備で無効になるリスクがあり、相続開始後は原則として家庭裁判所の検認が必要です。公正証書は公証人が関与するため方式面の不安が少なく、検認も不要です。',
+  },
+  {
+    q: '相続人の間で意見が分かれている場合も依頼できますか？',
+    a: '遺産分割協議書は、相続人全員の合意があることが前提です。話し合いがまとまっていない段階では、協議書の作成はお受けできません。争いがある場合は弁護士への相談をご案内します。戸籍収集や相続人の確定だけであれば、その範囲でお手伝いできることがあります。',
+  },
+  {
+    q: '不動産の名義変更もお願いできますか？',
+    a: '相続登記は司法書士の業務です。協議書の作成までは当事務所で行い、登記が必要な場合は司法書士をご案内します。預貯金の解約に必要な書類の整理や、自動車の名義変更に関する書類作成は行政書士の範囲で対応できることがあります。',
+  },
+  {
+    q: '相続税の申告もお願いできますか？',
+    a: '相続税の申告は税理士の業務です。基礎控除（3,000万円＋600万円×法定相続人の数）を超えそうな場合や、判断に迷う場合は税理士への相談をご案内します。',
+  },
+  {
+    q: '建設業許可を持っていた親族が亡くなりました。許可はどうなりますか？',
+    a: '建設業許可は相続によって自動的には引き継がれません。事業を続ける場合は、死亡後30日以内の認可申請が原則です。許可の有効期限や決算変更届の提出状況もあわせて確認しますので、相続の書類と並行してご相談ください。詳しくは事業承継のページをご覧ください。',
+  },
+  {
+    q: '相談だけでも費用はかかりますか？',
+    a: 'ご契約前の相談は無料です。戸籍の状況や財産の概要をお伺いしたうえで、当事務所で対応できる範囲と、他の専門家が必要な範囲を整理してご案内します。',
+  },
+];
+
+const relatedLinks = [
+  {
+    title: '建設業許可の事業承継',
+    text: '許可を持つ方の相続では、死亡後30日以内の認可申請が原則です。許可の扱いを詳しくまとめています。',
+    href: '/construction-permit/succession',
+  },
+  {
+    title: '会社設立サポート',
+    text: '事業を法人で続ける場合、相続後の体制づくりとあわせてご相談いただけます。',
+    href: '/service/company-setup',
+  },
+  {
+    title: '料金案内',
+    text: '遺言・遺産分割協議書以外の手続の費用目安も一覧で確認できます。',
+    href: '/price',
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle('相続・遺言のサポート')}
+  description="大阪泉州・和歌山北部の相続・遺言手続をサポート。公正証書遺言の文案作成、遺産分割協議書の作成、相続人調査まで。不動産登記や相続税が必要な場合は、他の専門家へのご案内も含めて整理します。"
+  breadcrumbs={[
+    { name: 'ホーム', href: '/' },
+    { name: '業務案内', href: '/service/' },
+    { name: '相続・遺言' },
+  ]}
+>
+  <div class="page">
+    <SiteHeader />
+
+    <main>
+      <section class="page-hero section--base" aria-labelledby="page-heading">
+        <div class="page-hero__inner">
+          <nav class="breadcrumb" aria-label="パンくずリスト">
+            <ol>
+              <li><a href="/">ホーム</a></li>
+              <li><a href="/service/">業務案内</a></li>
+              <li aria-current="page">相続・遺言</li>
+            </ol>
+          </nav>
+
+          <div class="page-hero__content">
+            <p class="page-hero__label">SERVICE</p>
+            <h1 id="page-heading" class="page-hero__title">相続・遺言のサポート</h1>
+            <p class="page-hero__lead">
+              相続の手続は、戸籍の収集、遺産分割協議書、預貯金や自動車の名義変更など、
+              複数の窓口にまたがります。
+              やちよ行政書士事務所では、<strong>公正証書遺言の作成支援</strong>と
+              <strong>遺産分割協議書の作成</strong>を中心に、
+              何から手をつけるかを整理するところからお手伝いします。
+            </p>
+            <p class="page-hero__note">
+              不動産の相続登記や相続税の申告は、司法書士・税理士の業務です。
+              必要な場合は、その旨も含めてご案内します。
+            </p>
+
+            <div class="page-hero__actions">
+              <a href="/contact" class="btn btn--primary">相談してみる</a>
+              <LineButton />
+            </div>
+          </div>
+
+          <figure class="page-hero__visual">
+            <img
+              src="/images/service-inheritance.jpg"
+              alt="相続・遺言に関するご相談風景"
+              loading="eager"
+            />
+          </figure>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="conclusion-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="summary-box">
+            <h2 id="conclusion-heading" class="summary-box__heading">まず結論</h2>
+            <p class="summary-box__text">
+              相続手続で最初に止まるのは、書類の書き方ではなく
+              <strong>「相続人が誰か」を戸籍で確定すること</strong>です。
+              ここが決まらないと、協議書も名義変更も進められません。
+              遺言を残す場合は、公正証書にしておくと相続開始後の手続が格段に楽になります。
+              当事務所では、行政書士として対応できる範囲を明確にしたうえで、
+              登記や税務が必要な部分は他の専門家へつなぎます。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="target-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="target-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              こんな方にご利用いただいています
+            </h2>
+          </div>
+
+          <ul class="check-list">
+            {targetCases.map((item) => (
+              <li class="check-list__item">{item}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="points-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="points-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              相談前に押さえておきたい3つのポイント
+            </h2>
+          </div>
+
+          <div class="card-grid card-grid--three">
+            {keyPoints.map((item) => (
+              <article class="point-card">
+                <span class="point-card__no">{item.no}</span>
+                <h3 class="point-card__title">{item.title}</h3>
+                <p class="point-card__text">{item.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="scope-heading">
+        <div class="section__inner">
+          <BasicContentVisual
+            src="/images/service-inheritance.jpg"
+            alt="相続手続の範囲を整理するイメージ"
+          >
+            <div class="section__head-block">
+              <h2 id="scope-heading" class="section__heading">
+                <span class="heading-icon" aria-hidden="true"></span>
+                当事務所でできること、他の専門家へつなぐこと
+              </h2>
+              <p class="section__sub">
+                相続は一つの資格ですべて完結しません。最初に範囲を分けることで、無駄な手戻りを防げます。
+              </p>
+            </div>
+          </BasicContentVisual>
+
+          <div class="pattern-table-wrap">
+            <table class="pattern-table">
+              <thead>
+                <tr>
+                  <th scope="col">当事務所で対応できること</th>
+                  <th scope="col">内容</th>
+                </tr>
+              </thead>
+              <tbody>
+                {ourScope.map((row) => (
+                  <tr>
+                    <th scope="row">{row.name}</th>
+                    <td>{row.detail}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <div class="pattern-table-wrap" style="margin-top: 1.25rem;">
+            <table class="pattern-table">
+              <thead>
+                <tr>
+                  <th scope="col">他の専門家が担当すること</th>
+                  <th scope="col">内容</th>
+                </tr>
+              </thead>
+              <tbody>
+                {otherExperts.map((row) => (
+                  <tr>
+                    <th scope="row">{row.name}</th>
+                    <td>{row.detail}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="will-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="will-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              公正証書遺言の作成支援
+            </h2>
+            <p class="section__sub">
+              ご意向を文案に整え、公証役場との調整まで行います。証人2名の手配についてもご案内します。
+            </p>
+          </div>
+
+          <ol class="flow-list">
+            {willFlow.map((item) => (
+              <li class="flow-step">
+                <div class="flow-step__head">
+                  <span class="flow-step__label">{item.step}</span>
+                  <span class="flow-step__period">{item.period}</span>
+                </div>
+                <p class="flow-step__title">{item.title}</p>
+                <p class="flow-step__text">{item.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="agreement-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="agreement-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              遺産分割協議書の作成
+            </h2>
+            <p class="section__sub">
+              相続人全員の合意があることが前提です。金融機関や法務局で差し戻されにくい記載を心がけます。
+            </p>
+          </div>
+
+          <ol class="flow-list">
+            {agreementFlow.map((item) => (
+              <li class="flow-step">
+                <div class="flow-step__head">
+                  <span class="flow-step__label">{item.step}</span>
+                  <span class="flow-step__period">{item.period}</span>
+                </div>
+                <p class="flow-step__title">{item.title}</p>
+                <p class="flow-step__text">{item.text}</p>
+              </li>
+            ))}
+          </ol>
+
+          <div class="attention-box" style="margin-top: 1.75rem;">
+            <h3 class="attention-box__title">建設業許可を持つ方の相続について</h3>
+            <p class="attention-box__text">
+              許可を持っていた方が亡くなった場合、許可は自動的には相続されません。
+              事業を続けるには、事業承継の認可や新規申請など、状況に応じた手続が必要です。
+              相続の書類作成と並行して、許可の期限や決算変更届の提出状況も確認できますので、
+              あわせてご相談ください。
+            </p>
+            <a href="/construction-permit/succession" class="text-link">事業承継の認可について詳しく見る</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="cost-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="cost-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              費用の目安
+            </h2>
+          </div>
+
+          <div class="pattern-table-wrap">
+            <table class="pattern-table">
+              <thead>
+                <tr>
+                  <th scope="col">手続</th>
+                  <th scope="col" class="pattern-table__num-col">報酬（税込）</th>
+                  <th scope="col" class="pattern-table__num-col">法定費用</th>
+                </tr>
+              </thead>
+              <tbody>
+                {costRows.map((row) => (
+                  <tr>
+                    <th scope="row">
+                      {row.name}
+                      <span class="pattern-table__note">{row.detail}</span>
+                    </th>
+                    <td class="pattern-table__num-col">{row.fee}</td>
+                    <td class="pattern-table__num-col">{row.legal}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <p class="section__note">
+            ※相続人の人数、戸籍の収集範囲、財産の種類によって変動します。
+            戸籍謄本などの証明書取得実費は別途です。
+            詳細は<a href="/price">料金案内</a>もご覧ください。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="faq-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="faq-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              よくあるご質問
+            </h2>
+          </div>
+
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <details class="faq-item">
+                <summary class="faq-item__question">{item.q}</summary>
+                <div class="faq-item__answer">
+                  <p>{item.a}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="related-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="related-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              関連ページ
+            </h2>
+          </div>
+
+          <div class="card-grid card-grid--three">
+            {relatedLinks.map((item) => (
+              <article class="info-card info-card--link">
+                <h3 class="info-card__title">{item.title}</h3>
+                <p class="info-card__text">{item.text}</p>
+                <a href={item.href} class="text-link">ページを見る</a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--contact-cta">
+        <div class="section__inner">
+          <div class="cta-box">
+            <h2 class="cta-box__heading">何から手をつければよいか、一緒に整理します。</h2>
+            <p class="cta-box__text">
+              遺言を残したい場合も、相続手続が始まった場合も、まず状況をお伺いします。
+              大阪泉州・和歌山北部を中心に対応しています。
+            </p>
+            <div class="cta-box__actions">
+              <a href="/contact" class="btn btn--primary">お問い合わせフォームへ</a>
+              <LineButton />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>

@@ -40,6 +40,11 @@ const supports: { title: string; text: string; href?: string }[] = [
     text: '公共工事を視野に入れる場合は、日頃の許可管理や決算変更届の積み重ねが重要になります。今すぐの申請でなくても、将来を見据えた準備の方向性を早めに確認しておくことが役立ちます。',
     href: '/construction-permit/keishin',
   },
+  {
+    title: '事業承継（相続・法人成り）',
+    text: '許可は相続や会社設立では自動的に引き継がれません。認可により残存期間や業種を承継できる場合があります。期限の確認からご案内します。',
+    href: '/construction-permit/succession',
+  },
 ];
 
 const strengths = [
@@ -721,6 +726,12 @@ const faqs = [
   .support-list {
     display: grid;
     gap: 1.25rem;
+  }
+
+  @media (min-width: 768px) {
+    .support-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 
   .support-card {

@@ -7,28 +7,39 @@ import { pageTitle } from '../../config/site';
 
 const otherServices = [
   {
-    title: 'その他の許認可・届出',
-    text: '古物商許可、飲食店営業許可など、建設業以外の営業許可・届出についても、業種や自治体ごとの要件を確認しながらご案内します。',
+    title: '古物商許可',
+    text: '中古品を事業として仕入れ・販売する場合に必要な許可です。警察署経由で申請し、保管場所の要件や欠格要件の確認がポイントになります。',
     image: '/images/other-permits-procedures.jpg',
-    alt: '許認可・届出の書類手続き',
+    alt: '古物商許可申請の書類手続き',
+    href: '/service/secondhand-dealer',
+  },
+  {
+    title: '飲食店営業許可',
+    text: '飲食店の開業に必要な許可です。施設基準の確認、食品衛生責任者の配置、平面図の作成など、内装前から整理しておくとスムーズです。',
+    image: '/images/consultation.jpg',
+    alt: '飲食店開業に向けたご相談',
+    href: '/service/food-business',
   },
   {
     title: '会社設立・法人関連手続',
     text: '定款の作成をはじめ、会社設立や役員変更などの法人関連手続をサポートします。建設業許可の取得を見据えた法人成りのご相談にも対応します。',
     image: '/images/service-corporate-documents.jpg',
     alt: '法人設立・届出に関する書類整理',
+    href: '/service/company-setup',
   },
   {
     title: '契約書・議事録等の書類作成',
     text: '取引に関わる契約書、定款、議事録などの書類作成を承ります。内容や分量に応じて、必要な確認事項を整理しながら進めます。',
     image: '/images/service-contract-documents.jpg',
     alt: '契約書・議事録などの書類作成',
+    href: '/service/contracts',
   },
   {
     title: '相続・遺言に関する手続',
     text: '遺言書の作成支援や遺産分割協議書の作成など、相続に関する手続をお手伝いします。ご家族の状況に合わせて丁寧にご案内します。',
     image: '/images/service-inheritance.jpg',
     alt: '相続・遺言に関するご相談風景',
+    href: '/service/inheritance',
   },
 ];
 ---
@@ -119,18 +130,38 @@ const otherServices = [
             {
               otherServices.map((item) => (
                 <li class:list={['service-card', { 'service-card--no-image': !item.image }]}>
-                  {item.image && (
-                    <figure class="service-card__visual">
-                      <img src={item.image} alt={item.alt} loading="lazy" width="1344" height="768" />
-                    </figure>
+                  {item.href ? (
+                    <a href={item.href} class="service-card__link">
+                      {item.image && (
+                        <figure class="service-card__visual">
+                          <img src={item.image} alt={item.alt} loading="lazy" width="1344" height="768" />
+                        </figure>
+                      )}
+                      <div class="service-card__body">
+                        <h3 class="service-card__title">
+                          <span class="service-card__dot" aria-hidden="true"></span>
+                          {item.title}
+                        </h3>
+                        <p class="service-card__text">{item.text}</p>
+                        <span class="service-card__more">詳しく見る →</span>
+                      </div>
+                    </a>
+                  ) : (
+                    <>
+                      {item.image && (
+                        <figure class="service-card__visual">
+                          <img src={item.image} alt={item.alt} loading="lazy" width="1344" height="768" />
+                        </figure>
+                      )}
+                      <div class="service-card__body">
+                        <h3 class="service-card__title">
+                          <span class="service-card__dot" aria-hidden="true"></span>
+                          {item.title}
+                        </h3>
+                        <p class="service-card__text">{item.text}</p>
+                      </div>
+                    </>
                   )}
-                  <div class="service-card__body">
-                    <h3 class="service-card__title">
-                      <span class="service-card__dot" aria-hidden="true"></span>
-                      {item.title}
-                    </h3>
-                    <p class="service-card__text">{item.text}</p>
-                  </div>
                 </li>
               ))
             }
@@ -300,6 +331,20 @@ const otherServices = [
     border-radius: var(--radius-lg);
     box-shadow: var(--shadow-sm);
     overflow: hidden;
+    transition: box-shadow 0.2s ease, border-color 0.2s ease;
+  }
+
+  .service-card:has(.service-card__link:hover) {
+    box-shadow: var(--shadow-md);
+    border-color: rgba(30, 58, 138, 0.25);
+  }
+
+  .service-card__link {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-decoration: none;
+    color: inherit;
   }
 
   .service-card__visual {
@@ -347,6 +392,14 @@ const otherServices = [
     font-size: 0.875rem;
     line-height: 1.85;
     color: var(--color-text-muted);
+  }
+
+  .service-card__more {
+    display: inline-block;
+    margin-top: 0.85rem;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    color: var(--color-primary);
   }
 
   .section__note { margin: 0; font-size: 0.9375rem; line-height: 1.9; color: var(--color-text-muted); }

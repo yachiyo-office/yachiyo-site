@@ -1,0 +1,414 @@
+---
+import '../../styles/service-detail.css';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import LineButton from '../../components/LineButton.astro';
+import BasicContentVisual from '../../components/BasicContentVisual.astro';
+import { pageTitle } from '../../config/site';
+
+const targetCases = [
+  '個人事業から法人成りを検討している',
+  '建設業許可の取得を見据えて会社を設立したい',
+  '新規事業を法人で始めたい',
+  '定款の内容や資本金の設定方法が分からない',
+  '設立とあわせて許認可（古物商・飲食店など）も取得したい',
+  '役員構成や本店所在地をどう決めるか相談したい',
+];
+
+const keyPoints = [
+  {
+    no: '01',
+    title: '定款で「会社のルール」を決める',
+    text: '商号、目的、本店所在地、資本金、役員の人数と任期など、会社の基本的事項を定款に記載します。目的の文言は、今後の事業内容や許認可の取得にも影響するため、将来の展開を見据えて検討します。',
+  },
+  {
+    no: '02',
+    title: '電子定款認証と設立登記は別の手続',
+    text: '定款の認証（公証役場）と、法務局への設立登記はそれぞれ別の手続です。認証手数料（30,000円〜）と登録免許税（資本金の0.7%、最低15万円）が法定費用としてかかります。',
+  },
+  {
+    no: '03',
+    title: '設立後にも届出・手続が続く',
+    text: '法人番号の取得、税務署・都道府県税事務所・市町村への届出、社会保険・労働保険の手続など、設立登記後にも複数の届出があります。建設業許可を取得する場合は、設立と許可申請の順序も重要です。',
+  },
+];
+
+const documents = [
+  {
+    name: '定款',
+    detail: '会社の基本ルールを定めた書類。電子定款の場合は公証役場で認証を受けます。',
+  },
+  {
+    name: '発起人・役員の印鑑証明書',
+    detail: '設立時の役員全員分が必要です。発行から3か月以内のものを使用します。',
+  },
+  {
+    name: '設立時役員の就任承諾書',
+    detail: '代表取締役および取締役（監査役）の就任を承諾する書類です。',
+  },
+  {
+    name: '払込みがあったことを証する書面',
+    detail: '資本金の払込みを証明する書類。資本金が小さい場合は資金使途説明書なども必要になることがあります。',
+  },
+  {
+    name: '登記申請書',
+    detail: '法務局に提出する設立登記の申請書類一式です。',
+  },
+];
+
+const flowSteps = [
+  {
+    step: 'STEP 1',
+    title: 'お問い合わせ・無料相談',
+    period: '当日〜数日',
+    text: '事業内容、設立時期、資本金、役員構成、建設業許可など他の許可との兼ね合いをお伺いし、設立の進め方を整理します。',
+  },
+  {
+    step: 'STEP 2',
+    title: '定款内容の決定',
+    period: '1〜2週間',
+    text: '商号、目的、本店所在地、資本金、役員構成などを決定し、定款を作成します。建設業許可の要件（資本金500万円以上など）もこの段階で確認します。',
+  },
+  {
+    step: 'STEP 3',
+    title: 'お見積り・ご契約',
+    period: '数日',
+    text: '報酬額と法定費用（定款認証手数料、登録免許税など）を明示したお見積りをご提示します。',
+  },
+  {
+    step: 'STEP 4',
+    title: '定款認証・設立登記',
+    period: '1〜2週間',
+    text: '電子定款の認証を公証役場で受け、法務局へ設立登記を申請します。印鑑証明書などの取得も並行して進めます。',
+  },
+  {
+    step: 'STEP 5',
+    title: '設立後の届出・許認可',
+    period: '設立後1〜2週間',
+    text: '登記完了後、税務署・都道府県・市町村への届出を行います。建設業許可や古物商許可など、設立と並行または設立後に進める手続もご案内します。',
+  },
+];
+
+const costRows = [
+  {
+    name: '会社設立サポート',
+    detail: '定款作成・電子定款認証 ※設立登記は別途',
+    fee: '66,000円〜',
+    legal: '定款認証 30,000円〜 等',
+  },
+];
+
+const faqItems = [
+  {
+    q: '建設業許可を取りたいのですが、個人と法人どちらがよいですか？',
+    a: '事業規模や今後の展開、経営業務の管理責任者の要件などによって異なります。すでに個人で許可をお持ちの場合は、事業承継の認可で法人へ引き継げることがあります。まだ許可を取っていない場合は、先に法人を設立してから許可申請する流れが一般的です。',
+  },
+  {
+    q: '最低限いくらの資本金が必要ですか？',
+    a: '株式会社の場合、法律上の最低資本金は1円から設立可能です。ただし、建設業許可（一般建設業）を取得する場合は自己資本500万円以上が必要です。設立時の資本金を500万円以上にするか、設立後に増資するかを含めて検討します。',
+  },
+  {
+    q: '設立登記は含まれていますか？',
+    a: '当事務所の基本料金には定款作成と電子定款認証が含まれます。法務局への設立登記は司法書士との連携または別途のお見積りとなります。登記費用（登録免許税）も別途必要です。',
+  },
+  {
+    q: '設立から開業まで、どのくらいかかりますか？',
+    a: '定款の内容が決まってから、おおむね3〜4週間程度で設立登記まで進むことが多いです。建設業許可など他の許可をあわせて取得する場合は、さらに1〜2か月程度を見込んでください。',
+  },
+  {
+    q: '一人で会社を設立できますか？',
+    a: 'はい、一人で株式会社を設立できます（一人株式会社）。代表取締役と取締役を兼務する形になります。監査役を置かない場合は、定款の定めが必要です。',
+  },
+];
+
+const relatedLinks = [
+  {
+    title: '建設業許可 新規申請',
+    text: '法人成りとあわせて建設業許可を取得する流れを詳しくご案内します。',
+    href: '/construction-permit/new',
+  },
+  {
+    title: '古物商許可申請',
+    text: '法人設立とあわせて古物商許可を取得する場合の流れです。',
+    href: '/service/secondhand-dealer',
+  },
+  {
+    title: '建設業許可の事業承継',
+    text: '個人の許可を法人へ引き継ぐ場合は、設立と認可の順序が重要です。',
+    href: '/construction-permit/succession',
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle('会社設立サポート')}
+  description="大阪泉州・和歌山北部の会社設立をサポート。定款作成・電子定款認証から設立後の届出まで。建設業許可取得を見据えた法人成りのご相談にも対応します。"
+  breadcrumbs={[
+    { name: 'ホーム', href: '/' },
+    { name: '業務案内', href: '/service/' },
+    { name: '会社設立' },
+  ]}
+>
+  <div class="page">
+    <SiteHeader />
+
+    <main>
+      <section class="page-hero section--base" aria-labelledby="page-heading">
+        <div class="page-hero__inner">
+          <nav class="breadcrumb" aria-label="パンくずリスト">
+            <ol>
+              <li><a href="/">ホーム</a></li>
+              <li><a href="/service/">業務案内</a></li>
+              <li aria-current="page">会社設立</li>
+            </ol>
+          </nav>
+
+          <div class="page-hero__content">
+            <p class="page-hero__label">SERVICE</p>
+            <h1 id="page-heading" class="page-hero__title">会社設立サポート</h1>
+            <p class="page-hero__lead">
+              株式会社や合同会社の設立には、<strong>定款の作成・認証</strong>と
+              <strong>法務局への設立登記</strong>が必要です。
+              建設業許可の取得を見据えた法人成りでは、
+              資本金や目的の定め方、設立と許可申請の順序が重要になります。
+              やちよ行政書士事務所では、設立から許認可取得まで見据えたご案内をします。
+            </p>
+            <p class="page-hero__note">
+              個人事業からの法人成り、新規事業の法人設立、どちらもご相談いただけます。
+            </p>
+
+            <div class="page-hero__actions">
+              <a href="/contact" class="btn btn--primary">相談してみる</a>
+              <LineButton />
+            </div>
+          </div>
+
+          <figure class="page-hero__visual">
+            <img
+              src="/images/service-corporate-documents.jpg"
+              alt="会社設立に必要な定款・書類"
+              loading="eager"
+            />
+          </figure>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="conclusion-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="summary-box">
+            <h2 id="conclusion-heading" class="summary-box__heading">まず結論</h2>
+            <p class="summary-box__text">
+              会社設立で後から困りやすいのは、
+              <strong>定款の「目的」や資本金の設定</strong>です。
+              建設業許可や他の許認可を見据える場合、
+              設立時点で将来の事業内容を織り込んでおく必要があります。
+              設立と許可取得の順序・タイミングも、最初に整理しておくとスムーズです。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="target-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="target-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              こんな方にご利用いただいています
+            </h2>
+          </div>
+
+          <ul class="check-list">
+            {targetCases.map((item) => (
+              <li class="check-list__item">{item}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="points-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="points-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              設立前に確認したい3つのポイント
+            </h2>
+          </div>
+
+          <div class="card-grid card-grid--three">
+            {keyPoints.map((item) => (
+              <article class="point-card">
+                <span class="point-card__no">{item.no}</span>
+                <h3 class="point-card__title">{item.title}</h3>
+                <p class="point-card__text">{item.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="docs-heading">
+        <div class="section__inner">
+          <BasicContentVisual
+            src="/images/service-corporate-documents.jpg"
+            alt="会社設立に必要な書類一式"
+          >
+            <div class="section__head-block">
+              <h2 id="docs-heading" class="section__heading">
+                <span class="heading-icon" aria-hidden="true"></span>
+                設立に必要な主な書類
+              </h2>
+              <p class="section__sub">
+                株式会社の電子定款による設立の場合の代表的な書類です。役員構成や資本金によって異なります。
+              </p>
+            </div>
+          </BasicContentVisual>
+
+          <div class="pattern-table-wrap">
+            <table class="pattern-table">
+              <thead>
+                <tr>
+                  <th scope="col">書類</th>
+                  <th scope="col">内容</th>
+                </tr>
+              </thead>
+              <tbody>
+                {documents.map((row) => (
+                  <tr>
+                    <th scope="row">{row.name}</th>
+                    <td>{row.detail}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="flow-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="flow-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              ご依頼から設立完了までの流れ
+            </h2>
+          </div>
+
+          <ol class="flow-list">
+            {flowSteps.map((item) => (
+              <li class="flow-step">
+                <div class="flow-step__head">
+                  <span class="flow-step__label">{item.step}</span>
+                  <span class="flow-step__period">{item.period}</span>
+                </div>
+                <p class="flow-step__title">{item.title}</p>
+                <p class="flow-step__text">{item.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="cost-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="cost-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              費用の目安
+            </h2>
+          </div>
+
+          <div class="pattern-table-wrap">
+            <table class="pattern-table">
+              <thead>
+                <tr>
+                  <th scope="col">手続</th>
+                  <th scope="col" class="pattern-table__num-col">報酬（税込）</th>
+                  <th scope="col" class="pattern-table__num-col">法定費用</th>
+                </tr>
+              </thead>
+              <tbody>
+                {costRows.map((row) => (
+                  <tr>
+                    <th scope="row">
+                      {row.name}
+                      <span class="pattern-table__note">{row.detail}</span>
+                    </th>
+                    <td class="pattern-table__num-col">{row.fee}</td>
+                    <td class="pattern-table__num-col">{row.legal}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <p class="section__note">
+            ※設立登記（司法書士報酬・登録免許税）は別途です。資本金500万円の場合、登録免許税は35万円となります。
+            詳細は<a href="/price">料金案内</a>もご覧ください。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="faq-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="faq-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              よくあるご質問
+            </h2>
+          </div>
+
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <details class="faq-item">
+                <summary class="faq-item__question">{item.q}</summary>
+                <div class="faq-item__answer">
+                  <p>{item.a}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="related-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="related-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              関連ページ
+            </h2>
+          </div>
+
+          <div class="card-grid card-grid--three">
+            {relatedLinks.map((item) => (
+              <article class="info-card info-card--link">
+                <h3 class="info-card__title">{item.title}</h3>
+                <p class="info-card__text">{item.text}</p>
+                <a href={item.href} class="text-link">ページを見る</a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--contact-cta">
+        <div class="section__inner">
+          <div class="cta-box">
+            <h2 class="cta-box__heading">許可取得も見据えて、設立の段取りを整理しましょう。</h2>
+            <p class="cta-box__text">
+              事業内容や設立時期、建設業許可との兼ね合いをお伺いし、最適な進め方をご案内します。
+              大阪泉州・和歌山北部を中心に対応しています。
+            </p>
+            <div class="cta-box__actions">
+              <a href="/contact" class="btn btn--primary">お問い合わせフォームへ</a>
+              <LineButton />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>

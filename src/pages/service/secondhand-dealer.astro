@@ -1,0 +1,413 @@
+---
+import '../../styles/service-detail.css';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import LineButton from '../../components/LineButton.astro';
+import BasicContentVisual from '../../components/BasicContentVisual.astro';
+import { pageTitle } from '../../config/site';
+
+const targetCases = [
+  'リサイクルショップや買取店の開業を検討している',
+  'ネットオークションやフリマアプリで継続的に販売している',
+  '中古品の仕入れ・販売を本格的に事業として始めたい',
+  '許可が必要かどうか、自分の取引が対象になるのか分からない',
+  '店舗を移転・増設し、許可の変更が必要になった',
+  '法人成りとあわせて、古物商許可も取得したい',
+];
+
+const keyPoints = [
+  {
+    no: '01',
+    title: '「事業としての」売買が対象になる',
+    text: '個人間のフリマや、不用品のたまたまの売却は原則対象外です。継続的・反復的に中古品を仕入れて販売する場合に許可が必要になります。ネット販売のみでも、事業として行っていれば許可が必要です。',
+  },
+  {
+    no: '02',
+    title: '保管場所の要件を満たす必要がある',
+    text: '古物を保管する場所（店舗・倉庫など）が必要です。自宅の一部を保管場所とする場合もありますが、用途や区画の独立性など、管轄の警察署で確認されるポイントがあります。契約前に要件を確認しておくと後戻りが減ります。',
+  },
+  {
+    no: '03',
+    title: '欠格要件・反社会的勢力の排除',
+    text: '一定の前歴がある場合や、反社会的勢力との関係が疑われる場合は許可されません。申請書類の記載内容や、関係者の確認が丁寧に行われます。事前に確認できる事項は、着手前に整理しておくことが大切です。',
+  },
+];
+
+const documents = [
+  {
+    name: '古物商許可申請書',
+    detail: '事業者の情報、保管場所、取扱品目、従業員数などを記載します。',
+  },
+  {
+    name: '履歴事項全部証明書（法人の場合）',
+    detail: '会社の基本情報を確認するための登記簿謄本です。',
+  },
+  {
+    name: '住民票・身分証明書（個人の場合）',
+    detail: '申請者本人の確認資料です。',
+  },
+  {
+    name: '保管場所の使用を証明する書類',
+    detail: '賃貸借契約書、使用承諾書、登記簿謄本など。自宅の場合は住民票の写しなども必要になることがあります。',
+  },
+  {
+    name: '古物商許可証（変更・更新の場合）',
+    detail: '既に許可をお持ちの場合、現在の許可証の写しを添付します。',
+  },
+];
+
+const flowSteps = [
+  {
+    step: 'STEP 1',
+    title: 'お問い合わせ・無料相談',
+    period: '当日〜数日',
+    text: '取引の内容、保管場所、個人か法人かをお伺いし、許可が必要かどうかを整理します。ネット販売のみの場合や、副業から本格化する場合など、ケースごとに判断が異なります。',
+  },
+  {
+    step: 'STEP 2',
+    title: '要件の確認・申請方針の決定',
+    period: '数日〜1週間',
+    text: '保管場所の要件、欠格要件に該当しないかを確認します。新規・変更・更新のどれに当たるかもこの段階で整理します。',
+  },
+  {
+    step: 'STEP 3',
+    title: 'お見積り・ご契約',
+    period: '数日',
+    text: '報酬額と法定費用（手数料19,000円）を明示したお見積りをご提示します。',
+  },
+  {
+    step: 'STEP 4',
+    title: '書類の収集・作成',
+    period: '1〜2週間',
+    text: '登記事項証明書や保管場所の契約書などをそろえ、申請書一式を作成します。当事務所で取得できる証明書は代理取得します。',
+  },
+  {
+    step: 'STEP 5',
+    title: '警察署経由で申請・許可',
+    period: '約40日',
+    text: '管轄の警察署を経由して、都道府県公安委員会へ申請します。審査後、許可証が交付されます。',
+  },
+];
+
+const costRows = [
+  {
+    name: '古物商許可申請',
+    detail: '新規・変更・更新',
+    fee: '44,000円〜',
+    legal: '19,000円',
+  },
+];
+
+const faqItems = [
+  {
+    q: 'メルカリやヤフオクだけで販売しています。許可は必要ですか？',
+    a: '継続的・反復的に中古品を仕入れて販売している場合は、許可が必要になることがあります。たまたまの不用品処分や、個人的な範囲の売却は対象外です。取引の頻度や規模、仕入れの有無などを踏まえて判断しますので、まずはご相談ください。',
+  },
+  {
+    q: '許可が下りるまで、どのくらいかかりますか？',
+    a: '書類がそろってから申請して、おおむね40日程度で許可証が交付されるのが標準的な流れです。それ以前の要件確認と書類収集に2〜4週間程度かかることが多いです。',
+  },
+  {
+    q: '自宅を保管場所にできますか？',
+    a: '可能なケースもありますが、管轄の警察署の確認が必要です。自宅のどの部分を保管場所とするか、区画の独立性、近隣への配慮などがポイントになります。賃貸の場合は大家さんの承諾も必要になることがあります。',
+  },
+  {
+    q: '法人と個人、どちらで取るべきですか？',
+    a: '事業規模や今後の展開、建設業許可など他の許可との兼ね合いによって異なります。法人成りを検討されている場合は、あわせて会社設立の流れも含めてご相談いただけます。',
+  },
+  {
+    q: '許可証の有効期限はありますか？',
+    a: '古物商許可には有効期限はありません。ただし、保管場所の変更や事業者情報の変更があった場合は、変更届が必要です。',
+  },
+];
+
+const relatedLinks = [
+  {
+    title: '会社設立サポート',
+    text: '法人成りとあわせて古物商許可を取得する場合の流れをご案内します。',
+    href: '/service/company-setup',
+  },
+  {
+    title: '料金案内',
+    text: '古物商許可以外の手続の費用目安も一覧で確認できます。',
+    href: '/price',
+  },
+  {
+    title: '業務案内',
+    text: '当事務所の取扱業務の全体像をご覧いただけます。',
+    href: '/service/',
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle('古物商許可申請のサポート')}
+  description="大阪泉州・和歌山北部の古物商許可申請をサポート。リサイクルショップ・買取店・ネット販売の開業に向けて、要件確認から書類作成、警察署経由の申請までご案内します。"
+  breadcrumbs={[
+    { name: 'ホーム', href: '/' },
+    { name: '業務案内', href: '/service/' },
+    { name: '古物商許可' },
+  ]}
+>
+  <div class="page">
+    <SiteHeader />
+
+    <main>
+      <section class="page-hero section--base" aria-labelledby="page-heading">
+        <div class="page-hero__inner">
+          <nav class="breadcrumb" aria-label="パンくずリスト">
+            <ol>
+              <li><a href="/">ホーム</a></li>
+              <li><a href="/service/">業務案内</a></li>
+              <li aria-current="page">古物商許可</li>
+            </ol>
+          </nav>
+
+          <div class="page-hero__content">
+            <p class="page-hero__label">SERVICE</p>
+            <h1 id="page-heading" class="page-hero__title">古物商許可申請のサポート</h1>
+            <p class="page-hero__lead">
+              中古品を<strong>事業として</strong>仕入れ・販売するには、古物営業法に基づく古物商許可が必要です。
+              申請は管轄の<strong>警察署を経由</strong>し、都道府県公安委員会が許可を行います。
+              やちよ行政書士事務所では、大阪泉州・和歌山北部を中心に、
+              許可が必要かどうかの整理から書類作成、申請までサポートします。
+            </p>
+            <p class="page-hero__note">
+              「自分の取引が許可の対象になるのか分からない」という段階からご相談いただけます。
+            </p>
+
+            <div class="page-hero__actions">
+              <a href="/contact" class="btn btn--primary">相談してみる</a>
+              <LineButton />
+            </div>
+          </div>
+
+          <figure class="page-hero__visual">
+            <img
+              src="/images/other-permits-procedures.jpg"
+              alt="古物商許可申請に必要な書類手続き"
+              loading="eager"
+            />
+          </figure>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="conclusion-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="summary-box">
+            <h2 id="conclusion-heading" class="summary-box__heading">まず結論</h2>
+            <p class="summary-box__text">
+              古物商許可でつまずきやすいのは、申請書の書き方ではなく、
+              <strong>「事業としての取引に当たるか」の判断</strong>と
+              <strong>保管場所の要件</strong>です。
+              ここを最初に整理してから書類をそろえれば、スムーズに進みます。
+              ネット販売のみの場合でも、継続的な仕入れ・販売があれば許可が必要になることがあります。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="target-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="target-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              こんな方にご利用いただいています
+            </h2>
+          </div>
+
+          <ul class="check-list">
+            {targetCases.map((item) => (
+              <li class="check-list__item">{item}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="points-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="points-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              申請前に確認したい3つのポイント
+            </h2>
+          </div>
+
+          <div class="card-grid card-grid--three">
+            {keyPoints.map((item) => (
+              <article class="point-card">
+                <span class="point-card__no">{item.no}</span>
+                <h3 class="point-card__title">{item.title}</h3>
+                <p class="point-card__text">{item.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="docs-heading">
+        <div class="section__inner">
+          <BasicContentVisual
+            src="/images/other-permits-procedures.jpg"
+            alt="古物商許可申請に必要な書類"
+          >
+            <div class="section__head-block">
+              <h2 id="docs-heading" class="section__heading">
+                <span class="heading-icon" aria-hidden="true"></span>
+                提出する主な書類
+              </h2>
+              <p class="section__sub">
+                新規・変更・更新、個人・法人の別によって必要書類は異なります。ここでは代表的なものを挙げています。
+              </p>
+            </div>
+          </BasicContentVisual>
+
+          <div class="pattern-table-wrap">
+            <table class="pattern-table">
+              <thead>
+                <tr>
+                  <th scope="col">書類</th>
+                  <th scope="col">内容</th>
+                </tr>
+              </thead>
+              <tbody>
+                {documents.map((row) => (
+                  <tr>
+                    <th scope="row">{row.name}</th>
+                    <td>{row.detail}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="flow-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="flow-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              ご依頼から許可取得までの流れ
+            </h2>
+          </div>
+
+          <ol class="flow-list">
+            {flowSteps.map((item) => (
+              <li class="flow-step">
+                <div class="flow-step__head">
+                  <span class="flow-step__label">{item.step}</span>
+                  <span class="flow-step__period">{item.period}</span>
+                </div>
+                <p class="flow-step__title">{item.title}</p>
+                <p class="flow-step__text">{item.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="cost-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="cost-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              費用の目安
+            </h2>
+          </div>
+
+          <div class="pattern-table-wrap">
+            <table class="pattern-table">
+              <thead>
+                <tr>
+                  <th scope="col">手続</th>
+                  <th scope="col" class="pattern-table__num-col">報酬（税込）</th>
+                  <th scope="col" class="pattern-table__num-col">法定費用</th>
+                </tr>
+              </thead>
+              <tbody>
+                {costRows.map((row) => (
+                  <tr>
+                    <th scope="row">
+                      {row.name}
+                      <span class="pattern-table__note">{row.detail}</span>
+                    </th>
+                    <td class="pattern-table__num-col">{row.fee}</td>
+                    <td class="pattern-table__num-col">{row.legal}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <p class="section__note">
+            ※保管場所の契約状況や、変更・更新の内容によって変動します。
+            詳細は<a href="/price">料金案内</a>もご覧ください。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="faq-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="faq-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              よくあるご質問
+            </h2>
+          </div>
+
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <details class="faq-item">
+                <summary class="faq-item__question">{item.q}</summary>
+                <div class="faq-item__answer">
+                  <p>{item.a}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="related-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="related-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              関連ページ
+            </h2>
+          </div>
+
+          <div class="card-grid card-grid--three">
+            {relatedLinks.map((item) => (
+              <article class="info-card info-card--link">
+                <h3 class="info-card__title">{item.title}</h3>
+                <p class="info-card__text">{item.text}</p>
+                <a href={item.href} class="text-link">ページを見る</a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--contact-cta">
+        <div class="section__inner">
+          <div class="cta-box">
+            <h2 class="cta-box__heading">許可が必要かどうか、まず整理しましょう。</h2>
+            <p class="cta-box__text">
+              取引の内容や保管場所をお伺いし、許可の要否と必要な手続をご案内します。
+              大阪泉州・和歌山北部を中心に対応しています。
+            </p>
+            <div class="cta-box__actions">
+              <a href="/contact" class="btn btn--primary">お問い合わせフォームへ</a>
+              <LineButton />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>

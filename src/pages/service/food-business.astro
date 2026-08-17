@@ -1,0 +1,413 @@
+---
+import '../../styles/service-detail.css';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import LineButton from '../../components/LineButton.astro';
+import BasicContentVisual from '../../components/BasicContentVisual.astro';
+import { pageTitle } from '../../config/site';
+
+const targetCases = [
+  '飲食店の新規開業を検討している',
+  'カフェやテイクアウト専門店を始めたい',
+  '居酒屋・バーなど酒類提供を含む店舗を開きたい',
+  '店舗を移転・増設し、営業許可の変更が必要になった',
+  '内装工事の前に、保健所の要件を確認しておきたい',
+  '法人成りとあわせて、飲食店営業許可も取得したい',
+];
+
+const keyPoints = [
+  {
+    no: '01',
+    title: '施設基準を満たした店舗づくりが前提',
+    text: '厨房の床・壁・天井の仕上げ、換気・排水設備、手洗い場の位置など、食品衛生法で定められた施設基準があります。内装の設計段階で確認しておかないと、完成後に手直しが必要になることがあります。',
+  },
+  {
+    no: '02',
+    title: '食品衛生責任者の配置が必要',
+    text: '営業する店舗ごとに、食品衛生責任者を置く必要があります。講習を受けた方が該当します。オーナーご本人が受講するケースが多いですが、従業員が受講して配置することも可能です。',
+  },
+  {
+    no: '03',
+    title: '自治体・保健所ごとに確認事項が異なる',
+    text: '基本的なルールは食品衛生法で統一されていますが、自治体によって追加の確認事項や様式が異なることがあります。管轄の保健所の案内を確認しながら進める必要があります。',
+  },
+];
+
+const documents = [
+  {
+    name: '営業許可申請書',
+    detail: '店舗名、所在地、営業の種類、食品衛生責任者などを記載します。',
+  },
+  {
+    name: '施設の平面図・立面図',
+    detail: '厨房、手洗い場、トイレ、食品の保管場所などを示した図面です。内装業者と連携して作成することが多いです。',
+  },
+  {
+    name: '食品衛生責任者の資格証明',
+    detail: '講習修了証の写しなど、食品衛生責任者であることを証明する書類です。',
+  },
+  {
+    name: '営業者を証明する書類',
+    detail: '法人の場合は登記事項証明書、個人の場合は住民票など。',
+  },
+  {
+    name: '使用借・賃貸借契約書',
+    detail: '店舗の使用権限を確認するための契約書類です。',
+  },
+];
+
+const flowSteps = [
+  {
+    step: 'STEP 1',
+    title: 'お問い合わせ・無料相談',
+    period: '当日〜数日',
+    text: '開業予定の業態（レストラン、カフェ、テイクアウト専門など）、店舗の状況、内装の進捗をお伺いし、必要な許可の種類と確認事項を整理します。',
+  },
+  {
+    step: 'STEP 2',
+    title: '施設基準の確認・申請方針の決定',
+    period: '数日〜1週間',
+    text: '平面図をもとに施設基準を満たしているか確認します。内装工事前であれば、保健所への事前相談も検討します。',
+  },
+  {
+    step: 'STEP 3',
+    title: 'お見積り・ご契約',
+    period: '数日',
+    text: '報酬額と法定費用（自治体により約16,000〜19,000円）を明示したお見積りをご提示します。',
+  },
+  {
+    step: 'STEP 4',
+    title: '書類の収集・作成',
+    period: '1〜2週間',
+    text: '平面図の作成・確認、食品衛生責任者の講習修了確認、申請書一式を整えます。',
+  },
+  {
+    step: 'STEP 5',
+    title: '保健所へ申請・許可',
+    period: '約2週間',
+    text: '管轄の保健所へ申請します。必要に応じて現地確認があり、問題なければ営業許可証が交付されます。',
+  },
+];
+
+const costRows = [
+  {
+    name: '飲食店営業許可申請',
+    detail: '新規・変更',
+    fee: '44,000円〜',
+    legal: '約16,000〜19,000円',
+  },
+];
+
+const faqItems = [
+  {
+    q: '内装工事の前に相談した方がよいですか？',
+    a: 'はい、おすすめします。施設基準を満たした設計にしておかないと、完成後に手直しが必要になることがあります。内装業者と連携しながら、保健所の要件を確認して進めるとスムーズです。',
+  },
+  {
+    q: 'テイクアウト専門店も飲食店営業許可が必要ですか？',
+    a: '調理して食品を提供する場合、原則として必要です。業態や提供方法によって許可の種類が異なることがあるため、具体的な営業内容をお伺いして判断します。',
+  },
+  {
+    q: '食品衛生責任者の講習はどこで受けられますか？',
+    a: '管轄の保健所や、保健所が指定する講習会場で受講できます。オンライン講習に対応している自治体も増えています。講習の日程は自治体によって異なります。',
+  },
+  {
+    q: '酒類を提供する場合、別の許可は必要ですか？',
+    a: '酒類販売業免許（酒免）が別途必要になります。飲食店営業許可とは別の手続です。居酒屋やバーを開く場合は、両方の許可が必要になることが多いです。',
+  },
+  {
+    q: '許可が下りるまで、どのくらいかかりますか？',
+    a: '施設が整い、書類がそろってから申請して、おおむね2週間程度で許可証が交付されるのが一般的です。内装工事や食品衛生責任者の講習を含めると、開業まで1〜2か月程度を見込むことが多いです。',
+  },
+];
+
+const relatedLinks = [
+  {
+    title: '会社設立サポート',
+    text: '法人で飲食店を開く場合、会社設立と許可取得を並行して進める流れをご案内します。',
+    href: '/service/company-setup',
+  },
+  {
+    title: '料金案内',
+    text: '飲食店営業許可以外の手続の費用目安も一覧で確認できます。',
+    href: '/price',
+  },
+  {
+    title: '業務案内',
+    text: '当事務所の取扱業務の全体像をご覧いただけます。',
+    href: '/service/',
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle('飲食店営業許可申請のサポート')}
+  description="大阪泉州・和歌山北部の飲食店営業許可申請をサポート。カフェ・レストラン・テイクアウト専門店の開業に向けて、施設基準の確認から書類作成、保健所への申請までご案内します。"
+  breadcrumbs={[
+    { name: 'ホーム', href: '/' },
+    { name: '業務案内', href: '/service/' },
+    { name: '飲食店営業許可' },
+  ]}
+>
+  <div class="page">
+    <SiteHeader />
+
+    <main>
+      <section class="page-hero section--base" aria-labelledby="page-heading">
+        <div class="page-hero__inner">
+          <nav class="breadcrumb" aria-label="パンくずリスト">
+            <ol>
+              <li><a href="/">ホーム</a></li>
+              <li><a href="/service/">業務案内</a></li>
+              <li aria-current="page">飲食店営業許可</li>
+            </ol>
+          </nav>
+
+          <div class="page-hero__content">
+            <p class="page-hero__label">SERVICE</p>
+            <h1 id="page-heading" class="page-hero__title">飲食店営業許可申請のサポート</h1>
+            <p class="page-hero__lead">
+              飲食店を開業するには、食品衛生法に基づく<strong>飲食店営業許可</strong>が必要です。
+              申請先は店舗所在地を管轄する<strong>保健所</strong>です。
+              施設基準の確認、食品衛生責任者の配置、平面図の作成など、
+              開業前に整理すべきことが複数あります。
+            </p>
+            <p class="page-hero__note">
+              内装工事の前段階からご相談いただくと、手戻りを減らせます。
+            </p>
+
+            <div class="page-hero__actions">
+              <a href="/contact" class="btn btn--primary">相談してみる</a>
+              <LineButton />
+            </div>
+          </div>
+
+          <figure class="page-hero__visual">
+            <img
+              src="/images/consultation.jpg"
+              alt="飲食店開業に向けたご相談風景"
+              loading="eager"
+            />
+          </figure>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="conclusion-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="summary-box">
+            <h2 id="conclusion-heading" class="summary-box__heading">まず結論</h2>
+            <p class="summary-box__text">
+              飲食店営業許可でつまずきやすいのは、申請書そのものより
+              <strong>施設基準を満たした店舗づくり</strong>と
+              <strong>食品衛生責任者の配置</strong>です。
+              内装の設計段階で保健所の要件を確認しておけば、
+              完成後の手直しや申請の遅れを防げます。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="target-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="target-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              こんな方にご利用いただいています
+            </h2>
+          </div>
+
+          <ul class="check-list">
+            {targetCases.map((item) => (
+              <li class="check-list__item">{item}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="points-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="points-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              開業前に確認したい3つのポイント
+            </h2>
+          </div>
+
+          <div class="card-grid card-grid--three">
+            {keyPoints.map((item) => (
+              <article class="point-card">
+                <span class="point-card__no">{item.no}</span>
+                <h3 class="point-card__title">{item.title}</h3>
+                <p class="point-card__text">{item.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="docs-heading">
+        <div class="section__inner">
+          <BasicContentVisual
+            src="/images/consultation.jpg"
+            alt="飲食店営業許可申請に必要な書類と施設確認"
+          >
+            <div class="section__head-block">
+              <h2 id="docs-heading" class="section__heading">
+                <span class="heading-icon" aria-hidden="true"></span>
+                提出する主な書類
+              </h2>
+              <p class="section__sub">
+                業態や自治体によって必要書類は異なります。平面図の作成が中心となるケースが多いです。
+              </p>
+            </div>
+          </BasicContentVisual>
+
+          <div class="pattern-table-wrap">
+            <table class="pattern-table">
+              <thead>
+                <tr>
+                  <th scope="col">書類</th>
+                  <th scope="col">内容</th>
+                </tr>
+              </thead>
+              <tbody>
+                {documents.map((row) => (
+                  <tr>
+                    <th scope="row">{row.name}</th>
+                    <td>{row.detail}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="flow-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="flow-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              ご依頼から許可取得までの流れ
+            </h2>
+          </div>
+
+          <ol class="flow-list">
+            {flowSteps.map((item) => (
+              <li class="flow-step">
+                <div class="flow-step__head">
+                  <span class="flow-step__label">{item.step}</span>
+                  <span class="flow-step__period">{item.period}</span>
+                </div>
+                <p class="flow-step__title">{item.title}</p>
+                <p class="flow-step__text">{item.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="cost-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="cost-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              費用の目安
+            </h2>
+          </div>
+
+          <div class="pattern-table-wrap">
+            <table class="pattern-table">
+              <thead>
+                <tr>
+                  <th scope="col">手続</th>
+                  <th scope="col" class="pattern-table__num-col">報酬（税込）</th>
+                  <th scope="col" class="pattern-table__num-col">法定費用</th>
+                </tr>
+              </thead>
+              <tbody>
+                {costRows.map((row) => (
+                  <tr>
+                    <th scope="row">
+                      {row.name}
+                      <span class="pattern-table__note">{row.detail}</span>
+                    </th>
+                    <td class="pattern-table__num-col">{row.fee}</td>
+                    <td class="pattern-table__num-col">{row.legal}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <p class="section__note">
+            ※平面図の作成状況や、酒類提供の有無によって変動します。
+            詳細は<a href="/price">料金案内</a>もご覧ください。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="faq-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="faq-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              よくあるご質問
+            </h2>
+          </div>
+
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <details class="faq-item">
+                <summary class="faq-item__question">{item.q}</summary>
+                <div class="faq-item__answer">
+                  <p>{item.a}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="related-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="related-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              関連ページ
+            </h2>
+          </div>
+
+          <div class="card-grid card-grid--three">
+            {relatedLinks.map((item) => (
+              <article class="info-card info-card--link">
+                <h3 class="info-card__title">{item.title}</h3>
+                <p class="info-card__text">{item.text}</p>
+                <a href={item.href} class="text-link">ページを見る</a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--contact-cta">
+        <div class="section__inner">
+          <div class="cta-box">
+            <h2 class="cta-box__heading">内装の前に、要件を確認しましょう。</h2>
+            <p class="cta-box__text">
+              店舗の業態や内装の状況をお伺いし、必要な許可と確認事項をご案内します。
+              大阪泉州・和歌山北部を中心に対応しています。
+            </p>
+            <div class="cta-box__actions">
+              <a href="/contact" class="btn btn--primary">お問い合わせフォームへ</a>
+              <LineButton />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>

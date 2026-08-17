@@ -1,0 +1,408 @@
+---
+import '../../styles/service-detail.css';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import LineButton from '../../components/LineButton.astro';
+import BasicContentVisual from '../../components/BasicContentVisual.astro';
+import { pageTitle } from '../../config/site';
+
+const targetCases = [
+  '工事の請負契約書を、自社の取引内容に合わせて整えたい',
+  '業務委託や秘密保持など、取引に必要な契約書を作りたい',
+  '株主総会・取締役会の議事録を、登記や許認可に使える形にしたい',
+  '定款の目的や役員任期を変更したい',
+  '口約束のまま進めてきた取引を、書面に残したい',
+  '建設業許可の申請や変更届に添付する議事録が必要になった',
+];
+
+const keyPoints = [
+  {
+    no: '01',
+    title: '「何を決めておくか」が先、書式は後',
+    text: '契約書でつまずくのは、ひな形の有無ではなく、当事者・対象・金額・期間・解除の条件が決まっていないことです。先に確認事項を整理し、その内容を文書に落とします。',
+  },
+  {
+    no: '02',
+    title: '議事録は、後の手続で使う前提で書く',
+    text: '役員変更、本店移転、目的変更などは、法務局の登記や建設業許可の変更届で議事録が求められます。誰が、いつ、何を決議したかが読み取れることが大切です。',
+  },
+  {
+    no: '03',
+    title: '争いがある案件は弁護士へ',
+    text: 'すでに相手方と対立している場合や、裁判を見据えた書面は弁護士の業務です。当事務所では、合意形成前の文書作成と、会社の意思決定を残す書類を担当します。',
+  },
+];
+
+const documentTypes = [
+  {
+    name: '工事請負契約書',
+    detail: '工事内容、工期、請負代金、変更・解除の条件などを、実際の取引に合わせて整理します。建設業法で求められる記載事項も確認します。',
+  },
+  {
+    name: '業務委託契約書・秘密保持契約書',
+    detail: '委託の範囲、報酬、成果物の帰属、秘密情報の取扱いなど、後から解釈が分かれやすい点を明確にします。',
+  },
+  {
+    name: '株主総会・取締役会議事録',
+    detail: '役員の就任・退任、本店移転、目的変更など。登記や建設業許可の変更届に添付できる体裁で作成します。',
+  },
+  {
+    name: '定款の変更案',
+    detail: '目的の追加、役員任期、公告方法など。建設業許可や他の許認可を見据えた目的の書き方も含めてご案内します。',
+  },
+];
+
+const flowSteps = [
+  {
+    step: 'STEP 1',
+    title: 'お問い合わせ・内容の確認',
+    period: '当日〜数日',
+    text: '作りたい書類の種類、取引や決議の内容、使う場面（取引先への提示、登記、許可の変更届など）をお伺いします。',
+  },
+  {
+    step: 'STEP 2',
+    title: '確認事項の整理',
+    period: '数日',
+    text: '当事者、対象、金額、期間、解除条件など、文書に落とす前に決めておくべき点を一覧にします。未定の項目は選択肢をご提示します。',
+  },
+  {
+    step: 'STEP 3',
+    title: 'お見積り・ご契約',
+    period: '数日',
+    text: '分量と難易度に応じたお見積りをご提示します。複数の書類が必要な場合も、総額でご案内します。',
+  },
+  {
+    step: 'STEP 4',
+    title: '草案の作成・修正',
+    period: '数日〜2週間',
+    text: '草案をお送りし、内容をご確認いただきます。表現の調整や条項の追加があれば、この段階で反映します。',
+  },
+  {
+    step: 'STEP 5',
+    title: '完成・ご納品',
+    period: '—',
+    text: '最終稿をお渡しします。押印の位置や、登記・届出で使う場合の次の手順もあわせてご案内します。',
+  },
+];
+
+const costRows = [
+  {
+    name: '契約書・議事録等の作成',
+    detail: '内容・分量により変動',
+    fee: '22,000円〜',
+    legal: 'なし',
+  },
+];
+
+const faqItems = [
+  {
+    q: 'インターネットのひな形ではだめですか？',
+    a: '出発点にはなりますが、工事内容や会社の体制に合っていない条項が残ることがあります。特に建設工事の請負契約は、建設業法上の記載事項や下請との関係で、後から問題になりやすい箇所があります。使う場面に合わせて整えることをおすすめします。',
+  },
+  {
+    q: '相手方が用意した契約書のチェックもできますか？',
+    a: '条項の意味を整理し、抜けやすい確認点をご案内することはできます。ただし、すでに争いがある場合や、相手方との交渉を代理することはできません。その場合は弁護士への相談をご案内します。',
+  },
+  {
+    q: '建設業許可の変更届に使う議事録も作れますか？',
+    a: 'はい。役員変更、商号変更、本店移転など、変更届や登記で必要になる議事録の作成に対応しています。許可の変更届とセットでご依頼いただくこともできます。',
+  },
+  {
+    q: '何通まで同じ料金ですか？',
+    a: '1通あたりの目安です。分量や条項の複雑さ、修正の回数によって変動します。複数通が必要な場合は、着手前に総額をお見積りします。',
+  },
+  {
+    q: '電子契約にも対応できますか？',
+    a: '条文の作成自体は、紙でも電子契約でも同じです。電子署名サービスの選定や導入そのものは別の作業になりますので、必要な場合は使い方の整理までご案内します。',
+  },
+];
+
+const relatedLinks = [
+  {
+    title: '会社設立サポート',
+    text: '設立時の定款や、設立後の役員変更に必要な書類とあわせてご相談いただけます。',
+    href: '/service/company-setup',
+  },
+  {
+    title: '業種追加・各種変更届',
+    text: '建設業許可の変更届に添付する議事録が必要な場合の流れです。',
+    href: '/construction-permit/changes',
+  },
+  {
+    title: '料金案内',
+    text: '契約書以外の手続の費用目安も一覧で確認できます。',
+    href: '/price',
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle('契約書・議事録等の書類作成')}
+  description="大阪泉州・和歌山北部の事業者さま向けに、工事請負契約書、業務委託契約書、株主総会・取締役会議事録、定款変更案などの書類作成をサポートします。"
+  breadcrumbs={[
+    { name: 'ホーム', href: '/' },
+    { name: '業務案内', href: '/service/' },
+    { name: '契約書・議事録' },
+  ]}
+>
+  <div class="page">
+    <SiteHeader />
+
+    <main>
+      <section class="page-hero section--base" aria-labelledby="page-heading">
+        <div class="page-hero__inner">
+          <nav class="breadcrumb" aria-label="パンくずリスト">
+            <ol>
+              <li><a href="/">ホーム</a></li>
+              <li><a href="/service/">業務案内</a></li>
+              <li aria-current="page">契約書・議事録</li>
+            </ol>
+          </nav>
+
+          <div class="page-hero__content">
+            <p class="page-hero__label">SERVICE</p>
+            <h1 id="page-heading" class="page-hero__title">契約書・議事録等の書類作成</h1>
+            <p class="page-hero__lead">
+              取引の条件や、会社の意思決定は、後から読み返せる形にしておく必要があります。
+              やちよ行政書士事務所では、<strong>工事請負契約書</strong>、<strong>業務委託契約書</strong>、
+              <strong>株主総会・取締役会の議事録</strong>、定款の変更案など、
+              事業で使う書類の作成をサポートします。
+            </p>
+            <p class="page-hero__note">
+              すでに相手方と争いがある場合は、弁護士への相談をご案内します。
+            </p>
+
+            <div class="page-hero__actions">
+              <a href="/contact" class="btn btn--primary">相談してみる</a>
+              <LineButton />
+            </div>
+          </div>
+
+          <figure class="page-hero__visual">
+            <img
+              src="/images/service-contract-documents.jpg"
+              alt="契約書・議事録などの書類作成"
+              loading="eager"
+            />
+          </figure>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="conclusion-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="summary-box">
+            <h2 id="conclusion-heading" class="summary-box__heading">まず結論</h2>
+            <p class="summary-box__text">
+              書類作成で時間がかかるのは、文章を書くこと自体ではありません。
+              <strong>決めておくべき事項が決まっていない</strong>ことです。
+              当事者、対象、金額、期間、解除の条件を先に整理すれば、文書は着実に仕上がります。
+              議事録は、登記や建設業許可の変更届で使う前提で作成することが大切です。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="target-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="target-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              こんな方にご利用いただいています
+            </h2>
+          </div>
+
+          <ul class="check-list">
+            {targetCases.map((item) => (
+              <li class="check-list__item">{item}</li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="points-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="points-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              作成前に確認したい3つのポイント
+            </h2>
+          </div>
+
+          <div class="card-grid card-grid--three">
+            {keyPoints.map((item) => (
+              <article class="point-card">
+                <span class="point-card__no">{item.no}</span>
+                <h3 class="point-card__title">{item.title}</h3>
+                <p class="point-card__text">{item.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="docs-heading">
+        <div class="section__inner">
+          <BasicContentVisual
+            src="/images/service-contract-documents.jpg"
+            alt="契約書・議事録の種類を整理するイメージ"
+          >
+            <div class="section__head-block">
+              <h2 id="docs-heading" class="section__heading">
+                <span class="heading-icon" aria-hidden="true"></span>
+                作成できる主な書類
+              </h2>
+              <p class="section__sub">
+                ここに挙げていない書類でも、事業で使うものであればご相談ください。内容を確認したうえで対応可否をご案内します。
+              </p>
+            </div>
+          </BasicContentVisual>
+
+          <div class="pattern-table-wrap">
+            <table class="pattern-table">
+              <thead>
+                <tr>
+                  <th scope="col">書類</th>
+                  <th scope="col">内容</th>
+                </tr>
+              </thead>
+              <tbody>
+                {documentTypes.map((row) => (
+                  <tr>
+                    <th scope="row">{row.name}</th>
+                    <td>{row.detail}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="flow-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="flow-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              ご依頼から完成までの流れ
+            </h2>
+          </div>
+
+          <ol class="flow-list">
+            {flowSteps.map((item) => (
+              <li class="flow-step">
+                <div class="flow-step__head">
+                  <span class="flow-step__label">{item.step}</span>
+                  <span class="flow-step__period">{item.period}</span>
+                </div>
+                <p class="flow-step__title">{item.title}</p>
+                <p class="flow-step__text">{item.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="cost-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="cost-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              費用の目安
+            </h2>
+          </div>
+
+          <div class="pattern-table-wrap">
+            <table class="pattern-table">
+              <thead>
+                <tr>
+                  <th scope="col">手続</th>
+                  <th scope="col" class="pattern-table__num-col">報酬（税込）</th>
+                  <th scope="col" class="pattern-table__num-col">法定費用</th>
+                </tr>
+              </thead>
+              <tbody>
+                {costRows.map((row) => (
+                  <tr>
+                    <th scope="row">
+                      {row.name}
+                      <span class="pattern-table__note">{row.detail}</span>
+                    </th>
+                    <td class="pattern-table__num-col">{row.fee}</td>
+                    <td class="pattern-table__num-col">{row.legal}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+
+          <p class="section__note">
+            ※条項の複雑さ、分量、修正の回数によって変動します。
+            詳細は<a href="/price">料金案内</a>もご覧ください。
+          </p>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="faq-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="faq-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              よくあるご質問
+            </h2>
+          </div>
+
+          <div class="faq-list">
+            {faqItems.map((item) => (
+              <details class="faq-item">
+                <summary class="faq-item__question">{item.q}</summary>
+                <div class="faq-item__answer">
+                  <p>{item.a}</p>
+                </div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="related-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="related-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              関連ページ
+            </h2>
+          </div>
+
+          <div class="card-grid card-grid--three">
+            {relatedLinks.map((item) => (
+              <article class="info-card info-card--link">
+                <h3 class="info-card__title">{item.title}</h3>
+                <p class="info-card__text">{item.text}</p>
+                <a href={item.href} class="text-link">ページを見る</a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--contact-cta">
+        <div class="section__inner">
+          <div class="cta-box">
+            <h2 class="cta-box__heading">まず、決めておくべき事項から整理しましょう。</h2>
+            <p class="cta-box__text">
+              作りたい書類の種類と、使う場面をお伺いしたうえで、必要な確認点をご案内します。
+              大阪泉州・和歌山北部を中心に対応しています。
+            </p>
+            <div class="cta-box__actions">
+              <a href="/contact" class="btn btn--primary">お問い合わせフォームへ</a>
+              <LineButton />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>
