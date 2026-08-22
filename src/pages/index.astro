@@ -741,9 +741,26 @@ const flowSteps = [
     object-fit: cover;
   }
 
+  .section__visual--portrait {
+    max-width: 15rem;
+    margin-inline: auto;
+  }
+
   .section__visual--portrait img {
     aspect-ratio: 3 / 4;
     object-position: center center;
+  }
+
+  @media (min-width: 960px) {
+    #about .section__grid--visual {
+      grid-template-columns: minmax(11rem, 14rem) 1fr;
+      align-items: center;
+    }
+
+    #about .section__visual--portrait {
+      max-width: none;
+      margin-inline: 0;
+    }
   }
 
   .section__intro {
