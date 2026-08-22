@@ -209,12 +209,12 @@ const flowSteps = [
 
       <section id="about" class="section section--band">
         <div class="section__inner section__grid section__grid--visual">
-          <figure class="section__visual section__visual--lead">
+          <figure class="section__visual section__visual--lead section__visual--portrait">
             <img
-              src="/images/about-office.jpg"
-              alt="明るく整理された事務所の執務スペース"
+              src="/images/representative.jpg"
+              alt="代表行政書士 鹿野正幸"
               loading="lazy"
-              width="1360"
+              width="576"
               height="768"
             />
           </figure>
@@ -739,6 +739,11 @@ const flowSteps = [
     width: 100%;
     aspect-ratio: 16 / 9;
     object-fit: cover;
+  }
+
+  .section__visual--portrait img {
+    aspect-ratio: 3 / 4;
+    object-position: center center;
   }
 
   .section__intro {

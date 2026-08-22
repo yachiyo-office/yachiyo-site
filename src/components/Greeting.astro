@@ -1,7 +1,13 @@
 <div class="greeting profile-card">
-  <div class="profile-card__avatar" aria-hidden="true">
-    <span>写真</span>
-  </div>
+  <figure class="profile-card__avatar">
+    <img
+      src="/images/representative-square.jpg"
+      alt="代表行政書士 鹿野正幸"
+      loading="lazy"
+      width="400"
+      height="400"
+    />
+  </figure>
   <div class="profile-card__body">
     <p class="profile-card__catch">
       南大阪と和歌山をつなぐフットワークで、地域の事業者を全力サポートします
@@ -43,16 +49,18 @@
     flex-shrink: 0;
     width: 6.5rem;
     height: 6.5rem;
-    border-radius: 50%;
-    background: var(--color-primary-soft);
-    border: 2px solid var(--color-primary);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.8125rem;
-    font-weight: 700;
-    color: var(--color-primary);
     margin: 0 auto;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 2px solid var(--color-primary);
+    box-shadow: var(--shadow-sm);
+  }
+  .profile-card__avatar img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
   }
   @media (min-width: 640px) {
     .profile-card__avatar {

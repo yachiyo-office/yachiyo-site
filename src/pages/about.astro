@@ -98,25 +98,38 @@ const strengths = [
       </section>
 
       <section class="section section--base">
-        <div class="section__inner section__grid">
-          <div class="section__intro">
+        <div class="section__inner">
+          <div class="section__head-block">
             <h2 class="section__heading">
               <span class="heading-icon" aria-hidden="true"></span>
               代表者より
             </h2>
           </div>
-          <div class="section__body">
-            <p class="section__text">
-              はじめまして。やちよ行政書士事務所の代表、鹿野正幸（しかの まさゆき）です。
-            </p>
-            <p class="section__text">
-              行政手続は、制度の内容そのものだけでなく、「自分の状況では何を確認すべきか」が分かりにくいことが少なくありません。
-              特に建設業許可は、新規申請だけでなく、その後の更新や決算変更届など継続的な管理も重要です。
-            </p>
-            <p class="section__text">
-              当事務所では、大阪泉州・和歌山北部の地域性を踏まえながら、身近で相談しやすい窓口を目指しています。
-              初めてご相談される方にも分かりやすく、落ち着いて進められるよう丁寧なご案内を心がけてまいります。
-            </p>
+
+          <div class="representative-profile">
+            <figure class="representative-profile__photo">
+              <img
+                src="/images/representative.jpg"
+                alt="代表行政書士 鹿野正幸"
+                loading="lazy"
+                width="576"
+                height="768"
+              />
+            </figure>
+            <div class="representative-profile__body">
+              <p class="representative-profile__name">鹿野 正幸（しかの まさゆき）</p>
+              <p class="section__text">
+                はじめまして。やちよ行政書士事務所の代表、鹿野正幸（しかの まさゆき）です。
+              </p>
+              <p class="section__text">
+                行政手続は、制度の内容そのものだけでなく、「自分の状況では何を確認すべきか」が分かりにくいことが少なくありません。
+                特に建設業許可は、新規申請だけでなく、その後の更新や決算変更届など継続的な管理も重要です。
+              </p>
+              <p class="section__text">
+                当事務所では、大阪泉州・和歌山北部の地域性を踏まえながら、身近で相談しやすい窓口を目指しています。
+                初めてご相談される方にも分かりやすく、落ち着いて進められるよう丁寧なご案内を心がけてまいります。
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -278,6 +291,46 @@ const strengths = [
   .strength-card { background: #fff; border: 1px solid var(--color-border); border-radius: var(--radius-lg); padding: 1.5rem; box-shadow: var(--shadow-sm); }
   .strength-card__title { margin: 0 0 0.75rem; font-size: 1rem; font-weight: 700; color: var(--color-text); }
   .strength-card__text { margin: 0; line-height: 1.85; color: var(--color-text-muted); }
+
+  .representative-profile {
+    display: grid;
+    gap: 1.75rem 2.5rem;
+    align-items: start;
+  }
+  @media (min-width: 768px) {
+    .representative-profile {
+      grid-template-columns: minmax(180px, 240px) 1fr;
+    }
+  }
+  .representative-profile__photo {
+    margin: 0;
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-md);
+    max-width: 280px;
+  }
+  @media (min-width: 768px) {
+    .representative-profile__photo {
+      max-width: none;
+    }
+  }
+  .representative-profile__photo img {
+    display: block;
+    width: 100%;
+    height: auto;
+    aspect-ratio: auto;
+    object-fit: contain;
+  }
+  .representative-profile__name {
+    margin: 0 0 1rem;
+    font-size: 1.0625rem;
+    font-weight: 700;
+    color: var(--color-text);
+  }
+  .representative-profile__body .section__text:last-child {
+    margin-bottom: 0;
+  }
 
   .office-info { margin: 0; }
   .office-info__row { display: grid; grid-template-columns: 8rem 1fr; gap: 0.75rem 1rem; padding: 0.9rem 0; border-bottom: 1px solid var(--color-border); }
