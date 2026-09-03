@@ -6,7 +6,10 @@ import { getCollection, render } from 'astro:content';
 import { pageTitle } from '../../config/site';
 
 export async function getStaticPaths() {
-  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  // 開発中は下書きも確認できるようにする。本番ビルドでは draft: false のみ。
+  const posts = await getCollection('blog', ({ data }) =>
+    import.meta.env.DEV ? true : !data.draft,
+  );
   return posts.map((post) => ({
     params: { slug: post.slug },
     props: { post },

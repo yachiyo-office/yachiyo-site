@@ -5,7 +5,10 @@ import SiteFooter from '../../components/SiteFooter.astro';
 import { getCollection } from 'astro:content';
 import { pageTitle } from '../../config/site';
 
-const allPosts = await getCollection('blog', ({ data }) => !data.draft);
+// 開発中は下書きも一覧表示。本番ビルドでは draft: false のみ。
+const allPosts = await getCollection('blog', ({ data }) =>
+  import.meta.env.DEV ? true : !data.draft,
+);
 const posts = allPosts.sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
