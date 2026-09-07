@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>初回案内メール文面｜やちよ行政書士事務所</title>
+  <style>
+    :root { --ink:#1a1a1a; --line:#333; --muted:#555; --soft:#f4f6f8; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: #e8eaed; color: var(--ink);
+      font-family: "Hiragino Sans", "Yu Gothic", "Hiragino Kaku Gothic ProN", sans-serif;
+      font-size: 10.5pt; line-height: 1.7;
+    }
+    .toolbar {
+      position: sticky; top: 0; z-index: 10; display: flex; flex-wrap: wrap;
+      gap: 0.5rem; align-items: center; padding: 0.75rem 1rem;
+      background: #111827; color: #fff; font-size: 13px;
+    }
+    .toolbar button, .toolbar a {
+      appearance: none; border: 0; border-radius: 6px; padding: 0.45rem 0.85rem;
+      background: #fff; color: #111; font: inherit; cursor: pointer; text-decoration: none;
+    }
+    .toolbar .hint { opacity: 0.85; margin-left: 0.5rem; }
+    .sheet {
+      width: 210mm; margin: 1rem auto 2rem; padding: 12mm 14mm;
+      background: #fff; box-shadow: 0 8px 28px rgba(0,0,0,.12);
+    }
+    h1 {
+      margin: 0 0 0.4rem; font-size: 15pt; font-weight: 700;
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", serif; text-align: center;
+    }
+    .sub { text-align: center; color: var(--muted); font-size: 9.5pt; margin: 0 0 1rem; }
+    h2 {
+      margin: 1.1rem 0 0.4rem; font-size: 11pt; background: #1e3a8a; color: #fff;
+      padding: 0.28rem 0.55rem;
+    }
+    .mail {
+      border: 1px solid var(--line); background: var(--soft); padding: 0.85rem 1rem;
+      white-space: pre-wrap; font-size: 10pt; line-height: 1.75;
+    }
+    [contenteditable="true"]:hover, [contenteditable="true"]:focus {
+      outline: 1px dashed rgba(30,58,138,.35); background: #fff;
+    }
+    .note { margin-top: 0.7rem; font-size: 9pt; color: var(--muted); }
+    @media print {
+      body { background: #fff; }
+      .toolbar { display: none !important; }
+      .sheet { margin: 0; box-shadow: none; width: auto; padding: 8mm; }
+      [contenteditable="true"]:hover, [contenteditable="true"]:focus { outline: none; background: var(--soft); }
+      @page { size: A4; margin: 10mm; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">印刷 / PDF保存</button>
+    <button type="button" onclick="copyMail()">本文をコピー</button>
+    <a href="./mitsumorisho.html">見積書へ</a>
+    <a href="./seikyusho-chakkin.html">着手金請求へ</a>
+    <span class="hint">グレー枠を編集してからコピーして使えます</span>
+  </div>
+
+  <main class="sheet">
+    <h1>初回案内メール文面</h1>
+    <p class="sub">受任後の最初のご案内（必要書類・着手金・今後の流れ）</p>
+
+    <h2>件名例</h2>
+    <div class="mail" id="subject" contenteditable="true">【ご案内】建設業許可申請の今後の流れとご準備のお願い（やちよ行政書士事務所）</div>
+
+    <h2>本文</h2>
+    <div class="mail" id="body" contenteditable="true">〇〇株式会社
+〇〇 様
+
+お世話になっております。
+やちよ行政書士事務所の鹿野です。
+
+このたびは建設業許可申請をご依頼いただき、ありがとうございます。
+今後の流れと、ご準備いただきたい書類についてご案内します。
+
+■ 今後の流れ
+1. 業務委託契約のご確認・ご締結
+2. 着手金のご入金（報酬税込額の半額）
+3. 必要書類のご準備・ご提出
+4. 書類作成・内容確認
+5. 申請前に残金（報酬残額＋法定費用・実費）のご入金
+6. 行政庁へ申請
+
+※許可申請手数料などの法定費用は、着手金には含みません。
+※申請は、残金のご入金確認後に行います。
+
+■ 着手金について
+・金額：金　　　　円（税込）※報酬税込の半額
+・お振込先：
+　金融機関：〇〇銀行　〇〇支店
+　口座種別：普通預金
+　口座番号：0000000
+　口座名義：シカノ　マサユキ
+・請求書：別途お送りします（請求番号：　　　　）
+
+■ まずはご準備いただきたいもの（例）
+【共通】
+・本人確認書類（写し）
+・履歴書（経管・専任技術者）
+・社会保険の加入状況が分かる資料
+
+【法人の場合】
+・履歴事項全部証明書
+・定款
+・直近の決算書・法人税申告書一式
+
+【個人の場合】
+・直近の確定申告書一式
+・住民票 等
+
+【専任技術者】
+・資格者証（写し）
+　※実務経験で証明する場合：契約書・注文書・請求書・通帳コピー等
+
+【営業所】
+・内外観写真（表札・事務スペースが分かるもの）
+・賃貸借契約書または使用権限が分かる資料
+
+不足や追加資料は、内容を拝見しながら個別にご案内します。
+データ（PDF・写真）での共有で問題ありません。
+
+■ 訪問が必要な場合
+資料確認などでご訪問する場合は、出張交通費として一律2,000円（税込・駐車場代含む）を申し受けます。
+ご依頼後は、報酬から相殺できます。
+
+ご不明点がございましたら、本メールへご返信ください。
+どうぞよろしくお願いいたします。
+
+――――――――――
+やちよ行政書士事務所
+行政書士　鹿野　正幸
+大阪府阪南市自然田753-14
+公式サイト：https://yachiyo-osaka.com/
+――――――――――</div>
+
+    <p class="note">
+      使い方：金額・口座・請求番号・必要書類を案件に合わせて直す →「本文をコピー」→ メール／LINEに貼り付け。<br />
+      グレーゾーン案件では、本案内の前に要件調査契約の案内を挟んでください。
+    </p>
+  </main>
+
+  <script>
+    async function copyMail() {
+      const subject = document.getElementById('subject').innerText.trim();
+      const body = document.getElementById('body').innerText.trim();
+      const text = `件名：${subject}\n\n${body}`;
+      try {
+        await navigator.clipboard.writeText(text);
+        alert('件名と本文をコピーしました。');
+      } catch (e) {
+        alert('コピーに失敗しました。本文を選択して手動コピーしてください。');
+      }
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>書類返却証｜やちよ行政書士事務所</title>
+  <style>
+    :root { --ink:#1a1a1a; --line:#333; --muted:#555; --soft:#f4f6f8; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: #e8eaed; color: var(--ink);
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", "MS Mincho", serif;
+      font-size: 11pt; line-height: 1.6;
+    }
+    .toolbar {
+      position: sticky; top: 0; z-index: 10; display: flex; flex-wrap: wrap;
+      gap: 0.5rem; align-items: center; padding: 0.75rem 1rem;
+      background: #111827; color: #fff;
+      font-family: "Hiragino Sans", "Yu Gothic", sans-serif; font-size: 13px;
+    }
+    .toolbar button, .toolbar a {
+      appearance: none; border: 0; border-radius: 6px; padding: 0.45rem 0.85rem;
+      background: #fff; color: #111; font: inherit; cursor: pointer; text-decoration: none;
+    }
+    .sheet {
+      width: 210mm; min-height: 297mm; margin: 1rem auto 2rem;
+      padding: 14mm 16mm; background: #fff; box-shadow: 0 8px 28px rgba(0,0,0,.12);
+    }
+    [contenteditable="true"]:hover, [contenteditable="true"]:focus {
+      outline: 1px dashed rgba(30,58,138,.35); background: rgba(30,58,138,.03);
+    }
+    h1 {
+      margin: 0 0 1rem; text-align: center; font-size: 20pt;
+      font-weight: 700; letter-spacing: 0.35em;
+    }
+    .meta { text-align: right; font-size: 10pt; color: var(--muted); margin-bottom: 0.8rem; }
+    .client { font-size: 13pt; margin-bottom: 0.8rem; }
+    .client span {
+      border-bottom: 1px solid var(--line); display: inline-block;
+      min-width: 12em; padding: 0 0.2em;
+    }
+    table.doc { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 10pt; }
+    table.doc th, table.doc td { border: 1px solid var(--line); padding: 0.35rem 0.45rem; }
+    table.doc thead th { background: var(--soft); text-align: center; }
+    .center { text-align: center; }
+    .note { margin-top: 0.8rem; font-size: 9.5pt; color: var(--muted); }
+    .sign-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;
+      margin-top: 1.4rem;
+    }
+    .sign-box {
+      border: 1px solid var(--line); padding: 0.7rem 0.8rem;
+      font-size: 10pt; line-height: 1.7; min-height: 28mm;
+    }
+    .sign-box strong { display: block; margin-bottom: 0.35rem; }
+    .footer {
+      display: grid; grid-template-columns: 1fr auto; gap: 1rem;
+      margin-top: 1.2rem; align-items: end;
+    }
+    .issuer { font-size: 10pt; line-height: 1.7; }
+    .seal {
+      width: 20mm; height: 20mm; border: 1.5px solid #c45c5c; color: #c45c5c;
+      display: grid; place-items: center; font-size: 9pt; text-align: center;
+    }
+    @media print {
+      body { background: #fff; }
+      .toolbar { display: none !important; }
+      .sheet { margin: 0; box-shadow: none; width: auto; min-height: auto; padding: 10mm; }
+      [contenteditable="true"]:hover, [contenteditable="true"]:focus { outline: none; background: transparent; }
+      @page { size: A4; margin: 12mm; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">印刷 / PDF保存</button>
+    <a href="./azukarisyo.html">預り証へ</a>
+    <a href="./mail-shokai-annai.html">初回案内メールへ</a>
+  </div>
+
+  <main class="sheet">
+    <h1>書類返却証</h1>
+    <div class="meta">
+      返却日：<span contenteditable="true">令和　年　月　日</span><br />
+      番号：<span contenteditable="true">Y-RET-0001</span><br />
+      対応する預り証番号：<span contenteditable="true">Y-RCV-0001</span>
+    </div>
+
+    <p class="client">
+      <span contenteditable="true">〇〇株式会社　／　〇〇　〇〇</span> 様
+    </p>
+    <p>下記の書類等を返却いたしました。ご確認のうえ、受領欄へご記名ください。</p>
+
+    <table class="doc">
+      <colgroup>
+        <col style="width:8%" /><col style="width:52%" /><col style="width:12%" /><col style="width:28%" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th>No.</th><th>返却書類名</th><th>点数</th><th>備考（原本／写し等）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="center" contenteditable="true">1</td>
+          <td contenteditable="true"></td>
+          <td class="center" contenteditable="true"></td>
+          <td contenteditable="true"></td>
+        </tr>
+        <tr>
+          <td class="center" contenteditable="true">2</td>
+          <td contenteditable="true"></td>
+          <td class="center" contenteditable="true"></td>
+          <td contenteditable="true"></td>
+        </tr>
+        <tr>
+          <td class="center" contenteditable="true">3</td>
+          <td contenteditable="true"></td>
+          <td class="center" contenteditable="true"></td>
+          <td contenteditable="true"></td>
+        </tr>
+        <tr>
+          <td class="center" contenteditable="true">4</td>
+          <td contenteditable="true"></td>
+          <td class="center" contenteditable="true"></td>
+          <td contenteditable="true"></td>
+        </tr>
+        <tr>
+          <td class="center" contenteditable="true">5</td>
+          <td contenteditable="true"></td>
+          <td class="center" contenteditable="true"></td>
+          <td contenteditable="true"></td>
+        </tr>
+        <tr>
+          <td class="center" contenteditable="true">6</td>
+          <td contenteditable="true"></td>
+          <td class="center" contenteditable="true"></td>
+          <td contenteditable="true"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note" contenteditable="true">
+      ※返却方法：手渡し　／　郵送　／　データ送付<br />
+      ※不足・相違がある場合は、返却後7日以内にご連絡ください。
+    </div>
+
+    <div class="sign-row">
+      <div class="sign-box">
+        <strong>受領確認（お客様）</strong>
+        上記のとおり受領しました。<br /><br />
+        受領日：令和　　年　　月　　日<br />
+        氏名：　　　　　　　　　　印
+      </div>
+      <div class="sign-box">
+        <strong>返却者（事務所）</strong>
+        やちよ行政書士事務所<br />
+        行政書士　鹿野　正幸<br /><br />
+        返却日：令和　　年　　月　　日
+      </div>
+    </div>
+
+    <div class="footer">
+      <div class="issuer">
+        大阪府阪南市自然田753-14<br />
+        やちよ行政書士事務所<br />
+        <span contenteditable="true">TEL：　　　　　　</span>
+      </div>
+      <div class="seal">職印<br />欄</div>
+    </div>
+  </main>
+</body>
+</html>

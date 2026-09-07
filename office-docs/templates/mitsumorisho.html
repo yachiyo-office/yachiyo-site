@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>見積書｜やちよ行政書士事務所</title>
+  <style>
+    :root {
+      --ink: #1a1a1a;
+      --line: #333;
+      --muted: #555;
+      --soft: #f4f6f8;
+      --accent: #1e3a8a;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: #e8eaed;
+      color: var(--ink);
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", "MS Mincho", serif;
+      font-size: 11pt;
+      line-height: 1.5;
+    }
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      align-items: center;
+      padding: 0.75rem 1rem;
+      background: #111827;
+      color: #fff;
+      font-family: "Hiragino Sans", "Yu Gothic", sans-serif;
+      font-size: 13px;
+    }
+    .toolbar button, .toolbar a {
+      appearance: none;
+      border: 0;
+      border-radius: 6px;
+      padding: 0.45rem 0.85rem;
+      background: #fff;
+      color: #111;
+      font: inherit;
+      cursor: pointer;
+      text-decoration: none;
+    }
+    .toolbar .hint { opacity: 0.85; margin-left: 0.5rem; }
+    .sheet {
+      width: 210mm;
+      min-height: 297mm;
+      margin: 1rem auto 2rem;
+      padding: 14mm 14mm 12mm;
+      background: #fff;
+      box-shadow: 0 8px 28px rgba(0,0,0,.12);
+    }
+    [contenteditable="true"]:hover,
+    [contenteditable="true"]:focus {
+      outline: 1px dashed rgba(30,58,138,.35);
+      background: rgba(30,58,138,.03);
+    }
+    h1 {
+      margin: 0 0 1.2rem;
+      text-align: center;
+      font-size: 22pt;
+      font-weight: 700;
+      letter-spacing: 0.35em;
+    }
+    .top {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 1rem;
+      align-items: start;
+      margin-bottom: 1rem;
+    }
+    .client {
+      font-size: 14pt;
+      border-bottom: 1px solid var(--line);
+      min-width: 12em;
+      display: inline-block;
+      padding: 0 0.2em 0.15em;
+    }
+    .meta {
+      text-align: right;
+      font-size: 10pt;
+      color: var(--muted);
+    }
+    .lead {
+      margin: 0 0 0.9rem;
+      font-size: 10.5pt;
+    }
+    table.doc {
+      width: 100%;
+      border-collapse: collapse;
+      table-layout: fixed;
+      font-size: 10pt;
+    }
+    table.doc th,
+    table.doc td {
+      border: 1px solid var(--line);
+      padding: 0.28rem 0.4rem;
+      vertical-align: middle;
+    }
+    table.doc thead th {
+      background: var(--soft);
+      font-weight: 700;
+      text-align: center;
+    }
+    .sec {
+      background: #eef2ff;
+      font-weight: 700;
+      text-align: center;
+    }
+    .num { text-align: right; font-variant-numeric: tabular-nums; }
+    .center { text-align: center; }
+    .label-cell { background: var(--soft); font-weight: 700; text-align: right; }
+    .total-strong {
+      font-size: 12pt;
+      font-weight: 700;
+      background: #fff8e7;
+    }
+    .note {
+      margin: 0.9rem 0 0;
+      font-size: 9pt;
+      color: var(--muted);
+    }
+    .note ul { margin: 0.25rem 0 0; padding-left: 1.2em; }
+    .footer {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr auto;
+      gap: 0.8rem;
+      margin-top: 1.1rem;
+      align-items: end;
+    }
+    .issuer {
+      font-size: 10pt;
+      line-height: 1.65;
+    }
+    .issuer .office-name {
+      font-size: 12pt;
+      font-weight: 700;
+      margin-top: 0.35rem;
+    }
+    .seal {
+      width: 22mm;
+      height: 22mm;
+      border: 1.5px solid #c45c5c;
+      color: #c45c5c;
+      display: grid;
+      place-items: center;
+      font-size: 9pt;
+      text-align: center;
+      line-height: 1.25;
+    }
+    .validity {
+      font-size: 9.5pt;
+      border: 1px solid var(--line);
+      padding: 0.55rem 0.7rem;
+      background: var(--soft);
+    }
+    @media print {
+      body { background: #fff; }
+      .toolbar { display: none !important; }
+      .sheet {
+        margin: 0;
+        box-shadow: none;
+        width: auto;
+        min-height: auto;
+        padding: 8mm;
+      }
+      [contenteditable="true"]:hover,
+      [contenteditable="true"]:focus {
+        outline: none;
+        background: transparent;
+      }
+      @page { size: A4; margin: 10mm; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">印刷 / PDF保存</button>
+    <a href="./seikyusho-chakkin.html">着手金請求へ</a>
+    <a href="./mitsumorisho-juuan.html">重い案件見積へ</a>
+    <a href="./keiyaku-gyomu-itaku.html">業務委託契約へ</a>
+    <span class="hint">薄い枠の文言はクリックして編集できます</span>
+  </div>
+
+  <main class="sheet">
+    <h1>見積書</h1>
+
+    <div class="top">
+      <div>
+        <span class="client" contenteditable="true">〇〇株式会社</span>
+        <span> 御中</span>
+        <p class="lead" style="margin-top:0.75rem">
+          下記のとおりお見積り申し上げます。
+        </p>
+      </div>
+      <div class="meta">
+        <div>見積日：<span contenteditable="true">令和　年　月　日</span></div>
+        <div>見積番号：<span contenteditable="true">Y-EST-0001</span></div>
+        <div>有効期限：<span contenteditable="true">発行日より30日間</span></div>
+      </div>
+    </div>
+
+    <table class="doc">
+      <colgroup>
+        <col style="width:42%" />
+        <col style="width:10%" />
+        <col style="width:16%" />
+        <col style="width:16%" />
+        <col style="width:16%" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th>項目</th>
+          <th>数量</th>
+          <th>単価（税抜）</th>
+          <th>金額（税抜）</th>
+          <th>備考</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="sec" colspan="5">報　酬</td></tr>
+        <tr>
+          <td contenteditable="true">建設業許可 新規申請（知事許可・法人・1業種）</td>
+          <td class="center" contenteditable="true">1</td>
+          <td class="num" contenteditable="true">110,000</td>
+          <td class="num" contenteditable="true">110,000</td>
+          <td contenteditable="true">基本報酬</td>
+        </tr>
+        <tr>
+          <td contenteditable="true">専任技術者（営業所技術者等）確認加算</td>
+          <td class="center" contenteditable="true">1</td>
+          <td class="num" contenteditable="true">0</td>
+          <td class="num" contenteditable="true">0</td>
+          <td contenteditable="true">国家資格等で証明できる場合</td>
+        </tr>
+        <tr>
+          <td contenteditable="true">経営業務の管理責任者 確認加算</td>
+          <td class="center" contenteditable="true">1</td>
+          <td class="num" contenteditable="true">0</td>
+          <td class="num" contenteditable="true">0</td>
+          <td contenteditable="true">許可業者での役員経験等</td>
+        </tr>
+        <tr>
+          <td contenteditable="true"></td>
+          <td class="center" contenteditable="true"></td>
+          <td class="num" contenteditable="true"></td>
+          <td class="num" contenteditable="true"></td>
+          <td contenteditable="true"></td>
+        </tr>
+        <tr>
+          <td contenteditable="true"></td>
+          <td class="center" contenteditable="true"></td>
+          <td class="num" contenteditable="true"></td>
+          <td class="num" contenteditable="true"></td>
+          <td contenteditable="true"></td>
+        </tr>
+        <tr>
+          <td class="label-cell" colspan="3">小計</td>
+          <td class="num" contenteditable="true">110,000</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="label-cell" colspan="3">消費税（10%）</td>
+          <td class="num" contenteditable="true">11,000</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="label-cell" colspan="3">報酬合計 ①</td>
+          <td class="num" contenteditable="true">121,000</td>
+          <td contenteditable="true">税込</td>
+        </tr>
+
+        <tr><td class="sec" colspan="5">実　費</td></tr>
+        <tr>
+          <td contenteditable="true">建設業許可申請手数料（知事・新規）</td>
+          <td class="center" contenteditable="true">1</td>
+          <td class="num" contenteditable="true">90,000</td>
+          <td class="num" contenteditable="true">90,000</td>
+          <td contenteditable="true">法定費用</td>
+        </tr>
+        <tr>
+          <td contenteditable="true">出張交通費（駐車場代含む）</td>
+          <td class="center" contenteditable="true">1</td>
+          <td class="num" contenteditable="true">2,000</td>
+          <td class="num" contenteditable="true">2,000</td>
+          <td contenteditable="true">受任時は報酬から相殺可</td>
+        </tr>
+        <tr>
+          <td contenteditable="true">各種証明書取得実費（身分・登記・納税証明等）</td>
+          <td class="center" contenteditable="true">一式</td>
+          <td class="num" contenteditable="true">実費</td>
+          <td class="num" contenteditable="true">実費</td>
+          <td contenteditable="true">必要通数により確定</td>
+        </tr>
+        <tr>
+          <td contenteditable="true"></td>
+          <td class="center" contenteditable="true"></td>
+          <td class="num" contenteditable="true"></td>
+          <td class="num" contenteditable="true"></td>
+          <td contenteditable="true"></td>
+        </tr>
+        <tr>
+          <td class="label-cell" colspan="3">実費合計 ②（見込）</td>
+          <td class="num" contenteditable="true">92,000〜</td>
+          <td contenteditable="true">証明書実費は別途</td>
+        </tr>
+        <tr>
+          <td class="label-cell total-strong" colspan="3">総合計見込 ①＋②</td>
+          <td class="num total-strong" contenteditable="true">213,000円〜</td>
+          <td class="total-strong" contenteditable="true">税込・実費込見込</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note">
+      <strong>ご案内</strong>
+      <ul contenteditable="true">
+        <li>表示の報酬は、専任技術者を国家資格等で証明でき、経営業務の管理責任者が許可業者での役員経験等で確認できる標準的な案件の目安です。</li>
+        <li>実務経験の裏付け資料の精査等が必要な場合は、着手前に加算お見積りを別途ご提示します。</li>
+        <li>法令改正・行政庁の運用変更・添付書類の状況により、金額が変動する場合があります。</li>
+        <li>お支払いは、ご依頼時の着手金と、申請前の残金（実費含む）の2回に分けてご案内します。</li>
+      </ul>
+    </div>
+
+    <div class="footer">
+      <div class="validity">
+        <strong>支払条件</strong><br />
+        <span contenteditable="true">
+          ①ご依頼時：着手金（報酬税込の半額）<br />
+          ②申請前：残金（報酬残額＋法定費用・実費）を全額
+        </span>
+      </div>
+      <div class="issuer">
+        <div>大阪府行政書士会</div>
+        <div contenteditable="true">〒599-0202</div>
+        <div>大阪府阪南市自然田753-14</div>
+        <div class="office-name">やちよ行政書士事務所</div>
+        <div>行政書士　鹿野　正幸</div>
+        <div contenteditable="true">TEL：　　　　　　</div>
+      </div>
+      <div class="seal">職印<br />欄</div>
+    </div>
+  </main>
+</body>
+</html>

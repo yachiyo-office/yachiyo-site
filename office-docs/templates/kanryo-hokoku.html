@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>完了報告｜やちよ行政書士事務所</title>
+  <style>
+    :root { --ink:#1a1a1a; --line:#333; --muted:#555; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: #e8eaed; color: var(--ink);
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", "MS Mincho", serif;
+      font-size: 11pt; line-height: 1.8;
+    }
+    .toolbar {
+      position: sticky; top: 0; z-index: 10; display: flex; flex-wrap: wrap;
+      gap: 0.5rem; align-items: center; padding: 0.75rem 1rem;
+      background: #111827; color: #fff;
+      font-family: "Hiragino Sans", "Yu Gothic", sans-serif; font-size: 13px;
+    }
+    .toolbar button, .toolbar a {
+      appearance: none; border: 0; border-radius: 6px; padding: 0.45rem 0.85rem;
+      background: #fff; color: #111; font: inherit; cursor: pointer; text-decoration: none;
+    }
+    .sheet {
+      width: 210mm; min-height: 297mm; margin: 1rem auto 2rem;
+      padding: 16mm 18mm; background: #fff; box-shadow: 0 8px 28px rgba(0,0,0,.12);
+    }
+    [contenteditable="true"]:hover, [contenteditable="true"]:focus {
+      outline: 1px dashed rgba(30,58,138,.35); background: rgba(30,58,138,.03);
+    }
+    .head {
+      display: grid; grid-template-columns: 1fr auto; gap: 1rem;
+      margin-bottom: 1.4rem; align-items: start;
+    }
+    h1 {
+      margin: 0 0 1.2rem; text-align: center; font-size: 18pt;
+      font-weight: 700; letter-spacing: 0.25em;
+    }
+    .client { font-size: 13pt; }
+    .client span {
+      border-bottom: 1px solid var(--line); display: inline-block;
+      min-width: 12em; padding: 0 0.2em;
+    }
+    .issuer-mini { text-align: right; font-size: 10pt; line-height: 1.65; }
+    .box {
+      border: 1px solid var(--line); padding: 0.75rem 0.9rem; margin: 1rem 0;
+      background: #fafafa;
+    }
+    .small { font-size: 9.5pt; color: var(--muted); }
+    @media print {
+      body { background: #fff; }
+      .toolbar { display: none !important; }
+      .sheet { margin: 0; box-shadow: none; width: auto; min-height: auto; padding: 12mm; }
+      [contenteditable="true"]:hover, [contenteditable="true"]:focus { outline: none; background: transparent; }
+      @page { size: A4; margin: 12mm; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">印刷 / PDF保存</button>
+    <a href="./azukarisyo.html">預り証へ</a>
+    <span class="hint">許可取得後の完了報告。メール本文としても使えます</span>
+  </div>
+
+  <main class="sheet">
+    <div class="head">
+      <div class="client">
+        <span contenteditable="true">〇〇株式会社</span> 御中<br />
+        <span style="font-size:10.5pt">（ご担当：<span contenteditable="true">　　　　</span> 様）</span>
+      </div>
+      <div class="issuer-mini">
+        <span contenteditable="true">令和　　年　　月　　日</span><br />
+        やちよ行政書士事務所<br />
+        行政書士　鹿野　正幸<br />
+        大阪府阪南市自然田753-14
+      </div>
+    </div>
+
+    <h1>業 務 完 了 の ご 報 告</h1>
+
+    <p contenteditable="true">
+      平素よりお世話になっております。やちよ行政書士事務所の鹿野です。<br />
+      ご依頼いただいておりました下記業務について、完了のご報告を申し上げます。
+    </p>
+
+    <div class="box" contenteditable="true">
+      <strong>件名</strong>：建設業許可　新規申請（知事許可・一般建設業）<br />
+      <strong>業種</strong>：　　　　　　工事業<br />
+      <strong>申請日</strong>：令和　　年　　月　　日<br />
+      <strong>許可日</strong>：令和　　年　　月　　日<br />
+      <strong>許可番号</strong>：大阪府知事許可（般／特−　　）第　　　　号
+    </div>
+
+    <p contenteditable="true">
+      許可通知書（または通知内容）について、別途お渡し／共有いたします。<br />
+      許可取得後は、次の点にご留意ください。
+    </p>
+
+    <div class="box" contenteditable="true">
+      1. 営業所への許可票の掲示<br />
+      2. 事業年度終了後4か月以内の決算変更届<br />
+      3. 商号・役員・専任技術者等の変更時の変更届<br />
+      4. 許可の有効期間（5年）の管理と更新準備
+    </div>
+
+    <p contenteditable="true">
+      本件に関してご不明点がございましたら、お気軽にご連絡ください。<br />
+      このたびはご依頼いただき、誠にありがとうございました。
+    </p>
+
+    <p class="small" style="margin-top:1.5rem" contenteditable="true">
+      ※本状はご報告用です。許可の内容は通知書の記載が正式なものです。<br />
+      ※預り書類がある場合は、返却日程を別途ご案内します。
+    </p>
+  </main>
+</body>
+</html>

@@ -92,7 +92,7 @@ draft: true
 - 「とび・土工工事業」のみでは解体工事は不可（経過措置終了）
 - 許可を持てば解体工事業登録は不要（通知・抹消の手続きは必要）
 
-解体工事業の許可申請や業種追加をお考えの方は、[建設業許可の新規申請](/construction-permit/new/)または[業種追加について](/construction-permit/add-category/)もご覧ください。
+解体工事業の許可申請や業種追加をお考えの方は、[建設業許可の新規申請](/construction-permit/new/)または[業種追加について](/construction-permit/changes/)もご覧ください。
 
 ### 参考
 

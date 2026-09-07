@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>建設業許可 社内チェックリスト｜やちよ行政書士事務所</title>
+  <style>
+    :root { --ink:#1a1a1a; --line:#333; --muted:#555; --soft:#f4f6f8; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: #e8eaed; color: var(--ink);
+      font-family: "Hiragino Sans", "Yu Gothic", "Hiragino Kaku Gothic ProN", sans-serif;
+      font-size: 10.5pt; line-height: 1.55;
+    }
+    .toolbar {
+      position: sticky; top: 0; z-index: 10; display: flex; flex-wrap: wrap;
+      gap: 0.5rem; align-items: center; padding: 0.75rem 1rem;
+      background: #111827; color: #fff; font-size: 13px;
+    }
+    .toolbar button, .toolbar a {
+      appearance: none; border: 0; border-radius: 6px; padding: 0.45rem 0.85rem;
+      background: #fff; color: #111; font: inherit; cursor: pointer; text-decoration: none;
+    }
+    .sheet {
+      width: 210mm; margin: 1rem auto 2rem; padding: 12mm 14mm;
+      background: #fff; box-shadow: 0 8px 28px rgba(0,0,0,.12);
+    }
+    [contenteditable="true"]:hover, [contenteditable="true"]:focus {
+      outline: 1px dashed rgba(30,58,138,.35); background: rgba(30,58,138,.03);
+    }
+    h1 {
+      margin: 0 0 0.35rem; font-size: 16pt; font-weight: 700; letter-spacing: 0.06em;
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", serif; text-align: center;
+    }
+    .sub {
+      text-align: center; margin: 0 0 0.9rem; font-size: 9.5pt; color: #9b1c1c; font-weight: 700;
+    }
+    .meta {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem 1rem;
+      font-size: 9.5pt; margin-bottom: 0.8rem; border: 1px solid var(--line); padding: 0.5rem 0.7rem;
+    }
+    h2 {
+      margin: 0.85rem 0 0.35rem; font-size: 11pt; background: #1e3a8a; color: #fff;
+      padding: 0.25rem 0.55rem;
+    }
+    table.cl { width: 100%; border-collapse: collapse; font-size: 9.5pt; }
+    table.cl th, table.cl td { border: 1px solid var(--line); padding: 0.22rem 0.35rem; vertical-align: top; }
+    table.cl th { background: var(--soft); text-align: center; }
+    .chk { width: 9%; text-align: center; }
+    .item { width: 46%; }
+    .note { width: 45%; }
+    .tiny { font-size: 8.5pt; color: var(--muted); margin-top: 0.6rem; }
+    @media print {
+      body { background: #fff; }
+      .toolbar { display: none !important; }
+      .sheet { margin: 0; box-shadow: none; width: auto; padding: 6mm 8mm; }
+      [contenteditable="true"]:hover, [contenteditable="true"]:focus { outline: none; background: transparent; }
+      @page { size: A4; margin: 10mm; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">印刷 / PDF保存</button>
+    <a href="./mitsumorisho.html">見積書へ</a>
+    <a href="./keiyaku-gyomu-itaku.html">業務委託契約へ</a>
+    <span class="hint">社内用。案件フォルダに印刷またはPDFで保存</span>
+  </div>
+
+  <main class="sheet">
+    <h1>建設業許可 社内チェックリスト</h1>
+    <p class="sub">※外部提出用ではなく、受任〜申請前の社内確認用</p>
+
+    <div class="meta">
+      <div>案件名：<span contenteditable="true">　　　　　　　　　　</span></div>
+      <div>担当：<span contenteditable="true">鹿野</span></div>
+      <div>区分：<span contenteditable="true">新規／更新／業種追加／変更</span></div>
+      <div>申請先：<span contenteditable="true">大阪府／和歌山県／大臣</span></div>
+      <div>個人・法人：<span contenteditable="true">個人／法人</span></div>
+      <div>一般・特定：<span contenteditable="true">一般／特定</span></div>
+      <div>業種：<span contenteditable="true">　　　　　　</span></div>
+      <div>確認日：<span contenteditable="true">令和　年　月　日</span></div>
+    </div>
+
+    <h2>0. 受任前・見積</h2>
+    <table class="cl">
+      <thead><tr><th class="chk">済</th><th class="item">確認項目</th><th class="note">メモ</th></tr></thead>
+      <tbody>
+        <tr><td class="chk" contenteditable="true">□</td><td>一次ヒアリング（電話／オンライン）実施</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk" contenteditable="true">□</td><td>標準案件か／実務経験精査が必要か判断</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk" contenteditable="true">□</td><td>グレーゾーンなら要件調査契約を先行</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk" contenteditable="true">□</td><td>見積書提示・説明（着手金／残金／実費）</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk" contenteditable="true">□</td><td>業務委託契約締結・着手金入金確認</td><td contenteditable="true"></td></tr>
+      </tbody>
+    </table>
+
+    <h2>1. 経営業務の管理責任者（経管）</h2>
+    <table class="cl">
+      <thead><tr><th class="chk">済</th><th class="item">確認項目</th><th class="note">メモ</th></tr></thead>
+      <tbody>
+        <tr><td class="chk" contenteditable="true">□</td><td>候補者・常勤性の確認</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk" contenteditable="true">□</td><td>経験年数のルート整理（役員5年等）</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk" contenteditable="true">□</td><td>証明資料（登記・許可通知・工事実績等）</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk" contenteditable="true">□</td><td>無許可経験／準ずる地位なら加算・難度確認</td><td contenteditable="true"></td></tr>
+      </tbody>
+    </table>
+
+    <h2>2. 専任技術者（営業所技術者等）</h2>
+    <table class="cl">
+      <thead><tr><th class="chk">済</th><th class="item">確認項目</th><th class="note">メモ</th></tr></thead>
+      <tbody>
+        <tr><td class="chk" contenteditable="true">□</td><td>業種と資格の対応確認</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk" contenteditable="true">□</td><td>国家資格／学歴＋経験／実務10年のどれか</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk" contenteditable="true">□</td><td>常勤性・他社兼務の有無</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk" contenteditable="true">□</td><td>実務経験なら契約書・通帳等の収集方針</td><td contenteditable="true"></td></tr>
+      </tbody>
+    </table>
+
+    <h2>3. 営業所・財産・社会保険・欠格</h2>
+    <table class="cl">
+      <thead><tr><th class="chk">済</th><th class="item">確認項目</th><th class="note">メモ</th></tr></thead>
+      <tbody>
+        <tr><td class="chk" contenteditable="true">□</td><td>営業所の実体（写真・使用権限・表札等）</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk" contenteditable="true">□</td><td>財産的基礎（純資産500万 or 残高証明等）</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk" contenteditable="true">□</td><td>残高証明が必要なら取得タイミング（府は4週間）</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk" contenteditable="true">□</td><td>社会保険の加入状況（様式第7号の3）</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk" contenteditable="true">□</td><td>欠格・誠実性（役員等への確認）</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk" contenteditable="true">□</td><td>身分証明書・登記されていないことの証明書</td><td contenteditable="true"></td></tr>
+      </tbody>
+    </table>
+
+    <h2>4. 申請前最終</h2>
+    <table class="cl">
+      <thead><tr><th class="chk">済</th><th class="item">確認項目</th><th class="note">メモ</th></tr></thead>
+      <tbody>
+        <tr><td class="chk" contenteditable="true">□</td><td>委任状受領</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk" contenteditable="true">□</td><td>預り証発行（預り書類がある場合）</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk" contenteditable="true">□</td><td>残金請求・入金確認（報酬残＋法定費用＋実費）</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk" contenteditable="true">□</td><td>申請書類一式の最終点検</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk" contenteditable="true">□</td><td>申請・受付控えの保管</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk" contenteditable="true">□</td><td>許可後：完了報告・許可票・決算変更届スケジュール案内</td><td contenteditable="true"></td></tr>
+      </tbody>
+    </table>
+
+    <p class="tiny">
+      社内用メモ欄：<span contenteditable="true">　　　　　　　　　　　　　　　　　　　　　　　　　　　　　　</span>
+    </p>
+  </main>
+</body>
+</html>

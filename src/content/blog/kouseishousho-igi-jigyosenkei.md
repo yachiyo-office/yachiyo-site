@@ -128,6 +128,6 @@ draft: true
 
 ### 参考
 
-- [建設業許可の相続認可とは（死亡後30日以内の手続）](https://tomorrowstax.com/gh/blog/kensetsu-kyoka-souzoku/)
-- [公正証書遺言：遺言執行者の指定・運用の考え方](https://www.templex.jp/articles/kouseishousho-yuigon-shikkousha)
+- [建設業許可の事業承継・相続（当サイトの解説）](/construction-permit/succession/)
+- [日本公証人連合会：公正証書遺言](https://www.koshonin.gr.jp/)
 

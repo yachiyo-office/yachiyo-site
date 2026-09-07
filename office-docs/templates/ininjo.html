@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>委任状｜やちよ行政書士事務所</title>
+  <style>
+    :root { --ink:#1a1a1a; --line:#333; --muted:#555; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: #e8eaed; color: var(--ink);
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", "MS Mincho", serif;
+      font-size: 11pt; line-height: 1.75;
+    }
+    .toolbar {
+      position: sticky; top: 0; z-index: 10; display: flex; flex-wrap: wrap;
+      gap: 0.5rem; align-items: center; padding: 0.75rem 1rem;
+      background: #111827; color: #fff;
+      font-family: "Hiragino Sans", "Yu Gothic", sans-serif; font-size: 13px;
+    }
+    .toolbar button, .toolbar a {
+      appearance: none; border: 0; border-radius: 6px; padding: 0.45rem 0.85rem;
+      background: #fff; color: #111; font: inherit; cursor: pointer; text-decoration: none;
+    }
+    .toolbar .hint { opacity: 0.85; margin-left: 0.5rem; }
+    .sheet {
+      width: 210mm; min-height: 297mm; margin: 1rem auto 2rem;
+      padding: 18mm 18mm 16mm; background: #fff; box-shadow: 0 8px 28px rgba(0,0,0,.12);
+    }
+    [contenteditable="true"]:hover, [contenteditable="true"]:focus {
+      outline: 1px dashed rgba(30,58,138,.35); background: rgba(30,58,138,.03);
+    }
+    h1 {
+      margin: 0 0 1.6rem; text-align: center; font-size: 22pt;
+      font-weight: 700; letter-spacing: 0.45em;
+    }
+    .blank {
+      border-bottom: 1px solid var(--line); display: inline-block;
+      min-width: 8em; padding: 0 0.25em;
+    }
+    .box {
+      border: 1px solid var(--line); padding: 0.7rem 0.85rem; margin: 0.9rem 0 1.1rem;
+    }
+    .sign {
+      margin-top: 2.2rem; line-height: 2;
+    }
+    .right { text-align: right; }
+    .small { font-size: 9.5pt; color: var(--muted); margin-top: 1.2rem; }
+    @media print {
+      body { background: #fff; }
+      .toolbar { display: none !important; }
+      .sheet { margin: 0; box-shadow: none; width: auto; min-height: auto; padding: 12mm; }
+      [contenteditable="true"]:hover, [contenteditable="true"]:focus { outline: none; background: transparent; }
+      @page { size: A4; margin: 12mm; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">印刷 / PDF保存</button>
+    <a href="./azukarisyo.html">預り証へ</a>
+    <a href="./checklist-kensetsu.html">社内チェックリストへ</a>
+    <span class="hint">行政庁提出用。申請内容に合わせて文言を編集してください</span>
+  </div>
+
+  <main class="sheet">
+    <h1>委 任 状</h1>
+
+    <p>
+      私（当社）は、次の者を代理人と定め、下記の権限を委任します。
+    </p>
+
+    <div class="box">
+      <strong>受任者（代理人）</strong><br />
+      住所：大阪府阪南市自然田753-14<br />
+      氏名：行政書士　鹿野　正幸<br />
+      <span contenteditable="true">登録番号：第　　　　号</span><br />
+      事務所名：やちよ行政書士事務所
+    </div>
+
+    <p><strong>委任事項</strong></p>
+    <div class="box" contenteditable="true">
+      1. 建設業法に基づく建設業許可の新規申請（知事許可／大臣許可）に関する一切の件<br />
+      2. 上記に付随する書類の作成、提出、補正、受領および行政庁との折衝に関する一切の件<br />
+      ※必要に応じて：更新申請／業種追加／変更届／決算変更届　等
+    </div>
+
+    <p>
+      委任者（申請者）<br />
+      住所：<span class="blank" contenteditable="true" style="min-width:22em">　　　　　　　　　　　　　　　　</span><br />
+      氏名または名称：<span class="blank" contenteditable="true" style="min-width:16em">　　　　　　　　　　</span><br />
+      （法人の場合）代表者役職・氏名：<span class="blank" contenteditable="true" style="min-width:14em">　　　　　　　　</span>
+    </p>
+
+    <p class="right" style="margin-top:2rem">
+      <span contenteditable="true">令和　　年　　月　　日</span>
+    </p>
+
+    <div class="sign right">
+      委任者　　　　　　　　　　印
+    </div>
+
+    <p class="small">
+      ※行政庁・手続により、指定様式の委任状が必要な場合があります。その場合は指定様式を優先してください。<br />
+      ※法人の場合は代表者印（または実印）を押印し、必要に応じて代表者の印鑑証明書を添付します。
+    </p>
+  </main>
+</body>
+</html>

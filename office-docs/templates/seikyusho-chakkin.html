@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>請求書（着手金）｜やちよ行政書士事務所</title>
+  <style>
+    :root { --ink:#1a1a1a; --line:#333; --muted:#555; --soft:#f4f6f8; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: #e8eaed; color: var(--ink);
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", "MS Mincho", serif;
+      font-size: 11pt; line-height: 1.5;
+    }
+    .toolbar {
+      position: sticky; top: 0; z-index: 10; display: flex; flex-wrap: wrap;
+      gap: 0.5rem; align-items: center; padding: 0.75rem 1rem;
+      background: #111827; color: #fff;
+      font-family: "Hiragino Sans", "Yu Gothic", sans-serif; font-size: 13px;
+    }
+    .toolbar button, .toolbar a {
+      appearance: none; border: 0; border-radius: 6px; padding: 0.45rem 0.85rem;
+      background: #fff; color: #111; font: inherit; cursor: pointer; text-decoration: none;
+    }
+    .toolbar .hint { opacity: 0.85; margin-left: 0.5rem; }
+    .sheet {
+      width: 210mm; min-height: 297mm; margin: 1rem auto 2rem;
+      padding: 14mm 14mm 12mm; background: #fff; box-shadow: 0 8px 28px rgba(0,0,0,.12);
+    }
+    [contenteditable="true"]:hover, [contenteditable="true"]:focus {
+      outline: 1px dashed rgba(30,58,138,.35); background: rgba(30,58,138,.03);
+    }
+    h1 { margin: 0 0 0.4rem; text-align: center; font-size: 22pt; font-weight: 700; letter-spacing: 0.35em; }
+    .sub { text-align: center; margin: 0 0 1rem; font-size: 11pt; color: var(--muted); }
+    .top { display: grid; grid-template-columns: 1fr auto; gap: 1rem; margin-bottom: 0.8rem; }
+    .client {
+      font-size: 14pt; border-bottom: 1px solid var(--line);
+      min-width: 12em; display: inline-block; padding: 0 0.2em 0.15em;
+    }
+    .meta { text-align: right; font-size: 10pt; color: var(--muted); }
+    .lead { margin: 0.7rem 0 0.8rem; font-size: 10.5pt; }
+    table.doc { width: 100%; border-collapse: collapse; table-layout: fixed; font-size: 10pt; }
+    table.doc th, table.doc td { border: 1px solid var(--line); padding: 0.35rem 0.45rem; vertical-align: middle; }
+    table.doc thead th { background: var(--soft); font-weight: 700; text-align: center; }
+    .sec { background: #eef2ff; font-weight: 700; text-align: center; }
+    .num { text-align: right; font-variant-numeric: tabular-nums; }
+    .center { text-align: center; }
+    .label-cell { background: var(--soft); font-weight: 700; text-align: right; }
+    .total-strong { font-size: 13pt; font-weight: 700; background: #fff8e7; }
+    .note { margin: 0.9rem 0 0; font-size: 9.5pt; color: var(--muted); }
+    .note ul { margin: 0.25rem 0 0; padding-left: 1.2em; }
+    .closing { margin: 0.8rem 0 0; font-size: 10.5pt; }
+    .bottom {
+      display: grid; grid-template-columns: 1.15fr 1fr auto; gap: 0.7rem;
+      margin-top: 0.9rem; align-items: stretch;
+    }
+    .bank, .issuer {
+      border: 1px solid var(--line); padding: 0.55rem 0.7rem; font-size: 9.5pt; line-height: 1.6;
+    }
+    .bank strong, .issuer .office-name { display: block; margin-bottom: 0.25rem; font-size: 10.5pt; }
+    .seal {
+      width: 22mm; height: 22mm; border: 1.5px solid #c45c5c; color: #c45c5c;
+      display: grid; place-items: center; font-size: 9pt; text-align: center; line-height: 1.25; align-self: end;
+    }
+    @media print {
+      body { background: #fff; }
+      .toolbar { display: none !important; }
+      .sheet { margin: 0; box-shadow: none; width: auto; min-height: auto; padding: 8mm; }
+      [contenteditable="true"]:hover, [contenteditable="true"]:focus { outline: none; background: transparent; }
+      @page { size: A4; margin: 10mm; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">印刷 / PDF保存</button>
+    <a href="./seikyusho.html">残金請求へ</a>
+    <a href="./mitsumorisho.html">見積書へ</a>
+    <span class="hint">着手金のみの請求書です（法定費用・実費は含めません）</span>
+  </div>
+
+  <main class="sheet">
+    <h1>請求書</h1>
+    <p class="sub">（着手金）</p>
+
+    <div class="top">
+      <div>
+        <span class="client" contenteditable="true">〇〇株式会社</span>
+        <span> 御中</span>
+        <p class="lead">下記のとおり、着手金をご請求申し上げます。</p>
+      </div>
+      <div class="meta">
+        <div>請求日：<span contenteditable="true">令和　年　月　日</span></div>
+        <div>請求番号：<span contenteditable="true">Y-INV-A-0001</span></div>
+        <div>種別：着手金請求</div>
+        <div>お支払期限：<span contenteditable="true">令和　年　月　日</span></div>
+      </div>
+    </div>
+
+    <table class="doc">
+      <colgroup>
+        <col style="width:48%" /><col style="width:10%" /><col style="width:14%" /><col style="width:14%" /><col style="width:14%" />
+      </colgroup>
+      <thead>
+        <tr>
+          <th>項目</th><th>数量</th><th>単価（税抜）</th><th>金額（税抜）</th><th>備考</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="sec" colspan="5">報　酬（着手金）</td></tr>
+        <tr>
+          <td contenteditable="true">建設業許可 新規申請（知事・法人）に係る着手金</td>
+          <td class="center" contenteditable="true">1</td>
+          <td class="num" contenteditable="true">55,000</td>
+          <td class="num" contenteditable="true">55,000</td>
+          <td contenteditable="true">報酬税込121,000円の半額相当</td>
+        </tr>
+        <tr>
+          <td contenteditable="true"></td>
+          <td class="center" contenteditable="true"></td>
+          <td class="num" contenteditable="true"></td>
+          <td class="num" contenteditable="true"></td>
+          <td contenteditable="true"></td>
+        </tr>
+        <tr>
+          <td class="label-cell" colspan="3">小計</td>
+          <td class="num" contenteditable="true">55,000</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="label-cell" colspan="3">消費税（10%）</td>
+          <td class="num" contenteditable="true">5,500</td>
+          <td></td>
+        </tr>
+        <tr>
+          <td class="label-cell total-strong" colspan="3">ご請求額（着手金）</td>
+          <td class="num total-strong" contenteditable="true">60,500</td>
+          <td class="total-strong" contenteditable="true">円（税込）</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="note">
+      <strong>ご案内</strong>
+      <ul contenteditable="true">
+        <li>本請求は報酬の着手金のみです。許可申請手数料（法定費用）および証明書取得等の実費は含みません。</li>
+        <li>法定費用・実費および報酬の残額は、申請手続の前に別途ご請求します。</li>
+        <li>着手金は、契約に基づき業務に着手した後は、申請の成否にかかわらず返還いたしません（調査・書類作成等の対価に充当します）。</li>
+      </ul>
+    </div>
+
+    <p class="closing">上記のとおりご請求いたします。下記口座までお振込みください。</p>
+
+    <div class="bottom">
+      <div class="bank">
+        <strong>お振込先</strong>
+        <div contenteditable="true">
+          金融機関：〇〇銀行　〇〇支店<br />
+          口座種別：普通預金<br />
+          口座番号：0000000<br />
+          口座名義：シカノ　マサユキ
+        </div>
+      </div>
+      <div class="issuer">
+        <div>大阪府行政書士会</div>
+        <div contenteditable="true">〒599-0202</div>
+        <div>大阪府阪南市自然田753-14</div>
+        <div class="office-name">やちよ行政書士事務所</div>
+        <div>行政書士　鹿野　正幸</div>
+        <div contenteditable="true">登録番号：第　　　　号</div>
+        <div contenteditable="true">TEL：　　　　　　</div>
+      </div>
+      <div class="seal">職印<br />欄</div>
+    </div>
+  </main>
+</body>
+</html>

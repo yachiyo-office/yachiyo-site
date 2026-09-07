@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>領収書｜やちよ行政書士事務所</title>
+  <style>
+    :root { --ink:#1a1a1a; --line:#333; --muted:#555; --soft:#f4f6f8; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: #e8eaed; color: var(--ink);
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", "MS Mincho", serif;
+      font-size: 11pt; line-height: 1.6;
+    }
+    .toolbar {
+      position: sticky; top: 0; z-index: 10; display: flex; flex-wrap: wrap;
+      gap: 0.5rem; align-items: center; padding: 0.75rem 1rem;
+      background: #111827; color: #fff;
+      font-family: "Hiragino Sans", "Yu Gothic", sans-serif; font-size: 13px;
+    }
+    .toolbar button, .toolbar a {
+      appearance: none; border: 0; border-radius: 6px; padding: 0.45rem 0.85rem;
+      background: #fff; color: #111; font: inherit; cursor: pointer; text-decoration: none;
+    }
+    .sheet {
+      width: 210mm; min-height: 297mm; margin: 1rem auto 2rem;
+      padding: 16mm 18mm; background: #fff; box-shadow: 0 8px 28px rgba(0,0,0,.12);
+    }
+    [contenteditable="true"]:hover, [contenteditable="true"]:focus {
+      outline: 1px dashed rgba(30,58,138,.35); background: rgba(30,58,138,.03);
+    }
+    h1 {
+      margin: 0 0 1.1rem; text-align: center; font-size: 22pt;
+      font-weight: 700; letter-spacing: 0.45em;
+    }
+    .meta { text-align: right; font-size: 10pt; color: var(--muted); margin-bottom: 1rem; }
+    .client {
+      font-size: 14pt; border-bottom: 1px solid var(--line);
+      display: inline-block; min-width: 14em; padding: 0 0.2em 0.1em;
+    }
+    .amount-box {
+      margin: 1.2rem 0;
+      border: 2px solid var(--line);
+      padding: 0.9rem 1rem;
+      text-align: center;
+      background: #fff8e7;
+    }
+    .amount-box .label { font-size: 10.5pt; margin-bottom: 0.3rem; }
+    .amount-box .yen {
+      font-size: 22pt; font-weight: 700; letter-spacing: 0.08em;
+      font-variant-numeric: tabular-nums;
+    }
+    table.doc { width: 100%; border-collapse: collapse; font-size: 10pt; margin-top: 0.8rem; }
+    table.doc th, table.doc td { border: 1px solid var(--line); padding: 0.4rem 0.5rem; }
+    table.doc th { background: var(--soft); width: 28%; text-align: left; }
+    .footer {
+      display: grid; grid-template-columns: 1fr auto; gap: 1rem;
+      margin-top: 1.6rem; align-items: end;
+    }
+    .issuer { font-size: 10pt; line-height: 1.7; }
+    .seal {
+      width: 22mm; height: 22mm; border: 1.5px solid #c45c5c; color: #c45c5c;
+      display: grid; place-items: center; font-size: 9pt; text-align: center;
+    }
+    .note { margin-top: 0.9rem; font-size: 9.5pt; color: var(--muted); }
+    @media print {
+      body { background: #fff; }
+      .toolbar { display: none !important; }
+      .sheet { margin: 0; box-shadow: none; width: auto; min-height: auto; padding: 12mm; }
+      [contenteditable="true"]:hover, [contenteditable="true"]:focus { outline: none; background: transparent; }
+      @page { size: A4; margin: 12mm; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">印刷 / PDF保存</button>
+    <a href="./azukarisyo.html">預り証へ</a>
+    <a href="./seikyusho-chakkin.html">着手金請求へ</a>
+  </div>
+
+  <main class="sheet">
+    <h1>領 収 書</h1>
+    <div class="meta">
+      領収日：<span contenteditable="true">令和　年　月　日</span><br />
+      番号：<span contenteditable="true">Y-RCP-0001</span>
+    </div>
+
+    <p>
+      <span class="client" contenteditable="true">〇〇株式会社</span> 様
+    </p>
+    <p>下記の金額を正に領収いたしました。</p>
+
+    <div class="amount-box">
+      <div class="label">金額（税込）</div>
+      <div class="yen">￥ <span contenteditable="true">60,500</span> −</div>
+    </div>
+
+    <table class="doc">
+      <tr>
+        <th>但し</th>
+        <td contenteditable="true">建設業許可新規申請業務 着手金として</td>
+      </tr>
+      <tr>
+        <th>内訳</th>
+        <td contenteditable="true">
+          税抜 55,000円　／　消費税（10%）5,500円　／　税込 60,500円<br />
+          ※残金請求・法定費用の領収には、但し書きを書き換えて使用
+        </td>
+      </tr>
+      <tr>
+        <th>支払方法</th>
+        <td contenteditable="true">銀行振込　／　現金　／　その他（　　　　）</td>
+      </tr>
+      <tr>
+        <th>関連請求番号</th>
+        <td contenteditable="true">Y-INV-A-0001</td>
+      </tr>
+    </table>
+
+    <p class="note" contenteditable="true">
+      ※再発行の際は「再発行」と明記してください。<br />
+      ※インボイス（適格請求書）が必要な場合は、登録番号を追記してください。
+    </p>
+
+    <div class="footer">
+      <div class="issuer">
+        大阪府阪南市自然田753-14<br />
+        やちよ行政書士事務所<br />
+        行政書士　鹿野　正幸<br />
+        <span contenteditable="true">登録番号：第　　　　号</span><br />
+        <span contenteditable="true">TEL：　　　　　　</span>
+      </div>
+      <div class="seal">職印<br />欄</div>
+    </div>
+  </main>
+</body>
+</html>
