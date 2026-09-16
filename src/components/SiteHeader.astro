@@ -9,7 +9,7 @@ const nav = [
 ];
 
 /** 公開時に実番号へ差し替えください */
-const phoneDisplay = '（掲載準備中）';
+const phoneDisplay = '072-473-4321';
 ---
 
 <header class="header" id="site-header">
@@ -30,10 +30,11 @@ const phoneDisplay = '（掲載準備中）';
         </span>
       </a>
       <div class="header__aside">
-        <span class="header__phone">
-          <span class="header__phone-label">お電話</span>
-          <span class="header__phone-num">{phoneDisplay}</span>
-        </span>
+        <a href="tel:0724734321" class="header__phone">
+  <span class="header__phone-label">お電話</span>
+  <span class="header__phone-num">{phoneDisplay}</span>
+</a>
+
         <a href="/contact" class="header__btn">お問い合わせ</a>
       </div>
     </div>
