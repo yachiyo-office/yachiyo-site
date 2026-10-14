@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>欠格要件・誠実性 確認書（自己申告）｜やちよ行政書士事務所</title>
+  <style>
+    :root { --ink:#1a1a1a; --line:#444; --muted:#555; --soft:#f4f6f8; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: #e8eaed; color: var(--ink);
+      font-family: "Hiragino Sans", "Yu Gothic", "Hiragino Kaku Gothic ProN", sans-serif;
+      font-size: 9.5pt; line-height: 1.5;
+    }
+    .toolbar {
+      position: sticky; top: 0; z-index: 10; display: flex; flex-wrap: wrap;
+      gap: 0.5rem; align-items: center; padding: 0.75rem 1rem;
+      background: #111827; color: #fff; font-size: 13px;
+    }
+    .toolbar button, .toolbar a {
+      appearance: none; border: 0; border-radius: 6px; padding: 0.45rem 0.85rem;
+      background: #fff; color: #111; font: inherit; cursor: pointer; text-decoration: none;
+    }
+    .toolbar .hint { opacity: 0.85; margin-left: 0.5rem; }
+    .sheet {
+      width: 210mm; margin: 1rem auto 2rem; padding: 11mm 13mm;
+      background: #fff; box-shadow: 0 8px 28px rgba(0,0,0,.12);
+    }
+    .sheet.page-break { page-break-after: always; }
+    [contenteditable="true"]:hover, [contenteditable="true"]:focus {
+      outline: 1px dashed rgba(30,58,138,.35); background: rgba(30,58,138,.03);
+    }
+    h1 {
+      margin: 0 0 0.25rem; text-align: center; font-size: 14.5pt; font-weight: 700;
+      letter-spacing: 0.08em;
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+    }
+    .sub {
+      text-align: center; margin: 0 0 0.65rem; font-size: 9pt; color: #9b1c1c; font-weight: 700;
+    }
+    .lead {
+      font-size: 8.8pt; color: var(--muted); margin: 0 0 0.55rem; line-height: 1.55;
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+    }
+    .meta {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.25rem 0.8rem;
+      font-size: 9pt; margin-bottom: 0.5rem; border: 1px solid var(--line); padding: 0.45rem 0.55rem;
+    }
+    .meta label { display: block; font-size: 8pt; color: var(--muted); }
+    h2 {
+      margin: 0.55rem 0 0.25rem; font-size: 10pt; background: #1e3a8a; color: #fff;
+      padding: 0.2rem 0.45rem;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 8.5pt; }
+    th, td { border: 1px solid var(--line); padding: 0.18rem 0.28rem; vertical-align: top; }
+    th { background: var(--soft); text-align: center; font-weight: 600; }
+    .c-no { width: 4%; text-align: center; }
+    .c-item { width: 52%; }
+    .c-yes, .c-maybe { width: 7%; text-align: center; }
+    .c-note { width: 30%; }
+    .c-role { width: 14%; }
+    .c-name { width: 22%; }
+    .c-addr { width: 28%; }
+    .c-rel { width: 36%; }
+    .box {
+      border: 1px solid var(--line); padding: 0.45rem 0.55rem; margin: 0.35rem 0;
+      font-size: 8.8pt; line-height: 1.55; background: #fafafa;
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+    }
+    .sign-block {
+      margin-top: 0.55rem; page-break-inside: avoid;
+      border: 1px solid var(--line); padding: 0.55rem 0.65rem;
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", serif; font-size: 9pt;
+    }
+    .sign-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-top: 0.45rem;
+    }
+    .sign-box { border: 1px solid var(--line); padding: 0.5rem 0.55rem; min-height: 28mm; font-size: 8.8pt; }
+    .sign-box .role { font-weight: 700; margin-bottom: 0.25rem; }
+    .seal-line { margin-top: 0.8rem; }
+    .law-body {
+      font-size: 8.6pt; line-height: 1.58;
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+    }
+    .law-body ol { margin: 0.25rem 0; padding-left: 1.35em; }
+    .law-body li { margin: 0.35rem 0; }
+    .law-body h3 { font-size: 9.5pt; margin: 0.6rem 0 0.25rem; border-bottom: 1px solid var(--line); }
+    .tiny { font-size: 7.8pt; color: var(--muted); margin-top: 0.4rem; }
+    @media print {
+      body { background: #fff; }
+      .toolbar { display: none !important; }
+      .sheet { margin: 0; box-shadow: none; width: auto; padding: 6mm 8mm; }
+      .sheet.page-break { page-break-after: always; }
+      [contenteditable="true"]:hover, [contenteditable="true"]:focus { outline: none; background: transparent; }
+      @page { size: A4; margin: 10mm; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">印刷 / PDF保存（2ページ）</button>
+    <a href="./keiyaku-gyomu-itaku.html">業務委託契約へ</a>
+    <a href="./checklist-kensetsu.html">社内チェックリストへ</a>
+    <span class="hint">受任前の自己申告用。様式第6号の代用ではありません</span>
+  </div>
+
+  <!-- 1ページ目：確認書 -->
+  <main class="sheet page-break">
+    <h1>建設業許可に関する<br />欠格要件・誠実性 確認書</h1>
+    <p class="sub">（自己申告・事実確認）</p>
+
+    <p class="lead">
+      本書は、建設業許可の申請・更新等にあたり、<strong>欠格要件（建設業法第8条・第17条）</strong>および<strong>誠実性（同法第7条第3号）</strong>について、
+      委託者（申請者）が現時点で把握している事実を申告するためのものです。
+      <strong>行政庁へ提出する誓約書（様式第6号）に代わるものではありません。</strong>
+      心当たりがある事項は、申告欄に記載のうえ、申請前に必ずご相談ください。虚偽・不告知により生じた不利益は、業務委託契約等に基づき委託者が負うものとします。
+    </p>
+
+    <div class="meta">
+      <div>
+        <label>申請者（法人名／屋号）</label>
+        <span contenteditable="true">　　　　　　　　　　　　　　</span>
+      </div>
+      <div>
+        <label>手続の区分</label>
+        <span contenteditable="true">新規　／　更新　／　業種追加　／　変更届　／　その他（　　　）</span>
+      </div>
+      <div>
+        <label>個人／法人</label>
+        <span contenteditable="true">　　　　　　</span>
+      </div>
+      <div>
+        <label>確認日</label>
+        <span contenteditable="true">令和　　年　　月　　日</span>
+      </div>
+    </div>
+
+    <h2>1. 確認対象者（欠格要件の確認が及ぶ者）</h2>
+    <p class="tiny" style="margin:0 0 0.25rem;">
+      法人：法人自体、取締役・執行役・業務執行社員、令3条使用人、実質的支配力を有する者等／
+      個人：申請者本人、支配人、令3条使用人
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th class="c-no">No</th>
+          <th class="c-role">役職・関係</th>
+          <th class="c-name">氏名</th>
+          <th class="c-addr">住所（都道府県まで可）</th>
+          <th class="c-rel">備考（株主5%超 等）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td class="c-no">1</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+        <tr><td class="c-no">2</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+        <tr><td class="c-no">3</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+        <tr><td class="c-no">4</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+        <tr><td class="c-no">5</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+        <tr><td class="c-no">6</td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td><td contenteditable="true"></td></tr>
+      </tbody>
+    </table>
+
+    <h2>2. 欠格要件に関する申告（上記対象者すべてについて）</h2>
+    <p class="tiny" style="margin:0 0 0.2rem;">該当する場合は「心当たり」に✓し、備考欄に内容・時期等を記載してください。条文の全文は別紙を参照。</p>
+    <table>
+      <thead>
+        <tr>
+          <th class="c-no">号</th>
+          <th class="c-item">確認事項（要約）</th>
+          <th class="c-yes">該当<br />しない</th>
+          <th class="c-maybe">心当<br />たり</th>
+          <th class="c-note">備考（時期・内容等）</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="c-no">1</td>
+          <td>破産手続開始の決定を受け、復権を得ていない</td>
+          <td class="c-yes" contenteditable="true"></td>
+          <td class="c-maybe" contenteditable="true"></td>
+          <td contenteditable="true"></td>
+        </tr>
+        <tr>
+          <td class="c-no">2</td>
+          <td>建設業許可の取消しを受け、取消日から5年を経過していない</td>
+          <td class="c-yes" contenteditable="true"></td>
+          <td class="c-maybe" contenteditable="true"></td>
+          <td contenteditable="true"></td>
+        </tr>
+        <tr>
+          <td class="c-no">3</td>
+          <td>許可取り消しを免れるため廃業届を提出し、提出日から5年を経過していない</td>
+          <td class="c-yes" contenteditable="true"></td>
+          <td class="c-maybe" contenteditable="true"></td>
+          <td contenteditable="true"></td>
+        </tr>
+        <tr>
+          <td class="c-no">4</td>
+          <td>廃業届提出前60日以内に役員等であった者で、提出から5年を経過していない</td>
+          <td class="c-yes" contenteditable="true"></td>
+          <td class="c-maybe" contenteditable="true"></td>
+          <td contenteditable="true"></td>
+        </tr>
+        <tr>
+          <td class="c-no">5</td>
+          <td>建設業に関する営業停止処分を受け、処分期間が経過していない</td>
+          <td class="c-yes" contenteditable="true"></td>
+          <td class="c-maybe" contenteditable="true"></td>
+          <td contenteditable="true"></td>
+        </tr>
+        <tr>
+          <td class="c-no">6</td>
+          <td>建設業に関する営業禁止処分を受け、処分期間が経過していない</td>
+          <td class="c-yes" contenteditable="true"></td>
+          <td class="c-maybe" contenteditable="true"></td>
+          <td contenteditable="true"></td>
+        </tr>
+        <tr>
+          <td class="c-no">7</td>
+          <td>拘禁刑以上の刑に処せられ、執行終了・執行免除から5年を経過していない（執行猶予中を含む）</td>
+          <td class="c-yes" contenteditable="true"></td>
+          <td class="c-maybe" contenteditable="true"></td>
+          <td contenteditable="true"></td>
+        </tr>
+        <tr>
+          <td class="c-no">8</td>
+          <td>建設業法等一定の法令違反により罰金以上の刑に処せられ、5年を経過していない</td>
+          <td class="c-yes" contenteditable="true"></td>
+          <td class="c-maybe" contenteditable="true"></td>
+          <td contenteditable="true"></td>
+        </tr>
+        <tr>
+          <td class="c-no">9</td>
+          <td>暴力団員でなくなった日から5年を経過していない</td>
+          <td class="c-yes" contenteditable="true"></td>
+          <td class="c-maybe" contenteditable="true"></td>
+          <td contenteditable="true"></td>
+        </tr>
+        <tr>
+          <td class="c-no">10</td>
+          <td>心身の故障により建設業を適正に営むことができない</td>
+          <td class="c-yes" contenteditable="true"></td>
+          <td class="c-maybe" contenteditable="true"></td>
+          <td contenteditable="true"></td>
+        </tr>
+        <tr>
+          <td class="c-no">11</td>
+          <td>未成年者で、法定代理人が欠格要件等に該当する</td>
+          <td class="c-yes" contenteditable="true"></td>
+          <td class="c-maybe" contenteditable="true"></td>
+          <td contenteditable="true"></td>
+        </tr>
+        <tr>
+          <td class="c-no">12</td>
+          <td>法人で、その役員等または令3条使用人が1～4号または6～10号に該当する</td>
+          <td class="c-yes" contenteditable="true"></td>
+          <td class="c-maybe" contenteditable="true"></td>
+          <td contenteditable="true"></td>
+        </tr>
+        <tr>
+          <td class="c-no">13</td>
+          <td>個人で、その支配人または令3条使用人が1～4号または6～10号に該当する</td>
+          <td class="c-yes" contenteditable="true"></td>
+          <td class="c-maybe" contenteditable="true"></td>
+          <td contenteditable="true"></td>
+        </tr>
+        <tr>
+          <td class="c-no">14</td>
+          <td>暴力団員が事業活動を支配している</td>
+          <td class="c-yes" contenteditable="true"></td>
+          <td class="c-maybe" contenteditable="true"></td>
+          <td contenteditable="true"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>3. 誠実性に関する申告（申請者・役員等）</h2>
+    <table>
+      <thead>
+        <tr>
+          <th class="c-item">確認事項</th>
+          <th class="c-yes">該当<br />しない</th>
+          <th class="c-maybe">心当<br />たり</th>
+          <th class="c-note">備考</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>請負契約の締結・履行において、不正な行為（詐欺・脅迫・横領等）をするおそれがある事実はない</td>
+          <td class="c-yes" contenteditable="true"></td>
+          <td class="c-maybe" contenteditable="true"></td>
+          <td contenteditable="true"></td>
+        </tr>
+        <tr>
+          <td>請負契約の内容（工事内容・工期・損害負担等）を守らない等、不誠実な行為をするおそれがある事実はない</td>
+          <td class="c-yes" contenteditable="true"></td>
+          <td class="c-maybe" contenteditable="true"></td>
+          <td contenteditable="true"></td>
+        </tr>
+        <tr>
+          <td>建築士法・宅建業法等により免許等の取消処分を受け、取消日から5年を経過していない事実はない</td>
+          <td class="c-yes" contenteditable="true"></td>
+          <td class="c-maybe" contenteditable="true"></td>
+          <td contenteditable="true"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="box" contenteditable="true">
+      <strong>心当たりがある事項の詳細（該当時記入）：</strong><br /><br /><br />
+    </div>
+
+    <div class="sign-block">
+      <p style="margin:0;">
+        私（当社）は、上記1の対象者について、現時点で把握している範囲において、第2・第3のとおり申告します。
+        申請に必要な身分証明書・調書・誓約書等は、別途行政庁の定めるところにより提出します。
+        本書の内容に変更（役員の就任・退任等）が生じた場合は、速やかにやちよ行政書士事務所へ連絡します。
+      </p>
+      <p style="margin:0.35rem 0 0; text-align:right;">
+        <span contenteditable="true">令和　　年　　月　　日</span>
+      </p>
+      <div class="sign-grid">
+        <div class="sign-box">
+          <div class="role">申告者（委託者）</div>
+          <div>住所：</div>
+          <div contenteditable="true"><br /></div>
+          <div>氏名／代表者名：</div>
+          <div contenteditable="true"><br /></div>
+          <div class="seal-line">印</div>
+        </div>
+        <div class="sign-box">
+          <div class="role">受領・説明（事務所控え）</div>
+          <div>やちよ行政書士事務所</div>
+          <div>説明・受領者：</div>
+          <div contenteditable="true"><br /></div>
+          <div class="seal-line">印</div>
+        </div>
+      </div>
+    </div>
+    <p class="tiny">※更新申請では、欠格要件2～6号は不許可事由に当たらない場合があります（7～14号は引き続き確認）。別紙参照。</p>
+  </main>
+
+  <!-- 2ページ目：条文参考 -->
+  <main class="sheet">
+    <h1 style="font-size:13pt;">別紙　参考条文</h1>
+    <p class="sub" style="margin-bottom:0.5rem;">建設業法（欠格要件・誠実性）— 確認書作成時の参照用</p>
+
+    <div class="law-body">
+      <p class="tiny" style="margin:0 0 0.5rem;">
+        以下は、e-Gov法令データ等に基づく引用を目的とした参考資料です。最新の条文・用語は必ず<a href="https://elaws.e-gov.go.jp/document?lawid=324AC0000000100">e-Gov「建設業法」</a>および許可行政庁の手引きでご確認ください。特定建設業については第17条により第8条が準用されます。
+      </p>
+
+      <h3>建設業法 第7条第3号（許可の要件・誠実性）</h3>
+      <p style="margin:0.25rem 0;">
+        許可を受けようとする者が、請負契約の締結又は履行に関し、不正な行為若しくは不誠実な行為をするおそれがないと認められること。
+      </p>
+
+      <h3>建設業法 第8条第1項（欠格要件）</h3>
+      <p style="margin:0.25rem 0;">次の各号のいずれかに該当する者は、許可を受けることができない。</p>
+      <ol>
+        <li>破産手続開始の決定を受けて復権を得ない者</li>
+        <li>この法律の規定により許可を取り消され、その取消しの日から五年を経過しない者</li>
+        <li>この法律の規定により許可を取り消されることを免れるため廃業の届出をした者で、その届出の日から五年を経過しない者</li>
+        <li>この法律の規定により許可を取り消されることを免れるため廃業の届出があった場合において、その届出の日前六十日以内にその届出をした者の役員又は政令で定める使用人であった者で、その届出の日から五年を経過しない者</li>
+        <li>この法律の規定による営業停止の処分を受け、その処分の期間が経過しない者</li>
+        <li>この法律の規定による営業の禁止の処分を受け、その処分の期間が経過しない者</li>
+        <li>拘禁刑以上の刑に処せられ、その刑の執行を終わり、又はその刑の執行を受けることがなくなった日から五年を経過しない者</li>
+        <li>
+          次に掲げる法令の規定に違反し、罰金以上の刑に処せられ、その刑の執行を終わり、又はその刑の執行を受けることがなくなった日から五年を経過しない者
+          <p class="tiny" style="margin:0.35rem 0 0;">
+            掲げる法令は、建設業法、建築基準法、労働基準法、労働安全衛生法、下請法、暴力団員による不当な行為の防止等に関する法律、廃棄物の処理及び清掃に関する法律等、<strong>同条第8号および建設業法施行令で定める多数の法令</strong>です。条文上の完全な一覧は長文のため、<a href="https://elaws.e-gov.go.jp/document?lawid=324AC0000000100">e-Gov「建設業法」第8条第1項第8号</a>を参照してください。
+          </p>
+        </li>
+        <li>暴力団員であった者で、暴力団員でなくなった日から五年を経過しない者</li>
+        <li>心身の故障により建設業を適正に営むことができない者として国土交通省令で定める者</li>
+        <li>未成年者でその法定代理人が前各号又は次号若しくは第14号のいずれかに該当する者</li>
+        <li>法人であって、その役員又は政令で定める使用人のうちに第1号から第4号まで、第6号から第10号まで又は第14号のいずれかに該当する者があるもの</li>
+        <li>個人であって、その支配人又は政令で定める使用人のうちに第1号から第4号まで、第6号から第10号まで又は第14号のいずれかに該当する者があるもの</li>
+        <li>暴力団員（同法第2条第6号）がその事業活動を支配する者</li>
+      </ol>
+
+      <h3>更新申請における取扱い（実務上の整理）</h3>
+      <p style="margin:0.25rem 0;">
+        新規申請では上記1～14号すべてが不許可事由となります。更新申請では、2～6号（許可取消・廃業届・営業停止・営業禁止に関するもの）に該当していても、それ自体は更新不許可の事由にはならない取扱いとなります（7～14号は更新時も確認されます）。詳細は許可行政庁の手引き・ガイドラインを参照してください。
+      </p>
+
+      <h3>申請時に行政庁へ提出する主な書類（参考）</h3>
+      <ul style="margin:0.25rem 0; padding-left:1.2em; font-size:8.5pt;">
+        <li>誓約書（様式第6号）— 欠格要件に該当しないことの誓約</li>
+        <li>役員等調書（様式第12号）、令3条使用人調書（様式第13号）</li>
+        <li>身分証明書（本籍地の市区町村）、登記されていないことの証明書（法務局）</li>
+      </ul>
+    </div>
+
+    <p class="tiny" style="margin-top:0.8rem;">
+      やちよ行政書士事務所｜社内テンプレート kakaku-kakunin.html｜確認書（1ページ目）と本別紙をセットで保管してください。
+    </p>
+  </main>
+</body>
+</html>
