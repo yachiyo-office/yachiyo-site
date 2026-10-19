@@ -1,0 +1,408 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import SiteHeader from '../../../components/SiteHeader.astro';
+import SiteFooter from '../../../components/SiteFooter.astro';
+import LineButton from '../../../components/LineButton.astro';
+import { pageTitle } from '../../../config/site';
+import '../../../styles/international.css';
+
+const routes = [
+  {
+    badge: 'ROUTE 1',
+    title: '特定技能1号（介護分野）',
+    status: '現行制度・当面の主力になりやすい',
+    text: '一定の技能・日本語試験に合格した即戦力人材を受け入れる制度です。身体介護を中心に幅広く従事でき、2025年4月21日からは一定要件のもとで訪問系サービスも可能になりました。',
+    href: '/international/care/tokutei-ginou',
+  },
+  {
+    badge: 'ROUTE 2',
+    title: '育成就労（介護）',
+    status: '2027年（令和9年）4月1日施行予定',
+    text: '技能実習を発展的に解消し、3年間の就労を通じて特定技能1号の水準まで育成する新制度です。現行の技能実習（介護職種）からの切り替えを見据えた相談が今後増える見込みです。',
+    href: '/international/care/ikusei-shuro',
+  },
+  {
+    badge: 'ROUTE 3',
+    title: '在留資格「介護」',
+    status: '現行制度・長期就労が可能',
+    text: '介護福祉士の資格を持つ人が、介護または介護の指導を行う専門職として在留する資格です。在留期間の更新に回数制限がなく、長く働き続けられるのが特長です。',
+    href: '/international/care/zairyu-kaigo',
+  },
+  {
+    badge: 'ROUTE 4',
+    title: 'EPA介護福祉士候補者',
+    status: '現行制度・公的枠組み（JICWELS経由）',
+    text: '経済連携協定（インドネシア・フィリピン・ベトナム）に基づき、就労・研修しながら介護福祉士の国家資格取得を目指す特例的な枠組みです。あっせんはJICWELSが唯一の窓口です。',
+    href: '/international/care/epa',
+  },
+];
+
+const concerns = [
+  '介護スタッフが不足していて、外国人材の採用を本格的に検討している',
+  '特定技能・技能実習・EPA・在留資格「介護」のどれが自社に合うか分からない',
+  '受け入れるために社内で何を準備すればよいか（協議会・支援体制）が不安',
+  '技能実習生を受け入れているが、2027年の育成就労への移行が気になる',
+  '内定者のビザ手続きや、在留期限の管理を専門家に任せたい',
+];
+
+const supports = [
+  {
+    title: '受入れルートの選定サポート',
+    text: '人数・職種・現在の在留状況（海外在住／留学中／技能実習中など）を踏まえ、特定技能・育成就労・在留資格「介護」・EPAのうち、自社に合うルートを整理します。',
+  },
+  {
+    title: '在留資格認定証明書交付申請',
+    text: '海外から新たに受け入れる場合に、入国に先立って行う申請です。事業所要件・雇用条件・申請人の要件を確認し、必要書類をそろえて申請します。',
+  },
+  {
+    title: '在留資格変更・在留期間更新',
+    text: '技能実習から特定技能への移行、介護福祉士資格取得に伴う在留資格「介護」への変更、在留期間の更新など、国内での手続きに対応します。',
+  },
+  {
+    title: '各種届出・体制づくりの相談',
+    text: '協議会への加入、登録支援機関の活用、受入れ機関に求められる各種届出など、制度ごとに必要となる体制づくりの相談に対応します。',
+  },
+];
+
+const faqs = [
+  {
+    q: '結局、どのルートから検討すればよいですか？',
+    a: '「すぐに戦力がほしい」なら特定技能1号、「育てながら長く確保したい」なら育成就労（2027年〜）や技能実習、「介護福祉士の有資格者を長期で雇いたい」なら在留資格「介護」が基本の軸になります。現在の採用状況によって現実的な選択肢は変わるため、まずは状況を伺って整理します。',
+  },
+  {
+    q: '特定技能の介護には「2号」はないのですか？',
+    a: 'はい。介護分野は、専門的・技術的分野の在留資格「介護」が別にあるため、特定技能2号の対象分野とはされていません。長期・無期限の就労を目指す場合は在留資格「介護」が受け皿になります。',
+  },
+  {
+    q: '技能実習（介護）はもう受け入れられないのですか？',
+    a: '育成就労制度は2027年（令和9年）4月1日施行予定で、技能実習は発展的に解消されます。施行日時点で実施中の技能実習などには経過措置がありますが、技能実習から育成就労への直接移行はできないなど注意点があります。詳しくは育成就労のページでご案内します。',
+  },
+  {
+    q: '受け入れられる人数に上限はありますか？',
+    a: '特定技能（介護）では、事業所単位で受け入れられる1号特定技能外国人の数は、その事業所の日本人等の常勤介護職員の総数が上限とされています。制度ごとに考え方が異なるため、個別に確認します。',
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle('介護分野の外国人材受入れ（特定技能・育成就労・介護・EPA）')}
+  description="介護事業者向けに、外国人材の4つの受入れルート（特定技能1号・育成就労・在留資格「介護」・EPA）を要件・在留期間・社内体制の違いとあわせて整理。入管手続きもサポートします。"
+  breadcrumbs={[
+    { name: 'ホーム', href: '/' },
+    { name: '国際業務', href: '/international/' },
+    { name: '介護分野の受入れ' },
+  ]}
+  noindex={true}
+>
+  <div class="page">
+    <SiteHeader />
+
+    <main>
+      <section class="page-hero section--base" aria-labelledby="page-heading">
+        <div class="page-hero__inner">
+          <nav class="breadcrumb" aria-label="パンくずリスト">
+            <ol>
+              <li><a href="/">ホーム</a></li>
+              <li><a href="/international/">国際業務</a></li>
+              <li aria-current="page">介護分野の受入れ</li>
+            </ol>
+          </nav>
+
+          <div class="page-hero__content">
+            <p class="page-hero__label">CARE × 外国人材</p>
+            <h1 id="page-heading" class="page-hero__title">
+              介護分野の外国人材受入れ<br />4つのルートを整理します
+            </h1>
+            <p class="page-hero__lead">
+              介護の人材不足を背景に、外国人材の受入れルートは複数用意されています。
+              大きく分けて<strong>特定技能1号・育成就労・在留資格「介護」・EPA</strong>の4つがあり、それぞれ要件・在留できる期間・社内に求められる体制が異なります。
+              まずは全体像を押さえ、自社に合うルートを見極めることが第一歩です。
+            </p>
+            <div class="page-hero__actions">
+              <a href="/contact" class="btn btn--primary">受入れの相談をする</a>
+              <a href="#compare" class="btn btn--secondary">比較表を見る</a>
+            </div>
+          </div>
+
+          <figure class="page-hero__visual">
+            <p class="page-hero__visual-note">
+              特定技能1号 ／ 育成就労<br />在留資格「介護」 ／ EPA
+            </p>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="concerns-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="concerns-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              介護事業者さまのこんなお悩みに
+            </h2>
+          </div>
+          <ul class="concern-list">
+            {concerns.map((item) => <li class="concern-item">{item}</li>)}
+          </ul>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="routes-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="routes-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              介護分野の4つの受入れルート
+            </h2>
+            <p class="section__sub">
+              現在、介護分野で外国人材を受け入れるルートは、EPA介護福祉士候補者・在留資格「介護」・技能実習（介護職種）・特定技能1号（介護分野）があり、技能実習は2027年4月に育成就労へと発展的に解消されます。各ルートの詳細は個別ページでご案内します。
+            </p>
+          </div>
+          <div class="route-grid">
+            {routes.map((item) => (
+              <article class="route-card">
+                <span class="route-card__badge">{item.badge}</span>
+                <h3 class="route-card__title">{item.title}</h3>
+                <p class="route-card__status">{item.status}</p>
+                <p class="route-card__text">{item.text}</p>
+                <a href={item.href} class="route-card__link">詳しく見る</a>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="compare-heading" id="compare">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="compare-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              受入れルート比較表
+            </h2>
+            <p class="section__sub">
+              制度の主な違いを一覧にまとめました。要件や取扱いは改正されることがあるため、実際の検討時には最新情報を確認します。
+            </p>
+          </div>
+
+          <div class="table-scroll">
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th scope="col">項目</th>
+                  <th scope="col">特定技能1号（介護）</th>
+                  <th scope="col">育成就労（介護）</th>
+                  <th scope="col">在留資格「介護」</th>
+                  <th scope="col">EPA介護福祉士候補者</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">在留資格</th>
+                  <td>特定技能1号</td>
+                  <td>育成就労</td>
+                  <td>介護</td>
+                  <td>特定活動</td>
+                </tr>
+                <tr>
+                  <th scope="row">位置づけ</th>
+                  <td>即戦力の就労</td>
+                  <td>3年間で特定技能1号水準まで育成（技能実習を発展的解消）</td>
+                  <td>介護福祉士資格者の専門職就労</td>
+                  <td>国家資格取得を目指す就労・研修</td>
+                </tr>
+                <tr>
+                  <th scope="row">開始時期</th>
+                  <td>現行</td>
+                  <td>2027年4月1日施行予定</td>
+                  <td>現行</td>
+                  <td>現行</td>
+                </tr>
+                <tr>
+                  <th scope="row">在留期間の目安</th>
+                  <td>通算5年まで（1年等を更新／2号なし）</td>
+                  <td>原則3年</td>
+                  <td>5年・3年・1年・3月（更新回数制限なし）</td>
+                  <td>介護候補者は上限4年（インドネシアは改正EPAで5年）／資格取得後は制限なし</td>
+                </tr>
+                <tr>
+                  <th scope="row">家族の帯同</th>
+                  <td>不可</td>
+                  <td>原則不可</td>
+                  <td>可（要件あり）</td>
+                  <td>候補者は不可</td>
+                </tr>
+                <tr>
+                  <th scope="row">主な人材要件</th>
+                  <td>介護技能評価試験・介護日本語評価試験・日本語（JFT-Basic又はN4以上）に合格、又は免除要件に該当</td>
+                  <td>就労開始までに日本語A1相当以上等＋育成就労計画の認定</td>
+                  <td>介護福祉士の資格</td>
+                  <td>母国での要件＋日本語研修等（JICWELSが調整）</td>
+                </tr>
+                <tr>
+                  <th scope="row">受入れ側の主な体制</th>
+                  <td>介護分野の特定技能協議会（JICWELS運営）への加入、支援は登録支援機関に委託可、受入人数は常勤介護職員総数が上限</td>
+                  <td>特定技能・育成就労協議会への入会（入会証明書）、監理支援機関の関与</td>
+                  <td>雇用契約・日本人と同等額以上の報酬など（分野特有の協議会加入は不要）</td>
+                  <td>JICWELS経由（唯一の調整機関）、施設要件・研修体制が必要</td>
+                </tr>
+                <tr>
+                  <th scope="row">行政書士の主な関与</th>
+                  <td>認定・変更・更新、各種届出</td>
+                  <td>在留諸申請、計画関連の確認</td>
+                  <td>認定・変更・更新</td>
+                  <td>在留期間更新、資格取得後の変更 等</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="transition-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="transition-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              2027年に向けた注意点
+            </h2>
+          </div>
+          <div class="callout callout--warn">
+            <p class="callout__title">技能実習 → 育成就労（2027年4月1日施行予定）</p>
+            <p class="callout__text">
+              技能実習制度は発展的に解消され、育成就労制度へ移行します。施行日時点で実施中の技能実習や、2027年3月31日までに認定申請された一定の計画には経過措置がありますが、<strong>技能実習から育成就労へ直接移行することはできない</strong>など、切り替えには注意が必要です。
+            </p>
+            <p class="callout__text">
+              介護分野では、育成就労で受け入れる前に「介護分野における特定技能・育成就労協議会」への入会と入会証明書の取得が必要とされています。現在技能実習生を受け入れている事業者さまは、早めに見通しを立てておくと安心です。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="support-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="support-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              当事務所のサポート内容
+            </h2>
+          </div>
+          <div class="support-list">
+            {supports.map((item) => (
+              <article class="support-card">
+                <h3 class="support-card__title">{item.title}</h3>
+                <p class="support-card__text">{item.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="detail-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="detail-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              各ルートの詳しい解説
+            </h2>
+          </div>
+          <div class="page-nav">
+            <a class="page-nav__item" href="/international/care/tokutei-ginou">
+              <span class="page-nav__label">ROUTE 1</span>
+              <span class="page-nav__title">特定技能1号（介護分野）</span>
+            </a>
+            <a class="page-nav__item" href="/international/care/ikusei-shuro">
+              <span class="page-nav__label">ROUTE 2</span>
+              <span class="page-nav__title">育成就労（介護）</span>
+            </a>
+            <a class="page-nav__item" href="/international/care/zairyu-kaigo">
+              <span class="page-nav__label">ROUTE 3</span>
+              <span class="page-nav__title">在留資格「介護」</span>
+            </a>
+            <a class="page-nav__item" href="/international/care/epa">
+              <span class="page-nav__label">ROUTE 4</span>
+              <span class="page-nav__title">EPA介護福祉士候補者</span>
+            </a>
+            <a class="page-nav__item" href="/international/care/ginou-jisshu">
+              <span class="page-nav__label">現行制度</span>
+              <span class="page-nav__title">技能実習（介護職種）</span>
+            </a>
+            <a class="page-nav__item" href="/international/care/procedures">
+              <span class="page-nav__label">BASIC</span>
+              <span class="page-nav__title">在留諸申請の基礎と流れ</span>
+            </a>
+            <a class="page-nav__item" href="/international/price">
+              <span class="page-nav__label">PRICE</span>
+              <span class="page-nav__title">国際業務の料金案内</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="faq-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="faq-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              よくあるご質問
+            </h2>
+          </div>
+          <div class="faq-list">
+            {faqs.map((item) => (
+              <details class="faq-item">
+                <summary class="faq-item__question">{item.q}</summary>
+                <div class="faq-item__answer"><p>{item.a}</p></div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="source-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="source-block">
+            <p class="source-block__title" id="source-heading">参考・根拠（一次情報）</p>
+            <ul class="source-list">
+              <li>
+                出入国在留管理庁「介護分野」（特定技能）
+                <a href="https://www.moj.go.jp/isa/policies/ssw/nursingcare.html" target="_blank" rel="noopener noreferrer">https://www.moj.go.jp/isa/policies/ssw/nursingcare.html</a>
+              </li>
+              <li>
+                厚生労働省「介護分野における育成就労制度について」
+                <a href="https://www.mhlw.go.jp/stf/newpage_000117702_00015.html" target="_blank" rel="noopener noreferrer">https://www.mhlw.go.jp/stf/newpage_000117702_00015.html</a>
+              </li>
+              <li>
+                出入国在留管理庁「在留資格『介護』」
+                <a href="https://www.moj.go.jp/isa/applications/status/nursingcare.html" target="_blank" rel="noopener noreferrer">https://www.moj.go.jp/isa/applications/status/nursingcare.html</a>
+              </li>
+              <li>
+                国際厚生事業団（JICWELS）外国人介護人材支援
+                <a href="https://jicwels.or.jp/" target="_blank" rel="noopener noreferrer">https://jicwels.or.jp/</a>
+              </li>
+            </ul>
+            <p class="updated-note">
+              本ページは2026年10月時点で公表されている法令・分野別運用方針・運用要領・各省庁等の公表資料に基づいて作成した一般的な情報です。制度は改正されることがあるため、実際のお手続きの際は最新の取扱いを確認のうえご案内します。個別の可否は事案により異なります。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--contact-cta">
+        <div class="section__inner">
+          <div class="cta-box">
+            <h2 class="cta-box__heading">
+              どのルートが自社に合うか、一緒に整理しましょう。
+            </h2>
+            <p class="cta-box__text">
+              採用の検討段階からご相談いただけます。現在の状況を伺い、現実的な受入れルートと必要な手続き・体制をご案内します。
+            </p>
+            <div class="cta-box__actions">
+              <a href="/contact" class="btn btn--primary">お問い合わせフォームへ</a>
+              <LineButton />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>

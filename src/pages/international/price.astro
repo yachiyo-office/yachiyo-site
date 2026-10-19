@@ -1,0 +1,299 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import LineButton from '../../components/LineButton.astro';
+import { pageTitle } from '../../config/site';
+import '../../styles/international.css';
+
+// 行政書士報酬（税込・目安）。相場を踏まえた当事務所の目安であり、
+// 内容・難易度により加算。正式な金額は個別のお見積りでご提示します。
+const fees = [
+  {
+    name: '初回相談（制度選定・受入れルートの整理）',
+    fee: '無料',
+    note: '特定技能・育成就労・在留資格「介護」・EPAのうち自社に合うルートを整理します',
+  },
+  {
+    name: '在留資格認定証明書交付申請（海外からの呼び寄せ）',
+    fee: '110,000円〜',
+    note: '特定技能（介護）など。法定費用は0円',
+  },
+  {
+    name: '在留資格変更許可申請（国内での切替え）',
+    fee: '110,000円〜',
+    note: '留学・技能実習等からの切替え。法定費用は別途（下表）',
+  },
+  {
+    name: '在留資格「介護」への変更許可申請',
+    fee: '110,000円〜',
+    note: '介護福祉士資格取得後の長期就労へ',
+  },
+  {
+    name: '在留期間更新許可申請',
+    fee: '55,000円〜',
+    note: '同一勤務先・同一分野の場合。法定費用は別途（下表）',
+  },
+  {
+    name: '資格外活動許可申請',
+    fee: '22,000円〜',
+    note: '留学生アルバイト等',
+  },
+  {
+    name: '就労資格証明書交付申請',
+    fee: '33,000円〜',
+    note: '転職時などの就労可否の確認',
+  },
+  {
+    name: '各種届出（所属機関・契約・支援関係 等）の作成・提出',
+    fee: '11,000円〜／件',
+    note: '随時届出・定期届出など',
+  },
+];
+
+// 法定費用（入管手数料）2026年10月1日改定。窓口＝収入印紙／オンライン＝コンビニ・銀行決済（別途決済手数料）。
+const legalFees = [
+  { kind: '在留資格認定証明書交付申請', window: '0円', online: '0円' },
+  { kind: '変更・更新（許可期間 3月以下）', window: '10,000円', online: '10,000円' },
+  { kind: '変更・更新（3月超6月以下）', window: '18,000円', online: '15,000円' },
+  { kind: '変更・更新（6月超1年未満）', window: '25,000円', online: '21,000円' },
+  { kind: '変更・更新（1年）', window: '33,000円', online: '27,000円' },
+  { kind: '変更・更新（1年超3年未満）', window: '48,000円', online: '42,000円' },
+  { kind: '変更・更新（3年以上5年未満）', window: '64,000円', online: '56,000円' },
+  { kind: '変更・更新（5年以上）', window: '75,000円', online: '65,000円' },
+];
+
+// 当事務所の報酬以外にかかる費用の目安（参考）。依頼先・条件により大きく変動。
+const otherCosts = [
+  { item: '人材紹介手数料（利用する場合）', amount: '20万〜60万円／人' },
+  { item: '送出機関手数料（海外採用時）', amount: '10万〜70万円／人' },
+  { item: '登録支援機関への月額委託費（特定技能1号）', amount: '月額2万〜4万円／人（全国平均 約2.8万円）' },
+  { item: '渡航費（海外採用時）', amount: '5万〜10万円／人' },
+  { item: '住居の準備費用', amount: '条件による' },
+  { item: '健康診断費用', amount: '5,000円〜1万円程度' },
+];
+
+const policies = [
+  '表示はすべて<strong>税込の目安</strong>です。案件の内容・難易度・在留状況により加算する場合があり、正式な金額は着手前に<strong>お見積り</strong>でご提示します。',
+  '<strong>法定費用（入管手数料）・実費</strong>（証明書取得費、翻訳費、郵送費など）は報酬と別にかかります。',
+  '着手金は<strong>報酬（税込）の半額</strong>を目安にお預かりし、申請前に残金（報酬残＋法定費用＋実費）を申し受けます。',
+  '同一法人で複数名を同時に申請する場合、<strong>2人目以降は報酬の50%</strong>を目安に加算します。',
+  '出張が必要な場合の交通費は<strong>一律2,000円（税込）</strong>。受任後は報酬から相殺できます。',
+  '許可を保証するものではありません。不許可の場合の再申請・追加対応は、内容に応じて別途ご相談します。',
+];
+---
+
+<BaseLayout
+  title={pageTitle('国際業務の料金案内（介護分野の在留手続き）')}
+  description="介護分野の外国人材受入れに関する入管手続き（在留資格認定・変更・更新など）の行政書士報酬の目安と、2026年10月改定の法定費用、受入れにかかる費用の全体像を整理します。"
+  breadcrumbs={[
+    { name: 'ホーム', href: '/' },
+    { name: '国際業務', href: '/international/' },
+    { name: '料金案内' },
+  ]}
+  noindex={true}
+>
+  <div class="page">
+    <SiteHeader />
+
+    <main>
+      <section class="page-hero section--base" aria-labelledby="page-heading">
+        <div class="page-hero__inner page-hero__inner--single">
+          <nav class="breadcrumb" aria-label="パンくずリスト">
+            <ol>
+              <li><a href="/">ホーム</a></li>
+              <li><a href="/international/">国際業務</a></li>
+              <li aria-current="page">料金案内</li>
+            </ol>
+          </nav>
+          <div class="page-hero__content">
+            <p class="page-hero__label">PRICE</p>
+            <h1 id="page-heading" class="page-hero__title">国際業務の料金案内</h1>
+            <p class="page-hero__lead">
+              介護分野の外国人材受入れに関する入管手続きについて、行政書士報酬の目安をご案内します。
+              あわせて、2026年10月に改定された法定費用（入管手数料）や、受入れ全体にかかる費用の目安も整理しました。
+              総額の見通しを立てやすいよう、報酬・法定費用・実費を分けて明示します。
+            </p>
+            <div class="page-hero__actions">
+              <a href="/contact" class="btn btn--primary">見積りを依頼する</a>
+              <a href="/international/care/" class="btn btn--secondary">介護分野の受入れを見る</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="fee-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="fee-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              行政書士報酬（税込・目安）
+            </h2>
+            <p class="section__sub">
+              日本行政書士会連合会の報酬額統計などの相場を踏まえた目安です。内容により加算する場合があります。
+            </p>
+          </div>
+          <div class="table-scroll">
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th scope="col">手続き</th>
+                  <th scope="col">当事務所の報酬（目安）</th>
+                  <th scope="col">備考</th>
+                </tr>
+              </thead>
+              <tbody>
+                {fees.map((item) => (
+                  <tr>
+                    <th scope="row">{item.name}</th>
+                    <td>{item.fee}</td>
+                    <td>{item.note}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="policy-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="policy-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              料金についての考え方
+            </h2>
+          </div>
+          <ul class="point-list">
+            {policies.map((item) => <li set:html={item} />)}
+          </ul>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="gyosei-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="callout">
+            <p class="callout__title">書類作成は行政書士・弁護士の業務です（2026年1月改正行政書士法）</p>
+            <p class="callout__text">
+              2026年1月に施行された改正行政書士法により、報酬を得て入管などへ提出する書類を業として作成できるのは、原則として<strong>行政書士（行政書士法人）または弁護士</strong>に限られることが明確化されました。登録支援機関が報酬を得て申請書類を作成すると、法に触れるおそれがあります。
+            </p>
+            <p class="callout__text">
+              そのため今後は、<strong>書類作成・申請取次は行政書士へ、生活支援などの義務的支援は登録支援機関へ</strong>という役割分担が基本になります（作成済み書類の提出＝申請取次自体は入管法上の制度で、引き続き受入企業・登録支援機関も行えます）。当事務所は書類作成・申請の部分をサポートします。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="legal-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="legal-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              法定費用（入管手数料）2026年10月1日改定
+            </h2>
+            <p class="section__sub">
+              在留資格の変更・更新の手数料は、許可される在留期間に応じた段階制になりました。これは国に納める費用で、行政書士報酬とは別です。
+            </p>
+          </div>
+          <div class="table-scroll">
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th scope="col">手続き</th>
+                  <th scope="col">窓口（収入印紙）</th>
+                  <th scope="col">オンライン</th>
+                </tr>
+              </thead>
+              <tbody>
+                {legalFees.map((item) => (
+                  <tr>
+                    <th scope="row">{item.kind}</th>
+                    <td>{item.window}</td>
+                    <td>{item.online}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <div class="callout callout--warn" style="margin-top:1.25rem;">
+            <p class="callout__text">
+              オンライン申請は別途、決済代行事業者への決済手数料（330円または550円）がかかります。2026年9月30日までに受付された申請は、許可が10月以降でも改定前（窓口6,000円・オンライン5,500円）が適用されます。永住許可申請の手数料は窓口200,000円に改定されています。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="other-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="other-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              受入れ全体にかかる費用の目安（参考）
+            </h2>
+            <p class="section__sub">
+              下記は当事務所の報酬には含まれない、受入れ全体で発生しうる費用の目安です。依頼先や採用方法により大きく変わります。
+            </p>
+          </div>
+          <div class="table-scroll">
+            <table class="compare-table">
+              <thead>
+                <tr>
+                  <th scope="col">費用項目</th>
+                  <th scope="col">金額の目安</th>
+                </tr>
+              </thead>
+              <tbody>
+                {otherCosts.map((item) => (
+                  <tr>
+                    <th scope="row">{item.item}</th>
+                    <td>{item.amount}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="source-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="source-block">
+            <p class="source-block__title" id="source-heading">参考・根拠</p>
+            <ul class="source-list">
+              <li>
+                出入国在留管理庁「令和8年10月1日付け在留許可手数料の額の改定等について」
+                <a href="https://www.moj.go.jp/isa/01_00644.html" target="_blank" rel="noopener noreferrer">出入国在留管理庁サイト</a>
+              </li>
+              <li>
+                日本行政書士会連合会「報酬額の統計（令和7年度報酬額統計調査）」
+                <a href="https://www.gyosei.or.jp/about/disclosure/reward" target="_blank" rel="noopener noreferrer">https://www.gyosei.or.jp/about/disclosure/reward</a>
+              </li>
+              <li>総務省「行政書士制度」（令和7年法律第65号・2026年1月1日施行）</li>
+              <li>登録支援機関の月額委託費の全国平均（約2.8万円）は出入国在留管理庁の調査（令和4年9月末時点）に基づく参考値</li>
+            </ul>
+            <p class="updated-note">
+              本ページの行政書士報酬は、相場を踏まえた当事務所の目安であり、最終的な金額は案件ごとのお見積りで確定します。法定費用・実費は別途です。制度・手数料は改正されることがあるため、最新の取扱いを確認のうえご案内します（2026年10月時点）。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--contact-cta">
+        <div class="section__inner">
+          <div class="cta-box">
+            <h2 class="cta-box__heading">まずは無料相談・お見積りから</h2>
+            <p class="cta-box__text">
+              受け入れたい人数・職種・現在の在留状況を伺い、必要な手続きと費用の全体像を明確にご案内します。
+            </p>
+            <div class="cta-box__actions">
+              <a href="/contact" class="btn btn--primary">お問い合わせフォームへ</a>
+              <LineButton />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>

@@ -1,0 +1,220 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import SiteHeader from '../../../components/SiteHeader.astro';
+import SiteFooter from '../../../components/SiteFooter.astro';
+import LineButton from '../../../components/LineButton.astro';
+import { pageTitle } from '../../../config/site';
+import '../../../styles/international.css';
+
+const procedures = [
+  {
+    title: '在留資格認定証明書交付申請（COE）',
+    text: '海外にいる外国人を新たに受け入れる場合に、入国・ビザ発給に先立って行う申請です。交付された認定証明書をもとに、現地の日本大使館・総領事館で査証（ビザ）を取得し、来日します。',
+  },
+  {
+    title: '在留資格変更許可申請',
+    text: '日本に在留中の方が、別の在留資格に切り替えるための申請です。留学生の就職、技能実習から特定技能への移行、介護福祉士資格取得に伴う在留資格「介護」への変更などが該当します。',
+  },
+  {
+    title: '在留期間更新許可申請',
+    text: '在留期間の満了前に、引き続き同じ在留資格で在留するための申請です。期限を過ぎると在留資格を失うおそれがあるため、計画的な準備が欠かせません。',
+  },
+  {
+    title: '資格外活動許可申請',
+    text: '留学などの在留資格の方が、本来の活動以外に収入を伴う活動（アルバイト等）を行う場合に必要な許可です。許可には時間などの範囲が定められています。',
+  },
+  {
+    title: '就労資格証明書交付申請',
+    text: '現に有する在留資格で行える就労活動の内容を、法務大臣が証明する書類の交付申請です。転職時などに、就労の可否を明確にしておく目的で用いられます。',
+  },
+];
+
+const flowSteps = [
+  { step: 'STEP 1', title: 'ヒアリング', text: '受け入れたい（または在留する）方の国籍・現在の在留資格・在留期限・職務内容などを確認します。' },
+  { step: 'STEP 2', title: '要件・申請区分の確認', text: '目的に合った申請区分（認定・変更・更新など）と、満たすべき要件・必要書類を整理します。' },
+  { step: 'STEP 3', title: '書類の収集・作成', text: '雇用契約書、事業所の概要資料、申請人の経歴資料など、申請区分に応じた書類をそろえて申請書を作成します。' },
+  { step: 'STEP 4', title: '申請・結果の確認', text: '地方出入国在留管理局へ申請し、審査結果を確認します。許可後は在留カード等の受領・在留期限の管理につなげます。' },
+];
+
+const faqs = [
+  {
+    q: '申請は本人が入管へ行かないといけませんか？',
+    a: '在留に関する申請は原則として本人が行いますが、申請取次の承認を受けた行政書士（申請取次行政書士）が、本人に代わって申請書類を提出できる制度があります。当事務所の対応範囲は、ご相談時に明確にご案内します。',
+  },
+  {
+    q: '審査にはどれくらいかかりますか？',
+    a: '申請の種類や時期、書類の整い具合によって異なります。書類に不足があると審査が大幅に遅れることがあるため、早めの準備と正確な書類作成が重要です。',
+  },
+  {
+    q: '更新を忘れそうで不安です。',
+    a: '在留期間の更新は満了前に行う必要があります。受任後は期限管理を含めてご案内し、更新漏れを防ぐお手伝いをします。',
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle('在留諸申請の基礎と流れ｜認定・変更・更新・資格外活動')}
+  description="外国人材の受入れに関わる入管手続き（在留資格認定証明書交付申請・変更・更新・資格外活動許可・就労資格証明書）の基礎と流れ、申請取次制度について分かりやすく整理します。"
+  breadcrumbs={[
+    { name: 'ホーム', href: '/' },
+    { name: '国際業務', href: '/international/' },
+    { name: '介護分野の受入れ', href: '/international/care/' },
+    { name: '在留諸申請の基礎と流れ' },
+  ]}
+  noindex={true}
+>
+  <div class="page">
+    <SiteHeader />
+
+    <main>
+      <section class="page-hero section--base" aria-labelledby="page-heading">
+        <div class="page-hero__inner page-hero__inner--single">
+          <nav class="breadcrumb" aria-label="パンくずリスト">
+            <ol>
+              <li><a href="/">ホーム</a></li>
+              <li><a href="/international/">国際業務</a></li>
+              <li><a href="/international/care/">介護分野の受入れ</a></li>
+              <li aria-current="page">在留諸申請の基礎と流れ</li>
+            </ol>
+          </nav>
+          <div class="page-hero__content">
+            <p class="page-hero__label">BASIC</p>
+            <h1 id="page-heading" class="page-hero__title">在留諸申請の基礎と流れ</h1>
+            <p class="page-hero__lead">
+              どの受入れルートを選んでも、外国人材の受入れには出入国在留管理局（入管）への申請が伴います。
+              ここでは、介護分野に限らず共通して必要になる在留諸申請の種類と、申請の基本的な流れを整理します。
+            </p>
+            <div class="page-hero__actions">
+              <a href="/contact" class="btn btn--primary">手続きの相談をする</a>
+              <a href="/international/care/" class="btn btn--secondary">4ルート比較に戻る</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="proc-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="proc-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              主な在留諸申請
+            </h2>
+          </div>
+          <div class="support-list">
+            {procedures.map((item) => (
+              <article class="support-card">
+                <h3 class="support-card__title">{item.title}</h3>
+                <p class="support-card__text">{item.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="toritsugi-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="toritsugi-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              申請取次制度について
+            </h2>
+          </div>
+          <div class="callout">
+            <p class="callout__text">
+              在留に関する各種申請は、原則として外国人本人が地方出入国在留管理局に出向いて行います。もっとも、所定の承認を受けた<strong>申請取次行政書士</strong>は、本人に代わって申請書類を提出することが認められています。これにより、本人や受入れ機関の負担を軽減できます。当事務所における対応範囲については、ご相談の際に明確にご案内します。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="flow-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="flow-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              申請の基本的な流れ
+            </h2>
+          </div>
+          <ol class="flow-list">
+            {flowSteps.map((item) => (
+              <li class="flow-step">
+                <span class="flow-step__label">{item.step}</span>
+                <p class="flow-step__title">{item.title}</p>
+                <p class="flow-step__text">{item.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="faq-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="faq-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              よくあるご質問
+            </h2>
+          </div>
+          <div class="faq-list">
+            {faqs.map((item) => (
+              <details class="faq-item">
+                <summary class="faq-item__question">{item.q}</summary>
+                <div class="faq-item__answer"><p>{item.a}</p></div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="source-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="source-block">
+            <p class="source-block__title" id="source-heading">参考・根拠（一次情報）</p>
+            <ul class="source-list">
+              <li>
+                出入国在留管理庁「各種手続」（在留資格認定証明書交付・変更・更新・資格外活動・就労資格証明書 等）
+                <a href="https://www.moj.go.jp/isa/applications/" target="_blank" rel="noopener noreferrer">https://www.moj.go.jp/isa/applications/</a>
+              </li>
+              <li>出入国管理及び難民認定法（昭和26年政令第319号）</li>
+            </ul>
+            <p class="updated-note">
+              本ページは2026年10月時点で公表されている法令・入管の案内に基づいて作成した一般的な情報です。実際のお手続きの際は最新の提出書類・取扱いを確認のうえご案内します。個別の可否は事案により異なります。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base">
+        <div class="section__inner">
+          <div class="page-nav">
+            <a class="page-nav__item" href="/international/care/">
+              <span class="page-nav__label">一覧へ</span>
+              <span class="page-nav__title">介護分野の受入れ（4ルート比較）</span>
+            </a>
+            <a class="page-nav__item" href="/international/">
+              <span class="page-nav__label">トップへ</span>
+              <span class="page-nav__title">国際業務トップ</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--contact-cta">
+        <div class="section__inner">
+          <div class="cta-box">
+            <h2 class="cta-box__heading">在留手続きのことは、まとめてご相談ください。</h2>
+            <p class="cta-box__text">
+              認定・変更・更新など、どの手続きが必要か分からない段階でも構いません。状況を伺い、必要な申請と流れをご案内します。
+            </p>
+            <div class="cta-box__actions">
+              <a href="/contact" class="btn btn--primary">お問い合わせフォームへ</a>
+              <LineButton />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>

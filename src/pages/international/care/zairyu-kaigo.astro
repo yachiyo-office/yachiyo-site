@@ -1,0 +1,229 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import SiteHeader from '../../../components/SiteHeader.astro';
+import SiteFooter from '../../../components/SiteFooter.astro';
+import LineButton from '../../../components/LineButton.astro';
+import { pageTitle } from '../../../config/site';
+import '../../../styles/international.css';
+
+const basics = [
+  { term: '在留資格', desc: '介護（出入国管理及び難民認定法 別表第一の二）' },
+  { term: '該当する活動', desc: '本邦の公私の機関との契約に基づいて、<strong>介護福祉士の資格を有する者</strong>が介護または介護の指導を行う業務に従事する活動。' },
+  { term: '在留期間', desc: '5年・3年・1年または3か月。<strong>更新の回数に制限がなく</strong>、長く働き続けられます。' },
+  { term: '家族の帯同', desc: '要件を満たせば、配偶者・子を「家族滞在」で帯同できます。' },
+  { term: '報酬', desc: '日本人が従事する場合に受ける報酬と<strong>同等額以上</strong>であることが必要です。' },
+];
+
+const routes = [
+  '養成施設ルート：介護福祉士養成施設を修了して資格を取得する（令和9年度以降の修了者は、修了に加えて国家試験の合格が必要）',
+  '国家試験ルート：実務経験や福祉系高校などを経て介護福祉士国家試験に合格する',
+];
+
+const points = [
+  '令和2年4月1日の上陸基準省令の改正により、介護福祉士の資格を<strong>取得したルートにかかわらず</strong>在留資格「介護」が認められるようになりました。',
+  '留学生が養成施設を卒業・国家試験に合格した場合、介護福祉士登録証が交付されるまでの間、「特定活動」の在留資格で就労を認める特例措置があります。',
+  '令和8年4月15日以降の申請からは、添付書類として「所属機関の代表者に関する申告書」の提出が必要です。',
+];
+
+const flowSteps = [
+  { step: 'STEP 1', title: '資格・経路の確認', text: '本人の介護福祉士資格の取得状況（養成施設・国家試験・EPA経由など）と、現在の在留資格を確認します。' },
+  { step: 'STEP 2', title: '申請区分の判断', text: '海外から呼ぶ場合は在留資格認定証明書交付申請、国内の別資格から切り替える場合は在留資格変更許可申請など、適切な区分を判断します。' },
+  { step: 'STEP 3', title: '書類作成・申請', text: '介護福祉士登録証の写し、労働条件を明示する文書、勤務先の概要資料などをそろえて申請します。' },
+  { step: 'STEP 4', title: '更新の管理', text: '在留期間更新許可申請を期限前に行えるよう、期限管理を含めてご案内します。' },
+];
+
+const faqs = [
+  {
+    q: '特定技能やEPAからの切り替え先になりますか？',
+    a: 'はい。特定技能やEPA、技能実習などで働きながら介護福祉士の資格を取得した方が、在留資格「介護」へ変更することで、更新回数の制限なく長期に働き続けられるようになります。長期定着を目指すうえでの受け皿となる資格です。',
+  },
+  {
+    q: '介護福祉士の資格がまだなくても申請できますか？',
+    a: '在留資格「介護」は介護福祉士の資格が前提です。資格取得前は特定技能・育成就労・EPA・技能実習などのルートで就労しながら資格取得を目指す形になります。登録証交付までの間に特例の「特定活動」が使える場合もあります。',
+  },
+  {
+    q: '家族を呼ぶことはできますか？',
+    a: '在留資格「介護」は、要件を満たせば配偶者やお子さまを「家族滞在」で帯同できます。この点は特定技能1号やEPA候補者と大きく異なる特長です。',
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle('在留資格「介護」とは｜介護福祉士が長期就労できる資格')}
+  description="在留資格「介護」の該当活動・要件・在留期間・申請の流れを整理。介護福祉士資格者が更新回数の制限なく長期就労でき、特定技能やEPAからの切り替え先にもなります。"
+  breadcrumbs={[
+    { name: 'ホーム', href: '/' },
+    { name: '国際業務', href: '/international/' },
+    { name: '介護分野の受入れ', href: '/international/care/' },
+    { name: '在留資格「介護」' },
+  ]}
+  noindex={true}
+>
+  <div class="page">
+    <SiteHeader />
+
+    <main>
+      <section class="page-hero section--base" aria-labelledby="page-heading">
+        <div class="page-hero__inner page-hero__inner--single">
+          <nav class="breadcrumb" aria-label="パンくずリスト">
+            <ol>
+              <li><a href="/">ホーム</a></li>
+              <li><a href="/international/">国際業務</a></li>
+              <li><a href="/international/care/">介護分野の受入れ</a></li>
+              <li aria-current="page">在留資格「介護」</li>
+            </ol>
+          </nav>
+          <div class="page-hero__content">
+            <p class="page-hero__label">ROUTE 3</p>
+            <h1 id="page-heading" class="page-hero__title">在留資格「介護」</h1>
+            <p class="page-hero__lead">
+              在留資格「介護」は、介護福祉士の資格を持つ人が、介護または介護の指導を行う専門職として在留できる資格です。
+              在留期間の更新に回数制限がなく、要件を満たせば家族の帯同もできるため、外国人材の<strong>長期定着</strong>を実現する受け皿になります。
+            </p>
+            <div class="page-hero__actions">
+              <a href="/contact" class="btn btn--primary">変更・申請の相談をする</a>
+              <a href="/international/care/" class="btn btn--secondary">4ルート比較に戻る</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="basic-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="basic-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              制度の基本
+            </h2>
+          </div>
+          <div class="def-list">
+            {basics.map((item) => (
+              <div class="def-list__row">
+                <p class="def-list__term">{item.term}</p>
+                <p class="def-list__desc" set:html={item.desc} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="route-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="route-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              介護福祉士資格の取得ルート
+            </h2>
+          </div>
+          <ul class="point-list">
+            {routes.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="points-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="points-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              知っておきたいポイント
+            </h2>
+          </div>
+          <ul class="point-list">
+            {points.map((item) => <li set:html={item} />)}
+          </ul>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="flow-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="flow-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              申請の流れ
+            </h2>
+          </div>
+          <ol class="flow-list">
+            {flowSteps.map((item) => (
+              <li class="flow-step">
+                <span class="flow-step__label">{item.step}</span>
+                <p class="flow-step__title">{item.title}</p>
+                <p class="flow-step__text">{item.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="faq-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="faq-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              よくあるご質問
+            </h2>
+          </div>
+          <div class="faq-list">
+            {faqs.map((item) => (
+              <details class="faq-item">
+                <summary class="faq-item__question">{item.q}</summary>
+                <div class="faq-item__answer"><p>{item.a}</p></div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="source-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="source-block">
+            <p class="source-block__title" id="source-heading">参考・根拠（一次情報）</p>
+            <ul class="source-list">
+              <li>
+                出入国在留管理庁「在留資格『介護』」
+                <a href="https://www.moj.go.jp/isa/applications/status/nursingcare.html" target="_blank" rel="noopener noreferrer">https://www.moj.go.jp/isa/applications/status/nursingcare.html</a>
+              </li>
+              <li>出入国管理及び難民認定法 別表第一の二「介護」／上陸基準省令（平成2年法務省令第16号）</li>
+              <li>社会福祉士及び介護福祉士法（昭和62年法律第30号）</li>
+            </ul>
+            <p class="updated-note">
+              本ページは2026年10月時点で公表されている法令・運用資料に基づいて作成した一般的な情報です。添付書類等の取扱いは改正されることがあるため、実際のお手続きの際は最新の提出書類一覧を確認のうえご案内します。個別の可否は事案により異なります。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base">
+        <div class="section__inner">
+          <div class="page-nav">
+            <a class="page-nav__item" href="/international/care/ikusei-shuro">
+              <span class="page-nav__label">← 前のルート</span>
+              <span class="page-nav__title">育成就労（介護）</span>
+            </a>
+            <a class="page-nav__item" href="/international/care/epa">
+              <span class="page-nav__label">次のルート →</span>
+              <span class="page-nav__title">EPA介護福祉士候補者</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--contact-cta">
+        <div class="section__inner">
+          <div class="cta-box">
+            <h2 class="cta-box__heading">資格取得後の長期雇用をご検討の方へ</h2>
+            <p class="cta-box__text">
+              特定技能・EPA・技能実習から介護福祉士資格を取得した方の在留資格「介護」への変更など、長期定着に向けた手続きをサポートします。
+            </p>
+            <div class="cta-box__actions">
+              <a href="/contact" class="btn btn--primary">お問い合わせフォームへ</a>
+              <LineButton />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>

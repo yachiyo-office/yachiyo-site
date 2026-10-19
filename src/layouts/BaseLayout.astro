@@ -20,6 +20,8 @@ interface Props {
   ogImage?: string;
   ogType?: 'website' | 'article';
   breadcrumbs?: BreadcrumbItem[];
+  /** true のとき検索エンジンにインデックスさせません（未公開ページ用） */
+  noindex?: boolean;
 }
 
 const {
@@ -28,6 +30,7 @@ const {
   ogImage = DEFAULT_OGP_IMAGE,
   ogType = 'website',
   breadcrumbs,
+  noindex = false,
 } = Astro.props;
 
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
@@ -79,6 +82,7 @@ const breadcrumbSchema =
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="description" content={description} />
+    {noindex && <meta name="robots" content="noindex, nofollow" />}
     <meta name="theme-color" content="#1e3a8a" />
     <link rel="icon" href="/favicon.ico?v=4" sizes="any" />
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png?v=4" />

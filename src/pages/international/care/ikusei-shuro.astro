@@ -1,0 +1,254 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import SiteHeader from '../../../components/SiteHeader.astro';
+import SiteFooter from '../../../components/SiteFooter.astro';
+import LineButton from '../../../components/LineButton.astro';
+import { pageTitle } from '../../../config/site';
+import '../../../styles/international.css';
+
+const basics = [
+  { term: '在留資格', desc: '育成就労（2024年〈令和6年〉法律第60号により創設）' },
+  { term: '施行時期', desc: '<strong>2027年（令和9年）4月1日 施行予定</strong>。基本方針・分野別運用方針・関係省令等が順次整備されています。' },
+  { term: '目的', desc: '技能実習制度を発展的に解消し、人手不足分野において<strong>3年間の就労を通じて特定技能1号の水準の人材を育成・確保</strong>する制度。介護も対象分野です。' },
+  { term: '育成期間', desc: '原則3年。育成開始から1年経過時と育成終了時までに、技能・日本語の試験が義務づけられます。' },
+  { term: 'キャリアパス', desc: '育成就労（3年）→ 特定技能1号（5年）→ 介護福祉士資格の取得により在留資格「介護」へ、という長期の道筋が想定されています。' },
+];
+
+const points = [
+  '従事できる業務の範囲は、特定技能の業務区分と同一とされ、介護分野は1業務区分です。',
+  '就労開始までに日本語能力A1相当以上の試験（日本語能力試験N5等）の合格、または相当する講習の受講が求められます。',
+  '一定の要件（同一機関での就労が1年超、技能・日本語の試験合格、同一業務区分 など）を満たす場合、本人の意向による転籍が認められます。',
+  '技能実習の「監理団体」に相当する「監理支援機関」が受入れを支援します。',
+];
+
+const transitionPoints = [
+  '2027年4月1日時点で現に技能実習を行っている場合は、引き続き技能実習を行うことができます（要件を満たせば次の段階の技能実習まで継続可能）。',
+  '2027年3月31日までに認定申請された技能実習計画（技能実習の始期が2027年6月30日までのもの）に基づく技能実習も、認定を受けた計画の満了まで行うことができます。',
+  'これらの場合は技能実習制度のルールが適用され、技能実習から育成就労へ直接移行することはできません。',
+  '技能実習3号への移行には、2027年4月1日時点で技能実習2号の活動を1年以上行っていることが必要です。',
+];
+
+const flowSteps = [
+  { step: 'STEP 1', title: '協議会への入会', text: '介護分野で育成就労外国人を受け入れる法人は、計画認定の申請や在留諸申請の前に「介護分野における特定技能・育成就労協議会」の構成員となり、入会証明書の発行を受ける必要があります。' },
+  { step: 'STEP 2', title: '育成就労計画の認定申請', text: '外国人育成就労機構に対し、育成就労計画の認定を申請します（協議会入会証明書の写し等を提出）。' },
+  { step: 'STEP 3', title: '在留諸申請', text: '地方出入国在留管理局へ、育成就労計画認定通知書等を添えて在留資格認定証明書交付申請などの在留諸申請を行います。' },
+  { step: 'STEP 4', title: '受入れ後の情報登録・管理', text: '受け入れた後、協議会システムへの外国人情報の登録など、継続して必要となる手続きを行います。' },
+];
+
+const faqs = [
+  {
+    q: '今の技能実習生はどうなりますか？',
+    a: '2027年4月1日時点で実施中の技能実習や、2027年3月31日までに認定申請された一定の技能実習計画には経過措置があり、認定を受けた計画の満了まで継続できます。ただし技能実習から育成就労への直接移行はできないため、個別に見通しを立てることが重要です。',
+  },
+  {
+    q: '育成就労から特定技能に進めますか？',
+    a: '育成就労は特定技能1号の水準まで育成する制度で、試験合格と日本語能力の要件を満たすことで特定技能1号への移行が想定されています。介護はさらに介護福祉士資格の取得により在留資格「介護」で長期就労を目指せます。',
+  },
+  {
+    q: '施行前に準備できることはありますか？',
+    a: '現在技能実習生を受け入れている事業者さまは、経過措置の対象になるかの確認や、協議会加入を含む受入れ体制の検討を早めに進めておくと安心です。制度詳細は整備中のため、最新情報とあわせてご案内します。',
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle('育成就労（介護）とは｜2027年施行の新制度と技能実習からの移行')}
+  description="2027年4月施行予定の育成就労制度（介護分野）を解説。技能実習からの経過措置、協議会入会、育成就労計画の認定、在留諸申請の流れまで、一次情報に基づいて整理します。"
+  breadcrumbs={[
+    { name: 'ホーム', href: '/' },
+    { name: '国際業務', href: '/international/' },
+    { name: '介護分野の受入れ', href: '/international/care/' },
+    { name: '育成就労（介護）' },
+  ]}
+  noindex={true}
+>
+  <div class="page">
+    <SiteHeader />
+
+    <main>
+      <section class="page-hero section--base" aria-labelledby="page-heading">
+        <div class="page-hero__inner page-hero__inner--single">
+          <nav class="breadcrumb" aria-label="パンくずリスト">
+            <ol>
+              <li><a href="/">ホーム</a></li>
+              <li><a href="/international/">国際業務</a></li>
+              <li><a href="/international/care/">介護分野の受入れ</a></li>
+              <li aria-current="page">育成就労（介護）</li>
+            </ol>
+          </nav>
+          <div class="page-hero__content">
+            <p class="page-hero__label">ROUTE 2</p>
+            <h1 id="page-heading" class="page-hero__title">育成就労（介護）</h1>
+            <p class="page-hero__lead">
+              育成就労は、技能実習を発展的に解消して2027年（令和9年）4月1日に施行される予定の新しい制度です。
+              3年間の就労を通じて特定技能1号の水準まで人材を育成することを目的とし、介護も対象分野です。
+              現在技能実習生を受け入れている介護事業者さまにとって、今後の受入れを考えるうえで重要な制度になります。
+            </p>
+            <div class="page-hero__actions">
+              <a href="/contact" class="btn btn--primary">移行の相談をする</a>
+              <a href="/international/care/" class="btn btn--secondary">4ルート比較に戻る</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="notice-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="callout callout--warn">
+            <p class="callout__title" id="notice-heading">制度は整備中です</p>
+            <p class="callout__text">
+              育成就労制度は2027年4月の施行に向けて、基本方針・分野別運用方針・関係省令等が順次整備されている段階です。本ページは現時点で公表されている資料に基づく概要であり、確定した詳細は公表資料の更新にあわせて随時確認のうえご案内します。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="basic-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="basic-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              制度の基本
+            </h2>
+          </div>
+          <div class="def-list">
+            {basics.map((item) => (
+              <div class="def-list__row">
+                <p class="def-list__term">{item.term}</p>
+                <p class="def-list__desc" set:html={item.desc} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="points-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="points-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              主なポイント
+            </h2>
+          </div>
+          <ul class="point-list">
+            {points.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="transition-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="transition-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              技能実習からの経過措置
+            </h2>
+            <p class="section__sub">
+              現在技能実習（介護職種）を受け入れている事業者さまに関わる、特に重要な点です。
+            </p>
+          </div>
+          <ul class="point-list">
+            {transitionPoints.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="flow-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="flow-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              介護分野での受入れの流れ（概要）
+            </h2>
+          </div>
+          <ol class="flow-list">
+            {flowSteps.map((item) => (
+              <li class="flow-step">
+                <span class="flow-step__label">{item.step}</span>
+                <p class="flow-step__title">{item.title}</p>
+                <p class="flow-step__text">{item.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="faq-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="faq-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              よくあるご質問
+            </h2>
+          </div>
+          <div class="faq-list">
+            {faqs.map((item) => (
+              <details class="faq-item">
+                <summary class="faq-item__question">{item.q}</summary>
+                <div class="faq-item__answer"><p>{item.a}</p></div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="source-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="source-block">
+            <p class="source-block__title" id="source-heading">参考・根拠（一次情報）</p>
+            <ul class="source-list">
+              <li>
+                厚生労働省「介護分野における育成就労制度について」
+                <a href="https://www.mhlw.go.jp/stf/newpage_000117702_00015.html" target="_blank" rel="noopener noreferrer">https://www.mhlw.go.jp/stf/newpage_000117702_00015.html</a>
+              </li>
+              <li>
+                出入国在留管理庁「育成就労制度の概要」
+                <a href="https://www.moj.go.jp/isa/content/001452485.pdf" target="_blank" rel="noopener noreferrer">https://www.moj.go.jp/isa/content/001452485.pdf</a>
+              </li>
+              <li>
+                外国人技能実習機構「育成就労制度について」
+                <a href="https://www.otit.go.jp/employment_for_skill_development/" target="_blank" rel="noopener noreferrer">https://www.otit.go.jp/employment_for_skill_development/</a>
+              </li>
+              <li>出入国管理及び難民認定法及び技能実習法の一部を改正する法律（令和6年法律第60号）</li>
+            </ul>
+            <p class="updated-note">
+              本ページは2026年10月時点で公表されている資料に基づいて作成した概要です。育成就労制度は2027年4月施行に向けて詳細が整備されている段階のため、確定情報は公表資料の更新にあわせて確認のうえご案内します。個別の可否は事案により異なります。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base">
+        <div class="section__inner">
+          <div class="page-nav">
+            <a class="page-nav__item" href="/international/care/tokutei-ginou">
+              <span class="page-nav__label">← 前のルート</span>
+              <span class="page-nav__title">特定技能1号（介護）</span>
+            </a>
+            <a class="page-nav__item" href="/international/care/zairyu-kaigo">
+              <span class="page-nav__label">次のルート →</span>
+              <span class="page-nav__title">在留資格「介護」</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--contact-cta">
+        <div class="section__inner">
+          <div class="cta-box">
+            <h2 class="cta-box__heading">技能実習からの移行や今後の受入れをご検討の方へ</h2>
+            <p class="cta-box__text">
+              経過措置の確認から協議会加入を含む体制づくりまで、2027年施行を見据えた準備をサポートします。
+            </p>
+            <div class="cta-box__actions">
+              <a href="/contact" class="btn btn--primary">お問い合わせフォームへ</a>
+              <LineButton />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>

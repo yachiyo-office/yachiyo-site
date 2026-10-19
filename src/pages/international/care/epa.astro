@@ -1,0 +1,217 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import SiteHeader from '../../../components/SiteHeader.astro';
+import SiteFooter from '../../../components/SiteFooter.astro';
+import LineButton from '../../../components/LineButton.astro';
+import { pageTitle } from '../../../config/site';
+import '../../../styles/international.css';
+
+const basics = [
+  { term: '在留資格', desc: '特定活動（出入国管理及び難民認定法 別表第一の五）。指定書により受入れ機関・施設・活動が個別に指定されます。' },
+  { term: '対象国', desc: 'インドネシア（平成20年度〜）・フィリピン（平成21年度〜）・ベトナム（平成26年度〜）との経済連携協定（EPA）等に基づく受入れ。' },
+  { term: '位置づけ', desc: '労働力不足への対応ではなく、二国間の経済連携強化の観点から<strong>公的な枠組みで特例的</strong>に行う受入れ。就労・研修しながら介護福祉士国家資格の取得を目指します。' },
+  { term: '在留期間の上限', desc: '介護福祉士候補者は原則4年（インドネシアは改正EPAにより上限5年に延長）。<strong>資格取得後はEPA介護福祉士として更新回数の制限なく就労可能</strong>。' },
+  { term: 'あっせん窓口', desc: '国際厚生事業団（JICWELS）が<strong>唯一の受入れ調整機関</strong>。他の職業紹介・労働者派遣事業者によるあっせんはできません。' },
+];
+
+const points = [
+  '候補者は受入れ施設で雇用契約に基づき就労しながら、国家試験合格を目指した研修に従事します。報酬は日本人が従事する場合と同等額以上が必要です。',
+  '指定書で指定された施設・活動のみ可能で、資格取得前の受入れ機関・施設の変更は、施設の閉鎖等やむを得ない事情がある場合を除き原則認められません（同一法人内の別施設も同様）。',
+  '受入れ施設には、介護福祉士養成施設の実習施設と同等の体制、配置基準の充足、常勤介護職員の4割以上が介護福祉士であることなど、一定の要件があります。',
+  '資格取得後は、在留資格「介護」への変更も可能です。また、一定の要件を満たすEPA候補者は、特定技能1号（介護）へ移行する際の試験が免除される場合があります。',
+];
+
+const flowSteps = [
+  { step: 'STEP 1', title: 'JICWELSへの求人登録', text: '受入れ機関・施設の要件を確認のうえ、JICWELSに求人登録を行い、マッチングを経て候補者を受け入れます。' },
+  { step: 'STEP 2', title: '入国・研修', text: '訪日前後の日本語研修等を経て、特定活動の在留資格で入国し、受入れ施設で就労・研修を開始します。' },
+  { step: 'STEP 3', title: '在留期間の更新', text: '在留期間満了日の3か月前から更新許可申請が可能です。在職証明・研修の進捗・納税に関する書類などを提出します。' },
+  { step: 'STEP 4', title: '資格取得後の在留手続き', text: '国家資格を取得した後は、EPA介護福祉士としての継続就労や、在留資格「介護」への変更などの手続きをご案内します。' },
+];
+
+const faqs = [
+  {
+    q: '当事務所（行政書士）はEPAのどこを支援できますか？',
+    a: 'EPAの受入れ自体の調整・あっせんはJICWELSが唯一の窓口ですが、在留期間更新許可申請や、資格取得後の在留資格「介護」・特定技能への変更など、入管に対する在留諸申請の部分をサポートできます。対応範囲はご相談時に明確にご案内します。',
+  },
+  {
+    q: 'ほかのルートと何が違いますか？',
+    a: 'EPAは二国間協定に基づく特例的・公的な枠組みで、あっせんがJICWELSに限定される点、資格取得を主目的とする点が特徴です。人材紹介会社を通じて柔軟に採用できる特定技能などとは、受入れの入口が大きく異なります。',
+  },
+  {
+    q: '候補者が資格を取れなかった場合はどうなりますか？',
+    a: '一定の条件を満たす場合に滞在の延長が認められる仕組みがありますが、原則は在留期間の上限までに国家資格の取得を目指します。詳細はJICWELSの手引き等で確認のうえご案内します。',
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle('EPA介護福祉士候補者とは｜受入れの枠組みと在留手続き')}
+  description="EPA介護福祉士候補者（特定活動）の受入れ枠組みを整理。対象国・在留期間・JICWELSによるあっせん・受入れ施設要件・在留期間更新や資格取得後の手続きまで解説します。"
+  breadcrumbs={[
+    { name: 'ホーム', href: '/' },
+    { name: '国際業務', href: '/international/' },
+    { name: '介護分野の受入れ', href: '/international/care/' },
+    { name: 'EPA介護福祉士候補者' },
+  ]}
+  noindex={true}
+>
+  <div class="page">
+    <SiteHeader />
+
+    <main>
+      <section class="page-hero section--base" aria-labelledby="page-heading">
+        <div class="page-hero__inner page-hero__inner--single">
+          <nav class="breadcrumb" aria-label="パンくずリスト">
+            <ol>
+              <li><a href="/">ホーム</a></li>
+              <li><a href="/international/">国際業務</a></li>
+              <li><a href="/international/care/">介護分野の受入れ</a></li>
+              <li aria-current="page">EPA介護福祉士候補者</li>
+            </ol>
+          </nav>
+          <div class="page-hero__content">
+            <p class="page-hero__label">ROUTE 4</p>
+            <h1 id="page-heading" class="page-hero__title">EPA介護福祉士候補者</h1>
+            <p class="page-hero__lead">
+              EPA（経済連携協定）に基づくインドネシア・フィリピン・ベトナムからの介護福祉士候補者の受入れは、二国間の連携強化の観点から公的な枠組みで特例的に行われる制度です。
+              就労・研修をしながら国家資格の取得を目指す点、あっせんが国際厚生事業団（JICWELS）に限られる点が特徴です。
+            </p>
+            <div class="page-hero__actions">
+              <a href="/contact" class="btn btn--primary">在留手続きの相談をする</a>
+              <a href="/international/care/" class="btn btn--secondary">4ルート比較に戻る</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="basic-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="basic-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              制度の基本
+            </h2>
+          </div>
+          <div class="def-list">
+            {basics.map((item) => (
+              <div class="def-list__row">
+                <p class="def-list__term">{item.term}</p>
+                <p class="def-list__desc" set:html={item.desc} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="points-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="points-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              知っておきたいポイント
+            </h2>
+          </div>
+          <ul class="point-list">
+            {points.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="flow-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="flow-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              受入れと在留手続きの流れ（概要）
+            </h2>
+          </div>
+          <ol class="flow-list">
+            {flowSteps.map((item) => (
+              <li class="flow-step">
+                <span class="flow-step__label">{item.step}</span>
+                <p class="flow-step__title">{item.title}</p>
+                <p class="flow-step__text">{item.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="faq-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="faq-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              よくあるご質問
+            </h2>
+          </div>
+          <div class="faq-list">
+            {faqs.map((item) => (
+              <details class="faq-item">
+                <summary class="faq-item__question">{item.q}</summary>
+                <div class="faq-item__answer"><p>{item.a}</p></div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="source-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="source-block">
+            <p class="source-block__title" id="source-heading">参考・根拠（一次情報）</p>
+            <ul class="source-list">
+              <li>
+                厚生労働省「インドネシア、フィリピン及びベトナムからの外国人看護師・介護福祉士候補者の受入れについて」
+                <a href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/koyou_roudou/koyou/gaikokujin/other22/index.html" target="_blank" rel="noopener noreferrer">厚生労働省サイト</a>
+              </li>
+              <li>
+                出入国在留管理庁「在留資格『特定活動』（EPA看護師・介護福祉士及びそれらの候補者）」
+                <a href="https://www.moj.go.jp/isa/applications/status/designatedactivities04.html" target="_blank" rel="noopener noreferrer">出入国在留管理庁サイト</a>
+              </li>
+              <li>
+                国際厚生事業団（JICWELS）「受入れの手引き」
+                <a href="https://jicwels.or.jp/" target="_blank" rel="noopener noreferrer">https://jicwels.or.jp/</a>
+              </li>
+            </ul>
+            <p class="updated-note">
+              本ページは2026年10月時点で公表されている協定・告示・各機関の公表資料に基づいて作成した一般的な情報です。在留期間の上限や受入れ要件は改正・運用変更があり得るため、実際のお手続きの際は最新の手引き等を確認のうえご案内します。個別の可否は事案により異なります。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base">
+        <div class="section__inner">
+          <div class="page-nav">
+            <a class="page-nav__item" href="/international/care/zairyu-kaigo">
+              <span class="page-nav__label">← 前のルート</span>
+              <span class="page-nav__title">在留資格「介護」</span>
+            </a>
+            <a class="page-nav__item" href="/international/care/procedures">
+              <span class="page-nav__label">次へ →</span>
+              <span class="page-nav__title">在留諸申請の基礎と流れ</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--contact-cta">
+        <div class="section__inner">
+          <div class="cta-box">
+            <h2 class="cta-box__heading">EPA候補者の在留手続きをサポートします</h2>
+            <p class="cta-box__text">
+              在留期間の更新や、資格取得後の在留資格「介護」への変更など、入管手続きの部分をお手伝いします。
+            </p>
+            <div class="cta-box__actions">
+              <a href="/contact" class="btn btn--primary">お問い合わせフォームへ</a>
+              <LineButton />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>

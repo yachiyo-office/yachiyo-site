@@ -1,4 +1,5 @@
 User-agent: *
 Allow: /
+Disallow: /international/
 
 Sitemap: https://yachiyo-osaka.com/sitemap-index.xml

@@ -1,0 +1,296 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
+import LineButton from '../../components/LineButton.astro';
+import { pageTitle } from '../../config/site';
+import '../../styles/international.css';
+
+const concerns = [
+  '外国人スタッフを採用したいが、どの在留資格（制度）で受け入れればよいか分からない',
+  '特定技能・技能実習・EPA・在留資格「介護」の違いや、自社に合うルートを整理したい',
+  '内定を出した外国人のビザ（在留資格認定証明書・変更）の手続きを任せたい',
+  '在留期間の更新を忘れそう／期限管理に不安がある',
+  '技能実習から特定技能や、2027年開始の育成就労への切り替えを見据えたい',
+  '登録支援機関や協議会など、受入れに必要な体制が分からない',
+];
+
+const supports = [
+  {
+    title: '在留資格認定証明書交付申請（海外から呼ぶ）',
+    text: '海外にいる外国人を新たに雇用する際に、入国に先立って行う申請です。雇用契約・事業所要件・申請人要件を整理し、必要書類をそろえて申請します。',
+  },
+  {
+    title: '在留資格変更許可申請（国内で切り替える）',
+    text: '留学生の就職、技能実習から特定技能への移行、資格取得に伴う在留資格「介護」への変更など、日本国内で在留資格を切り替える手続きに対応します。',
+  },
+  {
+    title: '在留期間更新許可申請',
+    text: '在留期間の満了前に行う更新手続きです。期限管理も含めてご案内し、更新漏れによる在留資格の失効を防ぎます。',
+  },
+  {
+    title: '資格外活動許可・就労資格証明書',
+    text: '留学生アルバイトの資格外活動許可や、就労の可否を明確にする就労資格証明書の交付申請など、関連する申請にも対応します。',
+  },
+  {
+    title: '各種届出（所属機関・支援・協議会関係）',
+    text: '受入れ機関に求められる各種届出や、特定技能・育成就労に関する協議会・登録支援機関まわりの手続きについてご案内します。',
+  },
+  {
+    title: '制度選定のご相談（最初の交通整理）',
+    text: 'どの受入れルートが自社に合うか分からない段階から、要件・期間・コスト・社内体制を踏まえて最初の交通整理をお手伝いします。',
+  },
+];
+
+const flowSteps = [
+  {
+    step: 'STEP 1',
+    title: 'お問い合わせ',
+    text: 'お電話・公式LINE・フォームからご相談ください。受け入れたい人数や職種、現在の状況（海外在住／留学中／技能実習中など）をお聞かせください。',
+  },
+  {
+    step: 'STEP 2',
+    title: 'ヒアリング・制度の整理',
+    text: '自社の状況に合う受入れルート（特定技能・育成就労・在留資格「介護」・EPA等）と、必要な要件・体制・スケジュールを整理してご説明します。',
+  },
+  {
+    step: 'STEP 3',
+    title: 'ご提案・お見積り',
+    text: '対応内容と費用の目安を明確にご提示します。ご納得いただいてから着手します。',
+  },
+  {
+    step: 'STEP 4',
+    title: '書類作成・申請',
+    text: '必要書類の収集・作成から、地方出入国在留管理局への申請・提出までサポートします。許可後の在留期限管理や各種届出も見据えてご案内します。',
+  },
+];
+
+const faqs = [
+  {
+    q: '国際業務とは具体的に何を扱いますか？',
+    a: '外国人の方が日本で在留・就労するための、出入国在留管理庁（入管）への各種申請を中心に扱います。在留資格認定証明書の交付申請、在留資格の変更、在留期間の更新、資格外活動許可などが代表的な業務です。',
+  },
+  {
+    q: '介護以外の分野にも対応できますか？',
+    a: '当面は介護分野の外国人材受入れに関する手続きを中心にご案内しています。その他の分野についても、内容を伺ったうえで対応の可否をご案内します。',
+  },
+  {
+    q: '入管への申請は本人が行く必要がありますか？',
+    a: '原則は本人申請ですが、申請取次の届出をした行政書士（申請取次行政書士）が本人に代わって申請書類を提出できる制度があります。当事務所の対応範囲については、ご相談時に明確にご案内します。',
+  },
+  {
+    q: 'まだ採用前の検討段階でも相談できますか？',
+    a: 'はい。どの受入れルートが自社に合うかという最初の段階からご相談いただけます。要件や体制づくりの見通しを整理してご案内します。',
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle('国際業務（外国人の在留・就労手続き）')}
+  description="外国人材の在留資格認定・変更・更新など、入管手続きをサポート。介護分野（特定技能・育成就労・在留資格「介護」・EPA）の受入れを中心にご案内します。"
+  breadcrumbs={[{ name: 'ホーム', href: '/' }, { name: '国際業務' }]}
+  noindex={true}
+>
+  <div class="page">
+    <SiteHeader />
+
+    <main>
+      <section class="page-hero section--base" aria-labelledby="page-heading">
+        <div class="page-hero__inner">
+          <nav class="breadcrumb" aria-label="パンくずリスト">
+            <ol>
+              <li><a href="/">ホーム</a></li>
+              <li aria-current="page">国際業務</li>
+            </ol>
+          </nav>
+
+          <div class="page-hero__content">
+            <p class="page-hero__label">INTERNATIONAL</p>
+            <h1 id="page-heading" class="page-hero__title">
+              外国人材の受入れと<br />在留手続きをサポートします
+            </h1>
+            <p class="page-hero__lead">
+              人材不足が深刻な介護をはじめ、外国人材の受入れは年々広がっています。
+              一方で、「どの制度で受け入れればよいか」「どんな申請がいつ必要か」は分かりにくく、期限を一つ誤るだけでも在留資格に影響します。
+              当事務所では、介護分野の外国人材受入れを中心に、入管（出入国在留管理庁）への各種申請と受入れ体制づくりをサポートします。
+            </p>
+            <div class="page-hero__actions">
+              <a href="/international/care/" class="btn btn--primary">介護分野の受入れを見る</a>
+              <a href="/international/price" class="btn btn--secondary">料金案内</a>
+              <a href="/contact" class="btn btn--secondary">お問い合わせ</a>
+            </div>
+          </div>
+
+          <figure class="page-hero__visual">
+            <p class="page-hero__visual-note">
+              介護 ／ 特定技能 ／ 育成就労<br />在留資格「介護」 ／ EPA
+            </p>
+          </figure>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="concerns-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="concerns-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              こんなお悩みはありませんか
+            </h2>
+          </div>
+          <ul class="concern-list">
+            {concerns.map((item) => <li class="concern-item">{item}</li>)}
+          </ul>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="overview-heading">
+        <div class="section__inner section__grid section__grid--visual">
+          <div class="section__main">
+            <h2 id="overview-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              制度選びと「期限管理」が受入れの要です
+            </h2>
+            <p class="section__text">
+              外国人材の受入れは、入口（どの在留資格で受け入れるか）と、入ったあとの継続管理（更新・各種届出）の両方が重要です。
+              特に介護分野は、<strong>特定技能・育成就労・在留資格「介護」・EPA</strong>など複数のルートがあり、要件・期間・社内に求められる体制がそれぞれ異なります。
+            </p>
+            <p class="section__text">
+              入口の制度選びを誤ると後から変更が難しくなり、在留期間の更新を一度でも失念すると就労の継続に支障が出ます。
+              だからこそ、最初の交通整理と、取得後の期限管理まで見据えてサポートします。
+            </p>
+          </div>
+          <div class="section__main">
+            <div class="callout">
+              <p class="callout__title">当事務所が対応する主な申請</p>
+              <ul class="point-list">
+                <li>在留資格認定証明書交付申請</li>
+                <li>在留資格変更許可申請</li>
+                <li>在留期間更新許可申請</li>
+                <li>資格外活動許可・就労資格証明書</li>
+                <li>受入れに伴う各種届出</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="care-guide-heading">
+        <div class="section__inner">
+          <div class="knowledge-box">
+            <div class="knowledge-box__content">
+              <p class="knowledge-box__label">FOCUS: 介護</p>
+              <h2 id="care-guide-heading" class="knowledge-box__heading">
+                介護分野の外国人材受入れを詳しく
+              </h2>
+              <p class="knowledge-box__text">
+                介護事業者の人材確保に直結する4つの受入れルート（特定技能・育成就労・在留資格「介護」・EPA）を、要件・期間・社内体制の違いとあわせて整理しています。制度選びの入口としてご覧ください。
+              </p>
+            </div>
+            <div class="knowledge-box__actions">
+              <a href="/international/care/" class="btn btn--secondary">介護特化ページを見る</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="support-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="support-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              主なサポート内容
+            </h2>
+          </div>
+          <div class="support-list">
+            {supports.map((item) => (
+              <article class="support-card">
+                <h3 class="support-card__title">{item.title}</h3>
+                <p class="support-card__text">{item.text}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="flow-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="flow-heading" class="section__heading section__heading--center">
+              <span class="heading-icon" aria-hidden="true"></span>
+              ご相談の流れ
+            </h2>
+          </div>
+          <ol class="flow-list">
+            {flowSteps.map((item) => (
+              <li class="flow-step">
+                <span class="flow-step__label">{item.step}</span>
+                <p class="flow-step__title">{item.title}</p>
+                <p class="flow-step__text">{item.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="faq-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="faq-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              よくあるご質問
+            </h2>
+          </div>
+          <div class="faq-list">
+            {faqs.map((item) => (
+              <details class="faq-item">
+                <summary class="faq-item__question">{item.q}</summary>
+                <div class="faq-item__answer"><p>{item.a}</p></div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="source-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="source-block">
+            <p class="source-block__title" id="source-heading">参考・根拠（一次情報）</p>
+            <ul class="source-list">
+              <li>
+                出入国在留管理庁「在留資格一覧表」「各種手続」
+                <a href="https://www.moj.go.jp/isa/" target="_blank" rel="noopener noreferrer">https://www.moj.go.jp/isa/</a>
+              </li>
+              <li>
+                厚生労働省「外国人介護人材の受入れ」関連ページ
+                <a href="https://www.mhlw.go.jp/" target="_blank" rel="noopener noreferrer">https://www.mhlw.go.jp/</a>
+              </li>
+              <li>出入国管理及び難民認定法（昭和26年政令第319号）別表第一</li>
+            </ul>
+            <p class="updated-note">
+              本ページは2026年10月時点で公表されている法令・運用要領・各省庁の公表資料に基づいて作成した一般的な情報です。制度は改正されることがあるため、実際のお手続きの際は最新の取扱いを確認のうえご案内します。個別の可否は事案により異なります。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--contact-cta">
+        <div class="section__inner">
+          <div class="cta-box">
+            <h2 class="cta-box__heading">
+              外国人材の受入れ、まずは制度選びからご相談ください。
+            </h2>
+            <p class="cta-box__text">
+              採用前の検討段階でも構いません。自社に合う受入れルートと、必要な手続き・体制を一緒に整理します。
+            </p>
+            <div class="cta-box__actions">
+              <a href="/contact" class="btn btn--primary">お問い合わせフォームへ</a>
+              <LineButton />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>

@@ -1,0 +1,276 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import SiteHeader from '../../../components/SiteHeader.astro';
+import SiteFooter from '../../../components/SiteFooter.astro';
+import LineButton from '../../../components/LineButton.astro';
+import { pageTitle } from '../../../config/site';
+import '../../../styles/international.css';
+
+const basics = [
+  { term: '在留資格', desc: '特定技能1号（出入国管理及び難民認定法 別表第一の二）' },
+  { term: '位置づけ', desc: '相当程度の知識または経験を要する技能を持つ、<strong>即戦力</strong>の外国人材を受け入れる制度。介護はその特定産業分野の一つ。' },
+  { term: '在留期間', desc: '1年・6か月・4か月ごとに更新し、<strong>通算5年が上限</strong>。介護分野に特定技能2号はありません。' },
+  { term: '家族の帯同', desc: '基本的に認められません。' },
+  { term: '雇用形態', desc: '<strong>フルタイムの直接雇用</strong>。介護分野では労働者派遣はできません。' },
+];
+
+const works = [
+  '身体介護等（利用者の心身の状況に応じた入浴・食事・排せつの介助等）',
+  'これに付随する支援業務（レクリエーションの実施、機能訓練の補助等）',
+  '訪問介護等の訪問系サービス（2025年4月21日から、一定の要件を満たす場合に従事可能）',
+];
+
+const cautions = [
+  '通所介護事業所における宿泊サービス（いわゆる「お泊りデイ」）での夜勤など、従事が認められない業務があります。',
+  '訪問系サービスに従事させる場合は、原則として介護事業所等での実務経験が1年以上ある1号特定技能外国人で、介護職員初任者研修課程等の修了が必要です。研修・同行訓練、相談窓口の設置、利用者・家族への書面による説明と署名など、受入事業所が満たすべき要件があります。',
+  '訪問系サービスに従事させる場合は、あらかじめ特定技能協議会から要件適合の確認を受ける必要があります。',
+];
+
+const examRequirements = [
+  { term: '技能水準', desc: '介護技能評価試験 に合格すること。' },
+  { term: '日本語能力', desc: '国際交流基金日本語基礎テスト（JFT-Basic）または日本語能力試験（N4以上）に加え、<strong>介護日本語評価試験</strong>に合格すること。' },
+  { term: '試験の免除', desc: '介護職種の技能実習2号を良好に修了した方、介護福祉士養成施設を修了した方、EPA介護福祉士候補者として一定の要件を満たす方などは、試験が免除される場合があります。' },
+];
+
+const employerRequirements = [
+  '受け入れる1号特定技能外国人は、<strong>事業所単位で、日本人等の常勤介護職員の総数が上限</strong>となります。',
+  '厚生労働省が組織する「介護分野における特定技能協議会」の構成員になり、協議会に必要な協力を行うこと。',
+  '特定技能外国人への各種支援（事前ガイダンス、生活オリエンテーション等）を実施すること。支援は登録支援機関に委託することができます。',
+  '日本人が従事する場合に受ける報酬と同等額以上の報酬を支払うこと。',
+];
+
+const flowSteps = [
+  { step: 'STEP 1', title: '受入れ方針の整理', text: '海外から呼ぶのか、国内在住（留学・技能実習中など）の方を採用するのかを確認し、必要な申請の種類と要件を整理します。' },
+  { step: 'STEP 2', title: '協議会・支援体制の確認', text: '特定技能協議会への加入、登録支援機関の活用など、受入れに必要な体制を確認します。' },
+  { step: 'STEP 3', title: '書類作成・申請', text: '在留資格認定証明書交付申請（海外から）または在留資格変更許可申請（国内）に必要な書類を作成し、申請します。' },
+  { step: 'STEP 4', title: '就労開始後の管理', text: '在留期間の更新や各種届出など、就労開始後に継続して必要となる手続きを見据えてご案内します。' },
+];
+
+const faqs = [
+  {
+    q: '技能実習生を特定技能に切り替えられますか？',
+    a: '介護職種の技能実習2号を良好に修了した方は、技能試験・日本語試験が免除され、特定技能1号（介護）へ移行できる場合があります。実際の可否は個々の状況を確認のうえご案内します。',
+  },
+  {
+    q: '訪問介護にも従事させられますか？',
+    a: '2025年4月21日から、一定の要件（実務経験1年以上・初任者研修等の修了、研修や同行訓練、相談窓口の設置、利用者・家族への書面説明と署名など）を満たし、協議会の確認を受けた場合に従事できるようになりました。',
+  },
+  {
+    q: '何人まで受け入れられますか？',
+    a: '事業所単位で、日本人等の常勤介護職員の総数が1号特定技能外国人の受入れ上限です。事業所の体制によって受け入れられる人数が決まります。',
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle('特定技能1号（介護分野）とは｜要件・業務・受入れ体制')}
+  description="特定技能1号（介護分野）の要件・従事できる業務・在留期間・受入れ事業所に求められる体制をわかりやすく整理。在留資格認定証明書交付申請や変更・更新もサポートします。"
+  breadcrumbs={[
+    { name: 'ホーム', href: '/' },
+    { name: '国際業務', href: '/international/' },
+    { name: '介護分野の受入れ', href: '/international/care/' },
+    { name: '特定技能1号（介護）' },
+  ]}
+  noindex={true}
+>
+  <div class="page">
+    <SiteHeader />
+
+    <main>
+      <section class="page-hero section--base" aria-labelledby="page-heading">
+        <div class="page-hero__inner page-hero__inner--single">
+          <nav class="breadcrumb" aria-label="パンくずリスト">
+            <ol>
+              <li><a href="/">ホーム</a></li>
+              <li><a href="/international/">国際業務</a></li>
+              <li><a href="/international/care/">介護分野の受入れ</a></li>
+              <li aria-current="page">特定技能1号（介護）</li>
+            </ol>
+          </nav>
+          <div class="page-hero__content">
+            <p class="page-hero__label">ROUTE 1</p>
+            <h1 id="page-heading" class="page-hero__title">特定技能1号（介護分野）</h1>
+            <p class="page-hero__lead">
+              特定技能1号（介護）は、一定の技能と日本語能力を持つ即戦力の外国人材を受け入れる制度です。
+              試験合格（または免除）を満たした方を、身体介護を中心とした業務でフルタイム雇用できます。介護事業者さまにとって、当面もっとも現実的な選択肢になりやすいルートです。
+            </p>
+            <div class="page-hero__actions">
+              <a href="/contact" class="btn btn--primary">受入れの相談をする</a>
+              <a href="/international/care/" class="btn btn--secondary">4ルート比較に戻る</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="basic-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="basic-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              制度の基本
+            </h2>
+          </div>
+          <div class="def-list">
+            {basics.map((item) => (
+              <div class="def-list__row">
+                <p class="def-list__term">{item.term}</p>
+                <p class="def-list__desc" set:html={item.desc} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="works-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="works-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              従事できる業務
+            </h2>
+          </div>
+          <ul class="point-list">
+            {works.map((item) => <li>{item}</li>)}
+          </ul>
+          <div class="callout callout--warn" style="margin-top:1.5rem;">
+            <p class="callout__title">注意が必要な点</p>
+            {cautions.map((item) => <p class="callout__text">{item}</p>)}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="person-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="person-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              外国人本人に求められる要件（試験）
+            </h2>
+          </div>
+          <div class="def-list">
+            {examRequirements.map((item) => (
+              <div class="def-list__row">
+                <p class="def-list__term">{item.term}</p>
+                <p class="def-list__desc" set:html={item.desc} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="employer-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="employer-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              受入れ事業所に求められる体制
+            </h2>
+          </div>
+          <ul class="point-list">
+            {employerRequirements.map((item) => <li set:html={item} />)}
+          </ul>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="flow-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="flow-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              受入れ・申請の流れ
+            </h2>
+          </div>
+          <ol class="flow-list">
+            {flowSteps.map((item) => (
+              <li class="flow-step">
+                <span class="flow-step__label">{item.step}</span>
+                <p class="flow-step__title">{item.title}</p>
+                <p class="flow-step__text">{item.text}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="faq-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="faq-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              よくあるご質問
+            </h2>
+          </div>
+          <div class="faq-list">
+            {faqs.map((item) => (
+              <details class="faq-item">
+                <summary class="faq-item__question">{item.q}</summary>
+                <div class="faq-item__answer"><p>{item.a}</p></div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="source-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="source-block">
+            <p class="source-block__title" id="source-heading">参考・根拠（一次情報）</p>
+            <ul class="source-list">
+              <li>
+                出入国在留管理庁「介護分野」（特定技能）
+                <a href="https://www.moj.go.jp/isa/policies/ssw/nursingcare.html" target="_blank" rel="noopener noreferrer">https://www.moj.go.jp/isa/policies/ssw/nursingcare.html</a>
+              </li>
+              <li>
+                「特定の分野に係る特定技能外国人受入れに関する運用要領－介護分野の基準について－」（厚生労働省）
+                <a href="https://www.mhlw.go.jp/content/001478721.pdf" target="_blank" rel="noopener noreferrer">https://www.mhlw.go.jp/content/001478721.pdf</a>
+              </li>
+              <li>
+                厚生労働省「外国人介護人材の訪問系サービスへの従事について」
+                <a href="https://www.mhlw.go.jp/stf/newpage_56271.html" target="_blank" rel="noopener noreferrer">https://www.mhlw.go.jp/stf/newpage_56271.html</a>
+              </li>
+              <li>
+                介護分野における特定技能協議会（国際厚生事業団 JICWELS）
+                <a href="https://jicwels.or.jp/" target="_blank" rel="noopener noreferrer">https://jicwels.or.jp/</a>
+              </li>
+            </ul>
+            <p class="updated-note">
+              本ページは2026年10月時点で公表されている分野別運用方針・運用要領等に基づいて作成した一般的な情報です。訪問系サービスの要件など取扱いは改正されることがあるため、実際のお手続きの際は最新の運用要領を確認のうえご案内します。個別の可否は事案により異なります。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base">
+        <div class="section__inner">
+          <div class="page-nav">
+            <a class="page-nav__item" href="/international/care/">
+              <span class="page-nav__label">一覧へ</span>
+              <span class="page-nav__title">介護分野の受入れ（4ルート比較）</span>
+            </a>
+            <a class="page-nav__item" href="/international/care/ikusei-shuro">
+              <span class="page-nav__label">次のルート →</span>
+              <span class="page-nav__title">育成就労（介護）</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--contact-cta">
+        <div class="section__inner">
+          <div class="cta-box">
+            <h2 class="cta-box__heading">特定技能での受入れをご検討中の方へ</h2>
+            <p class="cta-box__text">
+              海外からの受入れ、留学生・技能実習生からの切り替えなど、状況に応じて必要な手続きをご案内します。まずはお気軽にご相談ください。
+            </p>
+            <div class="cta-box__actions">
+              <a href="/contact" class="btn btn--primary">お問い合わせフォームへ</a>
+              <LineButton />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>

@@ -1,0 +1,208 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import SiteHeader from '../../../components/SiteHeader.astro';
+import SiteFooter from '../../../components/SiteFooter.astro';
+import LineButton from '../../../components/LineButton.astro';
+import { pageTitle } from '../../../config/site';
+import '../../../styles/international.css';
+
+const basics = [
+  { term: '在留資格', desc: '技能実習（出入国管理及び難民認定法 別表第一の二）。1号・2号・3号の段階があります。' },
+  { term: '制度の目的', desc: '技能等の開発途上国への移転による<strong>国際貢献</strong>を趣旨とする制度です（人手不足対応を目的とする育成就労とは建前が異なります）。' },
+  { term: '介護職種の追加', desc: '2017年（平成29年）11月1日に、技能実習の対象職種へ介護が追加されました。' },
+  { term: '在留期間', desc: '第1号（1年）＋第2号（2年）＋第3号（2年）で<strong>最長5年</strong>。' },
+  { term: '今後', desc: '技能実習制度は<strong>2027年（令和9年）4月1日に育成就労制度へ発展的に解消</strong>される予定です。' },
+];
+
+const kaigoRequirements = [
+  { term: '日本語能力', desc: '第1号（1年目）は日本語能力試験<strong>N4以上</strong>、第2号・第3号は<strong>N3以上</strong>に合格している等。入国時はN3程度が望ましい水準とされます。' },
+  { term: '実習実施者', desc: '介護等の業務を現に行う事業所であり、<strong>開設後3年以上</strong>が経過していること等。訪問系サービスには別途要件があります。' },
+  { term: '技能実習指導員', desc: '技能実習生5名につき1名以上を選任し、<strong>そのうち1名以上は介護福祉士等</strong>であること。' },
+  { term: '受入れ人数枠', desc: '事業所単位で、<strong>常勤介護職員の総数が受入れ上限</strong>です。' },
+  { term: '入国後講習', desc: '日本語科目は原則240時間以上（N3程度以上の場合は80時間以上）など。' },
+  { term: '夜勤等', desc: '夜勤その他少人数での業務には、利用者の安全確保のための措置（他の介護職員の同時配置、2年目以降に限定する努力義務等）が求められます。' },
+];
+
+const faqs = [
+  {
+    q: 'これから新しく技能実習（介護）で受け入れられますか？',
+    a: '技能実習制度は2027年（令和9年）4月1日に育成就労へ発展的に解消される予定です。新規の受入れを検討する場合は、施行時期や経過措置、育成就労への切り替えを前提に判断する必要があります。現在の状況を伺ったうえで、現実的な選択肢をご案内します。',
+  },
+  {
+    q: '今いる技能実習生はどうなりますか？',
+    a: '2027年4月1日時点で実施中の技能実習や、2027年3月31日までに認定申請された一定の技能実習計画には経過措置があり、認定を受けた計画の満了まで継続できます。ただし技能実習から育成就労への直接移行はできません。詳しくは育成就労のページをご覧ください。',
+  },
+  {
+    q: '技能実習から特定技能に移れますか？',
+    a: '介護職種の技能実習2号を良好に修了した方は、技能試験・日本語試験が免除され、特定技能1号（介護）へ移行できる場合があります。長期の定着に向けた有力な道筋です。',
+  },
+];
+---
+
+<BaseLayout
+  title={pageTitle('技能実習（介護職種）とは｜固有要件と2027年の育成就労への移行')}
+  description="技能実習（介護職種）の制度概要と介護固有要件（日本語N4/N3・指導員・受入れ枠・入国後講習など）を一次情報に基づき整理。2027年の育成就労への移行・経過措置も解説します。"
+  breadcrumbs={[
+    { name: 'ホーム', href: '/' },
+    { name: '国際業務', href: '/international/' },
+    { name: '介護分野の受入れ', href: '/international/care/' },
+    { name: '技能実習（介護職種）' },
+  ]}
+  noindex={true}
+>
+  <div class="page">
+    <SiteHeader />
+
+    <main>
+      <section class="page-hero section--base" aria-labelledby="page-heading">
+        <div class="page-hero__inner page-hero__inner--single">
+          <nav class="breadcrumb" aria-label="パンくずリスト">
+            <ol>
+              <li><a href="/">ホーム</a></li>
+              <li><a href="/international/">国際業務</a></li>
+              <li><a href="/international/care/">介護分野の受入れ</a></li>
+              <li aria-current="page">技能実習（介護職種）</li>
+            </ol>
+          </nav>
+          <div class="page-hero__content">
+            <p class="page-hero__label">現行制度（2027年に育成就労へ移行）</p>
+            <h1 id="page-heading" class="page-hero__title">技能実習（介護職種）</h1>
+            <p class="page-hero__lead">
+              技能実習（介護職種）は、技能等の移転による国際貢献を趣旨とする現行制度です。2017年に介護が対象職種へ追加されました。
+              ただし、技能実習制度は<strong>2027年（令和9年）4月1日に育成就労制度へ発展的に解消</strong>される予定のため、これから受入れを検討する際は移行を前提に考える必要があります。
+            </p>
+            <div class="page-hero__actions">
+              <a href="/contact" class="btn btn--primary">受入れ・移行の相談をする</a>
+              <a href="/international/care/ikusei-shuro" class="btn btn--secondary">育成就労のページへ</a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="notice-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="callout callout--warn">
+            <p class="callout__title" id="notice-heading">制度移行にご注意ください</p>
+            <p class="callout__text">
+              技能実習制度は2027年4月に育成就労へ移行します。経過措置はありますが、技能実習から育成就労へ直接移行することはできないなどの注意点があります。新規の受入れ計画は、育成就労を前提に立てることをおすすめします。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="basic-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="basic-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              制度の基本
+            </h2>
+          </div>
+          <div class="def-list">
+            {basics.map((item) => (
+              <div class="def-list__row">
+                <p class="def-list__term">{item.term}</p>
+                <p class="def-list__desc" set:html={item.desc} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="kaigo-heading">
+        <div class="section__inner">
+          <div class="section__head-block">
+            <h2 id="kaigo-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              介護職種の固有要件
+            </h2>
+            <p class="section__sub">
+              技能実習制度本体の要件に加えて、介護サービスの特性に応じた「介護固有要件」を満たす必要があります。
+            </p>
+          </div>
+          <div class="def-list">
+            {kaigoRequirements.map((item) => (
+              <div class="def-list__row">
+                <p class="def-list__term">{item.term}</p>
+                <p class="def-list__desc" set:html={item.desc} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base" aria-labelledby="faq-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="section__head-block">
+            <h2 id="faq-heading" class="section__heading">
+              <span class="heading-icon" aria-hidden="true"></span>
+              よくあるご質問
+            </h2>
+          </div>
+          <div class="faq-list">
+            {faqs.map((item) => (
+              <details class="faq-item">
+                <summary class="faq-item__question">{item.q}</summary>
+                <div class="faq-item__answer"><p>{item.a}</p></div>
+              </details>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--band" aria-labelledby="source-heading">
+        <div class="section__inner section__inner--narrow">
+          <div class="source-block">
+            <p class="source-block__title" id="source-heading">参考・根拠（一次情報）</p>
+            <ul class="source-list">
+              <li>
+                厚生労働省「介護職種の技能実習制度について」
+                <a href="https://www.mhlw.go.jp/stf/seisakunitsuite/bunya/0000147660.html" target="_blank" rel="noopener noreferrer">厚生労働省サイト</a>
+              </li>
+              <li>厚生労働省告示第320号（平成29年9月29日・平成29年11月1日適用／介護職種の固有要件）</li>
+              <li>
+                外国人技能実習機構（OTIT）
+                <a href="https://www.otit.go.jp/" target="_blank" rel="noopener noreferrer">https://www.otit.go.jp/</a>
+              </li>
+            </ul>
+            <p class="updated-note">
+              本ページは2026年10月時点で公表されている法令・告示・運用資料に基づいて作成した一般的な情報です。技能実習制度は2027年4月に育成就労へ移行する予定で、取扱いも変わり得るため、実際のお手続きの際は最新情報を確認のうえご案内します。個別の可否は事案により異なります。
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--base">
+        <div class="section__inner">
+          <div class="page-nav">
+            <a class="page-nav__item" href="/international/care/">
+              <span class="page-nav__label">一覧へ</span>
+              <span class="page-nav__title">介護分野の受入れ（ルート比較）</span>
+            </a>
+            <a class="page-nav__item" href="/international/care/ikusei-shuro">
+              <span class="page-nav__label">移行先 →</span>
+              <span class="page-nav__title">育成就労（介護）</span>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section section--contact-cta">
+        <div class="section__inner">
+          <div class="cta-box">
+            <h2 class="cta-box__heading">技能実習の継続・移行についてご相談ください</h2>
+            <p class="cta-box__text">
+              現在の技能実習生の在留管理から、特定技能・育成就労への切り替えまで、2027年の制度移行を見据えてサポートします。
+            </p>
+            <div class="cta-box__actions">
+              <a href="/contact" class="btn btn--primary">お問い合わせフォームへ</a>
+              <LineButton />
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <SiteFooter />
+  </div>
+</BaseLayout>
