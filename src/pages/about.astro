@@ -3,7 +3,13 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import LineButton from '../components/LineButton.astro';
-import { pageTitle, OFFICE_ADDRESS, OFFICE_GOOGLE_MAPS_URL, OFFICE_GOOGLE_MAPS_EMBED_URL } from '../config/site';
+import {
+  pageTitle,
+  OFFICE_ADDRESS,
+  OFFICE_GOOGLE_MAPS_URL,
+  OFFICE_GOOGLE_MAPS_EMBED_URL,
+  GYOSEISHI_REGISTRATION_LABEL,
+} from '../config/site';
 
 const strengths = [
   {
@@ -151,6 +157,10 @@ const strengths = [
               <div class="office-info__row">
                 <dt>代表者</dt>
                 <dd>鹿野 正幸（しかの まさゆき）</dd>
+              </div>
+              <div class="office-info__row">
+                <dt>登録番号</dt>
+                <dd>{GYOSEISHI_REGISTRATION_LABEL}</dd>
               </div>
               <div class="office-info__row">
                 <dt>所在地</dt>

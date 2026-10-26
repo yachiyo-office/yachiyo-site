@@ -26,3 +26,15 @@ export const OFFICE_GOOGLE_MAPS_URL = `https://www.google.com/maps/search/?api=1
 
 /** Googleマップ（iframe 埋め込み用・APIキー不要） */
 export const OFFICE_GOOGLE_MAPS_EMBED_URL = `https://maps.google.com/maps?q=${encodeURIComponent(OFFICE_ADDRESS.full)}&hl=ja&z=16&output=embed`;
+
+/** 所属行政書士会（泉州支部） */
+export const GYOSEISHI_BAR_ASSOCIATION = '大阪府行政書士会 泉州支部';
+
+/** 行政書士登録番号（数字部分） */
+export const GYOSEISHI_REGISTRATION_NUMBER = '26263916';
+
+/** 表示用：大阪府行政書士会 泉州支部 第26263916号 */
+export const GYOSEISHI_REGISTRATION_LABEL = `${GYOSEISHI_BAR_ASSOCIATION} 第${GYOSEISHI_REGISTRATION_NUMBER}号`;
+
+/** 書類フッター等：登録番号：第26263916号 */
+export const GYOSEISHI_REGISTRATION_SHORT = `第${GYOSEISHI_REGISTRATION_NUMBER}号`;

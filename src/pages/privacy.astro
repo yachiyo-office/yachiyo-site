@@ -4,7 +4,7 @@ import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import LineButton from '../components/LineButton.astro';
 import { contactFormButtonLabel } from '../config/contact';
-import { pageTitle, OFFICE_ADDRESS } from '../config/site';
+import { pageTitle, OFFICE_ADDRESS, GYOSEISHI_REGISTRATION_LABEL } from '../config/site';
 
 const PRIVACY_ENACTED_DATE = '2026年8月10日';
 const PRIVACY_REVISED_DATE = '2026年8月10日';
@@ -118,6 +118,10 @@ const PRIVACY_REVISED_DATE = '2026年8月10日';
               <div class="contact-dl__row">
                 <dt>代表者</dt>
                 <dd>鹿野正幸</dd>
+              </div>
+              <div class="contact-dl__row">
+                <dt>登録番号</dt>
+                <dd>{GYOSEISHI_REGISTRATION_LABEL}</dd>
               </div>
               <div class="contact-dl__row">
                 <dt>所在地</dt>
