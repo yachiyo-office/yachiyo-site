@@ -203,9 +203,24 @@ const otherServicePrices = [
               <li>住民票・登記事項証明書などの<strong>証明書取得の実費</strong>は別途申し受けます。</li>
               <li>正式な金額は、内容をお伺いしたうえで<strong>お見積り</strong>をご提示いたします。</li>
             </ul>
-            <p class="notice-box__consult">
-              初回相談は無料です（オンライン・お電話・ご訪問いずれも可・目安30〜45分）。まずはお電話またはオンラインで要件を確認し、お見積りの目安をご案内します。資料確認などでご訪問が必要な場合は別途日程を調整し、出張交通費として一律2,000円（税込・駐車場代含む）を申し受けます。そのままご依頼いただいた場合は、当該金額を報酬から差し引きます。
-            </p>
+            <div class="notice-box__consult">
+              <p class="notice-box__consult-lead">
+                まずはお電話またはオンラインで要件を確認し、お見積りの目安をご案内します。
+              </p>
+              <ul class="notice-box__list notice-box__list--consult">
+                <li><strong>初回相談料</strong>：無料（目安30〜45分）</li>
+                <li><strong>電話・オンライン</strong>：無料</li>
+                <li>
+                  <strong>訪問相談</strong>（お客様の事務所・ご自宅・カフェ等へ<strong>伺う</strong>場合）：相談料無料、出張交通費<strong>2,000円（税込・駐車場代含む）</strong>
+                </li>
+                <li>
+                  <strong>正式にご依頼いただいた場合</strong>：上記出張交通費を<strong>報酬から差し引き</strong>ます（二重請求はいたしません）
+                </li>
+              </ul>
+              <p class="notice-box__consult-note">
+                ※ 当事務所へのご来訪（事前予約制）での初回相談も無料です。出張交通費の対象には含みません。
+              </p>
+            </div>
           </div>
         </div>
       </section>
@@ -507,6 +522,21 @@ const otherServicePrices = [
     font-size: 0.875rem;
     line-height: 1.85;
     color: var(--color-text);
+  }
+
+  .notice-box__consult-lead {
+    margin: 0 0 0.65rem;
+  }
+
+  .notice-box__list--consult {
+    margin-top: 0;
+  }
+
+  .notice-box__consult-note {
+    margin: 0.65rem 0 0;
+    font-size: 0.8125rem;
+    line-height: 1.75;
+    color: var(--color-text-muted);
   }
 
   /* 料金テーブル */
