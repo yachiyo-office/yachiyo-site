@@ -1,0 +1,63 @@
+---
+import {
+  OPENING_ANNOUNCEMENT,
+  OPENING_ANNOUNCEMENT_HIDE_FROM,
+  shouldShowOpeningAnnouncementOnHome,
+} from '../config/site';
+
+const showAtBuild = shouldShowOpeningAnnouncementOnHome();
+---
+
+{
+  showAtBuild && (
+    <>
+      <div
+        class="opening-notice"
+        role="status"
+        data-opening-notice
+        data-hide-from={OPENING_ANNOUNCEMENT_HIDE_FROM}
+      >
+        <p class="opening-notice__text">{OPENING_ANNOUNCEMENT}</p>
+      </div>
+      <script is:inline>
+        (function () {
+          var bar = document.querySelector('[data-opening-notice][data-hide-from]');
+          if (!bar) return;
+          var hideFrom = bar.getAttribute('data-hide-from');
+          if (!hideFrom) return;
+          var today = new Intl.DateTimeFormat('en-CA', {
+            timeZone: 'Asia/Tokyo',
+            year: 'numeric',
+            month: '2-digit',
+            day: '2-digit',
+          }).format(new Date());
+          if (today >= hideFrom) bar.remove();
+        })();
+      </script>
+    </>
+  )
+}
+
+<style>
+  .opening-notice {
+    background: rgba(30, 58, 138, 0.08);
+    border-bottom: 1px solid rgba(30, 58, 138, 0.12);
+  }
+
+  .opening-notice__text {
+    margin: 0 auto;
+    max-width: 72rem;
+    padding: 0.65rem 1.25rem;
+    font-size: 0.8125rem;
+    line-height: 1.65;
+    text-align: center;
+    color: var(--color-text);
+  }
+
+  @media (min-width: 768px) {
+    .opening-notice__text {
+      font-size: 0.875rem;
+      padding: 0.75rem 2rem;
+    }
+  }
+</style>

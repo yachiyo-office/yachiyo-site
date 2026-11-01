@@ -5,7 +5,10 @@ import SiteFooter from '../components/SiteFooter.astro';
 import { getCollection } from 'astro:content';
 import LineButton from '../components/LineButton.astro';
 import { contactFormButtonLabel } from '../config/contact';
-import { pageTitle } from '../config/site';
+import OpeningNotice from '../components/OpeningNotice.astro';
+import { pageTitle, shouldShowOpeningAnnouncementOnHome } from '../config/site';
+
+const showOpeningAnnouncement = shouldShowOpeningAnnouncementOnHome();
 
 const allPosts = await getCollection('blog', ({ data }) => !data.draft);
 const latestPosts = allPosts
@@ -125,6 +128,7 @@ const flowSteps = [
 >
   <div class="page">
     <SiteHeader />
+    {showOpeningAnnouncement && <OpeningNotice />}
 
     <main>
       <section class="hero-banner" aria-labelledby="hero-heading">
