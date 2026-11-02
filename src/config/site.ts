@@ -24,8 +24,9 @@ export const OFFICE_ADDRESS = {
 /** Googleマップ（検索・別タブで開く用） */
 export const OFFICE_GOOGLE_MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(OFFICE_ADDRESS.full)}`;
 
-/** Googleマップ（iframe 埋め込み用・APIキー不要） */
-export const OFFICE_GOOGLE_MAPS_EMBED_URL = `https://maps.google.com/maps?q=${encodeURIComponent(OFFICE_ADDRESS.full)}&hl=ja&z=16&output=embed`;
+/** Googleマップ（iframe 埋め込み用） */
+export const OFFICE_GOOGLE_MAPS_EMBED_URL =
+  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d823.5778423252874!2d135.25596036964538!3d34.34255280563859!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6000b773b1f612bb%3A0xe635f10637694e86!2z44KE44Gh44KI6KGM5pS_5pu45aOr5LqL5YuZ5omA!5e0!3m2!1sja!2sjp!4v1793636186242!5m2!1sja!2sjp';
 
 /** 所属行政書士会（泉州支部） */
 export const GYOSEISHI_BAR_ASSOCIATION = '大阪府行政書士会 泉州支部';
