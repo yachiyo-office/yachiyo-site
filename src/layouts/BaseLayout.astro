@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { CONSULTATION_OPENING_HOURS_SCHEMA } from '../config/consultation';
 import {
   SITE_NAME,
   DEFAULT_OGP_IMAGE,
@@ -54,7 +55,7 @@ const legalServiceSchema = {
     addressCountry: 'JP',
   },
   areaServed: ['大阪府泉州地域', '和歌山県北部'],
-  openingHours: ['Mo-Fr 18:30-21:00', 'Sa-Su 09:00-18:00'],
+  openingHours: [...CONSULTATION_OPENING_HOURS_SCHEMA],
   description:
     '大阪府阪南市を拠点に、大阪泉州・和歌山北部の建設業許可（新規・更新・決算変更届・業種追加）と継続手続を中心にサポートする行政書士事務所です。',
 };

@@ -3,6 +3,16 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import LineButton from '../components/LineButton.astro';
+import {
+  CONSULTATION_APPOINTMENT_NOTE,
+  CONSULTATION_BASE_HOURS,
+  CONSULTATION_DIGITAL_RECEPTION,
+  CONSULTATION_FACE_TO_FACE,
+  CONSULTATION_FLEXIBLE_SCHEDULE,
+  CONSULTATION_FORMATS,
+  CONSULTATION_OFFICE_VISIT,
+  CONSULTATION_PHONE_RECEPTION,
+} from '../config/consultation';
 import { pageTitle } from '../config/site';
 ---
 
@@ -25,9 +35,8 @@ import { pageTitle } from '../config/site';
 
         <h1>お問い合わせ</h1>
         <p class="lead-text">
-          ご相談・ご依頼は、公式LINEまたは下記フォームよりお気軽にお問い合わせください。<br />
-          現場で日中お忙しい方のために、<strong>平日夜・土日</strong>にもご相談を承っています。ご相談は<strong>オンライン・対面</strong>のいずれも可能です。<br />
-          内容を確認後、原則翌営業時間内を目安にご連絡させていただきます。
+          ご相談・ご依頼は、お電話・公式LINEまたは下記フォームよりお気軽にお問い合わせください。<br />
+          現場で日中お忙しい方のために、<strong>平日夜・土日</strong>にもご相談を承っています。ご相談は<strong>オンライン・対面（訪問）</strong>のいずれも可能です。
         </p>
 
         <div class="consultation-note">
@@ -39,24 +48,32 @@ import { pageTitle } from '../config/site';
         </div>
 
             <div class="consultation-note__row">
-              <dt>受付時間</dt>
-              <dd>平日 18:30〜21:00　土日 9:00〜18:00</dd>
+              <dt>基本相談時間</dt>
+              <dd>{CONSULTATION_BASE_HOURS}</dd>
+            </div>
+            <div class="consultation-note__row">
+              <dt>電話受付</dt>
+              <dd>{CONSULTATION_PHONE_RECEPTION}</dd>
+            </div>
+            <div class="consultation-note__row">
+              <dt>フォーム・LINE</dt>
+              <dd>{CONSULTATION_DIGITAL_RECEPTION}</dd>
             </div>
             <div class="consultation-note__row">
               <dt>形式</dt>
-              <dd>オンライン／対面</dd>
+              <dd>{CONSULTATION_FORMATS}</dd>
             </div>
             <div class="consultation-note__row">
               <dt>対面</dt>
-              <dd>
-                お客様の事務所・ご自宅・お近くのカフェ等へ伺います（平日夜・土日も可・事前予約制）
-              </dd>
+              <dd>{CONSULTATION_FACE_TO_FACE}</dd>
             </div>
             <div class="consultation-note__row">
               <dt>事務所来訪</dt>
-              <dd>事前予約制（ご希望の場合はフォームよりご連絡ください）</dd>
+              <dd>{CONSULTATION_OFFICE_VISIT}</dd>
             </div>
           </dl>
+          <p class="consultation-note__after-dl">{CONSULTATION_FLEXIBLE_SCHEDULE}</p>
+          <p class="consultation-note__after-dl">{CONSULTATION_APPOINTMENT_NOTE}</p>
           <p class="consultation-note__lead">
             まずはお電話またはオンラインで要件を確認し、お見積りの目安をご案内します。
           </p>
@@ -72,7 +89,6 @@ import { pageTitle } from '../config/site';
           </ul>
           <p class="consultation-note__text">
             ※ 当事務所へのご来訪（事前予約制）での初回相談も無料です。出張交通費の対象には含みません。<br />
-            ※ フォーム・公式LINEは24時間受付。返信は受付時間内を目安にご連絡します。<br />
             ※ 役所への提出など、手続き上日中対応が必要な場合も、日程を調整のうえ対応します。
           </p>
         </div>
@@ -94,7 +110,7 @@ import { pageTitle } from '../config/site';
             </div>
           </dl>
           <p class="contact-channels__note">
-            ※ 公式LINE・お問い合わせフォームは24時間受付しております。返信は受付時間内を目安にご連絡します。
+            ※ 公式LINE・お問い合わせフォームは{CONSULTATION_DIGITAL_RECEPTION}。
           </p>
           <p class="contact-channels__form-label">お問い合わせフォーム</p>
         </div>
@@ -248,8 +264,15 @@ import { pageTitle } from '../config/site';
     font-weight: 700;
   }
 
-  .consultation-note__lead {
+  .consultation-note__after-dl {
     margin: 0 0 0.5rem;
+    font-size: 0.8125rem;
+    line-height: 1.75;
+    color: var(--color-text);
+  }
+
+  .consultation-note__lead {
+    margin: 0.75rem 0 0.5rem;
     font-size: 0.8125rem;
     line-height: 1.75;
     color: var(--color-text);

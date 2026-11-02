@@ -4,6 +4,16 @@ import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import LineButton from '../components/LineButton.astro';
 import {
+  CONSULTATION_APPOINTMENT_NOTE,
+  CONSULTATION_BASE_HOURS,
+  CONSULTATION_DIGITAL_RECEPTION,
+  CONSULTATION_FACE_TO_FACE,
+  CONSULTATION_FLEXIBLE_SCHEDULE,
+  CONSULTATION_FORMATS,
+  CONSULTATION_OFFICE_VISIT,
+  CONSULTATION_PHONE_RECEPTION,
+} from '../config/consultation';
+import {
   pageTitle,
   OFFICE_ADDRESS,
   OFFICE_GOOGLE_MAPS_URL,
@@ -175,22 +185,32 @@ const strengths = [
                 <dd>建設業許可、産業廃棄物収集運搬業許可、新規・更新・変更届、その他許認可・法人関連手続</dd>
               </div>
               <div class="office-info__row">
-                <dt>ご相談時間</dt>
-                <dd>平日 18:30〜21:00　土日 9:00〜18:00</dd>
+                <dt>基本相談時間</dt>
+                <dd>{CONSULTATION_BASE_HOURS}</dd>
               </div>
               <div class="office-info__row">
-                <dt>ご相談方法</dt>
-                <dd>
-                  オンライン／対面<br />
-                  対面は、お客様の事務所・ご自宅・お近くのカフェ等へ伺います（平日夜・土日も可・事前予約制）<br />
-                  事務所へのご来訪は事前予約制です
-                </dd>
+                <dt>電話受付</dt>
+                <dd>{CONSULTATION_PHONE_RECEPTION}</dd>
               </div>
               <div class="office-info__row">
-                <dt>お問い合わせ</dt>
-                <dd>お問い合わせフォーム・公式LINEより24時間受付（返信はご相談時間内を目安）</dd>
+                <dt>フォーム・LINE</dt>
+                <dd>{CONSULTATION_DIGITAL_RECEPTION}</dd>
+              </div>
+              <div class="office-info__row">
+                <dt>形式</dt>
+                <dd>{CONSULTATION_FORMATS}</dd>
+              </div>
+              <div class="office-info__row">
+                <dt>対面</dt>
+                <dd>{CONSULTATION_FACE_TO_FACE}</dd>
+              </div>
+              <div class="office-info__row">
+                <dt>事務所来訪</dt>
+                <dd>{CONSULTATION_OFFICE_VISIT}</dd>
               </div>
             </dl>
+            <p class="office-info__note">{CONSULTATION_FLEXIBLE_SCHEDULE}</p>
+            <p class="office-info__note">{CONSULTATION_APPOINTMENT_NOTE}</p>
 
             <div class="office-map">
               <p class="office-map__note">
@@ -347,6 +367,17 @@ const strengths = [
   .office-info__row:first-child { border-top: 1px solid var(--color-border); }
   .office-info__row dt { font-weight: 700; color: var(--color-text-muted); }
   .office-info__row dd { margin: 0; color: var(--color-text); line-height: 1.8; }
+
+  .office-info__note {
+    margin: 0.75rem 0 0;
+    font-size: 0.875rem;
+    line-height: 1.75;
+    color: var(--color-text);
+  }
+
+  .office-info__note + .office-info__note {
+    margin-top: 0.5rem;
+  }
 
   .office-map { margin-top: 2rem; }
   .office-map__note {

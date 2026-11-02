@@ -6,6 +6,16 @@ import { getCollection } from 'astro:content';
 import LineButton from '../components/LineButton.astro';
 import { contactFormButtonLabel } from '../config/contact';
 import OpeningNotice from '../components/OpeningNotice.astro';
+import {
+  CONSULTATION_APPOINTMENT_NOTE,
+  CONSULTATION_BASE_HOURS,
+  CONSULTATION_DIGITAL_RECEPTION,
+  CONSULTATION_FACE_TO_FACE,
+  CONSULTATION_FLEXIBLE_SCHEDULE,
+  CONSULTATION_FORMATS,
+  CONSULTATION_OFFICE_VISIT,
+  CONSULTATION_PHONE_RECEPTION,
+} from '../config/consultation';
 import { pageTitle, shouldShowOpeningAnnouncementOnHome } from '../config/site';
 
 const showOpeningAnnouncement = shouldShowOpeningAnnouncementOnHome();
@@ -359,16 +369,28 @@ const flowSteps = [
 
               </div>
               <div class="contact-card__row">
-                <dt>受付時間</dt>
-                <dd>平日 18:30〜21:00　土日 9:00〜18:00</dd>
+                <dt>基本相談時間</dt>
+                <dd>{CONSULTATION_BASE_HOURS}</dd>
               </div>
               <div class="contact-card__row">
-                <dt>ご相談方法</dt>
-                <dd>
-                  オンライン／対面<br />
-                  対面は、お客様の事務所・ご自宅・お近くのカフェ等へ伺います（平日夜・土日も可・事前予約制）<br />
-                  事務所へのご来訪は<strong>事前予約制</strong>です
-                </dd>
+                <dt>電話受付</dt>
+                <dd>{CONSULTATION_PHONE_RECEPTION}</dd>
+              </div>
+              <div class="contact-card__row">
+                <dt>フォーム・LINE</dt>
+                <dd>{CONSULTATION_DIGITAL_RECEPTION}</dd>
+              </div>
+              <div class="contact-card__row">
+                <dt>形式</dt>
+                <dd>{CONSULTATION_FORMATS}</dd>
+              </div>
+              <div class="contact-card__row">
+                <dt>対面</dt>
+                <dd>{CONSULTATION_FACE_TO_FACE}</dd>
+              </div>
+              <div class="contact-card__row">
+                <dt>事務所来訪</dt>
+                <dd>{CONSULTATION_OFFICE_VISIT}</dd>
               </div>
               <div class="contact-card__row contact-card__row--line">
                 <dt>公式LINE</dt>
@@ -381,7 +403,8 @@ const flowSteps = [
             </a>
 
             <p class="contact-card__note">
-              ※ お問い合わせフォーム・公式LINEは24時間受付しております。上記受付時間外のご連絡は、原則翌営業時間内にご返信いたします。<br />
+              {CONSULTATION_FLEXIBLE_SCHEDULE}<br />
+              {CONSULTATION_APPOINTMENT_NOTE}<br />
               ※ 役所への提出など、手続き上日中対応が必要な場合も、日程を調整のうえ対応します。
             </p>
           </div>

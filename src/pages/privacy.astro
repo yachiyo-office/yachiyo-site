@@ -4,6 +4,7 @@ import SiteHeader from '../components/SiteHeader.astro';
 import SiteFooter from '../components/SiteFooter.astro';
 import LineButton from '../components/LineButton.astro';
 import { contactFormButtonLabel } from '../config/contact';
+import { CONSULTATION_DIGITAL_RECEPTION } from '../config/consultation';
 import { pageTitle, OFFICE_ADDRESS, GYOSEISHI_REGISTRATION_LABEL } from '../config/site';
 
 const PRIVACY_ENACTED_DATE = '2026年8月10日';
@@ -146,7 +147,7 @@ const PRIVACY_REVISED_DATE = '2026年8月10日';
             </a>
 
             <p class="contact-card__note">
-              ※ お問い合わせフォーム・公式LINEは24時間受付しております。上記受付時間外のご連絡は、原則翌営業時間内にご返信いたします。<br />
+              ※ お問い合わせフォーム・公式LINEは{CONSULTATION_DIGITAL_RECEPTION}。<br />
               ※ 役所への提出など、手続き上日中対応が必要な場合も、日程を調整のうえ対応します。
             </p>
           </div>
