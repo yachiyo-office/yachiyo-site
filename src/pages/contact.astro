@@ -11,7 +11,7 @@ import {
   CONSULTATION_FLEXIBLE_SCHEDULE,
   CONSULTATION_FORMATS,
   CONSULTATION_OFFICE_VISIT,
-  CONSULTATION_PHONE_RECEPTION,
+  CONSULTATION_PHONE_RECEPTION_LINES,
 } from '../config/consultation';
 import { pageTitle } from '../config/site';
 ---
@@ -53,7 +53,10 @@ import { pageTitle } from '../config/site';
             </div>
             <div class="consultation-note__row">
               <dt>電話受付</dt>
-              <dd>{CONSULTATION_PHONE_RECEPTION}</dd>
+              <dd>
+                {CONSULTATION_PHONE_RECEPTION_LINES[0]}<br />
+                {CONSULTATION_PHONE_RECEPTION_LINES[1]}
+              </dd>
             </div>
             <div class="consultation-note__row">
               <dt>フォーム・LINE</dt>
