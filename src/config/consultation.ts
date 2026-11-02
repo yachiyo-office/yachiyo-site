@@ -9,7 +9,7 @@ export const CONSULTATION_OPENING_HOURS_SCHEMA = [
 ] as const;
 
 export const CONSULTATION_PHONE_RECEPTION =
-  '平日の日中も受付。出られない場合は折り返しご連絡いたします。';
+  '平日の日中もお電話でのお問い合わせを受け付けております。電話に出られない場合は、折り返しご連絡いたします。';
 
 export const CONSULTATION_DIGITAL_RECEPTION =
   '24時間受付。原則1営業日以内を目安に返信';
