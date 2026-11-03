@@ -16,7 +16,11 @@ import {
   CONSULTATION_OFFICE_VISIT,
   CONSULTATION_PHONE_RECEPTION_LINES,
 } from '../config/consultation';
-import { pageTitle, shouldShowOpeningAnnouncementOnHome } from '../config/site';
+import {
+  pageTitle,
+  OFFICE_SERVICE_AREA,
+  shouldShowOpeningAnnouncementOnHome,
+} from '../config/site';
 
 const showOpeningAnnouncement = shouldShowOpeningAnnouncementOnHome();
 
@@ -155,7 +159,7 @@ const flowSteps = [
         <div class="hero-banner__overlay" aria-hidden="true"></div>
         <div class="hero-banner__inner">
           <div class="hero-banner__content">
-            <p class="hero-banner__label">大阪泉州・和歌山北部対応</p>
+            <p class="hero-banner__label">{OFFICE_SERVICE_AREA}</p>
             <h1 id="hero-heading" class="hero-banner__catch">
               建設業許可と、その後の手続きを<br class="hero-banner__catch-br" aria-hidden="true" />
               わかりやすく丁寧にサポート

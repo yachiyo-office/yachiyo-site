@@ -21,6 +21,9 @@ export const OFFICE_ADDRESS = {
   streetAddress: '自然田753-14',
 } as const;
 
+/** 事務所概要・対応エリアの表示（トップヒーローラベルと事務所概要で共通） */
+export const OFFICE_SERVICE_AREA = '泉州を中心に、大阪府・和歌山県北部　ほか';
+
 /** Googleマップ（検索・別タブで開く用） */
 export const OFFICE_GOOGLE_MAPS_URL = `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(OFFICE_ADDRESS.full)}`;
 
