@@ -3,6 +3,7 @@ import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   site: 'https://yachiyo-osaka.com',
+  trailingSlash: 'always',
   integrations: [
     sitemap({
       // 未公開の国際業務セクションはサイトマップから除外（公開時にこの filter を外す）
@@ -10,7 +11,7 @@ export default defineConfig({
     }),
   ],
   redirects: {
-    '/construction-permit-basic': '/construction-permit/basic/',
-    '/service/construction-permit': '/construction-permit/',
+    '/construction-permit-basic/': '/construction-permit/basic/',
+    '/service/construction-permit/': '/construction-permit/',
   },
 });

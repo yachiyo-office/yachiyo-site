@@ -13,6 +13,16 @@ export function pageTitle(keywords: string): string {
   return `${keywords}${TITLE_SEPARATOR}${SITE_NAME}`;
 }
 
+/** canonical・og:url 用（本番は末尾スラッシュ付きが正規URL） */
+export function canonicalPathname(pathname: string): string {
+  if (pathname === '/') return '/';
+  return pathname.endsWith('/') ? pathname : `${pathname}/`;
+}
+
+export function canonicalPageUrl(pathname: string, site: string | URL): URL {
+  return new URL(canonicalPathname(pathname), site);
+}
+
 /** 事務所所在地（表示・地図・構造化データで共通利用） */
 export const OFFICE_ADDRESS = {
   full: '大阪府阪南市自然田753-14',

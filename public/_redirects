@@ -1,0 +1,5 @@
+# 旧URLは正規URLへ（Cloudflare Pages 等で HTTP 301）
+/construction-permit-basic /construction-permit/basic/ 301
+/construction-permit-basic/ /construction-permit/basic/ 301
+/service/construction-permit /construction-permit/ 301
+/service/construction-permit/ /construction-permit/ 301
