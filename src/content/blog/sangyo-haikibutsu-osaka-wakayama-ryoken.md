@@ -9,7 +9,7 @@ tags:
   - 大阪府
   - 和歌山県
   - 複数都道府県
-draft: false
+draft: true
 ---
 
 ## はじめに
