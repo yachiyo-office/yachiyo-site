@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>必要書類一覧（建設業許可）｜やちよ行政書士事務所</title>
+  <style>
+    :root { --ink:#1a1a1a; --line:#333; --muted:#555; --soft:#f4f6f8; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: #e8eaed; color: var(--ink);
+      font-family: "Hiragino Sans", "Yu Gothic", "Hiragino Kaku Gothic ProN", sans-serif;
+      font-size: 10.5pt; line-height: 1.45;
+    }
+    .toolbar {
+      position: sticky; top: 0; z-index: 10; display: flex; flex-wrap: wrap;
+      gap: 0.5rem; align-items: center; padding: 0.75rem 1rem;
+      background: #111827; color: #fff; font-size: 13px;
+    }
+    .toolbar button, .toolbar a {
+      appearance: none; border: 0; border-radius: 6px; padding: 0.45rem 0.85rem;
+      background: #fff; color: #111; font: inherit; cursor: pointer; text-decoration: none;
+    }
+    .sheet {
+      width: 210mm; margin: 1rem auto 2rem; padding: 11mm 12mm;
+      background: #fff; box-shadow: 0 8px 28px rgba(0,0,0,.12);
+    }
+    h1 {
+      margin: 0 0 0.25rem; font-size: 15pt; letter-spacing: 0.04em; text-align: center;
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+    }
+    .sub { text-align: center; margin: 0 0 0.55rem; font-size: 9pt; color: #9b1c1c; font-weight: 700; }
+    .lead { font-size: 9pt; margin: 0 0 0.55rem; }
+    .meta {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.25rem 1rem;
+      font-size: 9pt; margin-bottom: 0.55rem; border: 1px solid var(--line); padding: 0.4rem 0.6rem;
+    }
+    h2 {
+      margin: 0.55rem 0 0.25rem; font-size: 10.5pt; background: #1e3a8a; color: #fff;
+      padding: 0.18rem 0.45rem;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 9pt; }
+    th, td { border: 1px solid var(--line); padding: 0.18rem 0.32rem; vertical-align: top; }
+    th { background: var(--soft); text-align: center; font-weight: 600; }
+    td.chk { width: 7%; text-align: center; cursor: pointer; font-size: 12pt; }
+    td.who { width: 14%; text-align: center; white-space: nowrap; }
+    .tiny { font-size: 8.3pt; color: var(--muted); margin: 0.45rem 0 0; }
+    [contenteditable="true"]:hover, [contenteditable="true"]:focus {
+      outline: 1px dashed rgba(30,58,138,.35); background: rgba(30,58,138,.03);
+    }
+    @media print {
+      body { background: #fff; }
+      .toolbar { display: none !important; }
+      .sheet { margin: 0; box-shadow: none; width: auto; padding: 0; }
+      [contenteditable="true"]:hover, [contenteditable="true"]:focus { outline: none; background: transparent; }
+      h2 { break-after: avoid; }
+      tr { break-inside: avoid; }
+      @page { size: A4; margin: 10mm; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">印刷 / PDF保存</button>
+    <a href="./建設業許可　初回案内メール.html">初回案内メールへ</a>
+    <a href="./欠格要件・誠実性 確認書.html">欠格確認書へ</a>
+    <span class="hint">済の欄をクリックで切替え。お客様にお渡しする一覧です</span>
+  </div>
+
+  <main class="sheet">
+    <h1>建設業許可　必要書類一覧</h1>
+    <p class="sub">お客様にお渡しする準備リストです。行政庁へ出す申請書の様式一覧ではありません。</p>
+    <p class="lead">
+      申請書・工事経歴書・誓約書などの本体は、当事務所が作成します。この一覧は、そのためにご用意いただく確認資料です。
+      知事許可か大臣許可か、法人か個人か、一般か特定か、資格で証明するか経験で証明するかで、必要な行は変わります。該当しない項目や、ご準備が難しい書類は、行を消さずにその旨をお知らせください。
+      大阪府・和歌山県・国で提出と提示の区別が違います。最新の手引きを優先します。
+      残高証明書、納税証明書、身分証明書、登記されていないことの証明書は、取得の連絡があるまで取らないでください。
+    </p>
+
+    <div class="meta">
+      <div>申請者：<span contenteditable="true">　　　　　　　　　　</span></div>
+      <div>ご担当：<span contenteditable="true">　　　　　　</span></div>
+      <div>区分：<span contenteditable="true">新規／更新／業種追加</span></div>
+      <div>申請先：<span contenteditable="true">大阪府／和歌山県／大臣</span></div>
+      <div>個人・法人：<span contenteditable="true">個人／法人</span></div>
+      <div>一般・特定：<span contenteditable="true">一般／特定</span></div>
+      <div>業種：<span contenteditable="true">　　　　　　</span></div>
+      <div>お渡し日：<span contenteditable="true">令和　年　月　日</span></div>
+    </div>
+
+    <h2>1. どなたで申請するかを固める資料</h2>
+    <table>
+      <thead><tr><th>済</th><th>ご準備いただくもの</th><th>担当</th><th>補足</th></tr></thead>
+      <tbody>
+        <tr><td class="chk">□</td><td>経管（経営業務の管理責任者）になる方の氏名と、いまの役職</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>営業所技術者等（専任技術者）になる方の氏名と、資格または経験の見込み</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>申請する業種。元請・下請の別と、直近で請けている工事の例</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+      </tbody>
+    </table>
+
+    <h2>2. 法人または個人の基本資料</h2>
+    <table>
+      <thead><tr><th>済</th><th>ご準備いただくもの</th><th>担当</th><th>補足</th></tr></thead>
+      <tbody>
+        <tr><td class="chk">□</td><td>履歴事項全部証明書（法人。発行後3か月以内。当事務所で代理取得も可）</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>定款（法人。事業目的に建設業の記載があるか確認します）</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>直近の決算書と法人税申告書一式（法人）</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>直近の所得税確定申告書一式（個人。工事の売上が分かるもの）</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>住民票（個人。個人番号の記載がないもの。発行時期は案内後）</td><td class="who">案内後</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>役員等の氏名・住所・就任時期が分かるメモ</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+      </tbody>
+    </table>
+
+    <h2>3. 経管の経験</h2>
+    <table>
+      <thead><tr><th>済</th><th>ご準備いただくもの</th><th>担当</th><th>補足</th></tr></thead>
+      <tbody>
+        <tr><td class="chk">□</td><td>経験した会社・個人事業、役職、期間のメモ</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>その期間の登記（役員経験のとき。閉鎖登記を含む）</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>建設業を営んでいたことが分かる許可通知、決算、工事の契約書・注文書・請求書・入金記録</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>いまの申請者のもとで常勤であることが分かる資料（社会保険、住民税の特別徴収など。どれを使うかは案内します）</td><td class="who">案内後</td><td contenteditable="true"></td></tr>
+      </tbody>
+    </table>
+
+    <h2>4. 営業所技術者等</h2>
+    <table>
+      <thead><tr><th>済</th><th>ご準備いただくもの</th><th>担当</th><th>補足</th></tr></thead>
+      <tbody>
+        <tr><td class="chk">□</td><td>資格で証明する場合：合格証・資格者証の写し（資格名と取得日が分かるもの）</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>学歴を使う場合：卒業証明書。指定学科が分かる成績証明書等</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>実務経験で証明する場合：申請業種の工事の契約書・注文書・請求書・入金記録、在籍期間の資料</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+      </tbody>
+    </table>
+
+    <h2>5. 営業所</h2>
+    <table>
+      <thead><tr><th>済</th><th>ご準備いただくもの</th><th>担当</th><th>補足</th></tr></thead>
+      <tbody>
+        <tr><td class="chk">□</td><td>外観、入口、内部、表札または商号が分かる写真</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>賃貸借契約書、使用承諾、または自己所有であることが分かる資料</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>自宅兼用のときは、営業に使う範囲が分かる間取りのメモ</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+      </tbody>
+    </table>
+
+    <h2>6. 財産・納税・欠格（取得時期があるもの）</h2>
+    <table>
+      <thead><tr><th>済</th><th>ご準備いただくもの</th><th>担当</th><th>補足</th></tr></thead>
+      <tbody>
+        <tr><td class="chk">□</td><td>納税証明書（税目と年分は申請先で違います。取得前に相談）</td><td class="who">案内後</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>残高証明書または融資可能額の資料（自己資本で足りる場合は不要。大阪府は証明日から申請までおおむね4週間の目安。申請先で違います）</td><td class="who">案内後</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>欠格要件・誠実性 確認書への記入（役員等の範囲は別途お伝えします）</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>身分証明書、登記されていないことの証明書（対象者と本籍地が決まってから。当事務所で代理取得できるものがあります）</td><td class="who">案内後</td><td contenteditable="true"></td></tr>
+      </tbody>
+    </table>
+
+    <h2>7. 当事務所が作成し、お客様に内容を確認いただくもの</h2>
+    <table>
+      <thead><tr><th>済</th><th>書類</th><th>担当</th><th>補足</th></tr></thead>
+      <tbody>
+        <tr><td class="chk">□</td><td>建設業許可申請書、役員等一覧、営業所一覧、工事経歴書、使用人数、誓約書</td><td class="who">事務所</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>常勤役員等・営業所技術者等の証明書、実務経験証明書</td><td class="who">事務所</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>委任状（大阪府以外、大臣許可、電子申請は指定様式を使います）</td><td class="who">事務所</td><td contenteditable="true"></td></tr>
+      </tbody>
+    </table>
+
+    <p class="tiny">
+      やちよ行政書士事務所　大阪府阪南市自然田753-14　https://yachiyo-osaka.com/<br />
+      特定建設業は財産要件と営業所技術者等の基準が一般建設業と異なります。該当する行は、お渡し前に追記してください。
+    </p>
+  </main>
+  <script>
+    document.addEventListener('click', (e) => {
+      const td = e.target.closest('td.chk');
+      if (!td) return;
+      td.textContent = td.textContent.trim() === '✓' ? '□' : '✓';
+    });
+  </script>
+</body>
+</html>

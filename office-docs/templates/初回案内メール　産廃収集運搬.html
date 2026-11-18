@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>初回案内メール（産廃収集運搬）｜やちよ行政書士事務所</title>
+  <style>
+    :root { --ink:#1a1a1a; --line:#333; --muted:#555; --soft:#f4f6f8; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: #e8eaed; color: var(--ink);
+      font-family: "Hiragino Sans", "Yu Gothic", "Hiragino Kaku Gothic ProN", sans-serif;
+      font-size: 10.5pt; line-height: 1.7;
+    }
+    .toolbar {
+      position: sticky; top: 0; z-index: 10; display: flex; flex-wrap: wrap;
+      gap: 0.5rem; align-items: center; padding: 0.75rem 1rem;
+      background: #111827; color: #fff; font-size: 13px;
+    }
+    .toolbar button, .toolbar a {
+      appearance: none; border: 0; border-radius: 6px; padding: 0.45rem 0.85rem;
+      background: #fff; color: #111; font: inherit; cursor: pointer; text-decoration: none;
+    }
+    .toolbar .hint { opacity: 0.85; margin-left: 0.5rem; }
+    .sheet {
+      width: 210mm; margin: 1rem auto 2rem; padding: 12mm 14mm;
+      background: #fff; box-shadow: 0 8px 28px rgba(0,0,0,.12);
+    }
+    h1 {
+      margin: 0 0 0.4rem; font-size: 15pt; font-weight: 700;
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", serif; text-align: center;
+    }
+    .sub { text-align: center; color: var(--muted); font-size: 9.5pt; margin: 0 0 1rem; }
+    h2 {
+      margin: 1.1rem 0 0.4rem; font-size: 11pt; background: #1e3a8a; color: #fff;
+      padding: 0.28rem 0.55rem;
+    }
+    .mail {
+      border: 1px solid var(--line); background: var(--soft); padding: 0.85rem 1rem;
+      white-space: pre-wrap; font-size: 10pt; line-height: 1.75;
+    }
+    [contenteditable="true"]:hover, [contenteditable="true"]:focus {
+      outline: 1px dashed rgba(30,58,138,.35); background: #fff;
+    }
+    .note { margin-top: 0.7rem; font-size: 9pt; color: var(--muted); }
+    @media print {
+      body { background: #fff; }
+      .toolbar { display: none !important; }
+      .sheet { margin: 0; box-shadow: none; width: auto; padding: 8mm; }
+      [contenteditable="true"]:hover, [contenteditable="true"]:focus { outline: none; background: var(--soft); }
+      @page { size: A4; margin: 10mm; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">印刷 / PDF保存</button>
+    <button type="button" onclick="copyMail()">本文をコピー</button>
+    <a href="./必要書類一覧　産廃収集運搬.html">必要書類一覧へ</a>
+    <a href="./欠格確認書　産廃収集運搬.html">欠格確認書へ</a>
+    <span class="hint">積替保管なしの収集運搬が標準。特別管理・処分業は文面を直す</span>
+  </div>
+
+  <main class="sheet">
+    <h1>初回案内メール文面</h1>
+    <p class="sub">産業廃棄物収集運搬業許可（積替保管なし）・受任後の案内</p>
+
+    <h2>件名例</h2>
+    <div class="mail" id="subject" contenteditable="true">【ご案内】産業廃棄物収集運搬業許可の今後の流れとご準備のお願い（やちよ行政書士事務所）</div>
+
+    <h2>本文</h2>
+    <div class="mail" id="body" contenteditable="true">〇〇株式会社
+〇〇 様
+
+お世話になっております。
+やちよ行政書士事務所の鹿野です。
+
+このたびは産業廃棄物収集運搬業の許可申請をご依頼いただき、ありがとうございます。
+今後の流れと、ご準備いただきたい書類についてご案内します。
+
+■ 今回の前提
+・許可の種類：産業廃棄物収集運搬業（積替え・保管なし）
+・申請先：　　　　　（例：大阪府／和歌山県）
+・大阪府と和歌山県の両方に申請する場合は、申請先ごとに報酬を見積ります。
+・特別管理産業廃棄物、積替え保管、処分業は、今回の案内の対象外です。該当する場合は別途ご案内します。
+
+■ 今後の流れ
+1. 業務委託契約のご確認・ご締結
+2. 着手金のご入金（報酬税込額の半額）
+3. 講習会修了状況の確認（未受講の場合は、受講する方の確定と申込み）
+4. 講習会の修了、および修了証の確認
+5. 必要書類のご準備・ご提出
+6. 申請書の作成・内容確認
+7. 申請前に、報酬残額（50％）、申請手数料および証明書取得費用のご入金
+8. 行政庁へ申請
+9. 行政庁による審査（必要に応じて追加資料の提出・補正対応）
+10. 許可または不許可の結果通知、許可証のお渡し
+
+※通常の申請業務に伴う交通費・駐車場代・郵送費は、行政書士報酬に含まれています。
+※行政庁への申請手数料および証明書取得費用は、報酬とは別にご負担いただきます。証明書取得費用は見込額を事前にお預かりし、実際の支出額で精算します。
+※講習の受講料は、お客様が講習の実施者へ直接お支払いください。当事務所では預かりません。
+※大阪府の新規申請では、有効な講習会修了証がない場合、申請を受け付けてもらえません。和歌山県では、所定の条件のもと、申立書および受講申込みを証する書類を提出して申請できる場合があります。その場合も、後日、修了証の提出が必要です。講習会の受講状況は、事前に当事務所へお知らせください。
+※遠方への出張や、ご希望による追加訪問は、事前にご説明し、ご了承をいただいたうえで別途ご相談します。
+※申請は、報酬残額、申請手数料および証明書取得費用のご入金確認後に行います。
+※許可の取得を保証するものではありません。
+
+■ 着手金について
+・金額：金　　　　円（税込）※報酬税込の半額
+・お振込先：
+　金融機関：〇〇銀行　〇〇支店
+　口座種別：普通預金
+　口座番号：0000000
+　口座名義：シカノ　マサユキ
+・請求書：別途お送りします（請求番号：　　　　）
+
+■ ご準備いただく資料
+別添「産業廃棄物収集運搬業 必要書類一覧」に、用意するものと、当事務所が作成するものを分けて記載しています。
+該当しない項目や、ご準備が難しい書類がございましたら、行は消さずにその旨をお知らせください。
+住民票、納税証明書など発行時期があるものは、取得の連絡があるまで取らないでください。
+法人の決算書・法人税申告書は、まず直近分で確認します。申請に必要な対象年度と資料は、申請先ごとにご案内します。
+
+まずは次の資料から確認します。
+・扱う産業廃棄物の種類
+・車両の自動車検査証記録事項（電子車検証の場合）と、車両の写真
+・事務所と車両を置く場所の所在
+・【法人】履歴事項全部証明書、定款、直近の決算書・法人税申告書
+・【個人】直近の確定申告書一式
+
+本人確認用のマイナンバーカードは表面のみとし、裏面は送らないでください。
+住民票は、個人番号の記載がないものをご準備ください。
+保険者番号などは、案内に従いマスキングしてください。
+書類は原則としてPDFまたは写真データでお送りいただけます。個人情報を含む書類の送付方法や、原本が必要となる書類については、別途ご案内いたします。
+
+ご不明点がございましたら、本メールへご返信ください。
+どうぞよろしくお願いいたします。
+
+――――――――――
+やちよ行政書士事務所
+行政書士　鹿野　正幸
+大阪府阪南市自然田753-14
+公式サイト：https://yachiyo-osaka.com/
+――――――――――</div>
+
+    <p class="note">
+      使い方：申請先・金額・口座を埋める →「本文をコピー」→ 必要書類一覧を添付する。<br />
+      一覧：<a href="./必要書類一覧　産廃収集運搬.html">必要書類一覧　産廃収集運搬.html</a>
+      ／ 欠格：<a href="./欠格確認書　産廃収集運搬.html">欠格確認書　産廃収集運搬.html</a><br />
+      委任状は大阪府・和歌山県の指定様式を使う。建設業許可用の委任状は使わない。
+    </p>
+  </main>
+
+  <script>
+    async function copyMail() {
+      const subject = document.getElementById('subject').innerText.trim();
+      const body = document.getElementById('body').innerText.trim();
+      const text = `件名：${subject}\n\n${body}`;
+      try {
+        await navigator.clipboard.writeText(text);
+        alert('件名と本文をコピーしました。');
+      } catch (e) {
+        alert('コピーに失敗しました。本文を選択して手動コピーしてください。');
+      }
+    }
+  </script>
+</body>
+</html>

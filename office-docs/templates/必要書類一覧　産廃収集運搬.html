@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>必要書類一覧（産廃収集運搬）｜やちよ行政書士事務所</title>
+  <style>
+    :root { --ink:#1a1a1a; --line:#333; --muted:#555; --soft:#f4f6f8; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: #e8eaed; color: var(--ink);
+      font-family: "Hiragino Sans", "Yu Gothic", "Hiragino Kaku Gothic ProN", sans-serif;
+      font-size: 10.5pt; line-height: 1.45;
+    }
+    .toolbar {
+      position: sticky; top: 0; z-index: 10; display: flex; flex-wrap: wrap;
+      gap: 0.5rem; align-items: center; padding: 0.75rem 1rem;
+      background: #111827; color: #fff; font-size: 13px;
+    }
+    .toolbar button, .toolbar a {
+      appearance: none; border: 0; border-radius: 6px; padding: 0.45rem 0.85rem;
+      background: #fff; color: #111; font: inherit; cursor: pointer; text-decoration: none;
+    }
+    .sheet {
+      width: 210mm; margin: 1rem auto 2rem; padding: 11mm 12mm;
+      background: #fff; box-shadow: 0 8px 28px rgba(0,0,0,.12);
+    }
+    h1 {
+      margin: 0 0 0.25rem; font-size: 15pt; letter-spacing: 0.04em; text-align: center;
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+    }
+    .sub { text-align: center; margin: 0 0 0.55rem; font-size: 9pt; color: #9b1c1c; font-weight: 700; }
+    .lead { font-size: 9pt; margin: 0 0 0.55rem; }
+    .meta {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.25rem 1rem;
+      font-size: 9pt; margin-bottom: 0.55rem; border: 1px solid var(--line); padding: 0.4rem 0.6rem;
+    }
+    h2 {
+      margin: 0.55rem 0 0.25rem; font-size: 10.5pt; background: #1e3a8a; color: #fff;
+      padding: 0.18rem 0.45rem;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 9pt; }
+    th, td { border: 1px solid var(--line); padding: 0.18rem 0.32rem; vertical-align: top; }
+    th { background: var(--soft); text-align: center; font-weight: 600; }
+    td.chk { width: 7%; text-align: center; cursor: pointer; font-size: 12pt; }
+    td.who { width: 14%; text-align: center; white-space: nowrap; }
+    .tiny { font-size: 8.3pt; color: var(--muted); margin: 0.45rem 0 0; }
+    [contenteditable="true"]:hover, [contenteditable="true"]:focus {
+      outline: 1px dashed rgba(30,58,138,.35); background: rgba(30,58,138,.03);
+    }
+    @media print {
+      body { background: #fff; }
+      .toolbar { display: none !important; }
+      .sheet { margin: 0; box-shadow: none; width: auto; padding: 0; }
+      [contenteditable="true"]:hover, [contenteditable="true"]:focus { outline: none; background: transparent; }
+      h2 { break-after: avoid; }
+      tr { break-inside: avoid; }
+      @page { size: A4; margin: 10mm; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">印刷 / PDF保存</button>
+    <a href="./初回案内メール　産廃収集運搬.html">初回案内メールへ</a>
+    <a href="./欠格確認書　産廃収集運搬.html">欠格確認書へ</a>
+    <span class="hint">済の欄をクリックで切替え。積替保管なし・普通産廃が標準です</span>
+  </div>
+
+  <main class="sheet">
+    <h1>産業廃棄物収集運搬業　必要書類一覧</h1>
+    <p class="sub">積替え・保管をしない収集運搬の新規を標準にしています。処分業・特別管理・積替保管は別一覧です。</p>
+    <p class="lead">
+      許可申請書と事業計画書は、当事務所が作成します。この一覧は、そのためにご用意いただく資料です。
+      財務書類の年数、住民票の対象者、車両写真の撮り方は、大阪府と和歌山県で違います。先行許可がある場合は省略できる書類があります。
+      発行後3か月以内のもの（登記、住民票、登記されていないことの証明書）は、申請の時期が決まってから取得します。
+    </p>
+
+    <div class="meta">
+      <div>申請者：<span contenteditable="true">　　　　　　　　　　</span></div>
+      <div>申請先：<span contenteditable="true">大阪府／和歌山県</span></div>
+      <div>個人・法人：<span contenteditable="true">個人／法人</span></div>
+      <div>区分：<span contenteditable="true">新規／更新</span></div>
+      <div>積替保管：<span contenteditable="true">なし</span></div>
+      <div>お渡し日：<span contenteditable="true">令和　年　月　日</span></div>
+    </div>
+
+    <h2>1. 事業の中身（先に文章で構いません）</h2>
+    <table>
+      <thead><tr><th>済</th><th>ご準備いただくもの</th><th>担当</th><th>補足</th></tr></thead>
+      <tbody>
+        <tr><td class="chk">□</td><td>収集運搬する産業廃棄物の種類</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>積み込む地域と、下ろす処分業者（名称・所在地・許可の有無）</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>講習を受ける方の氏名と、申請者との関係（代表者・役員等。従業員なら誰でもよいわけではありません）</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+      </tbody>
+    </table>
+
+    <h2>2. 講習</h2>
+    <table>
+      <thead><tr><th>済</th><th>ご準備いただくもの</th><th>担当</th><th>補足</th></tr></thead>
+      <tbody>
+        <tr><td class="chk">□</td><td>日本産業廃棄物処理振興センター等の収集・運搬課程の修了証（写し）。大阪府の新規は、申請時に有効な修了証が必要です</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>和歌山県で修了証が間に合わないときの申立書用資料（受講票または受講決定のメール）。使えるかは申請内容で確認します</td><td class="who">案内後</td><td contenteditable="true"></td></tr>
+      </tbody>
+    </table>
+
+    <h2>3. 申請者の基本資料と財務</h2>
+    <table>
+      <thead><tr><th>済</th><th>ご準備いただくもの</th><th>担当</th><th>補足</th></tr></thead>
+      <tbody>
+        <tr><td class="chk">□</td><td>履歴事項全部証明書と定款（法人。目的欄に産業廃棄物の収集運搬が入っているか確認します）</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>直前3年分の貸借対照表・損益計算書・株主資本等変動計算書・個別注記表、法人税申告書（別表一・別表四）、法人税の納税証明書（その1）。大阪府の法人新規の例です。設立間もない場合は年数が短くなります</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>個人の場合：所得税確定申告書、青色申告決算書または収支内訳書。納税証明書の年分は案内後</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+      </tbody>
+    </table>
+
+    <h2>4. 車両・事務所・駐車場</h2>
+    <table>
+      <thead><tr><th>済</th><th>ご準備いただくもの</th><th>担当</th><th>補足</th></tr></thead>
+      <tbody>
+        <tr><td class="chk">□</td><td>運搬車両ごとの自動車検査証記録事項（電子車検証）。紙の車検証が有効なら、その写し</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>車両写真。大阪府は正面と片側面が基本で、正面はナンバーが読めること。和歌山県は正面と側面を1枚ずつ。申請先の様式に合わせます</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>リース・借用のときは、使用者と申請者の関係が分かる契約書</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>事務所と車両を置く場所の案内図。使用権限の契約書は、車両の使用関係と申請先によって要否が変わります</td><td class="who">案内後</td><td contenteditable="true"></td></tr>
+      </tbody>
+    </table>
+
+    <h2>5. 和歌山県で追加になりやすいもの</h2>
+    <table>
+      <thead><tr><th>済</th><th>ご準備いただくもの</th><th>担当</th><th>補足</th></tr></thead>
+      <tbody>
+        <tr><td class="chk">□</td><td>搬入先の処分業許可証の写し（和歌山県知事が交付したものを除く、という手引きの整理があります）</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>産業廃棄物の越境移動に関する指導要綱の誓約に必要な情報</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>他の都道府県等の収集運搬業許可証の写し（積替え保管を県外で行う場合など、申請内容に応じて）</td><td class="who">案内後</td><td contenteditable="true"></td></tr>
+      </tbody>
+    </table>
+
+    <h2>6. 欠格・本人確認（範囲が決まってから）</h2>
+    <table>
+      <thead><tr><th>済</th><th>ご準備いただくもの</th><th>担当</th><th>補足</th></tr></thead>
+      <tbody>
+        <tr><td class="chk">□</td><td>欠格確認書への記入。対象は申請者、役員、政令で定める使用人など。5%以上の株主を含むかは申請先の手引きで確定します</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>住民票（個人番号なし）、登記されていないことの証明書。先行許可を使うと省略できることがあります</td><td class="who">案内後</td><td contenteditable="true"></td></tr>
+      </tbody>
+    </table>
+
+    <h2>7. 当事務所が作成し、お客様に内容を確認いただくもの</h2>
+    <table>
+      <thead><tr><th>済</th><th>書類</th><th>担当</th><th>補足</th></tr></thead>
+      <tbody>
+        <tr><td class="chk">□</td><td>許可申請書、事業計画書（事業の概要、車両、収集運搬の計画、環境保全措置、写真、資金計画、誓約）</td><td class="who">事務所</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>委任状（大阪府・和歌山県の指定様式。建設業許可用は使いません）</td><td class="who">事務所</td><td contenteditable="true"></td></tr>
+      </tbody>
+    </table>
+
+    <p class="tiny">
+      やちよ行政書士事務所　大阪府阪南市自然田753-14　https://yachiyo-osaka.com/<br />
+      両府県に申請する場合、講習修了証は有効期間内なら原則として使い回せますが、申請書は窓口ごとに作ります。お渡し前に、最新の各自治体チェックシートと突き合わせてください。
+    </p>
+  </main>
+  <script>
+    document.addEventListener('click', (e) => {
+      const td = e.target.closest('td.chk');
+      if (!td) return;
+      td.textContent = td.textContent.trim() === '✓' ? '□' : '✓';
+    });
+  </script>
+</body>
+</html>

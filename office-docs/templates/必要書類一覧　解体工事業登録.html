@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>必要書類一覧（解体工事業登録）｜やちよ行政書士事務所</title>
+  <style>
+    :root { --ink:#1a1a1a; --line:#333; --muted:#555; --soft:#f4f6f8; }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; background: #e8eaed; color: var(--ink);
+      font-family: "Hiragino Sans", "Yu Gothic", "Hiragino Kaku Gothic ProN", sans-serif;
+      font-size: 10.5pt; line-height: 1.45;
+    }
+    .toolbar {
+      position: sticky; top: 0; z-index: 10; display: flex; flex-wrap: wrap;
+      gap: 0.5rem; align-items: center; padding: 0.75rem 1rem;
+      background: #111827; color: #fff; font-size: 13px;
+    }
+    .toolbar button, .toolbar a {
+      appearance: none; border: 0; border-radius: 6px; padding: 0.45rem 0.85rem;
+      background: #fff; color: #111; font: inherit; cursor: pointer; text-decoration: none;
+    }
+    .sheet {
+      width: 210mm; margin: 1rem auto 2rem; padding: 11mm 12mm;
+      background: #fff; box-shadow: 0 8px 28px rgba(0,0,0,.12);
+    }
+    h1 {
+      margin: 0 0 0.25rem; font-size: 15pt; letter-spacing: 0.04em; text-align: center;
+      font-family: "Hiragino Mincho ProN", "Yu Mincho", serif;
+    }
+    .sub { text-align: center; margin: 0 0 0.55rem; font-size: 9pt; color: #9b1c1c; font-weight: 700; }
+    .lead { font-size: 9pt; margin: 0 0 0.55rem; }
+    .meta {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 0.25rem 1rem;
+      font-size: 9pt; margin-bottom: 0.55rem; border: 1px solid var(--line); padding: 0.4rem 0.6rem;
+    }
+    h2 {
+      margin: 0.55rem 0 0.25rem; font-size: 10.5pt; background: #1e3a8a; color: #fff;
+      padding: 0.18rem 0.45rem;
+    }
+    table { width: 100%; border-collapse: collapse; font-size: 9pt; }
+    th, td { border: 1px solid var(--line); padding: 0.18rem 0.32rem; vertical-align: top; }
+    th { background: var(--soft); text-align: center; font-weight: 600; }
+    td.chk { width: 7%; text-align: center; cursor: pointer; font-size: 12pt; }
+    td.who { width: 14%; text-align: center; white-space: nowrap; }
+    .tiny { font-size: 8.3pt; color: var(--muted); margin: 0.45rem 0 0; }
+    [contenteditable="true"]:hover, [contenteditable="true"]:focus {
+      outline: 1px dashed rgba(30,58,138,.35); background: rgba(30,58,138,.03);
+    }
+    @media print {
+      body { background: #fff; }
+      .toolbar { display: none !important; }
+      .sheet { margin: 0; box-shadow: none; width: auto; padding: 0; }
+      [contenteditable="true"]:hover, [contenteditable="true"]:focus { outline: none; background: transparent; }
+      h2 { break-after: avoid; }
+      tr { break-inside: avoid; }
+      @page { size: A4; margin: 10mm; }
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <button type="button" onclick="window.print()">印刷 / PDF保存</button>
+    <a href="./初回案内メール　解体工事業登録.html">初回案内メールへ</a>
+    <a href="./欠格確認書　解体工事業登録.html">欠格確認書へ</a>
+    <span class="hint">大阪府手引き（令和8年3月）が基準。和歌山県は県の手引きで確認</span>
+  </div>
+
+  <main class="sheet">
+    <h1>解体工事業登録　必要書類一覧</h1>
+    <p class="sub">お客様にお渡しする準備リストです。登録申請書そのものは当事務所が作成します。</p>
+    <p class="lead">
+      基準は、大阪府「解体工事業登録申請等の手引き」（令和8年3月改訂）です。和歌山県へ出すときは、県の手引きで提出と提示の区別を確認してからお渡しください。
+      工事をする都道府県ごとに登録します。土木工事業・建築工事業・解体工事業の建設業許可がある場合、登録は不要です。とび・土工工事業の許可だけでは不要になりません。
+    </p>
+
+    <div class="meta">
+      <div>申請者：<span contenteditable="true">　　　　　　　　　　</span></div>
+      <div>登録先：<span contenteditable="true">大阪府／和歌山県</span></div>
+      <div>個人・法人：<span contenteditable="true">個人／法人</span></div>
+      <div>区分：<span contenteditable="true">新規／更新</span></div>
+      <div>技術管理者：<span contenteditable="true">　　　　　　</span></div>
+      <div>お渡し日：<span contenteditable="true">令和　年　月　日</span></div>
+    </div>
+
+    <h2>1. 登録が必要かどうか</h2>
+    <table>
+      <thead><tr><th>済</th><th>ご準備いただくもの</th><th>担当</th><th>補足</th></tr></thead>
+      <tbody>
+        <tr><td class="chk">□</td><td>建設業許可通知書（お持ちの場合）。土木・建築・解体の許可があれば、この登録は進めません</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>解体工事をする都道府県（大阪府だけか、和歌山県もか）</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+      </tbody>
+    </table>
+
+    <h2>2. 申請者の所在</h2>
+    <table>
+      <thead><tr><th>済</th><th>ご準備いただくもの</th><th>担当</th><th>補足</th></tr></thead>
+      <tbody>
+        <tr><td class="chk">□</td><td>商業登記簿謄本（法人。発行後3か月以内の原本または写し）</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>住民票（個人。個人番号の記載がないもの。発行後3か月以内。外国籍の方は国籍・通称・生年月日の記載があるもの）</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>未成年の場合：法定代理人であることを示す書類の写しと、法定代理人の住民票（個人番号なし。発行後3か月以内）</td><td class="who">案内後</td><td contenteditable="true"></td></tr>
+      </tbody>
+    </table>
+
+    <h2>3. 技術管理者</h2>
+    <table>
+      <thead><tr><th>済</th><th>ご準備いただくもの</th><th>担当</th><th>補足</th></tr></thead>
+      <tbody>
+        <tr><td class="chk">□</td><td>どのルートで要件を満たすか（資格、登録講習と実務経験、解体工事施工技士、実務経験のみ、のうちどれか）</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>資格・講習で証明する場合：資格証明書、または解体工事施工技術講習の修了証の写し</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>学歴を使う場合：卒業証書または卒業証明書の写し（卒業証明書は発行後3か月以内）</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>実務経験が必要な場合：経験した年ごとの主な解体工事、使用者（証明者）の氏名。証明者がその期間に土木・建築・解体の許可業者か、解体工事業登録業者であることが必要です（平成13年12月以降）</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>証明者が他の都道府県で許可・登録を持っている、または持っていたときは、番号と期間が分かる通知書等</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>技術管理者が代表者以外のとき、在籍が分かる資料のいずれか。健康保険の標準報酬決定通知書、雇用保険の資格が分かる書類、または直近3か月の給与台帳。申請前3か月以内の雇用なら雇用契約書も</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+      </tbody>
+    </table>
+
+    <h2>4. 営業所が登記・住民票の住所と違うとき</h2>
+    <table>
+      <thead><tr><th>済</th><th>ご準備いただくもの</th><th>担当</th><th>補足</th></tr></thead>
+      <tbody>
+        <tr><td class="chk">□</td><td>賃貸なら賃貸契約書の写し。居住専用・事務所使用禁止・借主が申請者と違うときは、貸主の使用承諾書</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>自己所有なら、発行後3か月以内の建物登記簿、直前の固定資産税納税通知書、または固定資産評価証明の写し</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>支店を書くときは、支店についても同じ所在確認</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+      </tbody>
+    </table>
+
+    <h2>5. 調書に書く方の情報と、窓口で見せるもの</h2>
+    <table>
+      <thead><tr><th>済</th><th>ご準備いただくもの</th><th>担当</th><th>補足</th></tr></thead>
+      <tbody>
+        <tr><td class="chk">□</td><td>調書の対象者の氏名・住所・生年月日。法人は役員全員。大阪府の手引きでは相談役・顧問・5%以上の個人株主も含みます。賞罰の有無（なければ「なし」）</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>欠格確認書への記入</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>窓口に行く方の本人確認書類（運転免許証、マイナンバーカード、在留カードなど、いま有効なもの）。行政書士が行く場合は行政書士証票</td><td class="who">窓口</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>更新のとき：いまの登録通知書</td><td class="who">お客様</td><td contenteditable="true"></td></tr>
+      </tbody>
+    </table>
+
+    <h2>6. 当事務所が作成し、お客様に内容を確認いただくもの</h2>
+    <table>
+      <thead><tr><th>済</th><th>書類</th><th>担当</th><th>補足</th></tr></thead>
+      <tbody>
+        <tr><td class="chk">□</td><td>登録申請書、誓約書、登録申請者の調書、実務経験証明書</td><td class="who">事務所</td><td contenteditable="true"></td></tr>
+        <tr><td class="chk">□</td><td>委任状（登録先の様式。大阪府は手引き掲載の様式。建設業許可用は使いません）</td><td class="who">事務所</td><td contenteditable="true"></td></tr>
+      </tbody>
+    </table>
+
+    <p class="tiny">
+      登録後、営業所と現場に標識を掲げ、営業所に帳簿を備えます。建設業の許可業者に勤務する技術管理者は、常勤を要する経管や営業所技術者等と兼務できません。<br />
+      やちよ行政書士事務所　大阪府阪南市自然田753-14　https://yachiyo-osaka.com/
+      ／ 手引き：https://www.pref.osaka.lg.jp/o130200/kenshin/kaitai/
+    </p>
+  </main>
+  <script>
+    document.addEventListener('click', (e) => {
+      const td = e.target.closest('td.chk');
+      if (!td) return;
+      td.textContent = td.textContent.trim() === '✓' ? '□' : '✓';
+    });
+  </script>
+</body>
+</html>
