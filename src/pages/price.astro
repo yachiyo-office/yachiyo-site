@@ -10,63 +10,63 @@ const constructionLicensePrices = [
     detail: '般・特　1業種',
     price: '99,000円〜',
     legal: '90,000円',
-    href: '/construction-permit/new',
+    href: '/construction-permit/new/',
   },
   {
     name: '新規申請（知事許可・法人）',
     detail: '般・特　1業種',
     price: '121,000円〜',
     legal: '90,000円',
-    href: '/construction-permit/new',
+    href: '/construction-permit/new/',
   },
   {
     name: '新規申請（大臣許可）',
     detail: '般・特　1業種',
     price: '176,000円〜',
     legal: '150,000円',
-    href: '/construction-permit/new',
+    href: '/construction-permit/new/',
   },
   {
     name: '更新申請（知事許可）',
     detail: '5年ごとの更新',
     price: '66,000円〜',
     legal: '50,000円',
-    href: '/construction-permit/renewal',
+    href: '/construction-permit/renewal/',
   },
   {
     name: '更新申請（大臣許可）',
     detail: '5年ごとの更新',
     price: '99,000円〜',
     legal: '50,000円',
-    href: '/construction-permit/renewal',
+    href: '/construction-permit/renewal/',
   },
   {
     name: '業種追加（知事許可）',
     detail: '1業種につき',
     price: '55,000円〜',
     legal: '50,000円',
-    href: '/construction-permit/changes',
+    href: '/construction-permit/changes/',
   },
   {
     name: '業種追加（大臣許可）',
     detail: '1業種につき',
     price: '88,000円〜',
     legal: '50,000円',
-    href: '/construction-permit/changes',
+    href: '/construction-permit/changes/',
   },
   {
     name: '般・特新規（般特新規）',
     detail: '特定建設業への切替 等',
     price: '132,000円〜',
     legal: '90,000円',
-    href: '/construction-permit/changes',
+    href: '/construction-permit/changes/',
   },
   {
     name: '事業承継の認可申請',
     detail: '相続・法人成り・合併等',
     price: '要お見積り',
     legal: '別途',
-    href: '/construction-permit/succession',
+    href: '/construction-permit/succession/',
   },
 ];
 
@@ -76,28 +76,28 @@ const kessanHenkoPrices = [
     detail: '事業年度終了後の届出　1期分',
     price: '33,000円〜',
     legal: 'なし',
-    href: '/construction-permit/annual-report',
+    href: '/construction-permit/annual-report/',
   },
   {
     name: '決算変更届（未提出分）',
     detail: '複数年分をまとめて対応　1期につき',
     price: '27,500円〜',
     legal: 'なし',
-    href: '/construction-permit/annual-report',
+    href: '/construction-permit/annual-report/',
   },
   {
     name: '各種変更届',
     detail: '役員・所在地・商号の変更 等',
     price: '16,500円〜',
     legal: 'なし',
-    href: '/construction-permit/changes',
+    href: '/construction-permit/changes/',
   },
   {
     name: '経営事項審査申請とのセット',
     detail: '決算変更届＋経審申請',
     price: '要お見積り',
     legal: '別途',
-    href: '/construction-permit/keishin',
+    href: '/construction-permit/keishin/',
   },
 ];
 
@@ -107,70 +107,91 @@ const otherServicePrices = [
     detail: '積替え保管なし　1自治体',
     price: '99,000円〜',
     legal: '81,000円',
-    href: '/service/industrial-waste',
+    href: '/service/industrial-waste/',
   },
   {
     name: '産廃収集運搬業許可（更新）',
     detail: '積替え保管なし　1自治体',
     price: '77,000円〜',
     legal: '73,000円',
-    href: '/service/industrial-waste',
+    href: '/service/industrial-waste/',
   },
   {
     name: '産廃収集運搬業許可（変更）',
     detail: '事業範囲の変更等　1自治体',
     price: '66,000円〜',
     legal: '71,000円',
-    href: '/service/industrial-waste',
+    href: '/service/industrial-waste/',
+  },
+  {
+    name: '解体工事業者登録（新規）',
+    detail: '1都道府県',
+    price: '55,000円〜',
+    legal: '33,000円',
+    href: '/service/demolition-registration/',
+  },
+  {
+    name: '解体工事業者登録（更新）',
+    detail: '5年ごとの更新　1都道府県',
+    price: '44,000円〜',
+    legal: '26,000円',
+    href: '/service/demolition-registration/',
+  },
+  {
+    name: '解体工事業者登録（変更届）',
+    detail: '技術管理者・所在地の変更 等',
+    price: '16,500円〜',
+    legal: '原則なし',
+    href: '/service/demolition-registration/',
   },
   {
     name: '古物商許可申請',
     detail: '警察署経由・公安委員会への申請',
     price: '44,000円〜',
     legal: '19,000円',
-    href: '/service/secondhand-dealer',
+    href: '/service/secondhand-dealer/',
   },
   {
     name: '飲食店営業許可申請',
     detail: '保健所への申請',
     price: '44,000円〜',
     legal: '約16,000〜19,000円（自治体による）',
-    href: '/service/food-business',
+    href: '/service/food-business/',
   },
   {
     name: '会社設立サポート',
     detail: '定款作成・電子定款認証 ※設立登記は別途',
     price: '66,000円〜',
     legal: '定款認証手数料 30,000円〜 等',
-    href: '/service/company-setup',
+    href: '/service/company-setup/',
   },
   {
     name: '遺言書作成支援（公正証書）',
     detail: '文案作成・公証役場との調整',
     price: '66,000円〜',
     legal: '公証人手数料（財産額による）',
-    href: '/service/inheritance',
+    href: '/service/inheritance/',
   },
   {
     name: '遺産分割協議書の作成',
     detail: '相続人数・財産内容により変動',
     price: '55,000円〜',
     legal: 'なし',
-    href: '/service/inheritance',
+    href: '/service/inheritance/',
   },
   {
     name: '契約書・議事録等の作成',
     detail: '内容・分量により変動',
     price: '22,000円〜',
     legal: 'なし',
-    href: '/service/contracts',
+    href: '/service/contracts/',
   },
 ];
 ---
 
 <BaseLayout
-  title={pageTitle('料金案内（建設業許可・決算変更届）')}
-  description="建設業許可の新規・更新、決算変更届などの料金目安をご案内。泉州・和歌山北部の事業者さま向け。内容により異なりますので、正式なお見積りは無料相談時にご提示します。"
+  title={pageTitle('料金案内（建設業許可・解体工事業登録・決算変更届）')}
+  description="建設業許可の新規・更新、決算変更届、解体工事業者登録などの料金目安をご案内。泉州・和歌山北部の事業者さま向け。内容により異なりますので、正式なお見積りは無料相談時にご提示します。"
   breadcrumbs={[{ name: 'ホーム', href: '/' }, { name: '料金案内' }]}
 >
   <div class="page">
@@ -188,7 +209,7 @@ const otherServicePrices = [
           <p class="page-hero__label">Price</p>
           <h1 id="price-heading" class="page-hero__title">料金案内</h1>
           <p class="page-hero__lead">
-            建設業許可申請、決算変更届などの主な料金の目安をご案内いたします。案件の内容により変動しますので、正式な金額は無料相談時にお見積りいたします。
+            建設業許可申請、決算変更届、解体工事業者登録などの主な料金の目安をご案内いたします。案件の内容により変動しますので、正式な金額は無料相談時にお見積りいたします。
           </p>
         </div>
       </section>
@@ -343,6 +364,7 @@ const otherServicePrices = [
             </table>
           </div>
           <p class="section__note">
+            ※解体工事業者登録の表示額は、技術管理者を資格等で確認できる標準的な案件の目安です（1都道府県あたり）。実務経験の証明に追加の資料収集・確認が必要な場合は、着手前に別途お見積りします。法定費用は大阪府・和歌山県の額です。
             ※産廃の法定費用は自治体により異なります。上表は大阪府の収集運搬（積替え保管なし）を目安にしています。講習受講料・証明書取得実費は別途です。
             上記に記載のない業務についても対応可能な場合があります。まずはお気軽にご相談ください。
           </p>

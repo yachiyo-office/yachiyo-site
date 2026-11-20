@@ -123,7 +123,7 @@ draft: false
 - 身分証明書・登記されていないことの証明書は取得に時間がかかる場合がある
 - 役員の選任・交代時にもそのつど確認する習慣をつける
 
-新規申請・役員変更を検討中の方は、[建設業許可の新規申請サポート](/construction-permit/new/)または[欠格要件・誠実性について](/construction-permit/basic/requirements/disqualification)もご参照ください。
+新規申請・役員変更を検討中の方は、[建設業許可の新規申請サポート](/construction-permit/new/)または[欠格要件・誠実性について](/construction-permit/basic/requirements/disqualification/)もご参照ください。
 
 ### 参考
 

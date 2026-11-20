@@ -34,7 +34,7 @@ draft: false
 
 この順番を飛ばして書類だけを集め始めると、使えない資料を集めてしまったり、必要な証明資料が後から不足したりします。
 
-建設業許可には29の業種があり、資格や実務経験は業種ごとに確認されます。まずは[建設業許可の基礎知識](/construction-permit/basic/)と、[経営業務の管理責任者の要件](/construction-permit/basic/requirements/management)を確認し、申請内容を固めることが大切です。
+建設業許可には29の業種があり、資格や実務経験は業種ごとに確認されます。まずは[建設業許可の基礎知識](/construction-permit/basic/)と、[経営業務の管理責任者の要件](/construction-permit/basic/requirements/management/)を確認し、申請内容を固めることが大切です。
 
 ## 新規申請で準備する書類の全体像
 
@@ -206,7 +206,7 @@ draft: false
 
 自宅を営業所にする場合や、住居と事務所が一体になっている場合は、建設業の営業に使うスペースが明確に区分されているかを確認します。
 
-営業所の要件は、[建設業許可の営業所とは？](/construction-permit/basic/requirements/office)でも詳しく説明しています。
+営業所の要件は、[建設業許可の営業所とは？](/construction-permit/basic/requirements/office/)でも詳しく説明しています。
 
 ## 6. 欠格要件・誠実性に関する書類
 

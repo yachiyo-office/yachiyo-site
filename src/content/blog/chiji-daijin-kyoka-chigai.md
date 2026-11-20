@@ -72,7 +72,7 @@ draft: false
 - 申請手数料や準備期間を確保できるか
 - 現在の知事許可から大臣許可への切替時期
 
-申請区分の整理は、[建設業許可の申請区分](/construction-permit/basic/application-types)も参考にしてください。
+申請区分の整理は、[建設業許可の申請区分](/construction-permit/basic/application-types/)も参考にしてください。
 
 ## 知事許可と大臣許可で異なる実務上のポイント
 
@@ -139,7 +139,7 @@ draft: false
 
 大阪泉州・和歌山北部で建設業許可をご検討の方は、まず主たる営業所の所在と、今後の営業所展開を整理するところから始めてください。
 
-当事務所では、申請先と申請区分を確認し、新規申請や許可換え新規の準備をサポートします。[建設業許可の新規申請サポート](/construction-permit/new/)と、[知事許可と大臣許可の基礎解説](/construction-permit/basic/governor-vs-minister)もあわせてご覧ください。
+当事務所では、申請先と申請区分を確認し、新規申請や許可換え新規の準備をサポートします。[建設業許可の新規申請サポート](/construction-permit/new/)と、[知事許可と大臣許可の基礎解説](/construction-permit/basic/governor-vs-minister/)もあわせてご覧ください。
 
 制度や申請先の運用は個別事情によって異なるため、申請前には最新の行政庁の手引きでご確認ください。
 
